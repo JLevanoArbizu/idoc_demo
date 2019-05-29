@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <p:dataTable id="dtTblAD"  
+                 value="#{documentoC.listaDocumentosAD}" var="listaAD"
+                 rowStyleClass="#{listaAD.ESTDOC le 'A' ? null : 'inactivo'}"
+                 reflow="true" class="mdl-data-table mdl-js-data-table"
+                 rows="10" emptyMessage="No se encontrarón datos."
+                 paginator="true" scrollable="true" scrollHeight="500"
+                 rowsPerPageTemplate="5,10,15,20">
+        <f:facet name="header">
+            Actas de Defunción
+        </f:facet>
+        <p:column style="width:5vh">
+            <p:rowToggler/>
+        </p:column>
+
+        <p:column headerText="Fallecido"  style="font-weight: bold">
+            <h:outputLabel value="#{listaAD.titular}" style="font-weight: normal" />
+        </p:column> 
+
+        <p:column headerText="Fecha de Registro"  style="font-weight: bold">
+
+            <h:outputLabel value="#{listaAD.FECREGDOC}" style="font-weight: normal">
+                <f:convertDateTime locale="es" pattern="dd MMM yyyy"  />
+            </h:outputLabel>
+        </p:column>
+        <p:column headerText="Fecha de Fallecimiento"  style="font-weight: bold">
+            <h:outputLabel value="#{listaAD.FECACT}" style="font-weight: normal">
+                <f:convertDateTime locale="es" pattern="dd MMM yyyy"  />
+            </h:outputLabel>
+        </p:column>
+
+        <p:column headerText="Observacion"  style="font-weight: bold">
+            <h:outputLabel value="#{listaAD.OBSDOC}" style="font-weight: normal" />
+        </p:column>
+
+        <p:column exportable="false" headerText="Accion" style="width: 15vh;">
+            <p:commandButton update=":dlgDatosAD" icon="ui-icon-pencil" title="Modificar" 
+                             rendered="#{listaAD.ESTDOC eq 'A'}"
+                             class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
+                             actionListener="#{documentoC.ubigeo.setDISTUBI(listaAD.CODUBI)}"
+                             oncomplete="PF('wdlgDatosAD').show();">
+                <f:setPropertyActionListener value="#{listaAD}" 
+                                             target="#{documentoC.documento}"/>
+            </p:commandButton>
+            <p:commandButton update=":dlgRegistrarIncidencia" title="Agregar Incidencia" value="+"
+                             rendered="#{listaAD.ESTDOC eq 'A'}"
+                             class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"
+                             actionListener="#{incidenciaC.incidencia.setIDDOC(listaAD.IDDOC)}"
+                             oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
+        </p:column> 
+
+        <p:rowExpansion>
+            <p:panelGrid columns="4">
+                <h:outputLabel value="Declarante" style="font-weight: bold"/>
+                <h:outputText value="#{listaAD.declarante}" style="font-weight: normal" />
+                <h:outputLabel value="Libro" style="font-weight: bold"/>
+                <h:outputText value="#{listaAD.NUMLIBDOC}" style="font-weight: normal" />
+                <h:outputLabel value="Folio" style="font-weight: bold"/>
+                <h:outputText value="#{listaAD.NUMFOLDOC}" style="font-weight: normal" />
+                <h:outputLabel value="Distrito de Fallecimiento" style="font-weight: bold"/>
+                <h:outputText value="#{listaAD.CODUBI}" style="font-weight: normal" />
+                <h:outputLabel value="Lugar de Fallecimiento" style="font-weight: bold"/>
+                <h:outputText value="#{listaAD.DIRACT}" style="font-weight: normal" />
+            </p:panelGrid>
+        </p:rowExpansion>
+
+        <f:facet name="paginatorTopLeft">
+            <p:commandButton value="Agregar Acta de Defunción"
+                             update=":dlgRegistrarAN :dlgRegistrarAM :dlgRegistrarAD"
+                             oncomplete="PF('wdlgRegistrarAD').show();"/>
+        </f:facet>
+    </p:dataTable>
+
+</html>
+

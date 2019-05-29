@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:form id="frmListarArea">
+        <p:dataTable id="dtTblArea" var="listaArea" value="#{areaC.listaArea}"
+                     reflow="true" rowStyleClass="#{listaArea.ESTARE le 'Activo' ? 'activo' : 'inactivo'}"
+                     rows="10" emptyMessage="No se encontrarón datos."
+                     paginator="true" scrollable="true" scrollHeight="500"
+                     rowsPerPageTemplate="5,10,15,20">
+            <f:facet name="header">
+                Lista de Áreas
+            </f:facet>
+
+            <p:column headerText="Nombre Área">
+                <h:outputLabel value="#{listaArea.NOMARE}"/>
+            </p:column>
+            <p:column headerText="Nombre SubÁrea">
+                <h:outputLabel value="#{listaArea.NOMARE_PADR}"/>
+            </p:column>
+
+            <p:column headerText="Municipalidad">
+                <h:outputLabel value="#{listaArea.NOMMUN}"/>
+            </p:column>
+            <p:column exportable="false" headerText="Acción" style="width: 15vh;">
+
+                <p:commandButton update=":dlgDatosArea" icon="ui-icon-pencil" title="Editar"
+                                 oncomplete="PF('wdlgDatosArea').show();">
+                    <f:setPropertyActionListener value="#{listaArea}" 
+                                                 target="#{areaC.area}"/>
+
+                </p:commandButton>
+
+                <p:commandButton title="Eliminar" icon="ui-icon-circle-close"
+                                 actionListener="#{areaC.eliminarArea(listaArea)}" 
+                                 update=":frmRegistrarArea :frmListarArea" >
+                    <p:confirm header="Confirmación" message="¿Deseas Eliminar? " icon="ui-icon-alert" />
+                    <p:tooltip trackMouse="true"/>
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+            </p:column>
+            <p:summaryRow>
+                <h:outputText value="#{areaC.listaArea.size}"/>
+            </p:summaryRow>
+        </p:dataTable>
+    </h:form>
+    <p:dialog id="dlgDatosArea" widgetVar="wdlgDatosArea" 
+              header="Datos del Área" closeOnEscape="true">
+        <h:form id="frmEditarArea">
+            <ui:include src="Registrar.xhtml"/>
+
+            <p:selectOneRadio value="#{areaC.area.ESTARE}" 
+                              requiredMessage="Seleccione Estado de la Municipalidad."
+                              style="width: 50vh"
+                              unselectable="false" required="true">
+                <f:selectItem itemLabel="Activo" itemValue="Activo"/>
+                <f:selectItem itemLabel="Inactivo" itemValue="Inactivo" />
+            </p:selectOneRadio>
+
+
+            <p:commandButton value="Modificar" actionListener="#{areaC.editarArea()}"
+                             oncomplete="PF('wdlgDatosArea').hide();" 
+                             update=":frmListarArea :frmRegistrarArea">
+                <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
+            </p:commandButton>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+            <p:commandButton value="Cancelar" immediate="true" 
+                             oncomplete="PF('wdlgDatosArea').hide();"/>
+        </h:form>
+
+    </p:dialog>   
+
+
+</html>
+

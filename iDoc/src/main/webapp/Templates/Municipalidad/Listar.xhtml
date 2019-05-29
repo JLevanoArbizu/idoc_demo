@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:form id="frmListarMunicipalidad">
+        <p:dataTable id="dtTblMunicipalidad"  value="#{municipalidadC.listaMunicipalidad}" var="listaMunicipalidad"
+                     rowStyleClass="#{listaMunicipalidad.ESTMUN le 'Activo' ? null : 'inactivo'}"
+                     reflow="true" class="mdl-data-table mdl-js-data-table"
+                     rows="10" emptyMessage="No se encontrarón datos."
+                     paginator="true" scrollable="true" scrollHeight="500"
+                     rowsPerPageTemplate="5,10,15,20">
+
+            <f:facet name="header">
+                Municipalidades
+            </f:facet>
+            <f:facet name="paginatorTopLeft">
+                <p:commandButton type="button" icon="pi pi-refresh" />
+            </f:facet>
+            <p:column headerText="Nombre">
+                <h:outputLabel value="#{listaMunicipalidad.NOMMUN}" style="font-weight: normal;"/>
+            </p:column>
+            <p:column headerText="Distrito">
+                <h:outputLabel value="#{listaMunicipalidad.CODUBI}" style="font-weight: normal" />
+            </p:column>
+            <p:column headerText="Dirección">
+                <h:outputLabel value="#{listaMunicipalidad.DIRMUN}" style="font-weight: normal" />
+            </p:column>
+            <p:column headerText="Télefono">
+                <h:outputLabel value="#{listaMunicipalidad.TLFMUN}" style="font-weight: normal" />
+            </p:column>
+            <p:column exportable="false" headerText="Accion" style="width: 15vh;">
+                <p:commandButton update=":dlgDatosMunicipalidad" icon="ui-icon-pencil" title="Modificar" 
+                                 oncomplete="PF('wdlgDatosMunicipalidad').show();">
+                    <f:setPropertyActionListener value="#{listaMunicipalidad}" 
+                                                 target="#{municipalidadC.municipalidad}"/>
+                </p:commandButton>
+
+                <p:commandButton title="Eliminar" icon="ui-icon-circle-close"
+                                 actionListener="#{municipalidadC.eliminar(listaMunicipalidad)}"
+                                 update=":frmRegistrarMunicipalidad :frmListarMunicipalidad" >
+                    <p:confirm header="Confirmación" message="¿Deseas Eliminar? " icon="ui-icon-alert" />
+                    <p:tooltip trackMouse="true"/>
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+            </p:column>             
+        </p:dataTable>
+    </h:form>
+
+    <p:dialog id="dlgDatosMunicipalidad" widgetVar="wdlgDatosMunicipalidad" 
+              header="Datos de la Municipalidad" closeOnEscape="true">
+        <h:form id="frmEditarMunicipalidad">
+            <ui:include src="Registrar.xhtml"/>
+
+            <p:selectOneRadio value="#{municipalidadC.municipalidad.ESTMUN}" 
+                              requiredMessage="Seleccione Estado de la Municipalidad."
+                              style="width: 50vh"
+                              unselectable="false" required="true">
+                <f:selectItem itemLabel="Activo" itemValue="Activo"/>
+                <f:selectItem itemLabel="Inactivo" itemValue="Inactivo" />
+            </p:selectOneRadio>
+
+
+            <p:commandButton value="Modificar" actionListener="#{municipalidadC.editar()}"
+                             oncomplete="PF('wdlgDatosMunicipalidad').hide();" 
+                             update=":frmListarMunicipalidad :frmRegistrarMunicipalidad">
+                <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
+            </p:commandButton>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+            <p:commandButton value="Cancelar" immediate="true" 
+                             oncomplete="PF('wdlgDatosMunicipalidad').hide();"/>
+        </h:form>
+    </p:dialog>
+</html>
+

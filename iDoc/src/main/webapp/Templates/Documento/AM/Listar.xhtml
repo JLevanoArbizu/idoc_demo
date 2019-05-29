@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <p:dataTable id="dtTblDocumentoAM"  
+                 value="#{documentoC.listaDocumentosAM}" var="listaAM"
+                 rowStyleClass="#{listaAM.ESTDOC le 'A' ? null : 'inactivo'}"
+                 reflow="true" class="mdl-data-table mdl-js-data-table"
+                 rows="10" emptyMessage="No se encontrarón datos."
+                 paginator="true" scrollable="true" scrollHeight="500"
+                 rowsPerPageTemplate="5,10,15,20">
+        <f:facet name="header">
+            Actas de Matrimonio
+        </f:facet>
+        <p:column style="width:5vh">
+            <p:rowToggler/>
+        </p:column>
+        <p:column headerText="Esposo"  style="font-weight: bold">
+            <h:outputLabel value="#{listaAM.titular}" style="font-weight: normal" />
+        </p:column> 
+
+        <p:column headerText="Esposa"  style="font-weight: bold">
+            <h:outputLabel value="#{listaAM.esposa}" style="font-weight: normal" />
+        </p:column> 
+
+        <p:column headerText="Fecha de Registro"  style="font-weight: bold">
+            <h:outputLabel value="#{listaAM.FECREGDOC}" style="font-weight: normal">
+                <f:convertDateTime locale="es" pattern="dd MMM yyyy"/>
+            </h:outputLabel>
+        </p:column>
+        <p:column headerText="Fecha de Matrimonio"  style="font-weight: bold">
+            <h:outputLabel value="#{listaAM.FECACT}" style="font-weight: normal">
+                <f:convertDateTime locale="es" pattern="dd MMM yyyy"  />
+            </h:outputLabel>
+        </p:column>
+        <p:column headerText="Observacion"  style="font-weight: bold">
+            <h:outputLabel value="#{listaAM.OBSDOC}" style="font-weight: normal" />
+        </p:column>
+        <p:rowExpansion>
+            <p:panelGrid columns="4">
+                <h:outputLabel value="Celebrante" style="font-weight: bold"/>
+                <h:outputText value="#{listaAM.celebrante}" style="font-weight: normal" />
+                <h:outputLabel value="Libro" style="font-weight: bold"/>
+                <h:outputText value="#{listaAM.NUMLIBDOC}" style="font-weight: normal" />
+                <h:outputLabel value="Folio" style="font-weight: bold"/>
+                <h:outputText value="#{listaAM.NUMFOLDOC}" style="font-weight: normal" />
+                <h:outputLabel value="Distrito de Matrimonio" style="font-weight: bold"/>
+                <h:outputText value="#{listaAM.CODUBI}" style="font-weight: normal" />
+                <h:outputLabel value="Lugar de Matrimonio" style="font-weight: bold"/>
+                <h:outputText value="#{listaAM.DIRACT}" style="font-weight: normal" />
+            </p:panelGrid>
+        </p:rowExpansion>
+        <p:column exportable="false" headerText="Accion" style="width: 15vh;">
+            <p:commandButton update=":dlgDatosAM" icon="ui-icon-pencil" title="Modificar" 
+                             rendered="#{listaAM.ESTDOC eq 'A'}"
+                             class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
+                             actionListener="#{documentoC.ubigeo.setDISTUBI(listaAM.CODUBI)}"
+                             oncomplete="PF('wdlgDatosAM').show();">
+                <f:setPropertyActionListener value="#{listaAM}" 
+                                             target="#{documentoC.documento}"/>
+            </p:commandButton>
+            <p:commandButton update=":dlgRegistrarIncidencia" title="Agregar Incidencia" value="+"
+                             rendered="#{listaAM.ESTDOC eq 'A'}"
+                             class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"
+                             actionListener="#{incidenciaC.incidencia.setIDDOC(listaAM.IDDOC)}"
+                             oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
+        </p:column> 
+        <f:facet name="paginatorTopLeft">
+            <p:commandButton value="Agregar Acta de Matrimonio"
+                             update=":dlgRegistrarAN :dlgRegistrarAM :dlgRegistrarAD"
+                             oncomplete="PF('wdlgRegistrarAM').show();"/>
+        </f:facet>
+    </p:dataTable>
+</html>
+
