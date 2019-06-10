@@ -1,0 +1,262 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../Templates/Default.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:param name="tituloPagina" value="Actas"/>
+
+    <ui:define name="contenidoPagina">
+
+        <h:form>
+            <p:commandButton title="Agregar Ciudadano"
+                             class="mdl-button mdl-js-button  mdl-js-ripple-effect 
+                             mdl-button--colored"
+                             value="Agregar Ciudadano" type="button"
+                             onclick="PF('dlgRegistrarPersona').show();"/>  
+            <p:commandButton title="Agregar Acta de Nacimiento"
+                             class="mdl-button mdl-js-button  mdl-js-ripple-effect 
+                             mdl-button--colored"
+                             update=":dlgRegistrarAN :dlgRegistrarAM :dlgRegistrarAD"
+                             oncomplete="PF('wdlgRegistrarAN').show();"/>
+            <p:commandButton title="Agregar Acta de Matrimonio"
+                             class="mdl-button mdl-js-button  mdl-js-ripple-effect 
+                             mdl-button--colored"
+                             update=":dlgRegistrarAN :dlgRegistrarAM :dlgRegistrarAD"
+                             oncomplete="PF('wdlgRegistrarAM').show();"/>
+            <p:commandButton title="Agregar Acta de Defunción"
+                             class="mdl-button mdl-js-button  mdl-js-ripple-effect 
+                             mdl-button--colored"
+                             update=":dlgRegistrarAN :dlgRegistrarAM :dlgRegistrarAD"
+                             oncomplete="PF('wdlgRegistrarAD').show();"/>
+
+        </h:form>
+
+        <p:tabView id="tb">
+            <p:tab title="Acta de Nacimiento">
+                <h:form id="frmListarAN">
+                    <ui:include src="../Templates/Documento/PN/Listar.xhtml"/>
+                </h:form>
+            </p:tab>
+            <p:tab title="Acta de Matrimonio">
+                <h:form id="frmListarAM">
+                    <ui:include src="../Templates/Documento/AM/Listar.xhtml"/>
+                </h:form>
+            </p:tab>            
+            <p:tab title="Acta de Defunción">
+                <h:form id="frmListarAD">
+                    <ui:include src="../Templates/Documento/AD/Listar.xhtml"/>
+                </h:form>
+            </p:tab>
+
+        </p:tabView>
+        <!--Acta de Nacimiento-->
+
+        <p:dialog id="dlgRegistrarAN" widgetVar="wdlgRegistrarAN" resizable="false"                  
+                  header="Agregar Acta de Nacimiento" closeOnEscape="true">
+            <h:form id="frmRegistrarAN">
+                <p:growl life="1000"/>
+                <ui:include src="../Templates/Documento/PN/Registrar.xhtml"/>
+                <p:commandButton 
+                    id="btnRegistrarAN"
+                    actionListener="#{documentoC.accionDocumento('1','1',null)}" value="GUARDAR" 
+                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
+                    mdl-button--colored mdl-color-text--white"
+                    update="frmRegistrarAN tb:frmListarAN tb:frmListarAM tb:frmListarAD"/>
+                <p:blockUI block="frmRegistrarAN" trigger="btnRegistrarAN" >
+                    Guardando..
+                </p:blockUI>
+                <p:commandButton 
+                    id="btnCancelarAN"
+                    value="Cancelar" oncomplete="PF('wdlgRegistrarAN').hide();" immediate="true"
+                    class="mdl-button mdl-js-button"/>
+            </h:form>  
+        </p:dialog>
+        <p:dialog id="dlgDatosAN" widgetVar="wdlgDatosAN" resizable="false"
+                  header="Datos del Acta de Nacimiento" closeOnEscape="true">
+            <h:form id="frmEditarAN">
+                <p:growl life="1000"/>
+
+                <ui:include src="../Templates/Documento/PN/Registrar.xhtml"/>
+
+                <p:selectOneRadio value="#{documentoC.documento.ESTDOC}" 
+                                  requiredMessage="Seleccione Estado del Acta de Nacimiento."
+                                  style="width: 50vh"
+                                  unselectable="false" required="true">
+                    <f:selectItem itemLabel="Activo" itemValue="A"/>
+                    <f:selectItem itemLabel="Inactivo" itemValue="I" />
+                </p:selectOneRadio>
+
+
+                <p:commandButton value="Modificar" actionListener="#{documentoC.accionDocumento('1', '2', null)}"
+                                 onsuccess="PF('wdlgDatosAN').hide();" id="btnEditarAN"
+                                 class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
+                                 mdl-button--colored mdl-color-text--white"
+                                 update="frmEditarAN tb:frmListarAN tb:frmListarAM  tb:frmListarAD">
+                    <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
+                </p:commandButton>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Si" type="button"  
+                                     styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+                <p:blockUI block="frmEditarAN" trigger="btnEditarAN" >
+                    Editando..
+                </p:blockUI>
+                <p:commandButton value="Cancelar" immediate="true" class="mdl-button mdl-js-button"
+                                 oncomplete="PF('wdlgDatosAN').hide();"/>
+            </h:form>
+        </p:dialog>
+        <!--Acta de Matrimonio-->
+
+
+        <p:dialog id="dlgRegistrarAM" widgetVar="wdlgRegistrarAM" resizable="false"
+                  header="Agregar Acta de Matrimonio" closeOnEscape="true">
+            <h:form id="frmRegistrarAM">
+                <p:growl life="1000"/>
+                <ui:include src="../Templates/Documento/AM/Registrar.xhtml"/>
+                <p:commandButton 
+                    id="btnRegistrarAM"
+                    actionListener="#{documentoC.accionDocumento('2','1',null)}" value="GUARDAR" 
+                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
+                    mdl-button--colored mdl-color-text--white"
+                    update="frmRegistrarAM tb:frmListarAN tb:frmListarAM  tb:frmListarAD"/>
+                <p:blockUI block="frmRegistrarAM" trigger="btnRegistrarAM" >
+                    Guardando..
+                </p:blockUI>
+                <p:commandButton value="Cancelar" oncomplete="PF('wdlgRegistrarAM').hide();" immediate="true"
+                                 class="mdl-button mdl-js-button"/>
+            </h:form>  
+        </p:dialog>
+
+        <p:dialog id="dlgDatosAM" widgetVar="wdlgDatosAM" resizable="false"
+                  header="Datos del Acta de Matrimonio" closeOnEscape="true">
+            <h:form id="frmEditarAM">
+                <p:growl life="1000"/>
+                <ui:include src="../Templates/Documento/AM/Registrar.xhtml"/>
+
+                <p:selectOneRadio value="#{documentoC.documento.ESTDOC}" 
+                                  requiredMessage="Seleccione Estado del Acta de Matrimonio."
+                                  style="width: 50vh"
+                                  unselectable="false" required="true">
+                    <f:selectItem itemLabel="Activo" itemValue="A"/>
+                    <f:selectItem itemLabel="Inactivo" itemValue="I" />
+                </p:selectOneRadio>
+
+
+                <p:commandButton value="Modificar" actionListener="#{documentoC.accionDocumento('2', '2', null)}"
+                                 onsuccess="PF('wdlgDatosAM').hide();" id="btnEditarAM"
+                                 class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
+                                 mdl-button--colored mdl-color-text--white"
+                                 update="frmEditarAM tb:frmListarAM tb:frmListarAN tb:frmListarAD">
+                    <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
+                </p:commandButton>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Si" type="button"
+                                     styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+                <p:blockUI block="frmEditarAM" trigger="btnEditarAM" >
+                    Editando..
+                </p:blockUI>
+                <p:commandButton value="Cancelar" immediate="true" class="mdl-button mdl-js-button"
+                                 oncomplete="PF('wdlgDatosAM').hide();"/>
+            </h:form>
+        </p:dialog>
+
+
+        <!--Acta de Defuncion-->
+
+        <p:dialog id="dlgRegistrarAD" widgetVar="wdlgRegistrarAD" resizable="false"
+                  header="Agregar Acta de Defunción" closeOnEscape="true">
+            <h:form id="frmRegistrarAD">
+                <p:growl life="1000"/>
+                <ui:include src="../Templates/Documento/AD/Registrar.xhtml"/>
+                <p:commandButton 
+                    id="btnRegistrarAD"
+                    actionListener="#{documentoC.accionDocumento('3','1',null)}" value="GUARDAR" 
+                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
+                    mdl-button--colored mdl-color-text--white"  oncomplete="#{documentoC.actorC.listarPersonas()}"
+                    update="frmRegistrarAD tb:frmListarAN tb:frmListarAM  tb:frmListarAD :dlgPersona"/>
+                <p:blockUI block="frmRegistrarAD" trigger="btnRegistrarAD" >
+                    Guardando..
+                </p:blockUI>
+                <p:commandButton value="Cancelar" oncomplete="PF('wdlgRegistrarAD').hide();" immediate="true"
+                                 class="mdl-button mdl-js-button"/>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog id="dlgDatosAD" widgetVar="wdlgDatosAD" resizable="false"
+                  header="Datos del Acta de Defunción" closeOnEscape="true">
+            <h:form id="frmEditarAD">
+                <p:growl life="1000"/>
+                <ui:include src="../Templates/Documento/AD/Registrar.xhtml"/>
+
+                <p:selectOneRadio value="#{documentoC.documento.ESTDOC}" 
+                                  requiredMessage="Seleccione Estado del Acta de Defunción."
+                                  style="width: 50vh"
+                                  unselectable="false" required="true">
+                    <f:selectItem itemLabel="Activo" itemValue="A"/>
+                    <f:selectItem itemLabel="Inactivo" itemValue="I" />
+                </p:selectOneRadio>
+
+
+                <p:commandButton value="Modificar" actionListener="#{documentoC.accionDocumento('3', '2', null)}"
+                                 class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
+                                 mdl-button--colored mdl-color-text--white" 
+                                 id="btnEditarAD" onsuccess="PF('wdlgDatosAD').hide();"
+                                 update="frmEditarAD tb:frmListarAD tb:frmListarAN tb:frmListarAM ">
+                    <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
+                </p:commandButton>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Si" type="button" 
+                                     styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+                <p:blockUI block="frmEditarAD" trigger="btnEditarAD" >
+                    Editando..
+                </p:blockUI>
+                <p:commandButton value="Cancelar" immediate="true" class="mdl-button mdl-js-button"
+                                 oncomplete="PF('wdlgDatosAD').hide();"/>
+            </h:form>
+        </p:dialog>
+
+
+        <!--Persona-->
+
+        <p:dialog header="Agregar Ciudadanos" widgetVar="dlgRegistrarPersona" dynamic="true"
+                  resizable="false" responsive="true" draggable="false" closeOnEscape="true">
+            <h:form id="dlgPersona">
+                <p:growl life="1000"/>
+                <ui:include src="../Templates/Persona/Registrar.xhtml"/>
+                <p:commandButton value="GUARDAR" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
+                                 actionListener="#{personaC.registrarPersona()}" update=":dlgPersona"
+                                 oncomplete="#{documentoC.actorC.listarPersonas()}"/>
+            </h:form>
+        </p:dialog>
+
+        <!--Incidencia-->
+        <p:dialog id="dlgRegistrarIncidencia" widgetVar="wdlgRegistrarIncidencia" resizable="false"
+                  header="Agregar Incidencia" closeOnEscape="true">
+            <h:form id="frmRegistrarIncidencia">
+                <p:growl life="1000"/>
+                <ui:include src="../Templates/Incidencia/Registrar.xhtml"/>
+                <p:commandButton actionListener="#{incidenciaC.registrarI()}" value="GUARDAR"
+                                 class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
+                                 mdl-button--colored mdl-color-text--white"
+                                 update="frmRegistrarIncidencia"/>
+                <p:commandButton value="Cancelar" oncomplete="PF('wdlgRegistrarIncidencia').hide();" immediate="true"
+                                 class="mdl-button mdl-js-button"/>
+
+            </h:form>
+        </p:dialog>
+
+    </ui:define>
+</ui:composition>
+

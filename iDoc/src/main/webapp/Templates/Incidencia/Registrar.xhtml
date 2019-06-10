@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui">
+    <p:growl life="1000"/>
+    <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" 
+                 layout="grid">
+        <p:outputLabel value="Documento"/>
+        <p:inputText value="#{incidenciaC.incidencia.IDDOC}"  style="width: 50vh" 
+                     requiredMessage="Documento Requerido."
+                     required="true" disabled="true"/>
+
+        <p:outputLabel value="Tipo de Incidencia"/>
+        <p:autoComplete  value="#{incidenciaC.incidencia.IDINCTIP}" style="width: 50vh"
+                         forceSelection="true" maxlength="100"
+                         completeMethod="#{incidenciatipoC.buscarIncidenciaTipo}"
+                         requiredMessage="Tipo de incidencia Requerido."
+                         minQueryLength="1" maxResults="6" queryDelay="1" required="true">
+        </p:autoComplete>
+
+        <p:outputLabel value="Fecha"/>
+
+        <p:calendar id="popup" value="#{incidenciaC.incidencia.fechaTemporal}" 
+                    readonlyInput="true"
+                    locale="es" navigator="true" pattern="dd MMM yyyy" >
+        </p:calendar>
+
+        <p:outputLabel value="Motivo"/>
+        <p:inputText value="#{incidenciaC.incidencia.MOTINC}"  style="width: 50vh" 
+                     requiredMessage="Motivo Requerido."
+                     required="true" 
+                     onblur="this.value = this.value.toUpperCase()">
+            <p:keyFilter regEx='/[\a-z ]/i'/>
+        </p:inputText>
+        
+
+    </p:panelGrid>
+</html>
+
+
