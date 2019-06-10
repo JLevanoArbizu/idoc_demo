@@ -9,7 +9,6 @@
         <p:dataTable id="dtTblIncidencia"  
                      value="#{incidenciaC.listaIncidencia}" var="listaIncidencia"
                      rowStyleClass="#{listaIncidencia.ESTINC le 'Activo' ? null : 'inactivo'}"
-                     reflow="true" 
                      rows="10" emptyMessage="No se encontrarón datos."
                      paginator="true" scrollable="true" scrollHeight="500"
                      rowsPerPageTemplate="5,10,15,20">

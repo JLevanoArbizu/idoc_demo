@@ -22,6 +22,10 @@ public class DocumentoC extends UbigeoC implements Serializable {
     List<Documento> listaDocumentosAM;
     List<Documento> listaDocumentosAD;
 
+    List<Documento> listaDocumentosANfiltrado;
+    List<Documento> listaDocumentosAMfiltrado;
+    List<Documento> listaDocumentosADfiltrado;
+
     DocumentoImpl daoDocumento;
     ActorC actorC;
 
@@ -32,6 +36,9 @@ public class DocumentoC extends UbigeoC implements Serializable {
             listaDocumentosAN = new ArrayList<>();
             listaDocumentosAM = new ArrayList<>();
             listaDocumentosAD = new ArrayList<>();
+            List<Documento> listaDocumentosANfiltrado = new ArrayList<>();
+            List<Documento> listaDocumentosAMfiltrado = new ArrayList<>();
+            List<Documento> listaDocumentosADfiltrado = new ArrayList<>();
             daoDocumento = new DocumentoImpl();
             actorC = new ActorC();
         } catch (Exception e) {
@@ -56,75 +63,29 @@ public class DocumentoC extends UbigeoC implements Serializable {
         }
     }
 
-    public void listarActas() throws Exception {
-        listar();
-        listaDocumentosAN.clear();
-        listaDocumentosAM.clear();
-        listaDocumentosAD.clear();
-        Documento docTmpAM = new Documento();
-        for (Documento documentoTemp : listaDocumentosGeneral) {
-            String tipoDocumento = documentoTemp.getTIPDOC();
-            if (tipoDocumento != null) {
-                for (Ubigeo ubigeo1 : listaUbigeo) {
-                    if (ubigeo1.getCODUBI().equals(documentoTemp.getCODUBI())) {
-                        documentoTemp.setCODUBI(ubigeo1.getDISTUBI());
-                        break;
-                    }
-                }
-                switch (tipoDocumento) {
-                    case "1":
-                        listaDocumentosAN.add(documentoTemp);
-                        break;
-                    case "2":
-                        if (documentoTemp.getCelebrante() != null) {
-                            listaDocumentosAM.remove(listaDocumentosAM.indexOf(docTmpAM));
-                            docTmpAM.setCelebrante(documentoTemp.getCelebrante());
-                        } else {
-                            docTmpAM = documentoTemp;
-                        }
-                        listaDocumentosAM.add(docTmpAM);
-                        break;
-                    case "3":
-                        listaDocumentosAD.add(documentoTemp);
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-        }
-
-        Documento anterior = new Documento();
-        Documento docTmpAN = new Documento();
-        List<Documento> listaTmp = new ArrayList<>();
-        for (Documento documentoTemporal : listaDocumentosAN) {
-            if (documentoTemporal.getIDDOC().equals(anterior.getIDDOC())) {
-                if (documentoTemporal.getPapa() != null) {
-                    docTmpAN = documentoTemporal;
-                    docTmpAN.setPapa(documentoTemporal.getPapa());
-                } else if (documentoTemporal.getMama() != null) {
-                    docTmpAN.setMama(documentoTemporal.getMama());
-                } else if (documentoTemporal.getMedico() != null) {
-                    docTmpAN.setMedico(documentoTemporal.getMedico());
-                    listaTmp.add(docTmpAN);
-                }
-                if (anterior.getDeclarante() != null) {
-                    docTmpAN.setDeclarante(anterior.getDeclarante());
-                }
-            }
-            anterior = documentoTemporal;
-
-        }
-        listaDocumentosAN = listaTmp;
-    }
-
     public void accionDocumento(char tipoDocumento, char tipoAccion, Documento documentoEliminar) throws Exception {
         try {
             documento.setTIPDOC(String.valueOf(tipoDocumento));
             seterCodigos();
+            boolean existe = false;
             switch (tipoAccion) {
                 case '1':
-                    daoDocumento.registrar(documento);
+                    switch (tipoDocumento) {
+                        case '1':
+                            existe = daoDocumento.existe(listaDocumentosAN, documento);
+                            break;
+                        case '2':
+                            existe = daoDocumento.existe(listaDocumentosAM, documento);
+                            break;
+                        case '3':
+                            existe = daoDocumento.existe(listaDocumentosAD, documento);
+                            break;
+                    }
+                    if (!existe) {
+                        daoDocumento.registrar(documento);
+                    } else {
+                        return;
+                    }
                     break;
                 case '2':
                     daoDocumento.editar(documento);
@@ -134,11 +95,12 @@ public class DocumentoC extends UbigeoC implements Serializable {
                     break;
             }
             registrarActores();
+            documento.clear();
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro Exitoso", null));
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", null));
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro Fallido", null));
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", null));
             e.printStackTrace();
         }
     }
@@ -208,6 +170,68 @@ public class DocumentoC extends UbigeoC implements Serializable {
         documento.setFECACT(new java.sql.Date(documento.getFECACT().getTime()));
     }
 
+    public void listarActas() throws Exception {
+        listar();
+        listaDocumentosAN.clear();
+        listaDocumentosAM.clear();
+        listaDocumentosAD.clear();
+        Documento docTmpAM = new Documento();
+        for (Documento documentoTemp : listaDocumentosGeneral) {
+            String tipoDocumento = documentoTemp.getTIPDOC();
+            if (tipoDocumento != null) {
+                for (Ubigeo ubigeo1 : listaUbigeo) {
+                    if (ubigeo1.getCODUBI().equals(documentoTemp.getCODUBI())) {
+                        documentoTemp.setCODUBI(ubigeo1.getDISTUBI());
+                        break;
+                    }
+                }
+                switch (tipoDocumento) {
+                    case "1":
+                        listaDocumentosAN.add(documentoTemp);
+                        break;
+                    case "2":
+                        if (documentoTemp.getCelebrante() != null) {
+                            listaDocumentosAM.remove(listaDocumentosAM.indexOf(docTmpAM));
+                            docTmpAM.setCelebrante(documentoTemp.getCelebrante());
+                        } else {
+                            docTmpAM = documentoTemp;
+                        }
+                        listaDocumentosAM.add(docTmpAM);
+                        break;
+                    case "3":
+                        listaDocumentosAD.add(documentoTemp);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+        }
+
+        Documento anterior = new Documento();
+        Documento docTmpAN = new Documento();
+        List<Documento> listaTmp = new ArrayList<>();
+        for (Documento documentoTemporal : listaDocumentosAN) {
+            if (documentoTemporal.getIDDOC().equals(anterior.getIDDOC())) {
+                if (documentoTemporal.getPapa() != null) {
+                    docTmpAN = documentoTemporal;
+                    docTmpAN.setPapa(documentoTemporal.getPapa());
+                } else if (documentoTemporal.getMama() != null) {
+                    docTmpAN.setMama(documentoTemporal.getMama());
+                } else if (documentoTemporal.getMedico() != null) {
+                    docTmpAN.setMedico(documentoTemporal.getMedico());
+                    listaTmp.add(docTmpAN);
+                }
+                if (anterior.getDeclarante() != null) {
+                    docTmpAN.setDeclarante(anterior.getDeclarante());
+                }
+            }
+            anterior = documentoTemporal;
+
+        }
+        listaDocumentosAN = listaTmp;
+    }
+
     public Documento getDocumento() {
         return documento;
     }
@@ -254,6 +278,30 @@ public class DocumentoC extends UbigeoC implements Serializable {
 
     public void setListaDocumentosAD(List<Documento> listaDocumentosAD) {
         this.listaDocumentosAD = listaDocumentosAD;
+    }
+
+    public List<Documento> getListaDocumentosANfiltrado() {
+        return listaDocumentosANfiltrado;
+    }
+
+    public void setListaDocumentosANfiltrado(List<Documento> listaDocumentosANfiltrado) {
+        this.listaDocumentosANfiltrado = listaDocumentosANfiltrado;
+    }
+
+    public List<Documento> getListaDocumentosAMfiltrado() {
+        return listaDocumentosAMfiltrado;
+    }
+
+    public void setListaDocumentosAMfiltrado(List<Documento> listaDocumentosAMfiltrado) {
+        this.listaDocumentosAMfiltrado = listaDocumentosAMfiltrado;
+    }
+
+    public List<Documento> getListaDocumentosADfiltrado() {
+        return listaDocumentosADfiltrado;
+    }
+
+    public void setListaDocumentosADfiltrado(List<Documento> listaDocumentosADfiltrado) {
+        this.listaDocumentosADfiltrado = listaDocumentosADfiltrado;
     }
 
 }

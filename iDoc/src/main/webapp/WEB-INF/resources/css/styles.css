@@ -228,7 +228,6 @@ _:-ms-input-placeholder, :root .demo-graph {
     background-image: none !important;
     color: #ff0000 !important;
 }
-
 ::-webkit-scrollbar {
     width: 8px;     /* Tamaño del scroll en vertical */
     height: 8px;   /* Ocultar scroll */

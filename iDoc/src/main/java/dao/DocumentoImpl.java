@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import modelo.Documento;
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -174,7 +176,19 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
 
     @Override
     public boolean existe(List<Documento> listaModelo, Documento modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (Documento documento : listaModelo) {
+            if (documento.getTitular().equalsIgnoreCase(modelo.getTitular())) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya existe un titular en este Tipo de Acta.", null));
+                return true;
+            } else if (documento.getNUMLIBDOC().equals(modelo.getNUMLIBDOC())
+                    && documento.getNUMFOLDOC().equals(modelo.getNUMFOLDOC())) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya existe un Libro y Folio con los mismos números.", null));
+                return true;
+            }
+        }
+        return false;
     }
 
 }

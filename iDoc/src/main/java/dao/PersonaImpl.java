@@ -103,9 +103,9 @@ public class PersonaImpl extends Conexion implements IGenerica<Persona> {
     public List<String> buscar(String campo, List<Persona> listaModelo) throws Exception {
         List<String> lista = new ArrayList<>();
         campo = campo.toUpperCase();
-        for (Persona next : listaModelo) {
-            if (next.getCOMPLETO().startsWith(campo)) {
-                lista.add(next.getCOMPLETO());
+        for (Persona persona1 : listaModelo) {
+            if (persona1.getCOMPLETO().startsWith(campo) && persona1.getESTPER().equals("A")) {
+                lista.add(persona1.getCOMPLETO());
             }
         }
         return lista;
@@ -114,7 +114,7 @@ public class PersonaImpl extends Conexion implements IGenerica<Persona> {
     @Override
     public Persona obtenerCodigo(List<Persona> listaModelo, Persona modelo) throws Exception {
         for (Persona persona1 : listaModelo) {
-            if (modelo.getCOMPLETO().equals(persona1.getCOMPLETO()) && persona1.getESTPER().equals("A")) {
+            if (modelo.getCOMPLETO().equals(persona1.getCOMPLETO())) {
                 modelo.setIDPER(persona1.getIDPER());
                 return modelo;
             }
@@ -126,12 +126,11 @@ public class PersonaImpl extends Conexion implements IGenerica<Persona> {
     public boolean existe(List<Persona> listaModelo, Persona modelo) throws Exception {
         if (modelo.getDNIPER() != null) {
             for (Persona next : listaModelo) {
-                if (next.getDNIPER().equals(modelo.getDNIPER()) && next.getESTPER().equals("A")) {
+                if (next.getDNIPER().equals(modelo.getDNIPER())) {
                     return true;
                 }
             }
         }
         return false;
     }
-
 }

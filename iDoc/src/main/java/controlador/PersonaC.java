@@ -18,13 +18,14 @@ public class PersonaC extends UbigeoC implements Serializable {
     Persona persona;
 
     List<Persona> listaPersona;
-
+    List<Persona> listaPersonaFiltrado;
     PersonaImpl daoPersona;
 
     public PersonaC() throws Exception {
         daoPersona = new PersonaImpl();
         persona = new Persona();
         listaPersona = new ArrayList<>();
+        listaPersonaFiltrado = new ArrayList<>();
         listarPersonas();
     }
 
@@ -38,29 +39,31 @@ public class PersonaC extends UbigeoC implements Serializable {
         } catch (Exception e) {
         }
     }
-    
-    public void eliminarPersona(Persona person) throws Exception{
+
+    public void eliminarPersona(Persona person) throws Exception {
         try {
             daoPersona.eliminar(person);
+            listarPersonas();
         } catch (Exception e) {
         }
     }
+
     public void registrarPersona() throws Exception {
         try {
             if (!daoPersona.existe(listaPersona, persona)) {
                 seterCodigoUbigeo();
                 daoPersona.registrar(persona);
                 FacesContext.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro Exitoso", null));
+                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro Exitoso.", null));
                 listarPersonas();
             } else {
                 FacesContext.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro Fallido", null));
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "El DNI ingresado ya existe.", null));
             }
 
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro Fallido", null));
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Registro Fallido.", null));
             e.printStackTrace();
         }
     }
@@ -112,6 +115,14 @@ public class PersonaC extends UbigeoC implements Serializable {
 
     public void setListaPersona(List<Persona> listaPersona) {
         this.listaPersona = listaPersona;
+    }
+
+    public List<Persona> getListaPersonaFiltrado() {
+        return listaPersonaFiltrado;
+    }
+
+    public void setListaPersonaFiltrado(List<Persona> listaPersonaFiltrado) {
+        this.listaPersonaFiltrado = listaPersonaFiltrado;
     }
 
     public List<Ubigeo> getListaUbigeo() {

@@ -77,5 +77,4 @@ public class UbigeoImpl extends Conexion implements IGenerica<Ubigeo> {
     public boolean existe(List<Ubigeo> listaModelo, Ubigeo modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }

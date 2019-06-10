@@ -16,7 +16,7 @@ import modelo.IncidenciaTipo;
 @Named(value = "incidenciaC")
 @SessionScoped
 public class IncidenciaC implements Serializable {
-    
+
     IncidenciaTipoC incidenciatipo;
 
     public IncidenciaTipoC getIncidenciatipo() {

@@ -14,7 +14,7 @@ public class Conexion {
             conexion = DriverManager.getConnection(
                     "jdbc:sqlserver://34.73.201.76;database=Team03",
                     "User03",
-                    "User03-20199");
+                    "RegistroCivil");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

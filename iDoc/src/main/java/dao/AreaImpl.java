@@ -113,9 +113,9 @@ public class AreaImpl extends Conexion implements IGenerica<Area> {
         String campoTemp = null;
         for (Area next : listaModelo) {
             if (!next.getNOMARE().equals(campoTemp)) {
-                    if (next.getNOMARE().startsWith(campo)) {
-                        lista.add(next.getNOMARE());
-                        campoTemp = next.getNOMARE();
+                if (next.getNOMARE().startsWith(campo)) {
+                    lista.add(next.getNOMARE());
+                    campoTemp = next.getNOMARE();
                 }
             }
         }

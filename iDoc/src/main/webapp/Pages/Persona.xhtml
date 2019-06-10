@@ -12,9 +12,14 @@
         <h:form id="frmRegistrarPersona">
             <p:growl life="1000"/>
             <ui:include src="../Templates/Persona/Registrar.xhtml"/>
-            <p:commandButton value="GUARDAR" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
-                             actionListener="#{personaC.registrarPersona()}" update=":frmRegistrarPersona :frmListarPersona" 
-                             oncomplete="#{documentoC.actorC.listarPersonas()}"/>
+            <p:commandButton 
+                id="btnRegistrarPersona"
+                value="GUARDAR" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
+                actionListener="#{personaC.registrarPersona()}" update=":frmRegistrarPersona :frmListarPersona" 
+                oncomplete="#{documentoC.actorC.listarPersonas()}"/>
+            <p:blockUI block="frmRegistrarPersona" trigger="btnRegistrarPersona">
+                Guardando..
+            </p:blockUI>
         </h:form>
         <p:separator/>
         <ui:include src="../Templates/Persona/Listar.xhtml"/>

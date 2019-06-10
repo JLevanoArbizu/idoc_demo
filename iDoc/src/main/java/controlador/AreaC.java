@@ -16,35 +16,8 @@ import modelo.Area;
 public class AreaC implements Serializable {
 
     MunicipalidadC muni;
-
     Area area;
-
     List<Area> listaArea;
-
-    public MunicipalidadC getMuni() {
-        return muni;
-    }
-
-    public void setMuni(MunicipalidadC muni) {
-        this.muni = muni;
-    }
-
-    public Area getArea() {
-        return area;
-    }
-
-    public void setArea(Area area) {
-        this.area = area;
-    }
-
-    public List<Area> getListaArea() {
-        return listaArea;
-    }
-
-    public void setListaArea(List<Area> listaArea) {
-        this.listaArea = listaArea;
-    }
-
     AreaImpl daoArea;
 
     public AreaC() {
@@ -127,4 +100,27 @@ public class AreaC implements Serializable {
         return daoArea.buscar(nombreArea, listaArea);
     }
 
+    public MunicipalidadC getMuni() {
+        return muni;
+    }
+
+    public void setMuni(MunicipalidadC muni) {
+        this.muni = muni;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    public List<Area> getListaArea() {
+        return listaArea;
+    }
+
+    public void setListaArea(List<Area> listaArea) {
+        this.listaArea = listaArea;
+    }
 }

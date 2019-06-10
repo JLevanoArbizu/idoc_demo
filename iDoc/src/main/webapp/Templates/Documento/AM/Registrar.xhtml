@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:p="http://primefaces.org/ui">
-    <p:panelGrid columns="2">
+    <p:panelGrid columns="4">
         <p:outputLabel value="Esposo"/>
         <p:autoComplete value="#{documentoC.documento.titular}" forceSelection="true"
                         required="true" requiredMessage="Esposo requerido." queryDelay="1"
@@ -30,20 +30,22 @@
         <p:outputLabel value="Dirección Matrimonio"/>
         <p:inputText value="#{documentoC.documento.DIRACT}" maxlength="100" required="true" requiredMessage="Dirección requerida." style="text-transform: capitalize"/>
         <p:outputLabel value="Número de Libro"/>
-        <p:spinner value="#{documentoC.documento.NUMLIBDOC}" 
+        <p:spinner value="#{documentoC.documento.NUMLIBDOC}" min="1"
                    maxlength="8" required="true" requiredMessage="Número de Libreo Requerido"/>
         <p:outputLabel value="Número de Folio"/>
-        <p:spinner value="#{documentoC.documento.NUMFOLDOC}" 
+        <p:spinner value="#{documentoC.documento.NUMFOLDOC}" min="1"
                    maxlength="8" required="true" requiredMessage="Número de Folio Requerido."/>
         <p:outputLabel value="Observación"/>
         <p:inputTextarea value="#{documentoC.documento.OBSDOC}"
                          rows="5" cols="30" maxlength="500" autoResize="false" required="false" style="text-transform: capitalize"/>
         <p:outputLabel value="Fecha de Registro" />
         <p:calendar id="popupRegistrarFecha2" value="#{documentoC.documento.FECREGDOC}" required="true"
+                    readonlyInput="true"
                     locale="es" navigator="true" pattern="dd MMM yyyy" >
         </p:calendar>
         <p:outputLabel value="Fecha de Matrimonio" />
         <p:calendar id="popupRegistrarMatrimonio" value="#{documentoC.documento.FECACT}" required="true"
+                    readonlyInput="true"
                     locale="es" navigator="true" pattern="dd MMM yyyy" >
         </p:calendar>
 

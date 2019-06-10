@@ -1,4 +1,4 @@
-    package dao;
+package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,9 +11,9 @@ public class IncidenciaImpl extends Conexion implements IGenerica<Incidencia> {
     @Override
     public void registrar(Incidencia modelo) throws Exception {
         try {
-            String sql="INSERT INTO REGCIV.INCIDENCIA (IDDOC, IDINCTIP, FECINC, MOTINC, ESTINC) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO REGCIV.INCIDENCIA (IDDOC, IDINCTIP, FECINC, MOTINC, ESTINC) VALUES (?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-            ps.setString(1, modelo.getIDDOC());                 
+            ps.setString(1, modelo.getIDDOC());
             ps.setString(2, modelo.getIDINCTIP());
             ps.setDate(3, modelo.getFECINC());
             ps.setString(4, modelo.getMOTINC());
@@ -110,9 +110,9 @@ public class IncidenciaImpl extends Conexion implements IGenerica<Incidencia> {
             if (next.getIDDOC().equals(modelo.getIDDOC())) {
                 modelo.setIDINC(next.getIDINC());
                 return modelo;
-                
+
             }
-            
+
         }
         return null;
     }

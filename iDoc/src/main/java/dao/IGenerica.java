@@ -21,6 +21,6 @@ public interface IGenerica<T> {
 
     //No hacer query a la DB para obtener el codigo de un campo
     T obtenerCodigo(List<T> listaModelo, T modelo) throws Exception;
-    
+
     boolean existe(List<T> listaModelo, T modelo) throws Exception;
 }
