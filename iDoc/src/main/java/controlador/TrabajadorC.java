@@ -21,8 +21,7 @@ public class TrabajadorC extends PersonaC implements Serializable {
     List<Trabajador> listaTrabajador;
     TrabajadorImpl daoTrabajador;
 
-    Login login;
-    List<Login> listaLogin;
+    Login login, loginT;
     LoginImpl daoLogin;
 
     @ManagedProperty("#{areaC}")
@@ -37,7 +36,7 @@ public class TrabajadorC extends PersonaC implements Serializable {
         daoTrabajador = new TrabajadorImpl();
 
         login = new Login();
-        listaLogin = new ArrayList<>();
+        loginT = new Login();
         daoLogin = new LoginImpl();
 
     }
@@ -50,7 +49,19 @@ public class TrabajadorC extends PersonaC implements Serializable {
             e.printStackTrace();
         }
     }
-
+    
+    public void iniciarSesion() throws Exception{
+        try {
+            loginT = daoLogin.obtenerLogin(loginT);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public String darPagina(){
+        return loginT.getIDLOG() != null ? "Home" : "Login";
+    }
+    
     public void listar() throws Exception {
         try {
             listaTrabajador = daoTrabajador.listar();
@@ -136,12 +147,12 @@ public class TrabajadorC extends PersonaC implements Serializable {
         this.login = login;
     }
 
-    public List<Login> getListaLogin() {
-        return listaLogin;
+    public Login getLoginT() {
+        return loginT;
     }
 
-    public void setListaLogin(List<Login> listaLogin) {
-        this.listaLogin = listaLogin;
+    public void setLoginT(Login loginT) {
+        this.loginT = loginT;
     }
 
 }

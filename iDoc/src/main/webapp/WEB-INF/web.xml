@@ -26,6 +26,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/Pages/Home.xhtml</welcome-file>
+        <welcome-file>faces/Pages/Login.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>

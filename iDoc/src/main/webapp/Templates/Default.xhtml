@@ -27,27 +27,20 @@
                         <span class="mdl-layout-title">MUNICIPALIDAD DISTRITAL DE NUEVO IMPERIAL</span>
                     </div>
                 </header>
-
                 <div class="demo-drawer mdl-layout__drawer  mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
                     <header class="demo-drawer-header">
-                        <h:graphicImage name="images/user.jpg" class="demo-avatar"/>
+                        <h:graphicImage name="images/user.jpg" class="demo-avatar" 
+                                        rendered="#{trabajadorC.loginT.IDLOG != null ? true : false}" />
                         <div class="demo-avatar-dropdown">
-                            <span>Usuario Demo</span>
+                            <span>#{trabajadorC.loginT.USRLOG}</span>
                             <div class="mdl-layout-spacer"></div>
-                            <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-                                <i class="material-icons" role="presentation">arrow_drop_down</i>
-                                <span class="visuallyhidden">Accounts</span>
-                            </button>
-                            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-                                <li class="mdl-menu__item">Salir</li>
-                            </ul>
                         </div>
                     </header>
-                    <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-900">
-                        <ui:include src="Menu.xhtml" />
+                    <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-900" >
+                        <ui:include src="Menu.xhtml"/>
                     </nav>
-                </div>
 
+                </div>
                 <main class="mdl-layout__content mdl-color--grey-100">
                     <div class="mdl-grid demo-content">
                         <ui:insert name="contenidoPagina"/>                        
