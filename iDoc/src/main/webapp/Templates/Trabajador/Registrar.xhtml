@@ -2,10 +2,28 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <p:panelGrid columns="2">
-        <p:outputLabel value="Persona"/>
+        <p:outputLabel value="Trabajador"/>
+        <p:autoComplete value="#{trabajadorC.persona.COMPLETO}" forceSelection="true"
+                        required="true" requiredMessage="Trabajador requerido." queryDelay="1"
+                        emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
+                        completeMethod="#{trabajadorC.buscarPersona}"/>
         
+        <p:outputLabel value="Fecha Inicio"/>
+        <p:calendar value="#{trabajadorC.trabajador.FECINITRAB_T}" 
+                    readonlyInput="true" required="true"
+                    locale="es" navigator="true" pattern="dd MMM yyyy" >
+        </p:calendar>
+        <p:outputLabel value="Tipo de Acceso"/>
+        <p:selectOneRadio value="#{trabajadorC.login.TIPLOG}" 
+                              requiredMessage="Seleccione el tipo de Acceso."
+                              unselectable="false" required="true">
+                <f:selectItem itemLabel="Superadministrador" itemValue="S"/>
+                <f:selectItem itemLabel="Administrador" itemValue="A" />
+                <f:selectItem itemLabel="Usuario" itemValue="U" />
+            </p:selectOneRadio>
     </p:panelGrid>
 </html>
 

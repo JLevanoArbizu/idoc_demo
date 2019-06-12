@@ -15,8 +15,7 @@
             <p:commandButton 
                 id="btnRegistrarPersona"
                 value="GUARDAR" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
-                actionListener="#{personaC.registrarPersona()}" update=":frmRegistrarPersona :frmListarPersona" 
-                oncomplete="#{documentoC.actorC.listarPersonas()}"/>
+                actionListener="#{personaC.registrarPersona()}" update=":frmRegistrarPersona :frmListarPersona"/>
             <p:blockUI block="frmRegistrarPersona" trigger="btnRegistrarPersona">
                 Guardando..
             </p:blockUI>

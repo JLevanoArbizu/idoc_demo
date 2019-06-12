@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 import modelo.Login;
 
@@ -8,8 +9,18 @@ public class LoginImpl extends Conexion implements IGenerica<Login>{
     @Override
     public void registrar(Login modelo) throws Exception {
         try {
-            String sql = "INSERT INTO GENERAL.LOGIN () VALUES ()";
+            String sql = "INSERT INTO GENERAL.LOGIN (IDTRAB, USRLOG, PSSWLOG, ESTLOG, TIPLOG) VALUES (?,?,?,?,?)";
+            PreparedStatement ps = this.conectar().prepareStatement(sql);
+            ps.setInt(1, Integer.valueOf(modelo.getTrabajador().getIDTRAB()));
+            ps.setString(2, modelo.getTrabajador().getPersona().getDNIPER());
+            ps.setString(3, modelo.getTrabajador().getPersona().getDNIPER());
+            ps.setString(4, "A");
+            ps.setString(5, modelo.getTIPLOG());
+            ps.executeUpdate();
+            ps.clearParameters();
+            ps.close();
         } catch (Exception e) {
+            e.printStackTrace();
         }finally{
             this.desconectar();
         }

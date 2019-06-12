@@ -16,6 +16,7 @@ public class ActorC extends PersonaC implements Serializable {
     Actor actor;
     ActorImpl daoActor;
 
+
     public ActorC() throws Exception {
         listaActores = new ArrayList<>();
         actor = new Actor();
@@ -31,5 +32,5 @@ public class ActorC extends PersonaC implements Serializable {
             e.printStackTrace();
         }
     }
-    
+
 }

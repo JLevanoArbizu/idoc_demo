@@ -19,33 +19,9 @@ public class IncidenciaC implements Serializable {
 
     IncidenciaTipoC incidenciatipo;
 
-    public IncidenciaTipoC getIncidenciatipo() {
-        return incidenciatipo;
-    }
-
-    public void setIncidenciatipo(IncidenciaTipoC incidenciatipo) {
-        this.incidenciatipo = incidenciatipo;
-    }
-
     List<Incidencia> listaIncidencia;
 
     Incidencia incidencia;
-
-    public List<Incidencia> getListaIncidencia() {
-        return listaIncidencia;
-    }
-
-    public void setListaIncidencia(List<Incidencia> listaIncidencia) {
-        this.listaIncidencia = listaIncidencia;
-    }
-
-    public Incidencia getIncidencia() {
-        return incidencia;
-    }
-
-    public void setIncidencia(Incidencia incidencia) {
-        this.incidencia = incidencia;
-    }
 
     IncidenciaImpl daoIncidencia;
 
@@ -133,4 +109,27 @@ public class IncidenciaC implements Serializable {
         }
     }
 
+    public List<Incidencia> getListaIncidencia() {
+        return listaIncidencia;
+    }
+
+    public void setListaIncidencia(List<Incidencia> listaIncidencia) {
+        this.listaIncidencia = listaIncidencia;
+    }
+
+    public Incidencia getIncidencia() {
+        return incidencia;
+    }
+
+    public void setIncidencia(Incidencia incidencia) {
+        this.incidencia = incidencia;
+    }
+
+    public IncidenciaTipoC getIncidenciatipo() {
+        return incidenciatipo;
+    }
+
+    public void setIncidenciatipo(IncidenciaTipoC incidenciatipo) {
+        this.incidenciatipo = incidenciatipo;
+    }
 }

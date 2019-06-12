@@ -29,6 +29,7 @@ public class DocumentoC extends UbigeoC implements Serializable {
     DocumentoImpl daoDocumento;
     ActorC actorC;
 
+
     public DocumentoC() {
         try {
             documento = new Documento();
