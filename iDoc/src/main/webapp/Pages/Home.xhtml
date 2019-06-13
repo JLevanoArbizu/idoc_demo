@@ -3,12 +3,15 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="../Templates/Default.xhtml"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
 
     <ui:param name="tituloPagina" value="Home"/>
 
     <ui:define name="contenidoPagina">
-        
+        <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
+
     </ui:define>
 </ui:composition>
 

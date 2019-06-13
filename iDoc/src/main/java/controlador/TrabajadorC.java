@@ -2,6 +2,7 @@ package controlador;
 
 import dao.LoginImpl;
 import dao.TrabajadorImpl;
+import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 import modelo.Login;
 import modelo.Persona;
 import modelo.Trabajador;
@@ -26,9 +28,6 @@ public class TrabajadorC extends PersonaC implements Serializable {
 
     @ManagedProperty("#{areaC}")
     AreaC areaC;
-
-    @ManagedProperty("#{personaC}")
-    PersonaC personaC;
 
     public TrabajadorC() throws Exception {
         trabajador = new Trabajador();
@@ -49,19 +48,31 @@ public class TrabajadorC extends PersonaC implements Serializable {
             e.printStackTrace();
         }
     }
-    
-    public void iniciarSesion() throws Exception{
+
+    public void iniciarSesion() throws Exception {
         try {
             loginT = daoLogin.obtenerLogin(loginT);
+            if (loginT.getIDLOG() != null) {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc/faces/Pages/Home.xhtml");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-    public String darPagina(){
-        return loginT.getIDLOG() != null ? "Home" : "Login";
+
+    public void seguridadSesion() throws IOException {
+        System.out.println(loginT.toString());
+        if (loginT.getIDLOG() == null) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc/faces/Pages/Login.xhtml");
+        }
     }
-    
+
+    public void cerrarSesion() throws IOException {
+        loginT.clear();
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc");
+    }
+
     public void listar() throws Exception {
         try {
             listaTrabajador = daoTrabajador.listar();
@@ -113,14 +124,6 @@ public class TrabajadorC extends PersonaC implements Serializable {
 
     public void setAreaC(AreaC areaC) {
         this.areaC = areaC;
-    }
-
-    public PersonaC getPersonaC() {
-        return personaC;
-    }
-
-    public void setPersonaC(PersonaC personaC) {
-        this.personaC = personaC;
     }
 
     public Trabajador getTrabajador() {

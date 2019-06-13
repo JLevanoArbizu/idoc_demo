@@ -1,12 +1,12 @@
-
 package modelo;
 
 import java.sql.Date;
 
-
-
 public class Incidencia {
-   String IDINC,IDDOC,IDINCTIP,MOTINC,ESTINC,NOMINCTIP;
+
+    String IDINC, IDDOC, IDINCTIP, MOTINC, ESTINC, NOMINCTIP;
+    Date FECINC;
+    java.util.Date fechaTemporal;
 
     public String getNOMINCTIP() {
         return NOMINCTIP;
@@ -16,8 +16,6 @@ public class Incidencia {
         this.NOMINCTIP = NOMINCTIP;
     }
 
-    
-
     public String getESTINC() {
         return ESTINC;
     }
@@ -25,9 +23,6 @@ public class Incidencia {
     public void setESTINC(String ESTINC) {
         this.ESTINC = ESTINC;
     }
-   
-   Date FECINC;
-   java.util.Date fechaTemporal;   
 
     public java.util.Date getFechaTemporal() {
         return fechaTemporal;
@@ -76,8 +71,8 @@ public class Incidencia {
     public void setMOTINC(String MOTINC) {
         this.MOTINC = MOTINC;
     }
-    
-    public void clear(){
+
+    public void clear() {
         this.IDINC = null;
         this.IDDOC = null;
         this.IDINCTIP = null;

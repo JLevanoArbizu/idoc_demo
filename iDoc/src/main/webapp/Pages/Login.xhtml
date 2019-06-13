@@ -7,7 +7,6 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:param name="tituloPagina" value="Login"/>
-
     <ui:define name="contenidoPagina">
 
         <h:form id="frmLogin" rendered="#{trabajadorC.loginT.IDLOG == null ? true : false}">
@@ -21,7 +20,7 @@
                 <p:password value="#{trabajadorC.loginT.PSSWLOG}" required="true" 
                             requiredMessage="Ingrese contraseña"/>
 
-                <p:commandButton id="btnLogin" ajax="false" action="#{trabajadorC.darPagina()}"
+                <p:commandButton id="btnLogin" ajax="false"
                                  actionListener="#{trabajadorC.iniciarSesion()}"
                                  value="Ingresar" update=":frmLogin :frmMenu"/>
 
@@ -31,7 +30,6 @@
             </p:blockUI>
         </h:form>
 
-        <p:separator/>
     </ui:define>
 
 </ui:composition>

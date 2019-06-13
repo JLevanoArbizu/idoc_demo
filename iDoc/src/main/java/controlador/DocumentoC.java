@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import modelo.Documento;
 import modelo.Ubigeo;
@@ -28,7 +29,9 @@ public class DocumentoC extends UbigeoC implements Serializable {
 
     DocumentoImpl daoDocumento;
     ActorC actorC;
-
+    
+    @ManagedProperty("#{trabajadorC}")
+    TrabajadorC trabajadorC;
 
     public DocumentoC() {
         try {
@@ -83,6 +86,7 @@ public class DocumentoC extends UbigeoC implements Serializable {
                             break;
                     }
                     if (!existe) {
+                        documento.setIDLOG(trabajadorC.loginT.getIDLOG());
                         daoDocumento.registrar(documento);
                     } else {
                         return;
@@ -303,6 +307,14 @@ public class DocumentoC extends UbigeoC implements Serializable {
 
     public void setListaDocumentosADfiltrado(List<Documento> listaDocumentosADfiltrado) {
         this.listaDocumentosADfiltrado = listaDocumentosADfiltrado;
+    }
+
+    public TrabajadorC getTrabajadorC() {
+        return trabajadorC;
+    }
+
+    public void setTrabajadorC(TrabajadorC trabajadorC) {
+        this.trabajadorC = trabajadorC;
     }
 
 }

@@ -10,6 +10,7 @@
     <ui:param name="tituloPagina" value="Actas"/>
 
     <ui:define name="contenidoPagina">
+        <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
 
         <h:form>
             <p:commandButton title="Agregar Ciudadano"

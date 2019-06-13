@@ -4,11 +4,14 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="../Templates/Default.xhtml"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <ui:param name="tituloPagina" value="Municipalidad"/>
 
     <ui:define name="contenidoPagina">
-        
+                <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
+
         <h:form id="frmRegistrarMunicipalidad">
             <ui:include src="../Templates/Municipalidad/Registrar.xhtml"/>
             <p:commandButton value="GUARDAR" actionListener="#{municipalidadC.registrar()}" 
