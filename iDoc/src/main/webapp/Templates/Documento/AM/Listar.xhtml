@@ -83,6 +83,8 @@
                              class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"
                              actionListener="#{incidenciaC.incidencia.setIDDOC(listaAM.IDDOC)}"
                              oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
+            <p:commandButton actionListener="#{documentoC.descargarReporte(listaAM)}" ajax="false"
+                             value="Descargar" rendered="#{listaAM.ESTDOC eq 'A'}"/>
         </p:column> 
         <p:blockUI block="dtTblDocumentoAM" trigger="dtTblDocumentoAM">
             Actualizando

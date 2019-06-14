@@ -1,9 +1,11 @@
 package controlador;
 
 import dao.DocumentoImpl;
+import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -12,6 +14,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import modelo.Documento;
 import modelo.Ubigeo;
+import servicio.ReporteS;
 
 @Named(value = "documentoC")
 @SessionScoped
@@ -30,6 +33,8 @@ public class DocumentoC extends UbigeoC implements Serializable {
     DocumentoImpl daoDocumento;
     ActorC actorC;
     
+    ReporteS reporte;
+    
     @ManagedProperty("#{trabajadorC}")
     TrabajadorC trabajadorC;
 
@@ -45,6 +50,7 @@ public class DocumentoC extends UbigeoC implements Serializable {
             List<Documento> listaDocumentosADfiltrado = new ArrayList<>();
             daoDocumento = new DocumentoImpl();
             actorC = new ActorC();
+            reporte = new ReporteS();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -109,7 +115,16 @@ public class DocumentoC extends UbigeoC implements Serializable {
             e.printStackTrace();
         }
     }
-
+    
+    public void descargarReporte(Documento doc) throws IOException{
+        try {
+            reporte.generarActa(documento);
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("Error Reporte");
+            e.printStackTrace();
+        }
+    }
+    
     public void registrarActores() throws Exception {
         try {
             listar();
@@ -315,6 +330,14 @@ public class DocumentoC extends UbigeoC implements Serializable {
 
     public void setTrabajadorC(TrabajadorC trabajadorC) {
         this.trabajadorC = trabajadorC;
+    }
+
+    public ReporteS getReporte() {
+        return reporte;
+    }
+
+    public void setReporte(ReporteS reporte) {
+        this.reporte = reporte;
     }
 
 }
