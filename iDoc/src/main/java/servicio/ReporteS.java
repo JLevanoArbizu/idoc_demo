@@ -5,7 +5,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
-import modelo.Documento;
+import modelo.Acta;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -15,7 +15,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 public class ReporteS {
 
-    public void generarActa(Documento documento) throws UnsupportedEncodingException {
+    public void generarActa(Acta documento) throws UnsupportedEncodingException {
         try {
             System.out.println(documento.toString());
             Gson gson = new Gson();

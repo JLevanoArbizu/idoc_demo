@@ -39,17 +39,17 @@
         <p:tabView id="tb">
             <p:tab title="Acta de Nacimiento">
                 <h:form id="frmListarAN">
-                    <ui:include src="../Templates/Documento/PN/Listar.xhtml"/>
+                    <ui:include src="../Templates/Acta/PN/Listar.xhtml"/>
                 </h:form>
             </p:tab>
             <p:tab title="Acta de Matrimonio">
                 <h:form id="frmListarAM">
-                    <ui:include src="../Templates/Documento/AM/Listar.xhtml"/>
+                    <ui:include src="../Templates/Acta/AM/Listar.xhtml"/>
                 </h:form>
             </p:tab>            
             <p:tab title="Acta de Defunción">
                 <h:form id="frmListarAD">
-                    <ui:include src="../Templates/Documento/AD/Listar.xhtml"/>
+                    <ui:include src="../Templates/Acta/AD/Listar.xhtml"/>
                 </h:form>
             </p:tab>
 
@@ -60,10 +60,10 @@
                   header="Agregar Acta de Nacimiento" closeOnEscape="true">
             <h:form id="frmRegistrarAN">
                 <p:growl life="1000"/>
-                <ui:include src="../Templates/Documento/PN/Registrar.xhtml"/>
+                <ui:include src="../Templates/Acta/PN/Registrar.xhtml"/>
                 <p:commandButton 
                     id="btnRegistrarAN"
-                    actionListener="#{documentoC.accionDocumento('1','1',null)}" value="GUARDAR" 
+                    actionListener="#{actaC.accionActa('1','1',null)}" value="GUARDAR" 
                     class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
                     mdl-button--colored mdl-color-text--white"
                     update="frmRegistrarAN tb:frmListarAN tb:frmListarAM tb:frmListarAD"/>
@@ -81,9 +81,9 @@
             <h:form id="frmEditarAN">
                 <p:growl life="1000"/>
 
-                <ui:include src="../Templates/Documento/PN/Registrar.xhtml"/>
+                <ui:include src="../Templates/Acta/PN/Registrar.xhtml"/>
 
-                <p:selectOneRadio value="#{documentoC.documento.ESTDOC}" 
+                <p:selectOneRadio value="#{actaC.acta.ESTACTA}" 
                                   requiredMessage="Seleccione Estado del Acta de Nacimiento."
                                   style="width: 50vh"
                                   unselectable="false" required="true">
@@ -92,7 +92,7 @@
                 </p:selectOneRadio>
 
 
-                <p:commandButton value="Modificar" actionListener="#{documentoC.accionDocumento('1', '2', null)}"
+                <p:commandButton value="Modificar" actionListener="#{actaC.accionActa('1', '2', null)}"
                                  onsuccess="PF('wdlgDatosAN').hide();" id="btnEditarAN"
                                  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
                                  mdl-button--colored mdl-color-text--white"
@@ -119,10 +119,10 @@
                   header="Agregar Acta de Matrimonio" closeOnEscape="true">
             <h:form id="frmRegistrarAM">
                 <p:growl life="1000"/>
-                <ui:include src="../Templates/Documento/AM/Registrar.xhtml"/>
+                <ui:include src="../Templates/Acta/AM/Registrar.xhtml"/>
                 <p:commandButton 
                     id="btnRegistrarAM"
-                    actionListener="#{documentoC.accionDocumento('2','1',null)}" value="GUARDAR" 
+                    actionListener="#{actaC.accionActa('2','1',null)}" value="GUARDAR" 
                     class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
                     mdl-button--colored mdl-color-text--white"
                     update="frmRegistrarAM tb:frmListarAN tb:frmListarAM  tb:frmListarAD"/>
@@ -138,9 +138,9 @@
                   header="Datos del Acta de Matrimonio" closeOnEscape="true">
             <h:form id="frmEditarAM">
                 <p:growl life="1000"/>
-                <ui:include src="../Templates/Documento/AM/Registrar.xhtml"/>
+                <ui:include src="../Templates/Acta/AM/Registrar.xhtml"/>
 
-                <p:selectOneRadio value="#{documentoC.documento.ESTDOC}" 
+                <p:selectOneRadio value="#{actaC.documactaCTA}" 
                                   requiredMessage="Seleccione Estado del Acta de Matrimonio."
                                   style="width: 50vh"
                                   unselectable="false" required="true">
@@ -149,7 +149,7 @@
                 </p:selectOneRadio>
 
 
-                <p:commandButton value="Modificar" actionListener="#{documentoC.accionDocumento('2', '2', null)}"
+                <p:commandButton value="Modificar" actionListener="#{actaC.accionActa('2', '2', null)}"
                                  onsuccess="PF('wdlgDatosAM').hide();" id="btnEditarAM"
                                  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
                                  mdl-button--colored mdl-color-text--white"
@@ -177,12 +177,12 @@
                   header="Agregar Acta de Defunción" closeOnEscape="true">
             <h:form id="frmRegistrarAD">
                 <p:growl life="1000"/>
-                <ui:include src="../Templates/Documento/AD/Registrar.xhtml"/>
+                <ui:include src="../Templates/Acta/AD/Registrar.xhtml"/>
                 <p:commandButton 
                     id="btnRegistrarAD"
-                    actionListener="#{documentoC.accionDocumento('3','1',null)}" value="GUARDAR" 
+                    actionListener="#{actaC.accionActa('3','1',null)}" value="GUARDAR" 
                     class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
-                    mdl-button--colored mdl-color-text--white"  oncomplete="#{documentoC.actorC.listarPersonas()}"
+                    mdl-button--colored mdl-color-text--white"  oncomplete="#{actaC.actorC.listarPersonas()}"
                     update="frmRegistrarAD tb:frmListarAN tb:frmListarAM  tb:frmListarAD :dlgPersona"/>
                 <p:blockUI block="frmRegistrarAD" trigger="btnRegistrarAD" >
                     Guardando..
@@ -196,9 +196,9 @@
                   header="Datos del Acta de Defunción" closeOnEscape="true">
             <h:form id="frmEditarAD">
                 <p:growl life="1000"/>
-                <ui:include src="../Templates/Documento/AD/Registrar.xhtml"/>
+                <ui:include src="../Templates/Acta/AD/Registrar.xhtml"/>
 
-                <p:selectOneRadio value="#{documentoC.documento.ESTDOC}" 
+                <p:selectOneRadio value="#{actaC.acta}" 
                                   requiredMessage="Seleccione Estado del Acta de Defunción."
                                   style="width: 50vh"
                                   unselectable="false" required="true">
@@ -207,7 +207,7 @@
                 </p:selectOneRadio>
 
 
-                <p:commandButton value="Modificar" actionListener="#{documentoC.accionDocumento('3', '2', null)}"
+                <p:commandButton value="Modificar" actionListener="#{actaC.accionActa('3', '2', null)}"
                                  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
                                  mdl-button--colored mdl-color-text--white" 
                                  id="btnEditarAD" onsuccess="PF('wdlgDatosAD').hide();"
@@ -238,7 +238,7 @@
                 <ui:include src="../Templates/Persona/Registrar.xhtml"/>
                 <p:commandButton value="GUARDAR" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
                                  actionListener="#{personaC.registrarPersona()}" update=":dlgPersona"
-                                 oncomplete="#{documentoC.actorC.listarPersonas()}"/>
+                                 oncomplete="#{actaC.actorC.listarPersonas()}"/>
             </h:form>
         </p:dialog>
 

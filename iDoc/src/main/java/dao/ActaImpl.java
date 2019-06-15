@@ -6,29 +6,29 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import modelo.Documento;
+import modelo.Acta;
 import org.apache.commons.lang3.text.WordUtils;
 
-public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
+public class ActaImpl extends Conexion implements IGenerica<Acta> {
 
     @Override
-    public void registrar(Documento modelo) throws Exception {
+    public void registrar(Acta modelo) throws Exception {
         try {
-            String sql = "INSERT INTO REGCIV.DOCUMENTO "
-                    + "(IDMUN, IDLOG, IDPER, NUMLIBDOC, NUMFOLDOC, FECREGDOC, OBSDOC, CODUBI, DIRACT, FECACT, TIPDOC, ESTDOC) "
+            String sql = "INSERT INTO REGCIV.ACTA "
+                    + "(IDMUN, IDLOG, IDPER, NUMLIBACTA, NUMFOLACTA, FECREGACTA, OBSACTA, CODUBI, DIRACT, FECACT, TIPACTA, ESTACTA) "
                     + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setInt(1, 6);
             ps.setInt(2, 1);
             ps.setInt(3, Integer.valueOf(modelo.getIDPER()));
-            ps.setString(4, modelo.getNUMLIBDOC());
-            ps.setString(5, modelo.getNUMFOLDOC());
-            ps.setObject(6, modelo.getFECREGDOC(), java.sql.Types.DATE);
-            ps.setString(7, WordUtils.capitalize(modelo.getOBSDOC()));
+            ps.setString(4, modelo.getNUMLIBACTA());
+            ps.setString(5, modelo.getNUMFOLACTA());
+            ps.setObject(6, modelo.getFECREGACTA(), java.sql.Types.DATE);
+            ps.setString(7, WordUtils.capitalize(modelo.getOBSACTA()));
             ps.setString(8, modelo.getCODUBI());
             ps.setString(9, WordUtils.capitalize(modelo.getDIRACT()));
             ps.setObject(10, modelo.getFECACT(), java.sql.Types.DATE);
-            ps.setString(11, modelo.getTIPDOC());
+            ps.setString(11, modelo.getTIPACTA());
             ps.setString(12, "A");
             ps.executeUpdate();
             ps.clearParameters();
@@ -41,7 +41,7 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
     }
 
     @Override
-    public void editar(Documento modelo) throws Exception {
+    public void editar(Acta modelo) throws Exception {
         try {
             eliminar(modelo);
             registrar(modelo);
@@ -51,14 +51,14 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
     }
 
     @Override
-    public void eliminar(Documento modelo) throws Exception {
+    public void eliminar(Acta modelo) throws Exception {
         try {
-            String sql = "UPDATE REGCIV.DOCUMENTO SET "
-                    + "ESTDOC=? "
-                    + "WHERE IDDOC=? ";
+            String sql = "UPDATE REGCIV.ACTA SET "
+                    + "ESTACTA=? "
+                    + "WHERE IDACTA=? ";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, "I");
-            ps.setInt(2, Integer.valueOf(modelo.getIDDOC()));
+            ps.setInt(2, Integer.valueOf(modelo.getIDACTA()));
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
@@ -70,55 +70,55 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
     }
 
     @Override
-    public List<Documento> listar() throws Exception {
-        List<Documento> lista = null;
+    public List<Acta> listar() throws Exception {
+        List<Acta> lista = null;
         try {
             String sql = "SELECT "
-                    + "D.IDDOC, "
+                    + "D.IDACTA, "
                     + "D.IDMUN, "
                     + "D.IDPER, "
                     + "CONCAT(personaDocumento.APEPATPER, ' ',personaDocumento.APEMATPER, ', ',personaDocumento.NOMPER ) AS datosTitular, "
-                    + "D.NUMLIBDOC, "
-                    + "D.NUMFOLDOC, "
-                    + "D.FECREGDOC, "
-                    + "D.OBSDOC, "
+                    + "D.NUMLIBACTA, "
+                    + "D.NUMFOLACTA, "
+                    + "D.FECREGACTA, "
+                    + "D.OBSACTA, "
                     + "D.CODUBI, "
                     + "D.DIRACT, "
                     + "D.FECACT, "
-                    + "D.TIPDOC, "
-                    + "D.ESTDOC, "
+                    + "D.TIPACTA, "
+                    + "D.ESTACTA, "
                     + "A.IDACT, "
-                    + "A.IDDOC,	"
+                    + "A.IDACTA,	"
                     + "A.IDPER,	"
                     + "CONCAT(personaActor.APEPATPER, ' ',personaActor.APEMATPER, ', ',personaActor.NOMPER ) AS datosActor, "
                     + "A.TIPACT "
                     + "FROM RegCiv.ACTOR AS A "
                     + "INNER JOIN General.PERSONA AS personaActor "
                     + "ON A.IDPER = personaActor.IDPER "
-                    + "FULL OUTER JOIN RegCiv.DOCUMENTO AS D "
-                    + "ON A.IDDOC = D.IDDOC "
+                    + "FULL OUTER JOIN RegCiv.ACTA AS D "
+                    + "ON A.IDACTA = D.IDACTA "
                     + "INNER JOIN General.PERSONA AS personaDocumento "
                     + "ON D.IDPER = personaDocumento.IDPER ";
-            Documento documento;
+            Acta documento;
             lista = new ArrayList<>();
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
 
             while (rs.next()) {
-                documento = new Documento();
+                documento = new Acta();
 
-                documento.setIDDOC(String.valueOf(rs.getInt(1)));
+                documento.setIDACTA(String.valueOf(rs.getInt(1)));
                 documento.setIDMUN(String.valueOf(rs.getInt(2)));
                 documento.setIDPER(String.valueOf(rs.getInt(3)));
                 documento.setTitular(rs.getString(4));
-                documento.setNUMLIBDOC(rs.getString(5));
-                documento.setNUMFOLDOC(rs.getString(6));
-                documento.setFECREGDOC((rs.getDate(7)));
-                documento.setOBSDOC(rs.getString(8));
+                documento.setNUMLIBACTA(rs.getString(5));
+                documento.setNUMFOLACTA(rs.getString(6));
+                documento.setFECREGACTA((rs.getDate(7)));
+                documento.setOBSACTA(rs.getString(8));
                 documento.setCODUBI(rs.getString(9));
                 documento.setDIRACT(rs.getString(10));
                 documento.setFECACT((rs.getDate(11)));
-                documento.setTIPDOC(rs.getString(12));
-                documento.setESTDOC(rs.getString(13));
+                documento.setTIPACTA(rs.getString(12));
+                documento.setESTACTA(rs.getString(13));
                 String tipoActor = rs.getString(18);
                 if (tipoActor != null) {
                     switch (tipoActor) {
@@ -156,18 +156,18 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
     }
 
     @Override
-    public List<String> buscar(String campo, List<Documento> listaModelo) throws Exception {
+    public List<String> buscar(String campo, List<Acta> listaModelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Documento obtenerCodigo(List<Documento> listaModelo, Documento modelo) throws Exception {
-        modelo.setFECREGDOC(modelo.getFECREGDOC());
-        for (Documento documento1 : listaModelo) {
-            if (modelo.getFECREGDOC().equals(documento1.getFECREGDOC())
+    public Acta obtenerCodigo(List<Acta> listaModelo, Acta modelo) throws Exception {
+        modelo.setFECREGACTA(modelo.getFECREGACTA());
+        for (Acta documento1 : listaModelo) {
+            if (modelo.getFECREGACTA().equals(documento1.getFECREGACTA())
                     && modelo.getIDPER().equals(documento1.getIDPER())
-                    && modelo.getTIPDOC().equals(documento1.getTIPDOC())) {
-                modelo.setIDDOC(documento1.getIDDOC());
+                    && modelo.getTIPACTA().equals(documento1.getTIPACTA())) {
+                modelo.setIDACTA(documento1.getIDACTA());
             }
         }
         return modelo;
@@ -175,14 +175,14 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
     }
 
     @Override
-    public boolean existe(List<Documento> listaModelo, Documento modelo) throws Exception {
-        for (Documento documento : listaModelo) {
+    public boolean existe(List<Acta> listaModelo, Acta modelo) throws Exception {
+        for (Acta documento : listaModelo) {
             if (documento.getTitular().equalsIgnoreCase(modelo.getTitular())) {
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya existe un titular en este Tipo de Acta.", null));
                 return true;
-            } else if (documento.getNUMLIBDOC().equals(modelo.getNUMLIBDOC())
-                    && documento.getNUMFOLDOC().equals(modelo.getNUMFOLDOC())) {
+            } else if (documento.getNUMLIBACTA().equals(modelo.getNUMLIBACTA())
+                    && documento.getNUMFOLACTA().equals(modelo.getNUMFOLACTA())) {
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya existe un Libro y Folio con los mismos números.", null));
                 return true;

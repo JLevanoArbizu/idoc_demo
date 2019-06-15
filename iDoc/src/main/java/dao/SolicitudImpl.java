@@ -2,56 +2,59 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.util.List;
-import modelo.Actor;
+import modelo.Solicitud;
 
-public class ActorImpl extends Conexion implements IGenerica<Actor> {
+public class SolicitudImpl extends Conexion implements IGenerica<Solicitud> {
 
     @Override
-    public void registrar(Actor modelo) throws Exception {
+    public void registrar(Solicitud modelo) throws Exception {
         try {
-            String sql = "INSERT INTO REGCIV.ACTOR (IDDOC, IDPER, TIPACT) VALUES "
-                    + "(?,?,?)";
+            String sql = "INSERT INTO RegCiv.SOLICITUD (IDSOL, IDLOG, IDPER, IDACTA, FECSOL, ESTSOL)"
+                    + " VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-            ps.setInt(1, Integer.valueOf(modelo.getIDACTA()));
-            ps.setInt(2, Integer.valueOf(modelo.getIDPER()));
-            ps.setString(3, modelo.getTIPACT());
+            ps.setInt(1, 1);
+            ps.setInt(2, Integer.valueOf(modelo.getLogin().getIDLOG()));
+            ps.setInt(3, Integer.valueOf(modelo.getPersona().getIDPER()));
+            ps.setInt(4, Integer.valueOf(modelo.getActa().getIDACTA()));
+            ps.setDate(5, modelo.getFECSOL());
+            ps.setString(6, "A");
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
         } catch (Exception e) {
-            e.printStackTrace();
         } finally {
             this.desconectar();
         }
     }
 
     @Override
-    public void editar(Actor modelo) throws Exception {
+    public void editar(Solicitud modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void eliminar(Actor modelo) throws Exception {
+    public void eliminar(Solicitud modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Actor> listar() throws Exception {
+    public List<Solicitud> listar() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<String> buscar(String campo, List<Actor> listaModelo) throws Exception {
+    public List<String> buscar(String campo, List<Solicitud> listaModelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Actor obtenerCodigo(List<Actor> listaModelo, Actor modelo) throws Exception {
+    public Solicitud obtenerCodigo(List<Solicitud> listaModelo, Solicitud modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean existe(List<Actor> listaModelo, Actor modelo) throws Exception {
+    public boolean existe(List<Solicitud> listaModelo, Solicitud modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

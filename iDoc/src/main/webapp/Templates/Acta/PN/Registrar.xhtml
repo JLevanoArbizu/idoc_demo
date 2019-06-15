@@ -4,59 +4,59 @@
       xmlns:p="http://primefaces.org/ui">
     <p:panelGrid columns="4">
         <p:outputLabel value="Hijo"/>
-        <p:autoComplete value="#{documentoC.documento.titular}" forceSelection="true"
+        <p:autoComplete value="#{actaC.acta.titular}" forceSelection="true"
                         required="true" requiredMessage="Hijo requerido." queryDelay="1"
                         emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
-                        completeMethod="#{documentoC.actorC.buscarPersona}"/>
+                        completeMethod="#{actaC.actorC.buscarPersona}"/>
 
         <p:outputLabel value="Padre"/>
-        <p:autoComplete value="#{documentoC.documento.papa}" forceSelection="true"
+        <p:autoComplete value="#{actaC.acta.papa}" forceSelection="true"
                         required="true" requiredMessage="Padre requerida." queryDelay="1"
                         emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
-                        completeMethod="#{documentoC.actorC.buscarPersona}"/>
+                        completeMethod="#{actaC.actorC.buscarPersona}"/>
 
         <p:outputLabel value="Madre"/>
-        <p:autoComplete value="#{documentoC.documento.mama}" forceSelection="true"
+        <p:autoComplete value="#{actaC.acta.mama}" forceSelection="true"
                         required="true" requiredMessage="Madre requerido." queryDelay="1"
                         emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
-                        completeMethod="#{documentoC.actorC.buscarPersona}"/>
+                        completeMethod="#{actaC.actorC.buscarPersona}"/>
 
         <p:outputLabel value="Declarante"/>
-        <p:autoComplete value="#{documentoC.documento.declarante}" forceSelection="true"
+        <p:autoComplete value="#{actaC.acta.declarante}" forceSelection="true"
                         required="true" requiredMessage="Declarante requerido." queryDelay="1"
                         emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
-                        completeMethod="#{documentoC.actorC.buscarPersona}"/>
+                        completeMethod="#{actaC.actorC.buscarPersona}"/>
 
         <p:outputLabel value="Médico"/>
-        <p:autoComplete value="#{documentoC.documento.medico}" forceSelection="true"
+        <p:autoComplete value="#{actaC.acta.medico}" forceSelection="true"
                         required="true" requiredMessage="Médico requerido." queryDelay="1"
                         emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
-                        completeMethod="#{documentoC.actorC.buscarPersona}"/>
+                        completeMethod="#{actaC.actorC.buscarPersona}"/>
 
 
         <p:outputLabel value="Distrito de Nacimiento"/>
-        <p:autoComplete value="#{documentoC.ubigeo.DISTUBI}" forceSelection="true" queryDelay="1"
+        <p:autoComplete value="#{actaC.ubigeo.DISTUBI}" forceSelection="true" queryDelay="1"
                         required="true" requiredMessage="Distrito requerido"
                         emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
-                        completeMethod="#{documentoC.buscarUbigeo}"/>
+                        completeMethod="#{actaC.buscarUbigeo}"/>
         <p:outputLabel value="Dirección de Nacimiento"/>
-        <p:inputText value="#{documentoC.documento.DIRACT}" maxlength="100" required="true" requiredMessage="Dirección requerida." style="text-transform: capitalize"/>
+        <p:inputText value="#{actaC.acta.DIRACT}" maxlength="100" required="true" requiredMessage="Dirección requerida." style="text-transform: capitalize"/>
         <p:outputLabel value="Número de Libro"/>
-        <p:spinner value="#{documentoC.documento.NUMLIBDOC}" min="1"
+        <p:spinner value="#{actaC.acta.NUMLIBDOC}" min="1"
                    maxlength="8" required="true" requiredMessage="Número de Libro Requerido"/>
         <p:outputLabel value="Número de Folio"/>
-        <p:spinner value="#{documentoC.documento.NUMFOLDOC}" min="1"
+        <p:spinner value="#{actaC.acta.NUMFOLDOC}" min="1"
                    maxlength="8" required="true" requiredMessage="Número de Folio Requerido."/>
         <p:outputLabel value="Observación"/>
-        <p:inputTextarea value="#{documentoC.documento.OBSDOC}"
+        <p:inputTextarea value="#{actaC.acta.OBSDOC}"
                          rows="5" cols="30" maxlength="500" autoResize="false" required="false" style="text-transform: capitalize"/>
         <p:outputLabel value="Fecha de Nacimiento" />
-        <p:calendar id="popupRegistrarNacimiento" value="#{documentoC.documento.FECACT}" 
+        <p:calendar id="popupRegistrarNacimiento" value="#{actaC.acta.FECACT}" 
                     readonlyInput="true"
                     locale="es" navigator="true" pattern="dd MMM yyyy" >
         </p:calendar>
         <p:outputLabel value="Fecha de Registro" />
-        <p:calendar id="popupRegistrarFecha1" value="#{documentoC.documento.FECREGDOC}" 
+        <p:calendar id="popupRegistrarFecha1" value="#{actaC.acta.FECREGDOC}" 
                     readonlyInput="true"
                     locale="es" navigator="true" pattern="dd MMM yyyy" >
         </p:calendar>

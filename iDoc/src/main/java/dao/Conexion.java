@@ -12,9 +12,9 @@ public class Conexion {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conexion = DriverManager.getConnection(
-                    "jdbc:sqlserver://34.73.201.76;database=Team03",
-                    "User03",
-                    "RegistroCivil");
+                    "jdbc:sqlserver://34.73.201.76;database=Team04",
+                    "User04",
+                    "TramiteDocumentario");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

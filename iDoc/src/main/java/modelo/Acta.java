@@ -2,19 +2,19 @@ package modelo;
 
 import java.util.Objects;
 
-public class Documento {
+public class Acta {
 
-    String IDDOC, IDMUN, IDLOG, IDPER, NUMLIBDOC, NUMFOLDOC,
-            OBSDOC, CODUBI, DIRACT, TIPDOC, ESTDOC;
-    java.util.Date FECREGDOC, FECACT;
+    String IDACTA, IDMUN, IDLOG, IDPER, NUMLIBACTA, NUMFOLACTA,
+            OBSACTA, CODUBI, DIRACT, TIPACTA, ESTACTA;
+    java.util.Date FECREGACTA, FECACT;
     String titular, esposa, declarante, papa, mama, celebrante, medico;
 
-    public java.util.Date getFECREGDOC() {
-        return FECREGDOC;
+    public java.util.Date getFECREGACTA() {
+        return FECREGACTA;
     }
 
-    public void setFECREGDOC(java.util.Date FECREGDOC) {
-        this.FECREGDOC = FECREGDOC;
+    public void setFECREGACTA(java.util.Date FECREGACTA) {
+        this.FECREGACTA = FECREGACTA;
     }
 
     public java.util.Date getFECACT() {
@@ -27,24 +27,24 @@ public class Documento {
 
     @Override
     public String toString() {
-        return "Documento{" + "IDDOC=" + IDDOC + ", IDMUN=" + IDMUN + ", IDLOG=" + IDLOG + ", IDPER=" + IDPER + ", NUMLIBDOC=" + NUMLIBDOC + ", NUMFOLDOC=" + NUMFOLDOC + ", OBSDOC=" + OBSDOC + ", CODUBI=" + CODUBI + ", DIRACT=" + DIRACT + ", TIPDOC=" + TIPDOC + ", ESTDOC=" + ESTDOC + ", FECREGDOC=" + FECREGDOC + ", FECACT=" + FECACT + ", titular=" + titular + ", esposa=" + esposa + ", declarante=" + declarante + ", papa=" + papa + ", mama=" + mama + ", celebrante=" + celebrante + ", medico=" + medico + '}';
+        return "Documento{" + "IDDOC=" + IDACTA + ", IDMUN=" + IDMUN + ", IDLOG=" + IDLOG + ", IDPER=" + IDPER + ", NUMLIBDOC=" + NUMLIBACTA + ", NUMFOLDOC=" + NUMFOLACTA + ", OBSDOC=" + OBSACTA + ", CODUBI=" + CODUBI + ", DIRACT=" + DIRACT + ", TIPDOC=" + TIPACTA + ", ESTDOC=" + ESTACTA + ", FECREGDOC=" + FECREGACTA + ", FECACT=" + FECACT + ", titular=" + titular + ", esposa=" + esposa + ", declarante=" + declarante + ", papa=" + papa + ", mama=" + mama + ", celebrante=" + celebrante + ", medico=" + medico + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.IDDOC);
+        hash = 89 * hash + Objects.hashCode(this.IDACTA);
         hash = 89 * hash + Objects.hashCode(this.IDMUN);
         hash = 89 * hash + Objects.hashCode(this.IDLOG);
         hash = 89 * hash + Objects.hashCode(this.IDPER);
-        hash = 89 * hash + Objects.hashCode(this.NUMLIBDOC);
-        hash = 89 * hash + Objects.hashCode(this.NUMFOLDOC);
-        hash = 89 * hash + Objects.hashCode(this.OBSDOC);
+        hash = 89 * hash + Objects.hashCode(this.NUMLIBACTA);
+        hash = 89 * hash + Objects.hashCode(this.NUMFOLACTA);
+        hash = 89 * hash + Objects.hashCode(this.OBSACTA);
         hash = 89 * hash + Objects.hashCode(this.CODUBI);
         hash = 89 * hash + Objects.hashCode(this.DIRACT);
-        hash = 89 * hash + Objects.hashCode(this.TIPDOC);
-        hash = 89 * hash + Objects.hashCode(this.ESTDOC);
-        hash = 89 * hash + Objects.hashCode(this.FECREGDOC);
+        hash = 89 * hash + Objects.hashCode(this.TIPACTA);
+        hash = 89 * hash + Objects.hashCode(this.ESTACTA);
+        hash = 89 * hash + Objects.hashCode(this.FECREGACTA);
         hash = 89 * hash + Objects.hashCode(this.FECACT);
         hash = 89 * hash + Objects.hashCode(this.titular);
         hash = 89 * hash + Objects.hashCode(this.esposa);
@@ -67,8 +67,8 @@ public class Documento {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Documento other = (Documento) obj;
-        if (!Objects.equals(this.IDDOC, other.IDDOC)) {
+        final Acta other = (Acta) obj;
+        if (!Objects.equals(this.IDACTA, other.IDACTA)) {
             return false;
         }
         if (!Objects.equals(this.IDMUN, other.IDMUN)) {
@@ -80,13 +80,13 @@ public class Documento {
         if (!Objects.equals(this.IDPER, other.IDPER)) {
             return false;
         }
-        if (!Objects.equals(this.NUMLIBDOC, other.NUMLIBDOC)) {
+        if (!Objects.equals(this.NUMLIBACTA, other.NUMLIBACTA)) {
             return false;
         }
-        if (!Objects.equals(this.NUMFOLDOC, other.NUMFOLDOC)) {
+        if (!Objects.equals(this.NUMFOLACTA, other.NUMFOLACTA)) {
             return false;
         }
-        if (!Objects.equals(this.OBSDOC, other.OBSDOC)) {
+        if (!Objects.equals(this.OBSACTA, other.OBSACTA)) {
             return false;
         }
         if (!Objects.equals(this.CODUBI, other.CODUBI)) {
@@ -95,13 +95,13 @@ public class Documento {
         if (!Objects.equals(this.DIRACT, other.DIRACT)) {
             return false;
         }
-        if (!Objects.equals(this.TIPDOC, other.TIPDOC)) {
+        if (!Objects.equals(this.TIPACTA, other.TIPACTA)) {
             return false;
         }
-        if (!Objects.equals(this.ESTDOC, other.ESTDOC)) {
+        if (!Objects.equals(this.ESTACTA, other.ESTACTA)) {
             return false;
         }
-        if (!Objects.equals(this.FECREGDOC, other.FECREGDOC)) {
+        if (!Objects.equals(this.FECREGACTA, other.FECREGACTA)) {
             return false;
         }
         if (!Objects.equals(this.FECACT, other.FECACT)) {
@@ -131,12 +131,12 @@ public class Documento {
         return true;
     }
 
-    public String getIDDOC() {
-        return IDDOC;
+    public String getIDACTA() {
+        return IDACTA;
     }
 
-    public void setIDDOC(String IDDOC) {
-        this.IDDOC = IDDOC;
+    public void setIDACTA(String IDACTA) {
+        this.IDACTA = IDACTA;
     }
 
     public String getIDMUN() {
@@ -163,28 +163,28 @@ public class Documento {
         this.IDPER = IDPER;
     }
 
-    public String getNUMLIBDOC() {
-        return NUMLIBDOC;
+    public String getNUMLIBACTA() {
+        return NUMLIBACTA;
     }
 
-    public void setNUMLIBDOC(String NUMLIBDOC) {
-        this.NUMLIBDOC = NUMLIBDOC;
+    public void setNUMLIBACTA(String NUMLIBACTA) {
+        this.NUMLIBACTA = NUMLIBACTA;
     }
 
-    public String getNUMFOLDOC() {
-        return NUMFOLDOC;
+    public String getNUMFOLACTA() {
+        return NUMFOLACTA;
     }
 
-    public void setNUMFOLDOC(String NUMFOLDOC) {
-        this.NUMFOLDOC = NUMFOLDOC;
+    public void setNUMFOLACTA(String NUMFOLACTA) {
+        this.NUMFOLACTA = NUMFOLACTA;
     }
 
-    public String getOBSDOC() {
-        return OBSDOC;
+    public String getOBSACTA() {
+        return OBSACTA;
     }
 
-    public void setOBSDOC(String OBSDOC) {
-        this.OBSDOC = OBSDOC;
+    public void setOBSACTA(String OBSACTA) {
+        this.OBSACTA = OBSACTA;
     }
 
     public String getCODUBI() {
@@ -203,20 +203,20 @@ public class Documento {
         this.DIRACT = DIRACT;
     }
 
-    public String getTIPDOC() {
-        return TIPDOC;
+    public String getTIPACTA() {
+        return TIPACTA;
     }
 
-    public void setTIPDOC(String TIPDOC) {
-        this.TIPDOC = TIPDOC;
+    public void setTIPACTA(String TIPACTA) {
+        this.TIPACTA = TIPACTA;
     }
 
-    public String getESTDOC() {
-        return ESTDOC;
+    public String getESTACTA() {
+        return ESTACTA;
     }
 
-    public void setESTDOC(String ESTDOC) {
-        this.ESTDOC = ESTDOC;
+    public void setESTACTA(String ESTACTA) {
+        this.ESTACTA = ESTACTA;
     }
 
     public String getTitular() {
@@ -276,19 +276,19 @@ public class Documento {
     }
 
     public void clear() {
-        this.IDDOC = null;
+        this.IDACTA = null;
         this.IDMUN = null;
         this.IDLOG = null;
         this.IDPER = null;
-        this.NUMLIBDOC = null;
-        this.NUMFOLDOC = null;
-        this.OBSDOC = null;
+        this.NUMLIBACTA = null;
+        this.NUMFOLACTA = null;
+        this.OBSACTA = null;
         this.CODUBI = null;
         this.DIRACT = null;
-        this.TIPDOC = null;
-        this.ESTDOC = null;
+        this.TIPACTA = null;
+        this.ESTACTA = null;
 
-        this.FECREGDOC = null;
+        this.FECREGACTA = null;
         this.FECACT = null;
         this.titular = null;
         this.esposa = null;

@@ -6,16 +6,16 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <p:dataTable id="dtTblDocumentoAD"  widgetVar="wdtTblDocumentoAD"
-                 value="#{documentoC.listaDocumentosAD}" var="listaAD"
-                 filteredValue="#{documentoC.listaDocumentosADfiltrado}"
-                 rowStyleClass="#{listaAD.ESTDOC eq 'A' ? null : 'inactivo'}"
+                 value="#{actaC.listaDocumentosAD}" var="listaAD"
+                 filteredValue="#{actaC.listaDocumentosADfiltrado}"
+                 rowStyleClass="#{listaAD.ESTACTA eq 'A' ? null : 'inactivo'}"
                  rows="20" emptyMessage="No se encontrarón datos."
                  paginator="true" scrollable="true" scrollHeight="500"
                  rowsPerPageTemplate="10,20,30">
         <f:facet name="header">
             Actas de Defunción
         </f:facet>
-        <p:column filterBy="#{listaAD.ESTDOC}"
+        <p:column filterBy="#{listaAD.ESTACTA}"
                   filterMatchMode="equals"
                   style="width: 15vh;">
             <f:facet name="filter">
@@ -36,9 +36,9 @@
             <h:outputLabel value="#{listaAD.titular}" style="font-weight: normal" />
         </p:column> 
 
-        <p:column headerText="Fecha de Registro"  style="font-weight: bold" sortBy="#{listaAD.FECREGDOC}">
+        <p:column headerText="Fecha de Registro"  style="font-weight: bold" sortBy="#{listaAD.FECREGACTA}">
 
-            <h:outputLabel value="#{listaAD.FECREGDOC}" style="font-weight: normal" >
+            <h:outputLabel value="#{listaAD.FECREGACTA}" style="font-weight: normal" >
                 <f:convertDateTime locale="es" pattern="dd MMM yyyy"  />
             </h:outputLabel>
         </p:column>
@@ -49,29 +49,29 @@
         </p:column>
 
         <p:column headerText="Observacion"  style="font-weight: bold">
-            <h:outputLabel value="#{listaAD.OBSDOC}" style="font-weight: normal" />
+            <h:outputLabel value="#{listaAD.OBSACTA}" style="font-weight: normal" />
         </p:column>
 
         <p:column exportable="false" headerText="Accion">
             <p:commandButton update=":dlgDatosAD" icon="ui-icon-pencil" title="Modificar" id="disabled" disabled="true"
-                             rendered="#{listaAD.ESTDOC eq 'A'}"
+                             rendered="#{listaAD.ESTACTA eq 'A'}"
                              class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
-                             actionListener="#{documentoC.ubigeo.setDISTUBI(listaAD.CODUBI)}"
+                             actionListener="#{actaC.ubigeo.setDISTUBI(listaAD.CODUBI)}"
                              oncomplete="PF('wdlgDatosAD').show();"
          
                              >
                 <f:setPropertyActionListener value="#{listaAD}" 
-                                             target="#{documentoC.documento}"/>
+                                             target="#{actaC.acta}"/>
             </p:commandButton>
             <p:commandButton update=":dlgRegistrarIncidencia" title="Agregar Incidencia" value="+"
-                             rendered="#{listaAD.ESTDOC eq 'A'}"
+                             rendered="#{listaAD.ESTACTA eq 'A'}"
                              class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"
-                             actionListener="#{incidenciaC.incidencia.setIDDOC(listaAD.IDDOC)}"
+                             actionListener="#{incidenciaC.incidencia.setIDDOC(listaAD.IDACTA)}"
                              oncomplete="PF('wdlgRegistrarIncidencia').show();"
                              onclick="this.disabled='true'"
                              />
-            <p:commandButton actionListener="#{documentoC.descargarReporte(listaAD)}" ajax="false"
-                             value="Descargar" rendered="#{listaAD.ESTDOC eq 'A'}"/>
+            <p:commandButton actionListener="#{actaC.descargarReporte(listaAD)}" ajax="false"
+                             value="Descargar" rendered="#{listaAD.ESTACTA eq 'A'}"/>
         </p:column> 
 
         <p:rowExpansion>
@@ -79,9 +79,9 @@
                 <h:outputLabel value="Declarante" style="font-weight: bold"/>
                 <h:outputText value="#{listaAD.declarante}" style="font-weight: normal" />
                 <h:outputLabel value="Libro" style="font-weight: bold"/>
-                <h:outputText value="#{listaAD.NUMLIBDOC}" style="font-weight: normal" />
+                <h:outputText value="#{listaAD.NUMLIBACTA}" style="font-weight: normal" />
                 <h:outputLabel value="Folio" style="font-weight: bold"/>
-                <h:outputText value="#{listaAD.NUMFOLDOC}" style="font-weight: normal" />
+                <h:outputText value="#{listaAD.NUMFOLACTA}" style="font-weight: normal" />
                 <h:outputLabel value="Distrito de Fallecimiento" style="font-weight: bold"/>
                 <h:outputText value="#{listaAD.CODUBI}" style="font-weight: normal" />
                 <h:outputLabel value="Lugar de Fallecimiento" style="font-weight: bold"/>

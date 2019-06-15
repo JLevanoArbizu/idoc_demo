@@ -1,6 +1,6 @@
 package controlador;
 
-import dao.DocumentoImpl;
+import dao.ActaImpl;
 import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -12,25 +12,25 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
-import modelo.Documento;
+import modelo.Acta;
 import modelo.Ubigeo;
 import servicio.ReporteS;
 
-@Named(value = "documentoC")
+@Named(value = "actaC")
 @SessionScoped
-public class DocumentoC extends UbigeoC implements Serializable {
+public class ActaC extends UbigeoC implements Serializable {
 
-    Documento documento;
-    List<Documento> listaDocumentosGeneral;
-    List<Documento> listaDocumentosAN;
-    List<Documento> listaDocumentosAM;
-    List<Documento> listaDocumentosAD;
+    Acta acta;
+    List<Acta> listaDocumentosGeneral;
+    List<Acta> listaDocumentosAN;
+    List<Acta> listaDocumentosAM;
+    List<Acta> listaDocumentosAD;
 
-    List<Documento> listaDocumentosANfiltrado;
-    List<Documento> listaDocumentosAMfiltrado;
-    List<Documento> listaDocumentosADfiltrado;
+    List<Acta> listaDocumentosANfiltrado;
+    List<Acta> listaDocumentosAMfiltrado;
+    List<Acta> listaDocumentosADfiltrado;
 
-    DocumentoImpl daoDocumento;
+    ActaImpl daoDocumento;
     ActorC actorC;
     
     ReporteS reporte;
@@ -38,17 +38,17 @@ public class DocumentoC extends UbigeoC implements Serializable {
     @ManagedProperty("#{trabajadorC}")
     TrabajadorC trabajadorC;
 
-    public DocumentoC() {
+    public ActaC() {
         try {
-            documento = new Documento();
+            acta = new Acta();
             listaDocumentosGeneral = new ArrayList<>();
             listaDocumentosAN = new ArrayList<>();
             listaDocumentosAM = new ArrayList<>();
             listaDocumentosAD = new ArrayList<>();
-            List<Documento> listaDocumentosANfiltrado = new ArrayList<>();
-            List<Documento> listaDocumentosAMfiltrado = new ArrayList<>();
-            List<Documento> listaDocumentosADfiltrado = new ArrayList<>();
-            daoDocumento = new DocumentoImpl();
+            List<Acta> listaDocumentosANfiltrado = new ArrayList<>();
+            List<Acta> listaDocumentosAMfiltrado = new ArrayList<>();
+            List<Acta> listaDocumentosADfiltrado = new ArrayList<>();
+            daoDocumento = new ActaImpl();
             actorC = new ActorC();
             reporte = new ReporteS();
         } catch (Exception e) {
@@ -73,40 +73,40 @@ public class DocumentoC extends UbigeoC implements Serializable {
         }
     }
 
-    public void accionDocumento(char tipoDocumento, char tipoAccion, Documento documentoEliminar) throws Exception {
+    public void accionActa(char tipoDocumento, char tipoAccion, Acta documentoEliminar) throws Exception {
         try {
-            documento.setTIPDOC(String.valueOf(tipoDocumento));
+            acta.setTIPACTA(String.valueOf(tipoDocumento));
             seterCodigos();
             boolean existe = false;
             switch (tipoAccion) {
                 case '1':
                     switch (tipoDocumento) {
                         case '1':
-                            existe = daoDocumento.existe(listaDocumentosAN, documento);
+                            existe = daoDocumento.existe(listaDocumentosAN, acta);
                             break;
                         case '2':
-                            existe = daoDocumento.existe(listaDocumentosAM, documento);
+                            existe = daoDocumento.existe(listaDocumentosAM, acta);
                             break;
                         case '3':
-                            existe = daoDocumento.existe(listaDocumentosAD, documento);
+                            existe = daoDocumento.existe(listaDocumentosAD, acta);
                             break;
                     }
                     if (!existe) {
-                        documento.setIDLOG(trabajadorC.loginT.getIDLOG());
-                        daoDocumento.registrar(documento);
+                        acta.setIDLOG(trabajadorC.loginT.getIDLOG());
+                        daoDocumento.registrar(acta);
                     } else {
                         return;
                     }
                     break;
                 case '2':
-                    daoDocumento.editar(documento);
+                    daoDocumento.editar(acta);
                     break;
                 case '3':
                     daoDocumento.eliminar(documentoEliminar);
                     break;
             }
             registrarActores();
-            documento.clear();
+            acta.clear();
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", null));
         } catch (Exception e) {
@@ -116,7 +116,7 @@ public class DocumentoC extends UbigeoC implements Serializable {
         }
     }
     
-    public void descargarReporte(Documento doc) throws IOException{
+    public void descargarReporte(Acta doc) throws IOException{
         try {
             reporte.generarActa(doc);
         } catch (UnsupportedEncodingException e) {
@@ -128,52 +128,52 @@ public class DocumentoC extends UbigeoC implements Serializable {
     public void registrarActores() throws Exception {
         try {
             listar();
-            actorC.actor.setIDDOC(daoDocumento.obtenerCodigo(listaDocumentosGeneral, documento).getIDDOC());
-            switch (documento.getTIPDOC()) {
+            actorC.actor.setIDACTA(daoDocumento.obtenerCodigo(listaDocumentosGeneral, acta).getIDACTA());
+            switch (acta.getTIPACTA()) {
                 case "1":
-                    actorC.persona.setCOMPLETO(documento.getDeclarante());
+                    actorC.persona.setCOMPLETO(acta.getDeclarante());
                     actorC.actor.setTIPACT("2");
                     actorC.registrarActor();
-                    documento.setDeclarante(actorC.persona.getCOMPLETO());
+                    acta.setDeclarante(actorC.persona.getCOMPLETO());
 
-                    actorC.persona.setCOMPLETO(documento.getPapa());
+                    actorC.persona.setCOMPLETO(acta.getPapa());
                     actorC.actor.setTIPACT("3");
                     actorC.registrarActor();
-                    documento.setPapa(actorC.persona.getCOMPLETO());
+                    acta.setPapa(actorC.persona.getCOMPLETO());
 
-                    actorC.persona.setCOMPLETO(documento.getMama());
+                    actorC.persona.setCOMPLETO(acta.getMama());
                     actorC.actor.setTIPACT("4");
                     actorC.registrarActor();
-                    documento.setMama(actorC.persona.getCOMPLETO());
+                    acta.setMama(actorC.persona.getCOMPLETO());
 
-                    actorC.persona.setCOMPLETO(documento.getMedico());
+                    actorC.persona.setCOMPLETO(acta.getMedico());
                     actorC.actor.setTIPACT("6");
                     actorC.registrarActor();
-                    documento.setMedico(actorC.persona.getCOMPLETO());
+                    acta.setMedico(actorC.persona.getCOMPLETO());
 
                     break;
                 case "2":
-                    actorC.persona.setCOMPLETO(documento.getEsposa());
+                    actorC.persona.setCOMPLETO(acta.getEsposa());
                     actorC.actor.setTIPACT("1");
                     actorC.registrarActor();
-                    documento.setEsposa(actorC.persona.getCOMPLETO());
+                    acta.setEsposa(actorC.persona.getCOMPLETO());
 
-                    actorC.persona.setCOMPLETO(documento.getCelebrante());
+                    actorC.persona.setCOMPLETO(acta.getCelebrante());
                     actorC.actor.setTIPACT("5");
                     actorC.registrarActor();
-                    documento.setCelebrante(actorC.persona.getCOMPLETO());
+                    acta.setCelebrante(actorC.persona.getCOMPLETO());
 
                     break;
 
                 case "3":
-                    actorC.persona.setCOMPLETO(documento.getDeclarante());
+                    actorC.persona.setCOMPLETO(acta.getDeclarante());
                     actorC.actor.setTIPACT("2");
                     actorC.registrarActor();
-                    documento.setDeclarante(actorC.persona.getCOMPLETO());
+                    acta.setDeclarante(actorC.persona.getCOMPLETO());
 
                     break;
             }
-            documento.clear();
+            acta.clear();
             actorC.actor.clear();
             listarActas();
         } catch (Exception e) {
@@ -182,12 +182,12 @@ public class DocumentoC extends UbigeoC implements Serializable {
     }
 
     public void seterCodigos() throws Exception {
-        documento.setIDMUN("6");
-        documento.setCODUBI(obtenerCodigoUbigeo().getCODUBI());
-        actorC.persona.setCOMPLETO(documento.getTitular());
-        documento.setIDPER(actorC.obtenerCodigo().getIDPER());
-        documento.setFECREGDOC(new java.sql.Date(documento.getFECREGDOC().getTime()));
-        documento.setFECACT(new java.sql.Date(documento.getFECACT().getTime()));
+        acta.setIDMUN("6");
+        acta.setCODUBI(obtenerCodigoUbigeo().getCODUBI());
+        actorC.persona.setCOMPLETO(acta.getTitular());
+        acta.setIDPER(actorC.obtenerCodigo().getIDPER());
+        acta.setFECREGACTA(new java.sql.Date(acta.getFECREGACTA().getTime()));
+        acta.setFECACT(new java.sql.Date(acta.getFECACT().getTime()));
     }
 
     public void listarActas() throws Exception {
@@ -195,9 +195,9 @@ public class DocumentoC extends UbigeoC implements Serializable {
         listaDocumentosAN.clear();
         listaDocumentosAM.clear();
         listaDocumentosAD.clear();
-        Documento docTmpAM = new Documento();
-        for (Documento documentoTemp : listaDocumentosGeneral) {
-            String tipoDocumento = documentoTemp.getTIPDOC();
+        Acta docTmpAM = new Acta();
+        for (Acta documentoTemp : listaDocumentosGeneral) {
+            String tipoDocumento = documentoTemp.getTIPACTA();
             if (tipoDocumento != null) {
                 for (Ubigeo ubigeo1 : listaUbigeo) {
                     if (ubigeo1.getCODUBI().equals(documentoTemp.getCODUBI())) {
@@ -228,11 +228,11 @@ public class DocumentoC extends UbigeoC implements Serializable {
 
         }
 
-        Documento anterior = new Documento();
-        Documento docTmpAN = new Documento();
-        List<Documento> listaTmp = new ArrayList<>();
-        for (Documento documentoTemporal : listaDocumentosAN) {
-            if (documentoTemporal.getIDDOC().equals(anterior.getIDDOC())) {
+        Acta anterior = new Acta();
+        Acta docTmpAN = new Acta();
+        List<Acta> listaTmp = new ArrayList<>();
+        for (Acta documentoTemporal : listaDocumentosAN) {
+            if (documentoTemporal.getIDACTA().equals(anterior.getIDACTA())) {
                 if (documentoTemporal.getPapa() != null) {
                     docTmpAN = documentoTemporal;
                     docTmpAN.setPapa(documentoTemporal.getPapa());
@@ -252,19 +252,19 @@ public class DocumentoC extends UbigeoC implements Serializable {
         listaDocumentosAN = listaTmp;
     }
 
-    public Documento getDocumento() {
-        return documento;
+    public Acta getActa() {
+        return acta;
     }
 
-    public void setDocumento(Documento documento) {
-        this.documento = documento;
+    public void setActa(Acta acta) {
+        this.acta = acta;
     }
 
-    public List<Documento> getListaDocumentosGeneral() {
+    public List<Acta> getListaDocumentosGeneral() {
         return listaDocumentosGeneral;
     }
 
-    public void setListaDocumentosGeneral(List<Documento> listaDocumentosGeneral) {
+    public void setListaDocumentosGeneral(List<Acta> listaDocumentosGeneral) {
         this.listaDocumentosGeneral = listaDocumentosGeneral;
     }
 
@@ -276,51 +276,51 @@ public class DocumentoC extends UbigeoC implements Serializable {
         this.actorC = actorC;
     }
 
-    public List<Documento> getListaDocumentosAN() {
+    public List<Acta> getListaDocumentosAN() {
         return listaDocumentosAN;
     }
 
-    public void setListaDocumentosAN(List<Documento> listaDocumentosAN) {
+    public void setListaDocumentosAN(List<Acta> listaDocumentosAN) {
         this.listaDocumentosAN = listaDocumentosAN;
     }
 
-    public List<Documento> getListaDocumentosAM() {
+    public List<Acta> getListaDocumentosAM() {
         return listaDocumentosAM;
     }
 
-    public void setListaDocumentosAM(List<Documento> listaDocumentosAM) {
+    public void setListaDocumentosAM(List<Acta> listaDocumentosAM) {
         this.listaDocumentosAM = listaDocumentosAM;
     }
 
-    public List<Documento> getListaDocumentosAD() {
+    public List<Acta> getListaDocumentosAD() {
         return listaDocumentosAD;
     }
 
-    public void setListaDocumentosAD(List<Documento> listaDocumentosAD) {
+    public void setListaDocumentosAD(List<Acta> listaDocumentosAD) {
         this.listaDocumentosAD = listaDocumentosAD;
     }
 
-    public List<Documento> getListaDocumentosANfiltrado() {
+    public List<Acta> getListaDocumentosANfiltrado() {
         return listaDocumentosANfiltrado;
     }
 
-    public void setListaDocumentosANfiltrado(List<Documento> listaDocumentosANfiltrado) {
+    public void setListaDocumentosANfiltrado(List<Acta> listaDocumentosANfiltrado) {
         this.listaDocumentosANfiltrado = listaDocumentosANfiltrado;
     }
 
-    public List<Documento> getListaDocumentosAMfiltrado() {
+    public List<Acta> getListaDocumentosAMfiltrado() {
         return listaDocumentosAMfiltrado;
     }
 
-    public void setListaDocumentosAMfiltrado(List<Documento> listaDocumentosAMfiltrado) {
+    public void setListaDocumentosAMfiltrado(List<Acta> listaDocumentosAMfiltrado) {
         this.listaDocumentosAMfiltrado = listaDocumentosAMfiltrado;
     }
 
-    public List<Documento> getListaDocumentosADfiltrado() {
+    public List<Acta> getListaDocumentosADfiltrado() {
         return listaDocumentosADfiltrado;
     }
 
-    public void setListaDocumentosADfiltrado(List<Documento> listaDocumentosADfiltrado) {
+    public void setListaDocumentosADfiltrado(List<Acta> listaDocumentosADfiltrado) {
         this.listaDocumentosADfiltrado = listaDocumentosADfiltrado;
     }
 

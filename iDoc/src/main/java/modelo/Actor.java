@@ -3,25 +3,25 @@ package modelo;
 import java.util.Objects;
 
 public class Actor {
-    String IDACT, IDDOC, IDPER, TIPACT;
+    String IDACT, IDACTA, IDPER, TIPACT;
     
     public void clear(){
         this.IDACT = null;
-        this.IDDOC = null;
+        this.IDACTA = null;
         this.IDPER = null;
         this.TIPACT = null;
     }
 
     @Override
     public String toString() {
-        return "Actor{" + "IDACT=" + IDACT + ", IDDOC=" + IDDOC + ", IDPER=" + IDPER + ", TIPACT=" + TIPACT + '}';
+        return "Actor{" + "IDACT=" + IDACT + ", IDDOC=" + IDACTA + ", IDPER=" + IDPER + ", TIPACT=" + TIPACT + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 41 * hash + Objects.hashCode(this.IDACT);
-        hash = 41 * hash + Objects.hashCode(this.IDDOC);
+        hash = 41 * hash + Objects.hashCode(this.IDACTA);
         hash = 41 * hash + Objects.hashCode(this.IDPER);
         hash = 41 * hash + Objects.hashCode(this.TIPACT);
         return hash;
@@ -42,7 +42,7 @@ public class Actor {
         if (!Objects.equals(this.IDACT, other.IDACT)) {
             return false;
         }
-        if (!Objects.equals(this.IDDOC, other.IDDOC)) {
+        if (!Objects.equals(this.IDACTA, other.IDACTA)) {
             return false;
         }
         if (!Objects.equals(this.IDPER, other.IDPER)) {
@@ -62,12 +62,12 @@ public class Actor {
         this.IDACT = IDACT;
     }
 
-    public String getIDDOC() {
-        return IDDOC;
+    public String getIDACTA() {
+        return IDACTA;
     }
 
-    public void setIDDOC(String IDDOC) {
-        this.IDDOC = IDDOC;
+    public void setIDACTA(String IDACTA) {
+        this.IDACTA = IDACTA;
     }
 
     public String getIDPER() {

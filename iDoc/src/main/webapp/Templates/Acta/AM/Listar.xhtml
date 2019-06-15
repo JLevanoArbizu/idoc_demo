@@ -5,16 +5,16 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <p:dataTable id="dtTblDocumentoAM" widgetVar="wdtTblDocumentoAM"
-                 value="#{documentoC.listaDocumentosAM}" var="listaAM"
-                 filteredValue="#{documentoC.listaDocumentosAMfiltrado}"
-                 rowStyleClass="#{listaAM.ESTDOC eq 'A' ? null : 'inactivo'}"
+                 value="#{actaC.listaDocumentosAM}" var="listaAM"
+                 filteredValue="#{actaC.listaDocumentosAMfiltrado}"
+                 rowStyleClass="#{listaAM.ESTACTA eq 'A' ? null : 'inactivo'}"
                  rows="20" emptyMessage="No se encontrarón datos."
                  paginator="true" scrollable="true" scrollHeight="500"
                  rowsPerPageTemplate="10,20,30">
         <f:facet name="header">
             Actas de Matrimonio
         </f:facet>
-        <p:column filterBy="#{listaAM.ESTDOC}"
+        <p:column filterBy="#{listaAM.ESTACTA}"
                   filterMatchMode="equals"
                   style="width: 15vh;">
             <f:facet name="filter">
@@ -42,8 +42,8 @@
             <h:outputLabel value="#{listaAM.esposa}" style="font-weight: normal" />
         </p:column> 
 
-        <p:column headerText="Fecha de Registro"  style="font-weight: bold" sortBy="#{listaAM.FECREGDOC}">
-            <h:outputLabel value="#{listaAM.FECREGDOC}" style="font-weight: normal">
+        <p:column headerText="Fecha de Registro"  style="font-weight: bold" sortBy="#{listaAM.FECREGACTA}">
+            <h:outputLabel value="#{listaAM.FECREGACTA}" style="font-weight: normal">
                 <f:convertDateTime locale="es" pattern="dd MMM yyyy"/>
             </h:outputLabel>
         </p:column>
@@ -53,16 +53,16 @@
             </h:outputLabel>
         </p:column>
         <p:column headerText="Observacion"  style="font-weight: bold">
-            <h:outputLabel value="#{listaAM.OBSDOC}" style="font-weight: normal" />
+            <h:outputLabel value="#{listaAM.OBSACTA}" style="font-weight: normal" />
         </p:column>
         <p:rowExpansion>
             <p:panelGrid columns="4">
                 <h:outputLabel value="Celebrante" style="font-weight: bold"/>
                 <h:outputText value="#{listaAM.celebrante}" style="font-weight: normal" />
                 <h:outputLabel value="Libro" style="font-weight: bold"/>
-                <h:outputText value="#{listaAM.NUMLIBDOC}" style="font-weight: normal" />
+                <h:outputText value="#{listaAM.NUMLIBACTA}" style="font-weight: normal" />
                 <h:outputLabel value="Folio" style="font-weight: bold"/>
-                <h:outputText value="#{listaAM.NUMFOLDOC}" style="font-weight: normal" />
+                <h:outputText value="#{listaAM.NUMFOLACTA}" style="font-weight: normal" />
                 <h:outputLabel value="Distrito de Matrimonio" style="font-weight: bold"/>
                 <h:outputText value="#{listaAM.CODUBI}" style="font-weight: normal" />
                 <h:outputLabel value="Lugar de Matrimonio" style="font-weight: bold"/>
@@ -71,20 +71,20 @@
         </p:rowExpansion>
         <p:column exportable="false" headerText="Accion">
             <p:commandButton update=":dlgDatosAM" icon="ui-icon-pencil" title="Modificar" 
-                             rendered="#{listaAM.ESTDOC eq 'A'}"
+                             rendered="#{listaAM.ESTACTA eq 'A'}"
                              class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
-                             actionListener="#{documentoC.ubigeo.setDISTUBI(listaAM.CODUBI)}"
+                             actionListener="#{actaC.ubigeo.setDISTUBI(listaAM.CODUBI)}"
                              oncomplete="PF('wdlgDatosAM').show();">
                 <f:setPropertyActionListener value="#{listaAM}" 
-                                             target="#{documentoC.documento}"/>
+                                             target="#{actaC.acta}"/>
             </p:commandButton>
             <p:commandButton update=":dlgRegistrarIncidencia" title="Agregar Incidencia" value="+"
-                             rendered="#{listaAM.ESTDOC eq 'A'}"
+                             rendered="#{listaAM.ESTACTA eq 'A'}"
                              class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"
-                             actionListener="#{incidenciaC.incidencia.setIDDOC(listaAM.IDDOC)}"
+                             actionListener="#{incidenciaC.incidencia.setIDDOC(listaAM.IDACTA)}"
                              oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
-            <p:commandButton actionListener="#{documentoC.descargarReporte(listaAM)}" ajax="false"
-                             value="Descargar" rendered="#{listaAM.ESTDOC eq 'A'}"/>
+            <p:commandButton actionListener="#{actaC.descargarReporte(listaAM)}" ajax="false"
+                             value="Descargar" rendered="#{listaAM.ESTACTA eq 'A'}"/>
         </p:column> 
         <p:blockUI block="dtTblDocumentoAM" trigger="dtTblDocumentoAM">
             Actualizando
