@@ -19,7 +19,7 @@ public class ReporteS {
         try {
             Gson gson = new Gson();
             HttpClient httpClient = HttpClientBuilder.create().build();
-            String url = "http://localhost:5000/api/RegistroCivil/reportes/actas/am";
+            String url = "https://codelog.herokuapp.com/api/RegistroCivil/reportes/actas";
             HttpPost post = new HttpPost(url);
             StringEntity postEntity = new StringEntity(gson.toJson(documento),ContentType.APPLICATION_JSON);
             post.setEntity(postEntity);
@@ -31,12 +31,11 @@ public class ReporteS {
             HttpServletResponse respuestaPF = (HttpServletResponse) facesContext.getExternalContext().getResponse();
             respuestaPF.reset();
             respuestaPF.setContentType("application/pdf");
-            respuestaPF.setHeader("Content-disposition", "attachment; filename=ActaMatrimonio.pdf");
+            respuestaPF.setHeader("Content-disposition", "attachment; filename=Acta.pdf");
             OutputStream output = respuestaPF.getOutputStream();
             respuestaApi.getEntity().writeTo(output);
             output.flush();
             FacesContext.getCurrentInstance().responseComplete();
-            System.out.println("Terminó");
         } catch (Exception e) {
             e.printStackTrace();
         }

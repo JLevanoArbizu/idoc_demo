@@ -118,7 +118,7 @@ public class DocumentoC extends UbigeoC implements Serializable {
     
     public void descargarReporte(Documento doc) throws IOException{
         try {
-            reporte.generarActa(documento);
+            reporte.generarActa(doc);
         } catch (UnsupportedEncodingException e) {
             System.out.println("Error Reporte");
             e.printStackTrace();

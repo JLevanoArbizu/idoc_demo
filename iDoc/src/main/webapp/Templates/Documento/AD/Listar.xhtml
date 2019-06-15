@@ -70,6 +70,8 @@
                              oncomplete="PF('wdlgRegistrarIncidencia').show();"
                              onclick="this.disabled='true'"
                              />
+            <p:commandButton actionListener="#{documentoC.descargarReporte(listaAD)}"
+                             value="Descargar" rendered="#{listaAD.ESTDOC eq 'A'}"/>
         </p:column> 
 
         <p:rowExpansion>
