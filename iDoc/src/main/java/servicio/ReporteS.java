@@ -17,6 +17,7 @@ public class ReporteS {
 
     public void generarActa(Documento documento) throws UnsupportedEncodingException {
         try {
+            System.out.println(documento.toString());
             Gson gson = new Gson();
             HttpClient httpClient = HttpClientBuilder.create().build();
             String url = "https://codelog.herokuapp.com/api/RegistroCivil/reportes/actas";
@@ -25,6 +26,8 @@ public class ReporteS {
             post.setEntity(postEntity);
             HttpResponse respuestaApi = httpClient.execute(post);
             System.out.println(respuestaApi.getStatusLine().getStatusCode());
+            
+            
 
             FacesContext facesContext = FacesContext.getCurrentInstance();
 

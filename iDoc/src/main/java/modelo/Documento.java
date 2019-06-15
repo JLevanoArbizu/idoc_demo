@@ -7,6 +7,7 @@ public class Documento {
     String IDDOC, IDMUN, IDLOG, IDPER, NUMLIBDOC, NUMFOLDOC,
             OBSDOC, CODUBI, DIRACT, TIPDOC, ESTDOC;
     java.util.Date FECREGDOC, FECACT;
+    String titular, esposa, declarante, papa, mama, celebrante, medico;
 
     public java.util.Date getFECREGDOC() {
         return FECREGDOC;
@@ -23,8 +24,6 @@ public class Documento {
     public void setFECACT(java.util.Date FECACT) {
         this.FECACT = FECACT;
     }
-
-    String titular, esposa, declarante, papa, mama, celebrante, medico;
 
     @Override
     public String toString() {
@@ -220,7 +219,6 @@ public class Documento {
         this.ESTDOC = ESTDOC;
     }
 
-
     public String getTitular() {
         return titular;
     }
@@ -292,13 +290,13 @@ public class Documento {
 
         this.FECREGDOC = null;
         this.FECACT = null;
-        this.titular=null;
-        this.esposa=null;
-        this.declarante=null;
-        this.papa=null;
-        this.mama=null;
-        this.celebrante=null;
-        this.medico=null;
+        this.titular = null;
+        this.esposa = null;
+        this.declarante = null;
+        this.papa = null;
+        this.mama = null;
+        this.celebrante = null;
+        this.medico = null;
 
     }
 }

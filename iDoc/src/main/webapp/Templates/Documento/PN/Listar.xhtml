@@ -68,7 +68,7 @@
                              class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"
                              actionListener="#{incidenciaC.incidencia.setIDDOC(listaAN.IDDOC)}"
                              oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
-            <p:commandButton actionListener="#{documentoC.descargarReporte(listaAN)}"
+            <p:commandButton actionListener="#{documentoC.descargarReporte(listaAN)}" ajax="false"
                              value="Descargar" rendered="#{listaAN.ESTDOC eq 'A'}"/>
         </p:column> 
         <p:rowExpansion>
