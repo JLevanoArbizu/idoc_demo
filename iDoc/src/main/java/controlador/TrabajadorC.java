@@ -61,6 +61,7 @@ public class TrabajadorC extends PersonaC implements Serializable {
     }
 
     public void seguridadSesion() throws IOException {
+        System.out.println("login: " + loginT.toString());
         if (loginT.getIDLOG() == null) {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc/faces/Pages/Login.xhtml");
         }

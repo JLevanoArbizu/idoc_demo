@@ -182,7 +182,7 @@ public class ActaC extends UbigeoC implements Serializable {
     }
 
     public void seterCodigos() throws Exception {
-        acta.setIDMUN("6");
+        acta.setIDMUN("5");
         acta.setCODUBI(obtenerCodigoUbigeo().getCODUBI());
         actorC.persona.setCOMPLETO(acta.getTitular());
         acta.setIDPER(actorC.obtenerCodigo().getIDPER());

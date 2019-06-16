@@ -42,13 +42,13 @@
         <p:outputLabel value="Dirección de Nacimiento"/>
         <p:inputText value="#{actaC.acta.DIRACT}" maxlength="100" required="true" requiredMessage="Dirección requerida." style="text-transform: capitalize"/>
         <p:outputLabel value="Número de Libro"/>
-        <p:spinner value="#{actaC.acta.NUMLIBDOC}" min="1"
+        <p:spinner value="#{actaC.acta.NUMLIBACTA}" min="1"
                    maxlength="8" required="true" requiredMessage="Número de Libro Requerido"/>
         <p:outputLabel value="Número de Folio"/>
-        <p:spinner value="#{actaC.acta.NUMFOLDOC}" min="1"
+        <p:spinner value="#{actaC.acta.NUMFOLACTA}" min="1"
                    maxlength="8" required="true" requiredMessage="Número de Folio Requerido."/>
         <p:outputLabel value="Observación"/>
-        <p:inputTextarea value="#{actaC.acta.OBSDOC}"
+        <p:inputTextarea value="#{actaC.acta.OBSACTA}"
                          rows="5" cols="30" maxlength="500" autoResize="false" required="false" style="text-transform: capitalize"/>
         <p:outputLabel value="Fecha de Nacimiento" />
         <p:calendar id="popupRegistrarNacimiento" value="#{actaC.acta.FECACT}" 
@@ -56,7 +56,7 @@
                     locale="es" navigator="true" pattern="dd MMM yyyy" >
         </p:calendar>
         <p:outputLabel value="Fecha de Registro" />
-        <p:calendar id="popupRegistrarFecha1" value="#{actaC.acta.FECREGDOC}" 
+        <p:calendar id="popupRegistrarFecha1" value="#{actaC.acta.FECREGACTA}" 
                     readonlyInput="true"
                     locale="es" navigator="true" pattern="dd MMM yyyy" >
         </p:calendar>
