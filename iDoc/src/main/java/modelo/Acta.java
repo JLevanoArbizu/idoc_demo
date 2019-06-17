@@ -278,7 +278,6 @@ public class Acta {
     public void clear() {
         this.IDACTA = null;
         this.IDMUN = null;
-        this.IDLOG = null;
         this.IDPER = null;
         this.NUMLIBACTA = null;
         this.NUMFOLACTA = null;

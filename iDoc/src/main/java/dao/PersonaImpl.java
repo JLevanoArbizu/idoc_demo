@@ -21,7 +21,7 @@ public class PersonaImpl extends Conexion implements IGenerica<Persona> {
             ps.setString(4, modelo.getDNIPER());
             ps.setString(5, modelo.getCODUBI());
             ps.setString(6, WordUtils.capitalize(modelo.getDIRPER()));
-            ps.setString(7, String.valueOf(modelo.getNACPER().charAt(0)));
+            ps.setString(7, "P");
             ps.setString(8, String.valueOf(modelo.getGENPER().charAt(0)));
             ps.setString(9, "A");
             ps.executeUpdate();

@@ -9,7 +9,7 @@ public class ActorImpl extends Conexion implements IGenerica<Actor> {
     @Override
     public void registrar(Actor modelo) throws Exception {
         try {
-            String sql = "INSERT INTO REGCIV.ACTOR (IDDOC, IDPER, TIPACT) VALUES "
+            String sql = "INSERT INTO REGCIV.ACTOR (IDACTA, IDPER, TIPACT) VALUES "
                     + "(?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setInt(1, Integer.valueOf(modelo.getIDACTA()));

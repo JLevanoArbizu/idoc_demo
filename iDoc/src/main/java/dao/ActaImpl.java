@@ -18,8 +18,8 @@ public class ActaImpl extends Conexion implements IGenerica<Acta> {
                     + "(IDMUN, IDLOG, IDPER, NUMLIBACTA, NUMFOLACTA, FECREGACTA, OBSACTA, CODUBI, DIRACT, FECACT, TIPACTA, ESTACTA) "
                     + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-            ps.setInt(1, 6);
-            ps.setInt(2, 1);
+            ps.setInt(1, 1);
+            ps.setInt(2, Integer.valueOf(modelo.getIDLOG()));
             ps.setInt(3, Integer.valueOf(modelo.getIDPER()));
             ps.setString(4, modelo.getNUMLIBACTA());
             ps.setString(5, modelo.getNUMFOLACTA());

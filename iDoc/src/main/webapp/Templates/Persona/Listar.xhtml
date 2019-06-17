@@ -88,7 +88,7 @@
 
 
             <p:commandButton value="Modificar" actionListener="#{personaC.editarPersona()}"
-                             oncomplete="PF('wdlgDatosPersona').hide();" 
+                             oncomplete="if(args &amp; !args.validationFailed)PF('wdlgDatosPersona').hide();"
                              update=":frmListarPersona :frmRegistrarPersona">
                 <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
             </p:commandButton>

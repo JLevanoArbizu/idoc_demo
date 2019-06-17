@@ -45,9 +45,6 @@ public class ActaC extends UbigeoC implements Serializable {
             listaDocumentosAN = new ArrayList<>();
             listaDocumentosAM = new ArrayList<>();
             listaDocumentosAD = new ArrayList<>();
-            List<Acta> listaDocumentosANfiltrado = new ArrayList<>();
-            List<Acta> listaDocumentosAMfiltrado = new ArrayList<>();
-            List<Acta> listaDocumentosADfiltrado = new ArrayList<>();
             daoDocumento = new ActaImpl();
             actorC = new ActorC();
             reporte = new ReporteS();
@@ -92,7 +89,6 @@ public class ActaC extends UbigeoC implements Serializable {
                             break;
                     }
                     if (!existe) {
-                        acta.setIDLOG(trabajadorC.loginT.getIDLOG());
                         daoDocumento.registrar(acta);
                     } else {
                         return;
@@ -173,16 +169,14 @@ public class ActaC extends UbigeoC implements Serializable {
 
                     break;
             }
-            acta.clear();
-            actorC.actor.clear();
             listarActas();
+            actorC.actor.clear();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void seterCodigos() throws Exception {
-        acta.setIDMUN("5");
         acta.setCODUBI(obtenerCodigoUbigeo().getCODUBI());
         actorC.persona.setCOMPLETO(acta.getTitular());
         acta.setIDPER(actorC.obtenerCodigo().getIDPER());

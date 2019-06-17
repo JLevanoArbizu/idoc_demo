@@ -25,7 +25,6 @@ public class PersonaC extends UbigeoC implements Serializable {
         daoPersona = new PersonaImpl();
         persona = new Persona();
         listaPersona = new ArrayList<>();
-        listaPersonaFiltrado = new ArrayList<>();
         listarPersonas();
     }
 
@@ -36,6 +35,7 @@ public class PersonaC extends UbigeoC implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Editado Correctamente", null));
             listarPersonas();
+            persona.clear();
         } catch (Exception e) {
         }
     }
@@ -44,6 +44,7 @@ public class PersonaC extends UbigeoC implements Serializable {
         try {
             daoPersona.eliminar(person);
             listarPersonas();
+            persona.clear();
         } catch (Exception e) {
         }
     }
@@ -56,6 +57,7 @@ public class PersonaC extends UbigeoC implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro Exitoso.", null));
                 listarPersonas();
+                persona.clear();
             } else {
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "El DNI ingresado ya existe.", null));

@@ -11,7 +11,7 @@
 
     <ui:define name="contenidoPagina">
         <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
-
+        <f:event type="preRenderView" listener="#{actaC.acta.setIDLOG(trabajadorC.loginT.getIDLOG())}"/>
         <h:form>
             <p:commandButton title="Agregar Ciudadano"
                              class="mdl-button mdl-js-button  mdl-js-ripple-effect 
@@ -93,7 +93,8 @@
 
 
                 <p:commandButton value="Modificar" actionListener="#{actaC.accionActa('1', '2', null)}"
-                                 onsuccess="PF('wdlgDatosAN').hide();" id="btnEditarAN"
+                                 oncomplete="if(args &amp; !args.validationFailed)PF('wdlgDatosAN').hide();"
+                                 id="btnEditarAN"
                                  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
                                  mdl-button--colored mdl-color-text--white"
                                  update="frmEditarAN tb:frmListarAN tb:frmListarAM  tb:frmListarAD">
@@ -150,7 +151,7 @@
 
 
                 <p:commandButton value="Modificar" actionListener="#{actaC.accionActa('2', '2', null)}"
-                                 onsuccess="PF('wdlgDatosAM').hide();" id="btnEditarAM"
+                                 oncomplete="if(args &amp; !args.validationFailed)PF('wdlgDatosAM').hide();" id="btnEditarAM"
                                  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
                                  mdl-button--colored mdl-color-text--white"
                                  update="frmEditarAM tb:frmListarAM tb:frmListarAN tb:frmListarAD">
@@ -210,7 +211,7 @@
                 <p:commandButton value="Modificar" actionListener="#{actaC.accionActa('3', '2', null)}"
                                  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
                                  mdl-button--colored mdl-color-text--white" 
-                                 id="btnEditarAD" onsuccess="PF('wdlgDatosAD').hide();"
+                                 id="btnEditarAD" oncomplete="if(args &amp; !args.validationFailed)PF('wdlgDatosAD').hide();"
                                  update="frmEditarAD tb:frmListarAD tb:frmListarAN tb:frmListarAM ">
                     <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
                 </p:commandButton>
