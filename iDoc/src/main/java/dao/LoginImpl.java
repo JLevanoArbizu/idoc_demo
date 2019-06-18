@@ -32,12 +32,37 @@ public class LoginImpl extends Conexion implements IGenerica<Login> {
 
     @Override
     public void editar(Login modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sql = "UPDATE GENERAL.LOGIN SET USRLOG=?, PSSWLOG=? WHERE IDLOG=?";
+            PreparedStatement ps = this.conectar().prepareStatement(sql);
+            ps.setString(1, modelo.getUSRLOG());
+            ps.setString(2, modelo.getPSSWLOG());
+            ps.setInt(3, Integer.valueOf(modelo.getIDLOG()));
+            ps.executeUpdate();
+            ps.clearParameters();
+            ps.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            this.desconectar();
+        }
     }
 
     @Override
     public void eliminar(Login modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sql = "UPDATE GENERAL.LOGIN SET ESTLOG=? WHERE IDLOG=?";
+            PreparedStatement ps = this.conectar().prepareStatement(sql);
+            ps.setString(1, "I");
+            ps.setInt(2, Integer.valueOf(modelo.getIDLOG()));
+            ps.executeUpdate();
+            ps.clearParameters();
+            ps.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            this.desconectar();
+        }
     }
 
     @Override

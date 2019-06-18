@@ -3,6 +3,7 @@ package controlador;
 import dao.LoginImpl;
 import dao.TrabajadorImpl;
 import java.io.IOException;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -52,7 +53,7 @@ public class TrabajadorC extends PersonaC implements Serializable {
     public void iniciarSesion() throws Exception {
         try {
             loginT = daoLogin.obtenerLogin(loginT);
-            if (loginT.getIDLOG() != null) {
+            if (loginT.getIDLOG() != null && loginT.getESTLOG() == "A") {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc/faces/Pages/Home.xhtml");
             }
         } catch (Exception e) {
@@ -63,6 +64,12 @@ public class TrabajadorC extends PersonaC implements Serializable {
     public void seguridadSesion() throws IOException {
         if (loginT.getIDLOG() == null) {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc/faces/Pages/Login.xhtml");
+        }
+    }
+
+    public void volverHome() throws IOException{
+        if (loginT.getIDLOG() != null) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc/faces/Pages/Home.xhtml");
         }
     }
 
@@ -114,6 +121,19 @@ public class TrabajadorC extends PersonaC implements Serializable {
             trabajador.clear();
             login.clear();
         } catch (Exception e) {
+        }
+    }
+
+    public void editarLogin() throws Exception{
+        try {
+            daoLogin.editar(loginT);
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Edición de contraseña Exitoso.", null));
+            cerrarSesion();
+        }catch (Exception e){
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Edición de contraseña Fallido.", null));
+            e.printStackTrace();
         }
     }
 
