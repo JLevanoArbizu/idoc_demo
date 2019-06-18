@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <p:dataTable id="dtTblDocumentoPN" widgetVar="wdtTblDocumentoAN"
+                 value="#{actaC.listaDocumentosAN}" var="listaAN"
+                 filteredValue="#{actaC.listaDocumentosANfiltrado}"
+                 rowStyleClass="#{listaAN.ESTACTA eq 'A' ? null : 'inactivo'}"
+                 rows="20" emptyMessage="No se encontrarón datos."
+                 paginator="true" scrollable="true" scrollHeight="500"
+                 rowsPerPageTemplate="10,20,30">
+        <f:facet name="header">
+            Partidas de Nacimiento
+        </f:facet> 
+        <p:column filterBy="#{listaAN.ESTACTA}"
+                  filterMatchMode="equals"
+                  style="width: 15vh;">
+            <f:facet name="filter">
+                <p:selectOneButton onchange="PF('wdtTblDocumentoAN').filter()">
+                    <f:selectItem itemLabel="Todos" itemValue="" />
+                    <f:selectItem itemLabel="Activos" itemValue="A" />
+                    <f:selectItem itemLabel="Inactivos" itemValue="I" />
+                </p:selectOneButton>
+            </f:facet>
+            <p:rowToggler/>
+        </p:column>
+        <p:column headerText="Hijo"  
+                  style="font-weight: bold" 
+                  sortBy="#{listaAN.titular}"
+                  filterBy="#{listaAN.titular}"
+                  filterMatchMode="contains">
+            <h:outputLabel value="#{listaAN.titular}" style="font-weight: normal" />
+        </p:column> 
+
+        <p:column headerText="Fecha de Registro"  
+                  style="font-weight: bold" 
+                  sortBy="#{listaAN.FECREGACTA}">
+            <h:outputLabel value="#{listaAN.FECREGACTA}" style="font-weight: normal">
+                <f:convertDateTime locale="es" pattern="dd MMM yyyy"/>
+            </h:outputLabel>
+        </p:column>
+        <p:column headerText="Fecha de Nacimiento"  
+                  style="font-weight: bold" 
+                  sortBy="#{listaAN.FECACT}">
+            <h:outputLabel value="#{listaAN.FECACT}" style="font-weight: normal">
+                <f:convertDateTime locale="es" pattern="dd MMM yyyy"  />
+            </h:outputLabel>
+        </p:column>
+
+        <p:column headerText="Observacion"  
+                  style="font-weight: bold">
+            <h:outputLabel value="#{listaAN.OBSACTA}" style="font-weight: normal" />
+
+        </p:column>
+        <p:column exportable="false" headerText="Accion">
+            <p:commandButton update=":dlgDatosAN" icon="ui-icon-pencil" title="Modificar" 
+                             rendered="#{listaAN.ESTACTA eq 'A'}"
+                             class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
+                             actionListener="#{actaC.ubigeo.setDISTUBI(listaAN.CODUBI)}"
+                             oncomplete="PF('wdlgDatosAN').show();">
+                <f:setPropertyActionListener value="#{listaAN}" 
+                                             target="#{actaC.acta}"/>
+            </p:commandButton>
+            <p:commandButton update=":dlgRegistrarIncidencia" title="Agregar Incidencia" value="+"
+                             rendered="#{listaAN.ESTACTA eq 'A'}"
+                             class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"
+                             actionListener="#{incidenciaC.incidencia.setIDDOC(listaAN.IDACTA)}"
+                             oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
+            <p:commandButton value="Solicitud" rendered="#{listaAN.ESTACTA eq 'A'}"
+                             oncomplete="PF('wdlgRegistrarSolicitud').show();">
+                <f:setPropertyActionListener value="#{listaAN}"
+                                             target="#{actaC.solicitud.acta}"/>
+            </p:commandButton>
+        </p:column> 
+        <p:rowExpansion>
+            <p:panelGrid columns="4">
+                <h:outputLabel value="Padre" style="font-weight: bold"/>
+                <h:outputText value="#{listaAN.papa}" style="font-weight: normal" />
+                <h:outputLabel value="Madre" style="font-weight: bold"/>
+                <h:outputText value="#{listaAN.mama}" style="font-weight: normal" />
+                <h:outputLabel value="Declarante" style="font-weight: bold"/>
+                <h:outputText value="#{listaAN.declarante}" style="font-weight: normal" />
+                <h:outputLabel value="Médico" style="font-weight: bold"/>
+                <h:outputText value="#{listaAN.medico}" style="font-weight: normal" />
+                <h:outputLabel value="Libro" style="font-weight: bold"/>
+                <h:outputText value="#{listaAN.NUMLIBACTA}" style="font-weight: normal" />
+                <h:outputLabel value="Folio" style="font-weight: bold"/>
+                <h:outputText value="#{listaAN.NUMFOLACTA}" style="font-weight: normal" />
+                <h:outputLabel value="Distrito de Nacimiento" style="font-weight: bold"/>
+                <h:outputText value="#{listaAN.CODUBI}" style="font-weight: normal" />
+                <h:outputLabel value="Lugar de Nacimiento" style="font-weight: bold"/>
+                <h:outputText value="#{listaAN.DIRACT}" style="font-weight: normal" />
+            </p:panelGrid>
+        </p:rowExpansion>
+        <p:blockUI block="dtTblDocumentoPN" trigger="dtTblDocumentoPN">
+            Actualizando
+        </p:blockUI>
+    </p:dataTable>
+
+</html>
+

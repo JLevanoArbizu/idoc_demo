@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:form id="frmListarPersona">
+        <p:dataTable id="dtTblPersona"  value="#{personaC.listaPersona}" var="listaPersona"
+                     rowStyleClass="#{listaPersona.ESTPER le 'Activo' ? null : 'inactivo'}"
+                     rows="10" emptyMessage="No se encontrarón datos." filteredValue="#{personaC.listaPersonaFiltrado}"
+                     paginator="true" scrollable="true" scrollHeight="500"
+                     rowsPerPageTemplate="5,10,15,20">
+
+            <f:facet name="header">
+                Ciudadanos
+            </f:facet>
+            <p:column headerText="Apellido Paterno" 
+                      sortBy="#{listaPersona.APEPATPER}"                       
+                      filterMatchMode="contains"
+                      filterBy="#{listaPersona.APEPATPER}" 
+                      style="font-weight: bold;">
+                <h:outputLabel
+                    value="#{listaPersona.APEPATPER}" style="font-weight: normal" />
+            </p:column>
+            <p:column headerText="Apellido Materno"
+                      sortBy="#{listaPersona.APEMATPER}"                       
+                      filterMatchMode="contains"
+                      filterBy="#{listaPersona.APEMATPER}" 
+                      style="font-weight: bold;">
+                <h:outputLabel value="#{listaPersona.APEMATPER}"  style="font-weight: normal" />
+            </p:column>            
+            <p:column headerText="Nombres" 
+                      sortBy="#{listaPersona.NOMPER}"                       
+                      filterMatchMode="contains"
+                      style="font-weight: bold">
+                <h:outputLabel value="#{listaPersona.NOMPER}" style="font-weight: normal" />
+            </p:column>
+            <p:column headerText="DNI"
+                      sortBy="#{listaPersona.DNIPER}"                       
+                      filterMatchMode="contains"
+                      filterBy="#{listaPersona.DNIPER}" 
+                      style="font-weight: bold;">
+                <h:outputLabel value="#{listaPersona.DNIPER}"  style="font-weight: normal" />
+            </p:column>
+            <p:column headerText="Distrito"  style="font-weight: bold">
+                <h:outputLabel value="#{listaPersona.CODUBI}"  style="font-weight: normal" />
+            </p:column>
+            <p:column headerText="Dirección"  style="font-weight: bold">
+                <h:outputLabel value="#{listaPersona.DIRPER}"  style="font-weight: normal" />
+            </p:column>
+            <p:column headerText="Sexo"  
+                      sortBy="#{listaPersona.GENPER}" 
+                      style="font-weight: bold;">
+                <h:outputLabel value="#{listaPersona.GENPER}" style="font-weight: normal" />
+            </p:column>
+            <p:column headerText="Nacionalidad"  style="font-weight: bold">
+                <h:outputLabel value="#{listaPersona.NACPER}" style="font-weight: normal" />
+            </p:column>
+
+            <p:column exportable="false">
+                <p:commandButton update=":dlgDatosPersona" icon="ui-icon-pencil"
+                                 rendered="#{listaPersona.ESTPER eq 'A'}"
+                                 class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
+                                 title="Modificar" 
+                                 oncomplete="PF('wdlgDatosPersona').show();">
+                    <f:setPropertyActionListener value="#{listaPersona}" 
+                                                 target="#{personaC.persona}"/>
+                </p:commandButton>
+            </p:column>
+            <p:blockUI block="dtTblPersona" trigger="dtTblPersona">
+            Actualizando
+        </p:blockUI>
+        </p:dataTable>
+    </h:form>
+    <p:dialog id="dlgDatosPersona" widgetVar="wdlgDatosPersona" 
+              class="mdl-dialog"
+              header="Datos de la Persona" closeOnEscape="true">
+        <h:form id="frmEditarPersona" class="mdl-dialog__content">
+            <ui:include src="Registrar.xhtml"/>
+
+            <p:selectOneRadio value="#{personaC.persona.ESTPER}" 
+                              requiredMessage="Seleccione Estado de la Persona."
+                              unselectable="false" required="true">
+                <f:selectItem itemLabel="Activo" itemValue="A"/>
+                <f:selectItem itemLabel="Inactivo" itemValue="I" />
+            </p:selectOneRadio>
+
+
+            <p:commandButton value="Modificar" actionListener="#{personaC.editarPersona()}"
+                             oncomplete="if(!args.validationFailed)PF('wdlgDatosPersona').hide();"
+                             update=":frmListarPersona :frmRegistrarPersona">
+                <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
+            </p:commandButton>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+            <p:commandButton value="Cancelar" immediate="true"
+                             oncomplete="PF('wdlgDatosPersona').hide();"/>
+        </h:form>
+
+    </p:dialog>
+</html>
+

@@ -47,14 +47,30 @@ public class LoginImpl extends Conexion implements IGenerica<Login> {
             this.desconectar();
         }
     }
+    public void editar2(Login modelo) throws Exception {
+        try {
+            System.out.println("Editar2 "+modelo.toString());
+            String sql = "UPDATE GENERAL.LOGIN SET PSSWLOG=? WHERE USRLOG=? AND ESTLOG='A'";
+            PreparedStatement ps = this.conectar().prepareStatement(sql);
+            ps.setString(1, modelo.getTrabajador().getPersona().getDNIPER());
+            ps.setString(2, modelo.getTrabajador().getPersona().getDNIPER());
+            ps.executeUpdate();
+            ps.clearParameters();
+            ps.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            this.desconectar();
+        }
+    }
 
     @Override
     public void eliminar(Login modelo) throws Exception {
         try {
-            String sql = "UPDATE GENERAL.LOGIN SET ESTLOG=? WHERE IDLOG=?";
+            String sql = "UPDATE GENERAL.LOGIN SET ESTLOG=? WHERE USRLOG=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, "I");
-            ps.setInt(2, Integer.valueOf(modelo.getIDLOG()));
+            ps.setString(2, modelo.getTrabajador().getPersona().getDNIPER());
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();

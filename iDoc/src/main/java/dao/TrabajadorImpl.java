@@ -8,6 +8,9 @@ import modelo.Area;
 import modelo.Persona;
 import modelo.Trabajador;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 public class TrabajadorImpl extends Conexion implements IGenerica<Trabajador> {
 
     @Override
@@ -116,7 +119,15 @@ public class TrabajadorImpl extends Conexion implements IGenerica<Trabajador> {
 
     @Override
     public boolean existe(List<Trabajador> listaModelo, Trabajador modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(Trabajador trabajador: listaModelo){
+            if (modelo.getPersona().getCOMPLETO().equals(trabajador.getPersona().getCOMPLETO())
+            && trabajador.getESTTRAB().equals("A")){
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya existe.", null));
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

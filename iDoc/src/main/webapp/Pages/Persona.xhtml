@@ -16,7 +16,7 @@
             <p:growl life="1000"/>
             <ui:include src="../Templates/Persona/Registrar.xhtml"/>
             <p:commandButton 
-                id="btnRegistrarPersona"
+                id="btnRegistrarPersona" oncomplete="#{trabajadorC.listarPersonas()}"
                 value="GUARDAR" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
                 actionListener="#{personaC.registrarPersona()}" update=":frmRegistrarPersona :frmListarPersona"/>
             <p:blockUI block="frmRegistrarPersona" trigger="btnRegistrarPersona">

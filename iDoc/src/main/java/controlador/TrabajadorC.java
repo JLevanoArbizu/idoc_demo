@@ -101,13 +101,20 @@ public class TrabajadorC extends PersonaC implements Serializable {
         try {
             trabajador.setFECINITRAB(new java.sql.Date(trabajador.getFECINITRAB_T().getTime()));
             trabajador.setPersona(obtenerCodigo());
+            if (daoTrabajador.existe(listaTrabajador, trabajador)){
+                return;
+            }
             daoTrabajador.registrar(trabajador);
             listar();
             login.setTrabajador(daoTrabajador.obtenerCodigo(listaTrabajador, trabajador));
             daoLogin.registrar(login);
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro Exitoso.", null));
             trabajador.clear();
             login.clear();
         } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!.", null));
             e.printStackTrace();
         }
     }
@@ -118,9 +125,27 @@ public class TrabajadorC extends PersonaC implements Serializable {
             trabajador.setFECFINTRAB(new java.sql.Date(trabajador.getFECFINTRAB_T().getTime()));
             daoTrabajador.editar(trabajador);
             listar();
+            login.setTrabajador(daoTrabajador.obtenerCodigo(listaTrabajador, trabajador));
+            daoLogin.eliminar(login);
             trabajador.clear();
             login.clear();
         } catch (Exception e) {
+        }
+    }
+
+
+
+    public void resetearContra(Trabajador trab) throws Exception{
+        try {
+            login.setTrabajador(daoTrabajador.obtenerCodigo(listaTrabajador, trab));
+            daoLogin.editar2(login);
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Reseteo Exitoso.", null));
+            login.clear();
+        }catch (Exception e){
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Reseteo Fallido.", null));
+            e.printStackTrace();
         }
     }
 
