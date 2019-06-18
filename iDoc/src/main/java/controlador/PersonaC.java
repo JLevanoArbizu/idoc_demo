@@ -10,6 +10,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import modelo.Ubigeo;
+import org.primefaces.model.chart.PieChartModel;
 
 @Named(value = "personaC")
 @SessionScoped
@@ -20,6 +21,9 @@ public class PersonaC extends UbigeoC implements Serializable {
     List<Persona> listaPersona;
     List<Persona> listaPersonaFiltrado;
     PersonaImpl daoPersona;
+
+    private PieChartModel pie;
+    int contadorM = 0, contadorF = 0;
 
     public PersonaC() throws Exception {
         daoPersona = new PersonaImpl();
@@ -76,6 +80,13 @@ public class PersonaC extends UbigeoC implements Serializable {
             listaPersona = daoPersona.listar();
             List<Persona> listaTemp = new ArrayList<>();
             for (Persona nextPersona : listaPersona) {
+                if (nextPersona.getESTPER().equals("A")) {
+                    if (nextPersona.getGENPER().equals("M")) {
+                        contadorM++;
+                    } else {
+                        contadorF++;
+                    }
+                }
                 for (Ubigeo nextUbigeo : listaUbigeo) {
                     if (nextPersona.getCODUBI().equals(nextUbigeo.getCODUBI())) {
                         nextPersona.setCODUBI(nextUbigeo.getDISTUBI());
@@ -86,9 +97,19 @@ public class PersonaC extends UbigeoC implements Serializable {
             listaPersona = listaTemp;
             persona.clear();
             ubigeo.clear();
+            createPie();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void createPie() {
+        pie = new PieChartModel();
+        pie.set("Hombres", contadorM);
+        pie.set("Mujeres", contadorF);
+
+        pie.setTitle("Personas Registradas");
+        pie.setLegendPosition("M");
     }
 
     public void seterCodigoUbigeo() throws Exception {
@@ -142,5 +163,13 @@ public class PersonaC extends UbigeoC implements Serializable {
 
     public void setUbigeo(Ubigeo ubigeo) {
         this.ubigeo = ubigeo;
+    }
+
+    public PieChartModel getPie() {
+        return pie;
+    }
+
+    public void setPie(PieChartModel pie) {
+        this.pie = pie;
     }
 }

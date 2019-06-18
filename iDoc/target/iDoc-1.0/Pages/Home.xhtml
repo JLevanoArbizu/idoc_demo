@@ -10,7 +10,7 @@
 
     <ui:define name="contenidoPagina">
         <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
-
+        <p:chart type="pie" model="#{personaC.pie}" />
     </ui:define>
 </ui:composition>
 
