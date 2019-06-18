@@ -6,6 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Empresa</title>
+        <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
     </h:head>
 
     <h:body>
@@ -30,11 +31,11 @@
                         <p:inputText value="#{empresaC.empresa.RUCEMP}" placeholder="RUC" maxlength="11">
                             <p:keyFilter regEx="/[0-9]/"/>
                         </p:inputText>
-                        <p:outputLabel value="Distrito:"/>
+<!--                        <p:outputLabel value="Distrito:"/>
                         <p:autoComplete emptyMessage="Sin resultados" 
                                         maxResults="6"
-                                        value="#{empresaC.empresa.CODUBI}"      
-                                        completeMethod="#{empresaC.completeTextUbi}"/>
+                    HT=#                value="HT{empresaC.empresa.CODUBI}"      
+                                        completeMethod="HT{empresaC.completeTextUbi}"/>-->
                         <p:commandButton value="REGISTRAR" actionListener="#{empresaC.registrarEmpresa()}" 
                                          update="FormEmpresa FormTblEmpresa:tblEmpresa"/>
                     </p:panelGrid>
@@ -62,9 +63,9 @@
                     <p:column headerText="Dirección">
                         <p:outputLabel value="#{empresa.DIREMP}"/>
                     </p:column>
-                    <p:column headerText="Ubicación">
-                        <p:outputLabel value="#{empresa.UBIGEO}"/>
-                    </p:column>
+<!--                    <p:column headerText="Ubicación">
+                        <p:outputLabel value="HT{empresa.UBIGEO}"/>
+                    </p:column>-->
                 </p:dataTable>
                 <p:contextMenu for="tblEmpresa">
                     <p:menuitem value="EDITAR" oncomplete="PF('dlgModEmpresa').show()" update="FormDialogModEmp"/>
@@ -94,11 +95,11 @@
                     <p:inputText value="#{empresaC.selectedEmpresa.RUCEMP}" placeholder="RUC" maxlength="11">
                         <p:keyFilter regEx="/[0-9]/"/>
                     </p:inputText>
-                    <p:outputLabel value="Distrito:"/>
+<!--                    <p:outputLabel value="Distrito:"/>
                     <p:autoComplete emptyMessage="Sin resultados" 
                                     maxResults="6"
-                                    value="#{empresaC.selectedEmpresa.UBIGEO}"
-                                    completeMethod="#{empresaC.completeTextUbi}"/>
+                                    value="HT{empresaC.selectedEmpresa.UBIGEO}"
+                                    completeMethod="HT{empresaC.completeTextUbi}"/>-->
                     <p:commandButton value="MODIFICAR" actionListener="#{empresaC.editarEmpresa()}" update="FormTblEmpresa:tblEmpresa" oncomplete="PF('dlgModEmpresa').hide()"/>
                     <p:commandButton value="CANCELAR" oncomplete="PF('dlgModEmpresa').hide()"/>
                 </p:panelGrid>

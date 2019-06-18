@@ -37,8 +37,8 @@ public class EmpresaC implements Serializable {
         AutoCompleteS svc;
         try {
             dao = new ImplEmpresaD();
-            svc = new AutoCompleteS();
-            empresa.setCODUBI(svc.leerUbi(empresa.getCODUBI()));
+//            svc = new AutoCompleteS();
+//            empresa.setCODUBI(svc.leerUbi(empresa.getCODUBI()));
             dao.registrar(empresa);
             listarEmpresa();
             limpiarEmpresa();
@@ -53,8 +53,8 @@ public class EmpresaC implements Serializable {
         AutoCompleteS svc;
         try {
             dao = new ImplEmpresaD();
-            svc = new AutoCompleteS();
-            selectedEmpresa.setCODUBI(svc.leerUbi(selectedEmpresa.getUBIGEO()));
+//            svc = new AutoCompleteS();
+//            selectedEmpresa.setCODUBI(svc.leerUbi(selectedEmpresa.getUBIGEO()));
             dao.editar(selectedEmpresa);
             listarEmpresa();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));

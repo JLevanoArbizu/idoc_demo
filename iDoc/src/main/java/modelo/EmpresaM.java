@@ -7,7 +7,7 @@ public class EmpresaM {
    private String RUCEMP;
    private String DIREMP;
    private String ESTEMP;
-   private String CODUBI;
+//   private String CODUBI;
    
    private String UBIGEO;
 
@@ -43,13 +43,13 @@ public class EmpresaM {
         this.DIREMP = DIREMP;
     }
 
-    public String getCODUBI() {
-        return CODUBI;
-    }
-
-    public void setCODUBI(String CODUBI) {
-        this.CODUBI = CODUBI;
-    }
+//    public String getCODUBI() {
+//        return CODUBI;
+//    }
+//
+//    public void setCODUBI(String CODUBI) {
+//        this.CODUBI = CODUBI;
+//    }
 
     public String getESTEMP() {
         return ESTEMP;
