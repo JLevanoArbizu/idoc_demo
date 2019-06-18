@@ -52,7 +52,7 @@ public class PersonaC extends UbigeoC implements Serializable {
 
     public void registrarPersona() throws Exception {
         try {
-            if (!daoPersona.existe(listaPersona, persona) || !persona.getDNIPER().equals("00000000")) {
+            if (!daoPersona.existe(listaPersona, persona) && !persona.getDNIPER().equals("00000000")) {
                 seterCodigoUbigeo();
                 daoPersona.registrar(persona);
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -61,7 +61,7 @@ public class PersonaC extends UbigeoC implements Serializable {
                 persona.clear();
             } else {
                 FacesContext.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "El DNI ingresado ya existe.", null));
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "El DNI ingresado ya existe o es inválido.", null));
             }
 
         } catch (Exception e) {

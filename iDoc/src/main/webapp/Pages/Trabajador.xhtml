@@ -17,7 +17,13 @@
             <ui:include src="../Templates/Trabajador/Registrar.xhtml"/>
             <p:commandButton id="btnRegistrarTrabajador"
                              actionListener="#{trabajadorC.registrar()}" value="Guardar"
+                             class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
                              update=":frmRegistrarTrabajador :frmListarTrabajador"/>
+            <p:commandButton title="Agregar Ciudadano"
+                             class="mdl-button mdl-js-button  mdl-js-ripple-effect
+                             mdl-button--colored"
+                             value="Agregar Ciudadano" type="button"
+                             onclick="PF('dlgRegistrarPersona').show();"/>
             <p:blockUI block="frmRegistrarTrabajador" trigger="btnRegistrarTrabajador">
                 Guardando..
             </p:blockUI>
