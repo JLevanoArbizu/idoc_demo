@@ -83,8 +83,11 @@
                              class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"
                              actionListener="#{incidenciaC.incidencia.setIDDOC(listaAM.IDACTA)}"
                              oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
-            <p:commandButton actionListener="#{actaC.descargarReporte(listaAM)}" ajax="false"
-                             value="Descargar" rendered="#{listaAM.ESTACTA eq 'A'}"/>
+            <p:commandButton value="Solicitud" rendered="#{listaAM.ESTACTA eq 'A'}"
+                             oncomplete="PF('wdlgRegistrarSolicitud').show();">
+                <f:setPropertyActionListener value="#{listaAM}"
+                                             target="#{actaC.solicitud.acta}"/>
+            </p:commandButton>
         </p:column> 
         <p:blockUI block="dtTblDocumentoAM" trigger="dtTblDocumentoAM">
             Actualizando

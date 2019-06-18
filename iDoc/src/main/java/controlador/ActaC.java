@@ -10,7 +10,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+
+import dao.SolicitudImpl;
 import modelo.Acta;
+import modelo.Login;
+import modelo.Solicitud;
 import modelo.Ubigeo;
 
 @Named(value = "actaC")
@@ -29,6 +33,10 @@ public class ActaC extends UbigeoC implements Serializable {
 
     ActaImpl daoActa;
     ActorC actorC;
+
+    Solicitud solicitud;
+    List<Solicitud> listaSolicitud;
+    SolicitudImpl daoSolicitud;
     
     @ManagedProperty("#{trabajadorC}")
     TrabajadorC trabajadorC;
@@ -36,11 +44,17 @@ public class ActaC extends UbigeoC implements Serializable {
     public ActaC() {
         try {
             acta = new Acta();
+            solicitud = new Solicitud();
+
             listaDocumentosGeneral = new ArrayList<>();
             listaDocumentosAN = new ArrayList<>();
             listaDocumentosAM = new ArrayList<>();
             listaDocumentosAD = new ArrayList<>();
+
+            listaSolicitud = new ArrayList<>();
+
             daoActa = new ActaImpl();
+            daoSolicitud = new SolicitudImpl();
             actorC = new ActorC();
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,14 +120,19 @@ public class ActaC extends UbigeoC implements Serializable {
         }
     }
     
-    public void descargarReporte(Acta doc) throws Exception{
+    public void registrarSolicitud(Login log) throws Exception{
         try {
-            daoActa.generarReporte(doc);
+            solicitud.setLogin(log);
+            System.out.println(solicitud.toString());
+            solicitud.clear();
+            //daoSolicitud.registrar(solicitud);
+            //daoActa.generarReporte(solicitud.getActa());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
+
     public void registrarActores() throws Exception {
         try {
             listar();
@@ -319,5 +338,19 @@ public class ActaC extends UbigeoC implements Serializable {
         this.trabajadorC = trabajadorC;
     }
 
+    public Solicitud getSolicitud() {
+        return solicitud;
+    }
 
+    public void setSolicitud(Solicitud solicitud) {
+        this.solicitud = solicitud;
+    }
+
+    public List<Solicitud> getListaSolicitud() {
+        return listaSolicitud;
+    }
+
+    public void setListaSolicitud(List<Solicitud> listaSolicitud) {
+        this.listaSolicitud = listaSolicitud;
+    }
 }

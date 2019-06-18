@@ -40,6 +40,7 @@ public class PersonaC extends UbigeoC implements Serializable {
         }
     }
 
+    //No usado
     public void eliminarPersona(Persona person) throws Exception {
         try {
             daoPersona.eliminar(person);
@@ -51,7 +52,7 @@ public class PersonaC extends UbigeoC implements Serializable {
 
     public void registrarPersona() throws Exception {
         try {
-            if (!daoPersona.existe(listaPersona, persona)) {
+            if (!daoPersona.existe(listaPersona, persona) || !persona.getDNIPER().equals("00000000")) {
                 seterCodigoUbigeo();
                 daoPersona.registrar(persona);
                 FacesContext.getCurrentInstance().addMessage(null,

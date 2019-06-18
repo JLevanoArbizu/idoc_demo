@@ -21,7 +21,7 @@
         <p:outputLabel value="Fecha"/>
 
         <p:calendar id="popup" value="#{incidenciaC.incidencia.fechaTemporal}" 
-                    readonlyInput="true"
+                    readonlyInput="true" required="true" requiredMessage="Fecha requerida"
                     locale="es" navigator="true" pattern="dd MMM yyyy" >
         </p:calendar>
 

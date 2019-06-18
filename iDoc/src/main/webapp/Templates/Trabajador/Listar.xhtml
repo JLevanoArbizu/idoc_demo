@@ -77,7 +77,7 @@
                 </p:calendar>
             </p:panelGrid>
             <p:commandButton value="Modificar" actionListener="#{trabajadorC.editar()}"
-                             oncomplete="if(args &amp; !args.validationFailed)PF('wdlgDatosTrabajador').hide();"
+                             oncomplete="if(!args.validationFailed)PF('wdlgDatosTrabajador').hide();"
                              update=":frmListarTrabajador :frmRegistrarTrabajador">
 
                 <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />

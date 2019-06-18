@@ -53,13 +53,11 @@
         </p:column>
 
         <p:column exportable="false" headerText="Accion">
-            <p:commandButton update=":dlgDatosAD" icon="ui-icon-pencil" title="Modificar" id="disabled" disabled="true"
+            <p:commandButton update=":dlgDatosAD" icon="ui-icon-pencil" title="Modificar"
                              rendered="#{listaAD.ESTACTA eq 'A'}"
                              class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
                              actionListener="#{actaC.ubigeo.setDISTUBI(listaAD.CODUBI)}"
-                             oncomplete="PF('wdlgDatosAD').show();"
-         
-                             >
+                             oncomplete="PF('wdlgDatosAD').show();">
                 <f:setPropertyActionListener value="#{listaAD}" 
                                              target="#{actaC.acta}"/>
             </p:commandButton>
@@ -67,11 +65,12 @@
                              rendered="#{listaAD.ESTACTA eq 'A'}"
                              class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"
                              actionListener="#{incidenciaC.incidencia.setIDDOC(listaAD.IDACTA)}"
-                             oncomplete="PF('wdlgRegistrarIncidencia').show();"
-                             onclick="this.disabled='true'"
-                             />
-            <p:commandButton actionListener="#{actaC.descargarReporte(listaAD)}" ajax="false"
-                             value="Descargar" rendered="#{listaAD.ESTACTA eq 'A'}"/>
+                             oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
+            <p:commandButton value="Solicitud" rendered="#{listaAD.ESTACTA eq 'A'}"
+                             oncomplete="PF('wdlgRegistrarSolicitud').show();">
+                <f:setPropertyActionListener value="#{listaAD}"
+                                             target="#{actaC.solicitud.acta}"/>
+            </p:commandButton>
         </p:column> 
 
         <p:rowExpansion>

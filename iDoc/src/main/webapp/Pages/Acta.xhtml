@@ -14,22 +14,22 @@
         <f:event type="preRenderView" listener="#{actaC.acta.setIDLOG(trabajadorC.loginT.getIDLOG())}"/>
         <h:form>
             <p:commandButton title="Agregar Ciudadano"
-                             class="mdl-button mdl-js-button  mdl-js-ripple-effect 
+                             class="mdl-button mdl-js-button  mdl-js-ripple-effect
                              mdl-button--colored"
                              value="Agregar Ciudadano" type="button"
-                             onclick="PF('dlgRegistrarPersona').show();"/>  
+                             onclick="PF('dlgRegistrarPersona').show();"/>
             <p:commandButton title="Agregar Acta de Nacimiento"
-                             class="mdl-button mdl-js-button  mdl-js-ripple-effect 
+                             class="mdl-button mdl-js-button  mdl-js-ripple-effect
                              mdl-button--colored"
                              update=":dlgRegistrarAN :dlgRegistrarAM :dlgRegistrarAD"
                              oncomplete="PF('wdlgRegistrarAN').show();"/>
             <p:commandButton title="Agregar Acta de Matrimonio"
-                             class="mdl-button mdl-js-button  mdl-js-ripple-effect 
+                             class="mdl-button mdl-js-button  mdl-js-ripple-effect
                              mdl-button--colored"
                              update=":dlgRegistrarAN :dlgRegistrarAM :dlgRegistrarAD"
                              oncomplete="PF('wdlgRegistrarAM').show();"/>
             <p:commandButton title="Agregar Acta de Defunción"
-                             class="mdl-button mdl-js-button  mdl-js-ripple-effect 
+                             class="mdl-button mdl-js-button  mdl-js-ripple-effect
                              mdl-button--colored"
                              update=":dlgRegistrarAN :dlgRegistrarAM :dlgRegistrarAD"
                              oncomplete="PF('wdlgRegistrarAD').show();"/>
@@ -46,7 +46,7 @@
                 <h:form id="frmListarAM">
                     <ui:include src="../Templates/Acta/AM/Listar.xhtml"/>
                 </h:form>
-            </p:tab>            
+            </p:tab>
             <p:tab title="Acta de Defunción">
                 <h:form id="frmListarAD">
                     <ui:include src="../Templates/Acta/AD/Listar.xhtml"/>
@@ -56,25 +56,25 @@
         </p:tabView>
         <!--Acta de Nacimiento-->
 
-        <p:dialog id="dlgRegistrarAN" widgetVar="wdlgRegistrarAN" resizable="false"                  
+        <p:dialog id="dlgRegistrarAN" widgetVar="wdlgRegistrarAN" resizable="false"
                   header="Agregar Acta de Nacimiento" closeOnEscape="true">
             <h:form id="frmRegistrarAN">
                 <p:growl life="1000"/>
                 <ui:include src="../Templates/Acta/PN/Registrar.xhtml"/>
-                <p:commandButton 
+                <p:commandButton
                     id="btnRegistrarAN"
-                    actionListener="#{actaC.accionActa('1','1',null)}" value="GUARDAR" 
-                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
+                    actionListener="#{actaC.accionActa('1','1',null)}" value="GUARDAR"
+                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
                     mdl-button--colored mdl-color-text--white"
                     update="frmRegistrarAN tb:frmListarAN tb:frmListarAM tb:frmListarAD"/>
                 <p:blockUI block="frmRegistrarAN" trigger="btnRegistrarAN" >
                     Guardando..
                 </p:blockUI>
-                <p:commandButton 
+                <p:commandButton
                     id="btnCancelarAN"
                     value="Cancelar" oncomplete="PF('wdlgRegistrarAN').hide();" immediate="true"
                     class="mdl-button mdl-js-button"/>
-            </h:form>  
+            </h:form>
         </p:dialog>
         <p:dialog id="dlgDatosAN" widgetVar="wdlgDatosAN" resizable="false"
                   header="Datos del Acta de Nacimiento" closeOnEscape="true">
@@ -83,7 +83,7 @@
 
                 <ui:include src="../Templates/Acta/PN/Registrar.xhtml"/>
 
-                <p:selectOneRadio value="#{actaC.acta.ESTACTA}" 
+                <p:selectOneRadio value="#{actaC.acta.ESTACTA}"
                                   requiredMessage="Seleccione Estado del Acta de Nacimiento."
                                   style="width: 50vh"
                                   unselectable="false" required="true">
@@ -93,16 +93,16 @@
 
 
                 <p:commandButton value="Modificar" actionListener="#{actaC.accionActa('1', '2', null)}"
-                                 oncomplete="if(args &amp; !args.validationFailed)PF('wdlgDatosAN').hide();"
+                                 oncomplete="if(!args.validationFailed)PF('wdlgDatosAN').hide();"
                                  id="btnEditarAN"
-                                 class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
+                                 class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
                                  mdl-button--colored mdl-color-text--white"
                                  update="frmEditarAN tb:frmListarAN tb:frmListarAM  tb:frmListarAD">
                     <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
                 </p:commandButton>
 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                    <p:commandButton value="Si" type="button"  
+                    <p:commandButton value="Si" type="button"
                                      styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>
@@ -121,10 +121,10 @@
             <h:form id="frmRegistrarAM">
                 <p:growl life="1000"/>
                 <ui:include src="../Templates/Acta/AM/Registrar.xhtml"/>
-                <p:commandButton 
+                <p:commandButton
                     id="btnRegistrarAM"
-                    actionListener="#{actaC.accionActa('2','1',null)}" value="GUARDAR" 
-                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
+                    actionListener="#{actaC.accionActa('2','1',null)}" value="GUARDAR"
+                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
                     mdl-button--colored mdl-color-text--white"
                     update="frmRegistrarAM tb:frmListarAN tb:frmListarAM  tb:frmListarAD"/>
                 <p:blockUI block="frmRegistrarAM" trigger="btnRegistrarAM" >
@@ -132,7 +132,7 @@
                 </p:blockUI>
                 <p:commandButton value="Cancelar" oncomplete="PF('wdlgRegistrarAM').hide();" immediate="true"
                                  class="mdl-button mdl-js-button"/>
-            </h:form>  
+            </h:form>
         </p:dialog>
 
         <p:dialog id="dlgDatosAM" widgetVar="wdlgDatosAM" resizable="false"
@@ -141,7 +141,7 @@
                 <p:growl life="1000"/>
                 <ui:include src="../Templates/Acta/AM/Registrar.xhtml"/>
 
-                <p:selectOneRadio value="#{actaC.acta.ESTACTA}" 
+                <p:selectOneRadio value="#{actaC.acta.ESTACTA}"
                                   requiredMessage="Seleccione Estado del Acta de Matrimonio."
                                   style="width: 50vh"
                                   unselectable="false" required="true">
@@ -151,8 +151,8 @@
 
 
                 <p:commandButton value="Modificar" actionListener="#{actaC.accionActa('2', '2', null)}"
-                                 oncomplete="if(args &amp; !args.validationFailed)PF('wdlgDatosAM').hide();" id="btnEditarAM"
-                                 class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
+                                 oncomplete="if(!args.validationFailed)PF('wdlgDatosAM').hide();" id="btnEditarAM"
+                                 class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
                                  mdl-button--colored mdl-color-text--white"
                                  update="frmEditarAM tb:frmListarAM tb:frmListarAN tb:frmListarAD">
                     <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
@@ -179,10 +179,10 @@
             <h:form id="frmRegistrarAD">
                 <p:growl life="1000"/>
                 <ui:include src="../Templates/Acta/AD/Registrar.xhtml"/>
-                <p:commandButton 
+                <p:commandButton
                     id="btnRegistrarAD"
-                    actionListener="#{actaC.accionActa('3','1',null)}" value="GUARDAR" 
-                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
+                    actionListener="#{actaC.accionActa('3','1',null)}" value="GUARDAR"
+                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
                     mdl-button--colored mdl-color-text--white"  oncomplete="#{actaC.actorC.listarPersonas()}"
                     update="frmRegistrarAD tb:frmListarAN tb:frmListarAM  tb:frmListarAD :dlgPersona"/>
                 <p:blockUI block="frmRegistrarAD" trigger="btnRegistrarAD" >
@@ -199,7 +199,7 @@
                 <p:growl life="1000"/>
                 <ui:include src="../Templates/Acta/AD/Registrar.xhtml"/>
 
-                <p:selectOneRadio value="#{actaC.acta.ESTACTA}" 
+                <p:selectOneRadio value="#{actaC.acta.ESTACTA}"
                                   requiredMessage="Seleccione Estado del Acta de Defunción."
                                   style="width: 50vh"
                                   unselectable="false" required="true">
@@ -209,15 +209,15 @@
 
 
                 <p:commandButton value="Modificar" actionListener="#{actaC.accionActa('3', '2', null)}"
-                                 class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
-                                 mdl-button--colored mdl-color-text--white" 
-                                 id="btnEditarAD" oncomplete="if(args &amp; !args.validationFailed)PF('wdlgDatosAD').hide();"
+                                 class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                                 mdl-button--colored mdl-color-text--white"
+                                 id="btnEditarAD" oncomplete="if(!args.validationFailed)PF('wdlgDatosAD').hide();"
                                  update="frmEditarAD tb:frmListarAD tb:frmListarAN tb:frmListarAM ">
-                    <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
+                    <p:confirm header="Confirmacion" message="¿Quiere Modificar?" icon="ui-icon-alert" />
                 </p:commandButton>
 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                    <p:commandButton value="Si" type="button" 
+                    <p:commandButton value="Si" type="button"
                                      styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>
@@ -252,10 +252,33 @@
                 <p:commandButton actionListener="#{incidenciaC.registrarI()}" value="GUARDAR"
                                  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
                                  mdl-button--colored mdl-color-text--white"
+                                 oncomplete="if(!args.validationFailed)PF('wdlgRegistrarIncidencia').hide();"
                                  update="frmRegistrarIncidencia"/>
                 <p:commandButton value="Cancelar" oncomplete="PF('wdlgRegistrarIncidencia').hide();" immediate="true"
                                  class="mdl-button mdl-js-button"/>
 
+            </h:form>
+        </p:dialog>
+
+        <!--Solicitud-->
+        <p:dialog id="dlgRegistrarSolicitud" widgetVar="wdlgRegistrarSolicitud" resizable="false"
+                  header="Solicitud" closeOnEscape="true">
+            <h:form id="frmRegistrarSolicitud">
+                <p:growl life="10000"/>
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Código"/>
+                    <p:inputText value="#{actaC.solicitud.CODSOL}" required="true" requiredMessage="Ingrese el código."/>
+                    <p:commandButton actionListener="#{actaC.registrarSolicitud(trabajadorC.loginT)}" value="Guardar"
+                                     class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                                 mdl-button--colored mdl-color-text--white"
+                                     oncomplete="if(!args.validationFailed)PF('wdlgRegistrarSolicitud').hide();"
+                                     update="frmRegistrarSolicitud tb:frmListarAD tb:frmListarAN tb:frmListarAM"/>
+
+                    <p:commandButton value="Cancelar" oncomplete="PF('wdlgRegistrarSolicitud').hide();" immediate="true"
+                                     class="mdl-button mdl-js-button"/>
+
+
+                </p:panelGrid>
             </h:form>
         </p:dialog>
 

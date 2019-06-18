@@ -61,7 +61,7 @@
 
 
             <p:commandButton value="Modificar" actionListener="#{incidenciatipoC.editar()}"
-                             oncomplete="if(args &amp; !args.validationFailed)PF('wdlgDatosIncidenciaTipo').hide();"
+                             oncomplete="if(!args.validationFailed)PF('wdlgDatosIncidenciaTipo').hide();"
                              update=":frmListarIncidenciaTipo :frmRegistrarIncidenciaTipo">
 
                 <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert"/>              
