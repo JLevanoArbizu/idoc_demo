@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import modelo.Actor;
 
+
 @Named(value = "actorC")
 @SessionScoped
 public class ActorC extends PersonaC implements Serializable {
@@ -15,6 +16,8 @@ public class ActorC extends PersonaC implements Serializable {
     List<Actor> listaActores;
     Actor actor;
     ActorImpl daoActor;
+    
+
 
 
     public ActorC() throws Exception {

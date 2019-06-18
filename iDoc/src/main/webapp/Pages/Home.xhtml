@@ -11,6 +11,7 @@
     <ui:define name="contenidoPagina">
         <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
         <p:chart type="pie" model="#{personaC.pie}" />
+        <p:chart type="bar" model="#{actaC.bar}" />
     </ui:define>
 </ui:composition>
 

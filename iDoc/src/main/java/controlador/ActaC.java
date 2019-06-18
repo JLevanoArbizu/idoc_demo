@@ -16,6 +16,9 @@ import modelo.Acta;
 import modelo.Login;
 import modelo.Solicitud;
 import modelo.Ubigeo;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.BarChartModel;
+import org.primefaces.model.chart.ChartSeries;
 
 @Named(value = "actaC")
 @SessionScoped
@@ -37,7 +40,11 @@ public class ActaC extends UbigeoC implements Serializable {
     Solicitud solicitud;
     List<Solicitud> listaSolicitud;
     SolicitudImpl daoSolicitud;
-    
+
+    private BarChartModel bar;
+
+    int contadorAN, contadorAM, contadorAD;
+
     @ManagedProperty("#{trabajadorC}")
     TrabajadorC trabajadorC;
 
@@ -119,8 +126,8 @@ public class ActaC extends UbigeoC implements Serializable {
             e.printStackTrace();
         }
     }
-    
-    public void registrarSolicitud(Login log) throws Exception{
+
+    public void registrarSolicitud(Login log) throws Exception {
         try {
             solicitud.setLogin(log);
             System.out.println(solicitud.toString());
@@ -131,7 +138,6 @@ public class ActaC extends UbigeoC implements Serializable {
             e.printStackTrace();
         }
     }
-
 
     public void registrarActores() throws Exception {
         try {
@@ -226,6 +232,9 @@ public class ActaC extends UbigeoC implements Serializable {
                         break;
                     case "3":
                         listaDocumentosAD.add(documentoTemp);
+                        if (documentoTemp.getESTACTA().equals("A")) {
+                            contadorAD++;
+                        }
                         break;
                     default:
                         break;
@@ -247,6 +256,9 @@ public class ActaC extends UbigeoC implements Serializable {
                 } else if (documentoTemporal.getMedico() != null) {
                     docTmpAN.setMedico(documentoTemporal.getMedico());
                     listaTmp.add(docTmpAN);
+                    if (documentoTemporal.getESTACTA().equals("A")) {
+                        contadorAN++;
+                    }
                 }
                 if (anterior.getDeclarante() != null) {
                     docTmpAN.setDeclarante(anterior.getDeclarante());
@@ -256,6 +268,26 @@ public class ActaC extends UbigeoC implements Serializable {
 
         }
         listaDocumentosAN = listaTmp;
+        createBar();
+
+    }
+
+    public void createBar() {
+        bar = new BarChartModel();
+        ChartSeries listAN = new ChartSeries("Nacimiento");
+        listAN.set(bar, contadorAN);
+
+        ChartSeries listAD = new ChartSeries("Defunción");
+        listAD.set(bar, contadorAD);
+
+        bar.addSeries(listAN);
+        bar.addSeries(listAD);
+
+        bar.setTitle("Actas");
+        bar.setLegendPosition("ne");
+        
+        bar.getAxis(AxisType.Y).setMax(listaDocumentosGeneral.size());
+
     }
 
     public Acta getActa() {
@@ -352,5 +384,13 @@ public class ActaC extends UbigeoC implements Serializable {
 
     public void setListaSolicitud(List<Solicitud> listaSolicitud) {
         this.listaSolicitud = listaSolicitud;
+    }
+
+    public BarChartModel getBar() {
+        return bar;
+    }
+
+    public void setBar(BarChartModel bar) {
+        this.bar = bar;
     }
 }
