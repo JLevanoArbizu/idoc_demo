@@ -1,6 +1,7 @@
 package dao;
 
 import modelo.Ubigeo;
+
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,5 +77,10 @@ public class UbigeoImpl extends Conexion implements IGenerica<Ubigeo> {
     @Override
     public boolean existe(List<Ubigeo> listaModelo, Ubigeo modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void generarReporte(Ubigeo modelo) throws Exception{
+
     }
 }

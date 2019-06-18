@@ -1,5 +1,8 @@
 package dao;
 
+import net.sf.jasperreports.engine.JRException;
+
+import java.io.IOException;
 import java.util.List;
 
 public interface IGenerica<T> {
@@ -23,4 +26,6 @@ public interface IGenerica<T> {
     T obtenerCodigo(List<T> listaModelo, T modelo) throws Exception;
 
     boolean existe(List<T> listaModelo, T modelo) throws Exception;
+
+    void generarReporte(T modelo) throws Exception;
 }

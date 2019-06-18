@@ -1,10 +1,12 @@
 package dao;
 
 import modelo.Persona;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.commons.lang3.text.WordUtils;
 
 public class PersonaImpl extends Conexion implements IGenerica<Persona> {
@@ -132,5 +134,10 @@ public class PersonaImpl extends Conexion implements IGenerica<Persona> {
             }
         }
         return false;
+    }
+
+    @Override
+    public void generarReporte(Persona modelo) throws Exception{
+
     }
 }

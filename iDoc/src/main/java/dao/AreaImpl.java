@@ -138,4 +138,9 @@ public class AreaImpl extends Conexion implements IGenerica<Area> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void generarReporte(Area modelo) throws Exception{
+
+    }
+
 }

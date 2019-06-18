@@ -114,7 +114,11 @@ public class ImplTupaD extends Conexion implements IGenerica<TupaM> {
     public boolean existe(List<TupaM> listaModelo, TupaM modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
+
+    @Override
+    public void generarReporte(TupaM modelo) throws Exception{
+
+    }
+
 
 }

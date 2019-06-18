@@ -122,4 +122,9 @@ public class IncidenciaTipoImpl extends Conexion implements IGenerica<Incidencia
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void generarReporte(IncidenciaTipo modelo) throws Exception{
+
+    }
+
 }

@@ -1,11 +1,9 @@
 package controlador;
 
 import dao.ActaImpl;
-import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -14,7 +12,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import modelo.Acta;
 import modelo.Ubigeo;
-import servicio.ReporteS;
 
 @Named(value = "actaC")
 @SessionScoped
@@ -30,10 +27,8 @@ public class ActaC extends UbigeoC implements Serializable {
     List<Acta> listaDocumentosAMfiltrado;
     List<Acta> listaDocumentosADfiltrado;
 
-    ActaImpl daoDocumento;
+    ActaImpl daoActa;
     ActorC actorC;
-    
-    ReporteS reporte;
     
     @ManagedProperty("#{trabajadorC}")
     TrabajadorC trabajadorC;
@@ -45,9 +40,8 @@ public class ActaC extends UbigeoC implements Serializable {
             listaDocumentosAN = new ArrayList<>();
             listaDocumentosAM = new ArrayList<>();
             listaDocumentosAD = new ArrayList<>();
-            daoDocumento = new ActaImpl();
+            daoActa = new ActaImpl();
             actorC = new ActorC();
-            reporte = new ReporteS();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,7 +58,7 @@ public class ActaC extends UbigeoC implements Serializable {
 
     public void listar() throws Exception {
         try {
-            listaDocumentosGeneral = daoDocumento.listar();
+            listaDocumentosGeneral = daoActa.listar();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,26 +73,26 @@ public class ActaC extends UbigeoC implements Serializable {
                 case '1':
                     switch (tipoDocumento) {
                         case '1':
-                            existe = daoDocumento.existe(listaDocumentosAN, acta);
+                            existe = daoActa.existe(listaDocumentosAN, acta);
                             break;
                         case '2':
-                            existe = daoDocumento.existe(listaDocumentosAM, acta);
+                            existe = daoActa.existe(listaDocumentosAM, acta);
                             break;
                         case '3':
-                            existe = daoDocumento.existe(listaDocumentosAD, acta);
+                            existe = daoActa.existe(listaDocumentosAD, acta);
                             break;
                     }
                     if (!existe) {
-                        daoDocumento.registrar(acta);
+                        daoActa.registrar(acta);
                     } else {
                         return;
                     }
                     break;
                 case '2':
-                    daoDocumento.editar(acta);
+                    daoActa.editar(acta);
                     break;
                 case '3':
-                    daoDocumento.eliminar(documentoEliminar);
+                    daoActa.eliminar(documentoEliminar);
                     break;
             }
             registrarActores();
@@ -112,11 +106,10 @@ public class ActaC extends UbigeoC implements Serializable {
         }
     }
     
-    public void descargarReporte(Acta doc) throws IOException{
+    public void descargarReporte(Acta doc) throws Exception{
         try {
-            reporte.generarActa(doc);
-        } catch (UnsupportedEncodingException e) {
-            System.out.println("Error Reporte");
+            daoActa.generarReporte(doc);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -124,7 +117,7 @@ public class ActaC extends UbigeoC implements Serializable {
     public void registrarActores() throws Exception {
         try {
             listar();
-            actorC.actor.setIDACTA(daoDocumento.obtenerCodigo(listaDocumentosGeneral, acta).getIDACTA());
+            actorC.actor.setIDACTA(daoActa.obtenerCodigo(listaDocumentosGeneral, acta).getIDACTA());
             switch (acta.getTIPACTA()) {
                 case "1":
                     actorC.persona.setCOMPLETO(acta.getDeclarante());
@@ -326,12 +319,5 @@ public class ActaC extends UbigeoC implements Serializable {
         this.trabajadorC = trabajadorC;
     }
 
-    public ReporteS getReporte() {
-        return reporte;
-    }
-
-    public void setReporte(ReporteS reporte) {
-        this.reporte = reporte;
-    }
 
 }

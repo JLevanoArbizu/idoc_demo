@@ -60,6 +60,11 @@ public class LoginImpl extends Conexion implements IGenerica<Login> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void generarReporte(Login modelo) throws Exception{
+
+    }
+
     public Login obtenerLogin(Login login) throws Exception {
         try {
             String sql = "SELECT IDLOG, IDTRAB, TIPLOG FROM GENERAL.LOGIN "

@@ -119,4 +119,9 @@ public class TrabajadorImpl extends Conexion implements IGenerica<Trabajador> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void generarReporte(Trabajador modelo) throws Exception{
+
+    }
+
 }
