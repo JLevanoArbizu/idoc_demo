@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import modelo.Ubigeo;
 import org.primefaces.model.chart.PieChartModel;
 
+
 @Named(value = "personaC")
 @SessionScoped
 public class PersonaC extends UbigeoC implements Serializable {
@@ -23,6 +24,8 @@ public class PersonaC extends UbigeoC implements Serializable {
     PersonaImpl daoPersona;
 
     private PieChartModel pie;
+
+
     int contadorM = 0, contadorF = 0;
 
     public PersonaC() throws Exception {
@@ -99,6 +102,7 @@ public class PersonaC extends UbigeoC implements Serializable {
             persona.clear();
             ubigeo.clear();
             createPie();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,6 +116,7 @@ public class PersonaC extends UbigeoC implements Serializable {
         pie.setTitle("Personas Registradas");
         pie.setLegendPosition("M");
     }
+    
 
     public void seterCodigoUbigeo() throws Exception {
         ubigeo.setDISTUBI(persona.getCODUBI());

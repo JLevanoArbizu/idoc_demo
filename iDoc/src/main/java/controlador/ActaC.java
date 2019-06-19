@@ -43,7 +43,7 @@ public class ActaC extends UbigeoC implements Serializable {
 
     private BarChartModel bar;
 
-    int contadorAN, contadorAM, contadorAD;
+    int contadorAN, contadorAD;
 
     @ManagedProperty("#{trabajadorC}")
     TrabajadorC trabajadorC;
@@ -275,17 +275,19 @@ public class ActaC extends UbigeoC implements Serializable {
     public void createBar() {
         bar = new BarChartModel();
         ChartSeries listAN = new ChartSeries("Nacimiento");
-        listAN.set(bar, contadorAN);
+        listAN.set("    ", contadorAN);
 
         ChartSeries listAD = new ChartSeries("Defunción");
-        listAD.set(bar, contadorAD);
+        listAD.set("    ", contadorAD);
 
         bar.addSeries(listAN);
         bar.addSeries(listAD);
 
-        bar.setTitle("Actas");
+        bar.setTitle("Tasa de Natalidad y Mortalidad");
         bar.setLegendPosition("ne");
-        
+        bar.setAnimate(true);
+  
+                
         bar.getAxis(AxisType.Y).setMax(listaDocumentosGeneral.size());
 
     }
