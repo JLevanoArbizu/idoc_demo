@@ -3,14 +3,68 @@ package modelo;
 public class DocumentoM {
 
     private String IDDOC;
+    private String CODDOC;
+    private String NUMLIBDOC;
     private String NUMFOLDOC;
     private String TIPDOC;
     private String FECDOC;
     private String ASUDOC;
+    private String OBSDOC;
     private String ESTDOC;
     private String IDTUP;
-    private String IDTRA;
+    private String IDLOG;
+    private String IDEMP;
+
+    public String getCODDOC() {
+        return CODDOC;
+    }
+
+    public void setCODDOC(String CODDOC) {
+        this.CODDOC = CODDOC;
+    }
+
+    public String getNUMLIBDOC() {
+        return NUMLIBDOC;
+    }
+
+    public void setNUMLIBDOC(String NUMLIBDOC) {
+        this.NUMLIBDOC = NUMLIBDOC;
+    }
+
+    public String getOBSDOC() {
+        return OBSDOC;
+    }
+
+    public void setOBSDOC(String OBSDOC) {
+        this.OBSDOC = OBSDOC;
+    }
+
+    public String getIDLOG() {
+        return IDLOG;
+    }
+
+    public void setIDLOG(String IDLOG) {
+        this.IDLOG = IDLOG;
+    }
+
+    public String getIDEMP() {
+        return IDEMP;
+    }
+
+    public void setIDEMP(String IDEMP) {
+        this.IDEMP = IDEMP;
+    }
+
+    public String getKEYDOC() {
+        return KEYDOC;
+    }
+
+    public void setKEYDOC(String KEYDOC) {
+        this.KEYDOC = KEYDOC;
+    }
     private String IDPER;
+    private String KEYDOC;
+
 
 
     public String getIDDOC() {
@@ -69,13 +123,13 @@ public class DocumentoM {
         this.IDTUP = IDTUP;
     }
 
-    public String getIDTRA() {
-        return IDTRA;
-    }
-
-    public void setIDTRA(String IDTRA) {
-        this.IDTRA = IDTRA;
-    }
+//    public String getIDTRA() {
+//        return IDTRA;
+//    }
+//
+//    public void setIDTRA(String IDTRA) {
+//        this.IDTRA = IDTRA;
+//    }
 
     public String getNUMFOLDOC() {
         return NUMFOLDOC;
