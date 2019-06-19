@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="../Templates/Default.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:param name="tituloPagina" value="Transparencia"/>
+
+    <ui:define name="contenidoPagina">
+
+        <h:form id="frmTransparencia">
+            <p:growl life="1000"/>
+            <p:panelGrid columns="3">
+                <p:outputLabel value="DNI"/>
+                <p:outputLabel value="Identificador Trámite"/>
+                <p:outputLabel value="Llave"/>
+
+                <p:inputText value="${transparenciaC.transparencia.dni}" required="true"
+                             requiredMessage="Ingrese su DNI."/>
+                <p:inputText value="#{transparenciaC.transparencia.idtra}" required="true"
+                             requiredMessage="Ingrese su Identificador de Trámite"/>
+                <p:password value="#{transparenciaC.transparencia.key}" required="true"
+                             requiredMessage="Ingrese su llave por favor."/>
+                <p:commandButton actionListener="#{transparenciaC.listar()}" value="Consultar Trámite"
+                update="frmTransparencia :frmListarTransparencia :frmDatosSolicitante"/>
+            </p:panelGrid>
+        </h:form>
+
+        <h:form id="frmDatosSolicitante">
+            <p:tabView>
+                <p:tab title="Persona">
+                    <h:panelGrid columns="2" cellpadding="5" >
+                        <p:outputLabel value="Apellidos y Nombres" style="font-weight: bold;"/>
+                        <p:outputLabel value="#{transparenciaC.persona.COMPLETO}" style="font-weight: normal"/>
+                        <p:outputLabel value="DNI" style="font-weight: bold;"/>
+                        <p:outputLabel value="#{transparenciaC.persona.DNIPER}" style="font-weight: normal"/>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Empresa">
+                    <h:panelGrid columns="2" cellpadding="5" >
+                        <p:outputLabel value="Razón Social" style="font-weight: bold;"/>
+                        <p:outputLabel value="#{transparenciaC.empresa.RAZSOCEMP}" style="font-weight: normal"/>
+                        <p:outputLabel value="RUC" style="font-weight: bold;"/>
+                        <p:outputLabel value="#{transparenciaC.empresa.RUCEMP}" style="font-weight: normal"/>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+        <h:form id="frmListarTransparencia">
+            <p:dataTable id="dtTblTransparencia"  value="#{transparenciaC.listaTransparencia}" var="listaTransparencia"
+                         rows="10" emptyMessage="No se encontrarón datos."
+                         paginator="true" scrollable="true" scrollHeight="500"
+                         rowsPerPageTemplate="5,10,15,20">
+
+                <f:facet name="header">
+                    Ventana Única de Trámite
+                </f:facet>
+
+                <p:column headerText="Área Emisora"
+                          style="font-weight: bold;">
+                    <h:outputLabel
+                            value="#{listaTransparencia.emisor.NOMARE}" style="font-weight: normal" />
+                </p:column>
+
+                <p:column headerText="Área Receptora"
+                          style="font-weight: bold;">
+                    <h:outputLabel
+                            value="#{listaTransparencia.receptor.NOMARE}" style="font-weight: normal" />
+                </p:column>
+
+                <p:column headerText="Fecha Recepción de la Transferencia"
+                          style="font-weight: bold;">
+                    <h:outputLabel
+                            value="#{listaTransparencia.transferencia.FECRECTRAN}" style="font-weight: normal" />
+                </p:column>
+
+                <p:column headerText="Fecha Salida de la Transferencia"
+                          style="font-weight: bold;">
+                    <h:outputLabel
+                            value="#{listaTransparencia.transferencia.FECSALTRAN}" style="font-weight: normal" />
+                </p:column>
+
+                <p:column headerText="Observación de la Transferencia"
+                          style="font-weight: bold;">
+                    <h:outputLabel
+                            value="#{listaTransparencia.transferencia.OBSTRAN}" style="font-weight: normal" />
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
