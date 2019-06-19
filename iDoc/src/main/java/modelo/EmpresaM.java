@@ -2,22 +2,23 @@ package modelo;
 
 public class EmpresaM {
    
-   private String CODEMP;
+   private String IDEMP;
    private String RAZSOCEMP;
    private String RUCEMP;
    private String DIREMP;
    private String ESTEMP;
 //   private String CODUBI;
    
-   private String UBIGEO;
+//   private String UBIGEO;
 
-    public String getCODEMP() {
-        return CODEMP;
+    public String getIDEMP() {
+        return IDEMP;
     }
 
-    public void setCODEMP(String CODEMP) {
-        this.CODEMP = CODEMP;
+    public void setIDEMP(String IDEMP) {
+        this.IDEMP = IDEMP;
     }
+
 
     public String getRAZSOCEMP() {
         return RAZSOCEMP;
@@ -59,11 +60,11 @@ public class EmpresaM {
         this.ESTEMP = ESTEMP;
     }
 
-    public String getUBIGEO() {
-        return UBIGEO;
-    }
-
-    public void setUBIGEO(String UBIGEO) {
-        this.UBIGEO = UBIGEO;
-    }
+//    public String getUBIGEO() {
+//        return UBIGEO;
+//    }
+//
+//    public void setUBIGEO(String UBIGEO) {
+//        this.UBIGEO = UBIGEO;
+//    }
 }

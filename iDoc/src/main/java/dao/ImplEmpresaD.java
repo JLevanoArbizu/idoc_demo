@@ -13,7 +13,7 @@ public class ImplEmpresaD extends Conexion implements IGenerica<EmpresaM> {
     public void registrar(EmpresaM empresa) throws Exception {
         try {
             this.conectar();
-            String sql = "INSERT INTO EMPRESA(RAZSOCEMP,RUCEMP,DIREMP) VALUES(?,?,?)";
+            String sql = "INSERT INTO TraDoc.EMPRESA(RAZSOCEMP,RUCEMP,DIREMP) VALUES(?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, empresa.getRAZSOCEMP());
             ps.setString(2, empresa.getRUCEMP());
@@ -31,14 +31,14 @@ public class ImplEmpresaD extends Conexion implements IGenerica<EmpresaM> {
     public void editar(EmpresaM empresa) throws Exception {
         try {
             this.conectar();
-            String sql = "UPDATE EMPRESA SET RAZSOCEMP=?, RUCEMP=?, DIREMP=?, WHERE CODEMP LIKE ?";
+            String sql = "UPDATE TraDoc.EMPRESA SET RAZSOCEMP=?, RUCEMP=?, DIREMP=?, WHERE IDEMP LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
 
             ps.setString(1, empresa.getRAZSOCEMP());
             ps.setString(2, empresa.getRUCEMP());
             ps.setString(3, empresa.getDIREMP());
 //            ps.setString(4, empresa.getCODUBI());
-            ps.setString(4, empresa.getCODEMP());
+            ps.setString(4, empresa.getIDEMP());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
@@ -51,9 +51,9 @@ public class ImplEmpresaD extends Conexion implements IGenerica<EmpresaM> {
     public void eliminar(EmpresaM empresa) throws Exception {
         try {
             this.conectar();
-            String sql = "UPDATE EMPRESA SET ESTEMP = 'I' WHERE CODEMP LIKE ?";
+            String sql = "UPDATE TraDoc.EMPRESA SET ESTEMP = 'I' WHERE IDEMP LIKE ?";
             PreparedStatement ps = this.conectar().prepareCall(sql);
-            ps.setString(1, empresa.getCODEMP());
+            ps.setString(1, empresa.getIDEMP());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
@@ -68,19 +68,19 @@ public class ImplEmpresaD extends Conexion implements IGenerica<EmpresaM> {
         ResultSet rs;
         try {
             this.conectar();
-            String sql = "SELECT * FROM EMPRESA WHERE ESTEMP LIKE 'A'";
+            String sql = "SELECT * FROM TraDoc.EMPRESA WHERE ESTEMP LIKE 'A'";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             listadoEmpresa = new ArrayList();
             EmpresaM empresa;
             while (rs.next()) {
                 empresa = new EmpresaM();
-                empresa.setCODEMP(rs.getString("CODEMP"));
+                empresa.setIDEMP(rs.getString("IDEMP"));
                 empresa.setRAZSOCEMP(rs.getString("RAZSOCEMP"));
                 empresa.setRUCEMP(rs.getString("RUCEMP"));
                 empresa.setDIREMP(rs.getString("DIREMP"));
                 empresa.setESTEMP(rs.getString("ESTEMP"));
-                empresa.setUBIGEO(rs.getString("UBIGEO"));
+//                empresa.setUBIGEO(rs.getString("UBIGEO"));
 //                empresa.setCODUBI(rs.getString("CODUBI"));
                 listadoEmpresa.add(empresa);
             }
