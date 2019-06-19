@@ -10,8 +10,10 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import modelo.Ubigeo;
-import org.primefaces.model.chart.PieChartModel;
 
+import org.primefaces.model.charts.ChartData;
+import org.primefaces.model.charts.pie.PieChartDataSet;
+import org.primefaces.model.charts.pie.PieChartModel;
 
 @Named(value = "personaC")
 @SessionScoped
@@ -24,7 +26,6 @@ public class PersonaC extends UbigeoC implements Serializable {
     PersonaImpl daoPersona;
 
     private PieChartModel pie;
-
 
     int contadorM = 0, contadorF = 0;
 
@@ -87,7 +88,7 @@ public class PersonaC extends UbigeoC implements Serializable {
                     System.out.println(nextPersona.toString());
                     if (nextPersona.getGENPER().equals("Masculino")) {
                         contadorM++;
-                    } else{
+                    } else {
                         contadorF++;
                     }
                 }
@@ -110,13 +111,27 @@ public class PersonaC extends UbigeoC implements Serializable {
 
     public void createPie() {
         pie = new PieChartModel();
-        pie.set("Hombres", contadorM);
-        pie.set("Mujeres", contadorF);
 
-        pie.setTitle("Personas Registradas");
-        pie.setLegendPosition("M");
+        ChartData data = new ChartData();
+
+        PieChartDataSet dataSet = new PieChartDataSet();
+        List<Number> values = new ArrayList<>();
+        values.add(contadorM);
+        values.add(contadorF);
+        dataSet.setData(values);
+
+        List<String> bgColors = new ArrayList<>();
+        bgColors.add("rgb(54, 162, 235)");
+        bgColors.add("rgb(255, 99, 132)");
+        dataSet.setBackgroundColor(bgColors);
+
+        data.addChartDataSet(dataSet);
+        List<String> labels = new ArrayList<>();
+        labels.add("Masculino");
+        labels.add("Femenino");
+        data.setLabels(labels);
+        pie.setData(data);
     }
-    
 
     public void seterCodigoUbigeo() throws Exception {
         ubigeo.setDISTUBI(persona.getCODUBI());

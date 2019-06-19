@@ -280,14 +280,16 @@ public class ActaC extends UbigeoC implements Serializable {
         ChartSeries listAD = new ChartSeries("Defunción");
         listAD.set("    ", contadorAD);
 
+
+
         bar.addSeries(listAN);
         bar.addSeries(listAD);
+        
 
         bar.setTitle("Tasa de Natalidad y Mortalidad");
         bar.setLegendPosition("ne");
         bar.setAnimate(true);
-  
-                
+
         bar.getAxis(AxisType.Y).setMax(listaDocumentosGeneral.size());
 
     }

@@ -15,6 +15,12 @@ import javax.faces.context.FacesContext;
 import modelo.Login;
 import modelo.Persona;
 import modelo.Trabajador;
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.BarChartModel;
+import org.primefaces.model.chart.BarChartSeries;
+import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.LineChartSeries;
 
 @Named(value = "trabajadorC")
 @SessionScoped
@@ -27,6 +33,10 @@ public class TrabajadorC extends PersonaC implements Serializable {
     Login login, loginT;
     LoginImpl daoLogin;
 
+    private CartesianChartModel combinedModel;
+
+    int contadorTI, contadorTA;
+
     @ManagedProperty("#{areaC}")
     AreaC areaC;
 
@@ -38,6 +48,7 @@ public class TrabajadorC extends PersonaC implements Serializable {
         login = new Login();
         loginT = new Login();
         daoLogin = new LoginImpl();
+        combinedModel = new BarChartModel();
 
     }
 
@@ -67,7 +78,7 @@ public class TrabajadorC extends PersonaC implements Serializable {
         }
     }
 
-    public void volverHome() throws IOException{
+    public void volverHome() throws IOException {
         if (loginT.getIDLOG() != null) {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc/faces/Pages/Home.xhtml");
         }
@@ -92,6 +103,7 @@ public class TrabajadorC extends PersonaC implements Serializable {
                 }
             }
             listaTrabajador = listaTemp;
+            createCombinedModel();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -101,7 +113,7 @@ public class TrabajadorC extends PersonaC implements Serializable {
         try {
             trabajador.setFECINITRAB(new java.sql.Date(trabajador.getFECINITRAB_T().getTime()));
             trabajador.setPersona(obtenerCodigo());
-            if (daoTrabajador.existe(listaTrabajador, trabajador)){
+            if (daoTrabajador.existe(listaTrabajador, trabajador)) {
                 return;
             }
             daoTrabajador.registrar(trabajador);
@@ -133,33 +145,74 @@ public class TrabajadorC extends PersonaC implements Serializable {
         }
     }
 
-
-
-    public void resetearContra(Trabajador trab) throws Exception{
+    public void resetearContra(Trabajador trab) throws Exception {
         try {
             login.setTrabajador(daoTrabajador.obtenerCodigo(listaTrabajador, trab));
             daoLogin.editar2(login);
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Reseteo Exitoso.", null));
             login.clear();
-        }catch (Exception e){
+        } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Reseteo Fallido.", null));
             e.printStackTrace();
         }
     }
 
-    public void editarLogin() throws Exception{
+    public void editarLogin() throws Exception {
         try {
             daoLogin.editar(loginT);
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Edición de contraseña Exitoso.", null));
             cerrarSesion();
-        }catch (Exception e){
+        } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Edición de contraseña Fallido.", null));
             e.printStackTrace();
         }
+    }
+
+    private void createCombinedModel() {
+
+        BarChartSeries year = new BarChartSeries();
+        year.setLabel("Años");
+
+        year.set("2004", 120);
+        year.set("2005", 100);
+        year.set("2006", 44);
+        year.set("2007", 150);
+        year.set("2008", 25);
+
+        LineChartSeries activos = new LineChartSeries();
+        activos.setLabel("Activos");
+
+        activos.set("2004", 50);
+        activos.set("2005", 60);
+        activos.set("2006", 110);
+        activos.set("2007", 135);
+        activos.set("2008", 120);
+
+        LineChartSeries inactivos = new LineChartSeries();
+        inactivos.setLabel("Inactivos");
+
+        inactivos.set("2004", 52);
+        inactivos.set("2005", 60);
+        inactivos.set("2006", 110);
+        inactivos.set("2007", 135);
+        inactivos.set("2008", 120);
+
+        combinedModel.addSeries(year);
+        combinedModel.addSeries(inactivos);
+        combinedModel.addSeries(activos);
+
+        combinedModel.setTitle("Bar and Line");
+        combinedModel.setLegendPosition("ne");
+        combinedModel.setMouseoverHighlight(false);
+        combinedModel.setShowDatatip(false);
+        combinedModel.setShowPointLabels(true);
+        Axis yAxis = combinedModel.getAxis(AxisType.Y);
+        yAxis.setMin(0);
+        yAxis.setMax(200);
     }
 
     public AreaC getAreaC() {
@@ -200,6 +253,14 @@ public class TrabajadorC extends PersonaC implements Serializable {
 
     public void setLoginT(Login loginT) {
         this.loginT = loginT;
+    }
+
+    public CartesianChartModel getCombinedModel() {
+        return combinedModel;
+    }
+
+    public void setCombinedModel(CartesianChartModel combinedModel) {
+        this.combinedModel = combinedModel;
     }
 
 }

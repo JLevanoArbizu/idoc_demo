@@ -24,6 +24,7 @@
                 <p:password value="#{transparenciaC.transparencia.key}" required="true"
                              requiredMessage="Ingrese su llave por favor."/>
                 <p:commandButton actionListener="#{transparenciaC.listar()}" value="Consultar Trámite"
+                                 oncomplete="#{transparenciaC.clear()}"
                 update="frmTransparencia :frmListarTransparencia :frmDatosSolicitante"/>
             </p:panelGrid>
         </h:form>
@@ -44,6 +45,16 @@
                         <p:outputLabel value="#{transparenciaC.empresa.RAZSOCEMP}" style="font-weight: normal"/>
                         <p:outputLabel value="RUC" style="font-weight: bold;"/>
                         <p:outputLabel value="#{transparenciaC.empresa.RUCEMP}" style="font-weight: normal"/>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Documento">
+                    <h:panelGrid columns="2" cellpadding="5" >
+                        <p:outputLabel value="Fecha" style="font-weight: bold;"/>
+                        <p:outputLabel value="#{transparenciaC.documento.FECDOC}" style="font-weight: normal"/>
+                        <p:outputLabel value="Asunto" style="font-weight: bold;"/>
+                        <p:outputLabel value="#{transparenciaC.documento.ASUDOC}" style="font-weight: normal"/>
+                        <p:outputLabel value="Observación" style="font-weight: bold;"/>
+                        <p:outputLabel value="#{transparenciaC.documento.OBSDOC}" style="font-weight: normal"/>
                     </h:panelGrid>
                 </p:tab>
             </p:tabView>
