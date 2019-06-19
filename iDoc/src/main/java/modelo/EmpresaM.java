@@ -7,6 +7,14 @@ public class EmpresaM {
    private String RUCEMP;
    private String DIREMP;
    private String ESTEMP;
+
+   public void clear(){
+       this.IDEMP = null;
+       this.RAZSOCEMP = null;
+       this.RUCEMP = null;
+       this.DIREMP = null;
+       this.ESTEMP = null;
+   }
 //   private String CODUBI;
    
 //   private String UBIGEO;

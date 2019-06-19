@@ -1,6 +1,7 @@
 package controlador;
 
 import dao.TransparenciaImpl;
+import modelo.DocumentoM;
 import modelo.EmpresaM;
 import modelo.Persona;
 import modelo.Transparencia;
@@ -22,6 +23,7 @@ public class TransparenciaC implements Serializable {
 
     Persona persona;
     EmpresaM empresa;
+    DocumentoM documento;
 
     public TransparenciaC(){
         transparencia = new Transparencia();
@@ -29,15 +31,22 @@ public class TransparenciaC implements Serializable {
         daoTransparencia = new TransparenciaImpl();
         persona = new Persona();
         empresa = new EmpresaM();
+        documento = new DocumentoM();
     }
 
+    public void clear(){
+        persona.clear();
+        empresa.clear();
+        documento.clear();
+    }
 
     public void listar() throws Exception{
         try {
             listaTransparencia = daoTransparencia.listar(transparencia);
             if (listaTransparencia.size()>0){
-                persona = listaTransparencia.get(1).getPersona();
-                empresa = listaTransparencia.get(1).getEmpresa();
+                persona = listaTransparencia.get(0).getPersona();
+                empresa = listaTransparencia.get(0).getEmpresa();
+                documento = listaTransparencia.get(0).getDocumento();
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Consulta Exitosa.", null));
             }else{
@@ -47,6 +56,14 @@ public class TransparenciaC implements Serializable {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public DocumentoM getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(DocumentoM documento) {
+        this.documento = documento;
     }
 
     public Persona getPersona() {

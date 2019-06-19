@@ -270,7 +270,7 @@
                     <p:inputText value="#{actaC.solicitud.CODSOL}" required="true" requiredMessage="Ingrese el código."/>
                     <p:commandButton actionListener="#{actaC.registrarSolicitud(trabajadorC.loginT)}" value="Guardar"
                                      class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
-                                 mdl-button--colored mdl-color-text--white"
+                                 mdl-button--colored mdl-color-text--white" ajax="false"
                                      oncomplete="if(!args.validationFailed)PF('wdlgRegistrarSolicitud').hide();"
                                      update="frmRegistrarSolicitud tb:frmListarAD tb:frmListarAN tb:frmListarAM"/>
 

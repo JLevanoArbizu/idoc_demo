@@ -11,7 +11,7 @@ public class IncidenciaImpl extends Conexion implements IGenerica<Incidencia> {
     @Override
     public void registrar(Incidencia modelo) throws Exception {
         try {
-            String sql = "INSERT INTO REGCIV.INCIDENCIA (IDDOC, IDINCTIP, FECINC, MOTINC, ESTINC) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO REGCIV.INCIDENCIA (IDACTA, IDINCTIP, FECINC, MOTINC, ESTINC) VALUES (?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getIDDOC());
             ps.setString(2, modelo.getIDINCTIP());
@@ -31,7 +31,7 @@ public class IncidenciaImpl extends Conexion implements IGenerica<Incidencia> {
     @Override
     public void editar(Incidencia modelo) throws Exception {
         try {
-            String sql = "UPDATE REGCIV.INCIDENCIA SET IDDOC =?, IDINCTIP =?, FECINC=?, MOTINC=?, ESTINC=? WHERE IDINC=?";
+            String sql = "UPDATE REGCIV.INCIDENCIA SET IDACTA =?, IDINCTIP =?, FECINC=?, MOTINC=?, ESTINC=? WHERE IDINC=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getIDDOC());
             ps.setString(2, modelo.getIDINCTIP());
@@ -70,7 +70,7 @@ public class IncidenciaImpl extends Conexion implements IGenerica<Incidencia> {
     public List<Incidencia> listar() throws Exception {
         List<Incidencia> lista = null;
         try {
-            String sql = "SELECT IDINC,IDDOC,IDINCTIP,MOTINC, FECINC, ESTINC FROM REGCIV.INCIDENCIA ORDER BY IDINC DESC";
+            String sql = "SELECT IDINC,IDACTA,IDINCTIP,MOTINC, FECINC, ESTINC FROM REGCIV.INCIDENCIA ORDER BY IDINC DESC";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             Incidencia incidencia;
             lista = new ArrayList<>();

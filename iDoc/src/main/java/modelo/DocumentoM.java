@@ -15,6 +15,22 @@ public class DocumentoM {
     private String IDLOG;
     private String IDEMP;
 
+    public void clear(){
+        this.IDDOC = null;
+        this.IDDOC=null;
+                this.CODDOC=null;
+        this.NUMLIBDOC=null;
+                this.NUMFOLDOC=null;
+        this.TIPDOC=null;
+                this.FECDOC=null;
+        this.ASUDOC=null;
+                this.OBSDOC=null;
+        this.ESTDOC=null;
+                this.IDTUP=null;
+        this.IDLOG=null;
+                this.IDEMP=null;
+    }
+
     public String getCODDOC() {
         return CODDOC;
     }
