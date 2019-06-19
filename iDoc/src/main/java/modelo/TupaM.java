@@ -2,21 +2,22 @@ package modelo;
 
 public class TupaM {
 
-    private String CODTUP;
+    private String IDTUP;
     private String NUMTUP;
     private String NOMTUP;
     private double PRETUP;
     private String PLATUP;
     private String ARETUP;
 
-    public String getCODTUP() {
-        return CODTUP;
+    public String getIDTUP() {
+        return IDTUP;
     }
 
-    public void setCODTUP(String CODTUP) {
-        this.CODTUP = CODTUP;
+    public void setIDTUP(String IDTUP) {
+        this.IDTUP = IDTUP;
     }
 
+ 
     public String getNUMTUP() {
         return NUMTUP;
     }

@@ -37,14 +37,14 @@ public class ImplTupaD extends Conexion implements IGenerica<TupaM> {
     public void editar(TupaM tupa) throws Exception {
         try {
 //            this.conectar();
-            String sql = "UPDATE TraDoc.TUPA SET  NUMTUP=?, NOMTUP=?, PRETUP=?, PLATUP=?, ARETUP=? WHERE CODTUP LIKE ?";
+            String sql = "UPDATE TraDoc.TUPA SET  NUMTUP=?, NOMTUP=?, PRETUP=?, PLATUP=?, ARETUP=? WHERE IDTUP LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, tupa.getNUMTUP());
             ps.setString(2, tupa.getNOMTUP());
             ps.setDouble(3, tupa.getPRETUP());
             ps.setString(4, tupa.getPLATUP());
             ps.setString(5, tupa.getARETUP());
-            ps.setString(6, tupa.getCODTUP());
+            ps.setString(6, tupa.getIDTUP());
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -59,9 +59,9 @@ public class ImplTupaD extends Conexion implements IGenerica<TupaM> {
 
         try {
             this.conectar();
-            String sql = "UPDATE TraDoc.TUPA SET ESTTUP='I' WHERE CODTUP LIKE ?";
+            String sql = "UPDATE TraDoc.TUPA SET ESTTUP='I' WHERE IDTUP LIKE ?";
             PreparedStatement ps = this.conectar().prepareCall(sql);
-            ps.setString(1, tupa.getCODTUP());
+            ps.setString(1, tupa.getIDTUP());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
@@ -76,7 +76,7 @@ public class ImplTupaD extends Conexion implements IGenerica<TupaM> {
         ResultSet rs;
         try {
             this.conectar();
-//          String sql = "SELECT CODTUP,NOMTUP,PRETUP,FORMAT(FECTUP,'dd/MM/yyyy','en-gb') AS FECTUP,ARETUP FROM TUPA ";
+//          String sql = "SELECT IDTUP,NOMTUP,PRETUP,FORMAT(FECTUP,'dd/MM/yyyy','en-gb') AS FECTUP,ARETUP FROM TUPA ";
             String sql = "SELECT *  FROM TraDoc.TUPA ";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
@@ -84,7 +84,7 @@ public class ImplTupaD extends Conexion implements IGenerica<TupaM> {
             TupaM tupa;
             while (rs.next()) {
                 tupa = new TupaM();
-                tupa.setCODTUP(rs.getString("CODTUP"));
+                tupa.setIDTUP(rs.getString("IDTUP"));
                 tupa.setNUMTUP(rs.getString("NUMTUP"));
                 tupa.setNOMTUP(rs.getString("NOMTUP"));
                 tupa.setPRETUP(rs.getDouble("PRETUP"));

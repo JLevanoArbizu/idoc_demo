@@ -39,14 +39,14 @@
                          var="tupa"
                          selection="#{tupaC.selectedTupa}"
                          selectionMode="single"
-                         rowKey="#{tupa.CODTUP}"
+                         rowKey="#{tupa.IDTUP}"
                          paginator="true"
                          rows="50"
                          rowsPerPageTemplate="5,10,15,50"
                          filteredValue="#{tupaC.lstTupa2}" >
 
                 <p:column headerText="" style="width: 45px">
-                    <p:outputLabel value="#{tupa.CODTUP}"/>
+                    <p:outputLabel value="#{tupa.IDTUP}"/>
                 </p:column>
                 <p:column headerText="Numero del tupa" filterBy="#{tupa.NUMTUP}" filterMatchMode="contains"  style="width: 80PX">
                     <p:outputLabel value="#{'N° '}#{tupa.NUMTUP}"/>
