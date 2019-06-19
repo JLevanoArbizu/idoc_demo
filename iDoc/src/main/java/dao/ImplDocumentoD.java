@@ -13,16 +13,16 @@ public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
     public void registrar(DocumentoM documento) throws Exception {
         try {
             this.conectar();
-            String sql = "INSERT INTO DOCUMENTO(NUMFOLDOC,TIPDOC,FECDOC,ASUDOC,CODTUP,CODTRAB,CODPER) VALUES(?,?,CONVERT(DATE,?,103),?,?,?,?)";
+            String sql = "INSERT INTO DOCUMENTO(NUMFOLDOC,TIPDOC,FECDOC,ASUDOC,IDTUP,IDTRA,IDPER) VALUES(?,?,CONVERT(DATE,?,103),?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, documento.getNUMFOLDOC());
             ps.setString(2, documento.getTIPDOC());
             ps.setString(3, documento.getFECDOC());
             ps.setString(4, documento.getASUDOC());
-            ps.setString(5, documento.getCODTUP());
-            ps.setString(6, documento.getCODTRAB());
-            ps.setString(7, documento.getCODPER());
-//            ps.setString(6, documento.getCODEMP());
+            ps.setString(5, documento.getIDTUP());
+            ps.setString(6, documento.getIDTRA());
+            ps.setString(7, documento.getIDPER());
+//            ps.setString(6, documento.getIDEMP());
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -38,16 +38,16 @@ public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
 
         try {
             this.conectar();
-            String sql = "UPDATE DOCUMENTO SET  NUMFLODOC=? ,TIPDOC=?, FECDOC=?, ASUDOC=?, ESTDOC=?, CODTUP=? , CODTRAB=?, CODPER=? WHERE CODDOCLIKE ?";
+            String sql = "UPDATE DOCUMENTO SET  NUMFLODOC=? ,TIPDOC=?, FECDOC=?, ASUDOC=?, ESTDOC=?, IDTUP=? , IDTRA=?, IDPER=? WHERE IDDOCLIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, documento.getNUMFOLDOC());
             ps.setString(2, documento.getTIPDOC());
             ps.setString(3, documento.getFECDOC());
             ps.setString(4, documento.getASUDOC());
             ps.setString(5, documento.getESTDOC());
-            ps.setString(6, documento.getCODTUP());
-            ps.setString(7, documento.getCODTRAB());
-            ps.setString(8, documento.getCODPER());
+            ps.setString(6, documento.getIDTUP());
+            ps.setString(7, documento.getIDTRA());
+            ps.setString(8, documento.getIDPER());
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -62,9 +62,9 @@ public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
 
         try {
             this.conectar();
-            String sql = "UPDATE DOCUMENTO SET ESTDOC='I' WHERE CODDOC LIKE ?";
+            String sql = "UPDATE DOCUMENTO SET ESTDOC='I' WHERE IDDOC LIKE ?";
             PreparedStatement ps = this.conectar().prepareCall(sql);
-            ps.setString(1, documento.getCODDOC());
+            ps.setString(1, documento.getIDDOC());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
@@ -86,15 +86,15 @@ public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
             DocumentoM documento;
             while (rs.next()) {
                 documento = new DocumentoM();
-                documento.setCODDOC(rs.getString("CODDOC"));
+                documento.setIDDOC(rs.getString("IDDOC"));
                 documento.setNUMFOLDOC(rs.getString("NUMFOLDOC"));
                 documento.setTIPDOC(rs.getString("TIPDOC"));
                 documento.setFECDOC(rs.getString("FECDOC"));
                 documento.setASUDOC(rs.getString("ASUDOC"));
                 documento.setESTDOC(rs.getString("ESTDOC"));
-                documento.setCODTUP(rs.getString("CODTUP"));
-                documento.setCODTRAB(rs.getString("CODTRAB"));
-                documento.setCODPER(rs.getString("CODPER"));
+                documento.setIDTUP(rs.getString("IDTUP"));
+                documento.setIDTRA(rs.getString("IDTRA"));
+                documento.setIDPER(rs.getString("IDPER"));
                 listaDocumento.add(documento);
             }
             return listaDocumento;

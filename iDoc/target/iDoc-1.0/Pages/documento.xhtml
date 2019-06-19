@@ -41,20 +41,20 @@
                 <p:inputMask value="#{documentoC.documento.FECDOC}" mask="99/99/9999"/>
 
                 <p:outputLabel value="Tupa"/>
-                <p:selectOneMenu value="#{documentoC.documento.CODTUP}">
+                <p:selectOneMenu value="#{documentoC.documento.IDTUP}">
                     <f:selectItem itemLabel="SELECCIONE TUPA" itemValue="#{null}"/>
-                    <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.CODTUP}"/>
+                    <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}"/>
                 </p:selectOneMenu>
 
                 <p:outputLabel value="Trabajador"/>
-                <p:selectOneMenu value="#{documentoC.documento.CODTRAB}">
+                <p:selectOneMenu value="#{documentoC.documento.IDTRA}">
                     <f:selectItem itemLabel="SELECCIONE EL TRABAJADOR" itemValue="#{null}"/>
-                    <f:selectItems value="#{persona.lstPersona2}" var="txt" itemLabel=" #{txt.APEMATPER}" itemValue="#{txt.CODPER}"/>
+                    <f:selectItems value="#{persona.lstPersona2}" var="txt" itemLabel=" #{txt.APEMATPER}" itemValue="#{txt.IDPER}"/>
                 </p:selectOneMenu>
                 <p:outputLabel value="cliente"/> 
-                <p:selectOneMenu value="#{documentoC.documento.CODPER}">
+                <p:selectOneMenu value="#{documentoC.documento.IDPER}">
                     <f:selectItem itemLabel="SELECCIONE LA CLIENTE" itemValue="#{null}"/>
-                    <f:selectItems value="#{persona.lstPersona}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.CODPER}"/>
+                    <f:selectItems value="#{persona.lstPersona}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
                 </p:selectOneMenu>
 
             </p:panelGrid>
@@ -84,7 +84,7 @@
                          var="documento"
                          selection="#{documentoC.selectedDocumento}"
                          selectionMode="single"
-                         rowKey="#{documento.CODDOC}"
+                         rowKey="#{documento.IDDOC}"
                          paginator="true"
                          rows="10"
                          rowsPerPageTemplate="5,10,15">
@@ -107,13 +107,13 @@
                     <h:outputText value="#{documento.FECDOC}"/>
                 </p:column>
                 <p:column headerText="Tupa">
-                    <h:outputText value="#{documento.CODTUP}"/>
+                    <h:outputText value="#{documento.IDTUP}"/>
                 </p:column>
                 <p:column headerText="Trabajador">
-                    <h:outputText value="#{documento.CODTRAB}"/>
+                    <h:outputText value="#{documento.IDTRA}"/>
                 </p:column>
                 <p:column headerText="Persona">
-                    <h:outputText value="#{documento.CODPER}"/>
+                    <h:outputText value="#{documento.IDPER}"/>
                 </p:column>
                 <p:column headerText="Asunto de documento">
                     <h:outputText value="#{documento.ASUDOC}"/>
@@ -144,7 +144,7 @@
                         <f:selectItem itemLabel="Tupa" itemValue="T"/>
                         <f:selectItem itemLabel="Copia " itemValue="C"/>
                         <f:selectItem itemLabel="Original " itemValue="O"/>
-                        <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.CODTUP}"/>
+                        <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}"/>
 
                     </p:selectOneMenu>
 
@@ -153,22 +153,22 @@
                     <p:inputMask value="#{documentoC.selectedDocumento.FECDOC}" mask="99/99/9999"/>
 
                     <p:outputLabel value="Tupa"/>
-                    <p:selectOneMenu value="#{documentoC.selectedDocumento.CODTUP}">
+                    <p:selectOneMenu value="#{documentoC.selectedDocumento.IDTUP}">
                         <f:selectItem itemLabel="SELECCIONE TUPA" itemValue="#{null}"/>
-                        <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.CODTUP}"/>
+                        <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Trabajador"/>
-                    <p:selectOneMenu value="#{documentoC.selectedDocumento.CODTRAB}">
+                    <p:selectOneMenu value="#{documentoC.selectedDocumento.IDTRA}">
                         <f:selectItem itemLabel="SELECCIONE EL TRABAJADOR" itemValue="#{null}"/>
-                        <f:selectItems value="#{persona.lstPersona}" var="txt" itemLabel=" #{txt.NOMPER} #{txt.APEPATPER} #{txt.APEMATPER}" itemValue="#{txt.CODPER}"/>
+                        <f:selectItems value="#{personaC.listaPersona}" var="txt" itemLabel=" #{txt.NOMPER} #{txt.APEPATPER} #{txt.APEMATPER}" itemValue="#{txt.IDPER}"/>
                     </p:selectOneMenu>
 <!--<personaC = persona>-->
 
                     <p:outputLabel value="Persona"/>
-                    <p:selectOneMenu value="#{documentoC.selectedDocumento.CODPER}">
+                    <p:selectOneMenu value="#{documentoC.selectedDocumento.IDPER}">
                         <f:selectItem itemLabel="SELECCIONE LA PERSONA" itemValue="#{null}"/>
-                        <f:selectItems value="#{persona.lstPersona}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.CODPER}"/>
+                        <f:selectItems value="#{persona.lstPersona}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
                     </p:selectOneMenu>
 
 

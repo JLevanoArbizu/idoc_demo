@@ -2,23 +2,23 @@ package modelo;
 
 public class DocumentoM {
 
-    private String CODDOC;
+    private String IDDOC;
     private String NUMFOLDOC;
     private String TIPDOC;
     private String FECDOC;
     private String ASUDOC;
     private String ESTDOC;
-    private String CODTUP;
-    private String CODTRAB;
-    private String CODPER;
+    private String IDTUP;
+    private String IDTRA;
+    private String IDPER;
 
 
-    public String getCODDOC() {
-        return CODDOC;
+    public String getIDDOC() {
+        return IDDOC;
     }
 
-    public void setCODDOC(String CODDOC) {
-        this.CODDOC = CODDOC;
+    public void setIDDOC(String IDDOC) {
+        this.IDDOC = IDDOC;
     }
 
     public String getTIPDOC() {
@@ -53,28 +53,28 @@ public class DocumentoM {
         this.ESTDOC = ESTDOC;
     }
 
-    public String getCODPER() {
-        return CODPER;
+    public String getIDPER() {
+        return IDPER;
     }
 
-    public void setCODPER(String CODPER) {
-        this.CODPER = CODPER;
+    public void setIDPER(String IDPER) {
+        this.IDPER = IDPER;
     }
 
-    public String getCODTUP() {
-        return CODTUP;
+    public String getIDTUP() {
+        return IDTUP;
     }
 
-    public void setCODTUP(String CODTUP) {
-        this.CODTUP = CODTUP;
+    public void setIDTUP(String IDTUP) {
+        this.IDTUP = IDTUP;
     }
 
-    public String getCODTRAB() {
-        return CODTRAB;
+    public String getIDTRA() {
+        return IDTRA;
     }
 
-    public void setCODTRAB(String CODTRAB) {
-        this.CODTRAB = CODTRAB;
+    public void setIDTRA(String IDTRA) {
+        this.IDTRA = IDTRA;
     }
 
     public String getNUMFOLDOC() {
