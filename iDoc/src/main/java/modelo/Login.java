@@ -3,7 +3,7 @@ package modelo;
 public class Login {
     
     Trabajador trabajador;
-    String IDLOG, USRLOG, PSSWLOG, ESTLOG, TIPLOG;
+    String IDLOG,IDTRAB, USRLOG, PSSWLOG, ESTLOG, TIPLOG;
 
     public void clear() {
         this.trabajador = null;
@@ -12,11 +12,20 @@ public class Login {
         this.PSSWLOG = null;
         this.ESTLOG = null;
         this.TIPLOG = null;
+        this.IDTRAB = null;
     }
 
     @Override
     public String toString() {
         return "Login{" + "trabajador=" + trabajador + ", IDLOG=" + IDLOG + ", USRLOG=" + USRLOG + ", PSSWLOG=" + PSSWLOG + ", ESTLOG=" + ESTLOG + ", TIPLOG=" + TIPLOG + '}';
+    }
+
+    public String getIDTRAB() {
+        return IDTRAB;
+    }
+
+    public void setIDTRAB(String IDTRAB) {
+        this.IDTRAB = IDTRAB;
     }
 
     public Trabajador getTrabajador() {

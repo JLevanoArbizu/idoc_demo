@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.Login;
 import modelo.TupaM;
 
 public class ImplTupaD extends Conexion implements IGenerica<TupaM> {
@@ -118,6 +119,10 @@ public class ImplTupaD extends Conexion implements IGenerica<TupaM> {
     @Override
     public void generarReporte(TupaM modelo) throws Exception{
 
+    }
+
+    public void registrar(Login Login) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 

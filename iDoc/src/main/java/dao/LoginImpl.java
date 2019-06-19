@@ -2,6 +2,8 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -83,8 +85,32 @@ public class LoginImpl extends Conexion implements IGenerica<Login> {
 
     @Override
     public List<Login> listar() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+       List<Login> listaLogin;
+        ResultSet rs;
+        try {
+            this.conectar();
+//          String sql = "SELECT IDTUP,NOMTUP,PRETUP,FORMAT(FECTUP,'dd/MM/yyyy','en-gb') AS FECTUP,ARETUP FROM TUPA ";
+            String sql = "SELECT *  FROM TraDoc.TUPA ";
+            PreparedStatement ps = this.conectar().prepareCall(sql);
+            rs = ps.executeQuery();
+            listaLogin = new ArrayList();
+            Login tupa;
+            while (rs.next()) {
+                tupa = new Login();
+                tupa.setIDLOG(rs.getString("IDLOG"));
+                tupa.setIDTRAB(rs.getString("IDTRAB"));
+                tupa.setUSRLOG(rs.getString("USRLOG"));
+                tupa.setPSSWLOG(rs.getString("PSSWLOG"));
+                tupa.setESTLOG(rs.getString("ESTLOG"));
+                tupa.setTIPLOG(rs.getString("TIPLOG"));
+                listaLogin.add(tupa);
+            }
+            return listaLogin;
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            this.desconectar();
+        }}
 
     @Override
     public List<String> buscar(String campo, List<Login> listaModelo) throws Exception {

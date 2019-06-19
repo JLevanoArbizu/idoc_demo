@@ -1,89 +1,95 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Empresa</title>
-        <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
-    </h:head>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../Templates/Default.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <h:body>
-        <h:body>
-           
-            <p:growl life="1500">
-                <p:autoUpdate/>
-            </p:growl>
-            <h1>
-                INGRESAR DATOSD DE LA EMPRESA
-            </h1>
-            <h:form id="FormEmpresa">
+    <ui:param name="tituloPagina" value="empresa"/>
+
+    <ui:define name="contenidoPagina">
+
+
+        <h:head>
+            <title>Empresa</title>
+            <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
+        </h:head>
+
+
+        <p:growl life="1500">
+            <p:autoUpdate/>
+        </p:growl>
+        <h1>
+            INGRESAR DATOSD DE LA EMPRESA
+        </h1>
+        <h:form id="FormEmpresa">
+            <p:panelGrid columns="2">
+
+
                 <p:panelGrid columns="2">
-
-
-                    <p:panelGrid columns="2">
-                        <p:outputLabel value="Razon social: "/>
-                        <p:inputText value="#{empresaC.empresa.RAZSOCEMP}" placeholder="Razon social"  maxlength="10" />
-                        <p:outputLabel value="Dirección "/>
-                        <p:inputText value="#{empresaC.empresa.DIREMP}" placeholder="Dirección"  maxlength="500"/>
-                        <p:outputLabel value="RUC: "/>
-                        <p:inputText value="#{empresaC.empresa.RUCEMP}" placeholder="RUC" maxlength="11">
-                            <p:keyFilter regEx="/[0-9]/"/>
-                        </p:inputText>
-<!--                        <p:outputLabel value="Distrito:"/>
-                        <p:autoComplete emptyMessage="Sin resultados" 
-                                        maxResults="6"
-                    HT=#                value="HT{empresaC.empresa.CODUBI}"      
-                                        completeMethod="HT{empresaC.completeTextUbi}"/>-->
-                        <p:commandButton value="REGISTRAR" actionListener="#{empresaC.registrarEmpresa()}" 
-                                         update="FormEmpresa FormTblEmpresa:tblEmpresa"/>
-                    </p:panelGrid>
-
-
+                    <p:outputLabel value="Razon social: "/>
+                    <p:inputText value="#{empresaC.empresa.RAZSOCEMP}" placeholder="Razon social"  maxlength="10" />
+                    <p:outputLabel value="Dirección "/>
+                    <p:inputText value="#{empresaC.empresa.DIREMP}" placeholder="Dirección"  maxlength="500"/>
+                    <p:outputLabel value="RUC: "/>
+                    <p:inputText value="#{empresaC.empresa.RUCEMP}" placeholder="RUC" maxlength="11">
+                        <p:keyFilter regEx="/[0-9]/"/>
+                    </p:inputText>
+                    <!--                        <p:outputLabel value="Distrito:"/>
+                                            <p:autoComplete emptyMessage="Sin resultados" 
+                                                            maxResults="6"
+                                        HT=#                value="HT{empresaC.empresa.CODUBI}"      
+                                                            completeMethod="HT{empresaC.completeTextUbi}"/>-->
+                    <p:commandButton value="REGISTRAR" actionListener="#{empresaC.registrarEmpresa()}" 
+                                     update="FormEmpresa FormTblEmpresa:tblEmpresa"/>
                 </p:panelGrid>
-            </h:form>
-
-            <h:form id="FormTblEmpresa">
-                <p:dataTable id="tblEmpresa"
-                             value="#{empresaC.lstEmpresa}"
-                             var="empresa"
-                             selection="#{empresaC.selectedEmpresa}"
-                             selectionMode="single"
-                             rowKey="#{empresa.IDEMP}"
-                             paginator="true"
-                             rows="15"
-                             rowsPerPageTemplate="5,10,15">
-                    <p:column headerText="Razon Social">
-                        <p:outputLabel value="#{empresa.RAZSOCEMP}"/>
-                    </p:column>
-                    <p:column headerText="Ruc">
-                        <p:outputLabel value="#{empresa.RUCEMP}"/>
-                    </p:column>
-                    <p:column headerText="Dirección">
-                        <p:outputLabel value="#{empresa.DIREMP}"/>
-                    </p:column>
-<!--                    <p:column headerText="Ubicación">
-                        <p:outputLabel value="HT{empresa.UBIGEO}"/>
-                    </p:column>-->
-                </p:dataTable>
-                <p:contextMenu for="tblEmpresa">
-                    <p:menuitem value="EDITAR" oncomplete="PF('dlgModEmpresa').show()" update="FormDialogModEmp"/>
-                    <p:menuitem value="ELIMINAR" actionListener="#{empresaC.eliminarEmpresa()}" update="tblEmpresa">
-                        <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
-                    </p:menuitem>
-                </p:contextMenu>
-            </h:form>
 
 
+            </p:panelGrid>
+        </h:form>
 
-            <h:form>
-                <p:confirmDialog global="true">
-                    <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes"/>
-                    <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no"/>
-                </p:confirmDialog>
-            </h:form>
-        </h:body>
+        <h:form id="FormTblEmpresa">
+            <p:dataTable id="tblEmpresa"
+                         value="#{empresaC.lstEmpresa}"
+                         var="empresa"
+                         selection="#{empresaC.selectedEmpresa}"
+                         selectionMode="single"
+                         rowKey="#{empresa.IDEMP}"
+                         paginator="true"
+                         rows="15"
+                         rowsPerPageTemplate="5,10,15">
+                <p:column headerText="Razon Social">
+                    <p:outputLabel value="#{empresa.RAZSOCEMP}"/>
+                </p:column>
+                <p:column headerText="Ruc">
+                    <p:outputLabel value="#{empresa.RUCEMP}"/>
+                </p:column>
+                <p:column headerText="Dirección">
+                    <p:outputLabel value="#{empresa.DIREMP}"/>
+                </p:column>
+                <!--                    <p:column headerText="Ubicación">
+                                        <p:outputLabel value="HT{empresa.UBIGEO}"/>
+                                    </p:column>-->
+            </p:dataTable>
+            <p:contextMenu for="tblEmpresa">
+                <p:menuitem value="EDITAR" oncomplete="PF('dlgModEmpresa').show()" update="FormDialogModEmp"/>
+                <p:menuitem value="ELIMINAR" actionListener="#{empresaC.eliminarEmpresa()}" update="tblEmpresa">
+                    <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
+                </p:menuitem>
+            </p:contextMenu>
+        </h:form>
+
+
+
+        <h:form>
+            <p:confirmDialog global="true">
+                <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes"/>
+                <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no"/>
+            </p:confirmDialog>
+        </h:form>
+       
         <p:dialog header="ACTUALIZAR DATOS" widgetVar="dlgModEmpresa" resizable="false" modal="true" responsive="true" draggable="false">
             <h:form id="FormDialogModEmp">
                 <p:panelGrid columns="2">
@@ -95,16 +101,15 @@
                     <p:inputText value="#{empresaC.selectedEmpresa.RUCEMP}" placeholder="RUC" maxlength="11">
                         <p:keyFilter regEx="/[0-9]/"/>
                     </p:inputText>
-<!--                    <p:outputLabel value="Distrito:"/>
-                    <p:autoComplete emptyMessage="Sin resultados" 
-                                    maxResults="6"
-                                    value="HT{empresaC.selectedEmpresa.UBIGEO}"
-                                    completeMethod="HT{empresaC.completeTextUbi}"/>-->
+                    <!--                    <p:outputLabel value="Distrito:"/>
+                                        <p:autoComplete emptyMessage="Sin resultados" 
+                                                        maxResults="6"
+                                                        value="HT{empresaC.selectedEmpresa.UBIGEO}"
+                                                        completeMethod="HT{empresaC.completeTextUbi}"/>-->
                     <p:commandButton value="MODIFICAR" actionListener="#{empresaC.editarEmpresa()}" update="FormTblEmpresa:tblEmpresa" oncomplete="PF('dlgModEmpresa').hide()"/>
                     <p:commandButton value="CANCELAR" oncomplete="PF('dlgModEmpresa').hide()"/>
                 </p:panelGrid>
             </h:form>
         </p:dialog>
-    </h:body>
-</html>
-
+    </ui:define>
+</ui:composition>
