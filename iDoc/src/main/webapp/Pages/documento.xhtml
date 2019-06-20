@@ -25,8 +25,11 @@
 
         </h1>
         <!--REGISTRAR DOCUMENTO-->
+
+
+
         <h:form id="FormDocumento">
-            <p:panelGrid columns="2">
+            <p:panelGrid columns="4">
 
                 <p:outputLabel value="Codigo del Documento:"/>
                 <h:inputText value="#{documentoC.documento.CODDOC}" />
@@ -57,11 +60,6 @@
                 <p:outputLabel value="Observacion del documento"/>
                 <p:inputText value="#{documentoC.documento.OBSDOC}"/>
 
-                <p:outputLabel value="Tupa"/>
-                <p:selectOneMenu value="#{documentoC.documento.IDTUP}">
-                    <f:selectItem itemLabel="SELECCIONE TUPA" itemValue="#{null}"/>
-                    <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}"/>
-                </p:selectOneMenu>
                 <p:outputLabel value="Empresa"/>
                 <p:selectOneMenu value="#{documentoC.documento.IDEMP}">
                     <f:selectItem itemLabel="SELECCIONE LA EMPRESA" itemValue="#{null}"/>
@@ -72,6 +70,12 @@
                 <p:selectOneMenu value="#{documentoC.documento.IDPER}">
                     <f:selectItem itemLabel="SELECCIONE LA CLIENTE" itemValue="#{null}"/>
                     <f:selectItems value="#{personaC.listaPersona}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Tupa" style="width: 100px"/>
+                <p:selectOneMenu value="#{documentoC.documento.IDTUP}  ">
+                    <f:selectItem itemLabel="SELECCIONE TUPA" itemValue="#{null}" />
+                    <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}" />
                 </p:selectOneMenu>
 
                 <p:outputLabel value="KEY" />
@@ -97,6 +101,8 @@
         <!--listar-->
 
         <h:form id="FormTblDocumento">
+
+
             <p:dataTable id="tblDocumento"
                          value="#{documentoC.lstdocumento}"
                          var="documento"
@@ -107,17 +113,24 @@
                          rows="10"
                          rowsPerPageTemplate="5,10,15">
 
-                <p:column headerText="Codigo de documento" style="width: 80px">
-                    <p:outputLabel value="#{documento.CODDOC}"/>
-                </p:column>
-                <p:column headerText="N° de Libro" style="width: 80px">
-                    <p:outputLabel value="#{documento.NUMLIBDOC}"/>
-                </p:column>
-                <p:column headerText="N° de Folio" style="width: 80px">
-                    <p:outputLabel value="#{documento.NUMFOLDOC}"/>
+
+                <p:column headerText="#N " style="width: 30px" >
+                    <h:outputText value="#{'# '} #{documento.IDDOC}"/>
                 </p:column>
 
-                <p:column headerText="Tipo de documento" style="width: 100px" filterBy="#{documento.TIPDOC}"  >
+                <p:column style="width:16px">
+                    <p:rowToggler />
+                </p:column>
+
+                <p:column headerText="Asunto de documento">
+                    <h:outputText value="#{documento.ASUDOC}"/>
+                </p:column>
+
+                <p:column headerText="Fecha de documento" style="width: 250px" >
+                    <h:outputText value="#{documento.FECDOC}"/>
+                </p:column>
+
+                <p:column headerText="Tipo de documento" style="width: 250px" filterBy="#{documento.TIPDOC}"  >
                     <h:outputText value="#{documento.TIPDOC eq 'I' ? 'Documento interno' :  ''}"/>
                     <h:outputText value="#{documento.TIPDOC eq 'E' ? 'Documento externo' :  ''}"/>
                     <h:outputText value="#{documento.TIPDOC eq 'T' ? 'Tupa' :  ''}"/>
@@ -126,36 +139,41 @@
                     <h:outputText value="#{documento.TIPDOC eq 'D' ? 'Documento' :  ''}"/>
                 </p:column>
 
-                <p:column headerText="Fecha de documento" style="width: 120px">
-                    <h:outputText value="#{documento.FECDOC}"/>
-                </p:column>
+                <p:rowExpansion>
+                    <p:panelGrid columns="4">
 
-                <p:column headerText="Observacion de documento">
-                    <h:outputText value="#{documento.OBSDOC}"/>
-                </p:column>
+                        <h:outputText value="N° de Libro" style="width: 80px"/>
+                        <p:outputLabel value="#{documento.NUMLIBDOC}"/>
 
-                <p:column headerText="Estado de documento">
-                    <h:outputText value="#{documento.ESTDOC}"/>
-                </p:column>
+                        <h:outputText value="N° de Folio" style="width: 80px"/>
+                        <p:outputLabel value="#{documento.NUMFOLDOC}"/>
 
-                <p:column headerText="Tupa">
-                    <h:outputText value="#{documento.IDTUP}"/>
-                </p:column>
-                <p:column headerText="Trabajador">
-                    <h:outputText value="#{documento.IDLOG}"/>
-                </p:column>
-                <p:column headerText="Empresa">
-                    <h:outputText value="#{documento.IDEMP}"/>
-                </p:column>
-                <p:column headerText="Persona">
-                    <h:outputText value="#{documento.IDPER}"/>
-                </p:column>
-                <p:column headerText="Asunto de documento">
-                    <h:outputText value="#{documento.ASUDOC}"/>
-                </p:column>
-                <p:column headerText="Key">
-                    <h:outputText value="#{documento.KEYDOC}"/>
-                </p:column>
+                        <h:outputText value="Codigo de documento" style="width: 80px"/>
+                        <p:outputLabel value="#{documento.CODDOC}"/>
+
+                        <h:outputText value="Observacion de documento"/>
+                        <h:outputText value="#{documento.OBSDOC}"/>
+
+                        <h:outputText value="Estado de documento"/>
+                        <h:outputText value="#{documento.ESTDOC}"/>
+
+                        <h:outputText value="Tupa"/>
+                        <h:outputText value="#{documento.IDTUP}"/>
+
+                        <h:outputText value="Trabajador"/>
+                        <h:outputText value="#{documento.IDLOG}"/>
+
+                        <h:outputText value="Empresa"/>
+                        <h:outputText value="#{documento.IDEMP}"/>
+
+                        <h:outputText value="Persona"/>
+                        <h:outputText value="#{documento.IDPER}"/>
+
+                        <h:outputText value="Key"/>
+                        <h:outputText value="#{documento.KEYDOC}"/>
+
+                    </p:panelGrid>
+                </p:rowExpansion>
 
 
             </p:dataTable>
@@ -168,12 +186,18 @@
             </p:contextMenu>
         </h:form>
 
-        <p:dialog header="ACTUALIZAR DATOS" widgetVar="dlgModDocumento" resizable="false" modal="true">
+        <p:dialog header="ACTUALIZAR DATOS" widgetVar="dlgModDocumento" resizable="false" modal="false">
             <h:form id="FormDialogModDocumento">
-                <p:panelGrid columns="2">
+                <p:panelGrid columns="4">
+
+                    <p:outputLabel value="Codigo del Documento:"/>
+                    <h:inputText value="#{documentoC.selectedDocumento.CODDOC}" />
 
                     <p:outputLabel value="Numero de folio:"/>
-                    <h:inputText value="#{documentoC.selectedDocumento.NUMFOLDOC}" maxlength="10" />
+                    <h:inputText value="#{documentoC.selectedDocumento.NUMFOLDOC}" />
+
+                    <p:outputLabel value="Numero de Libro:"/>
+                    <h:inputText value="#{documentoC.selectedDocumento.NUMLIBDOC}"  />
 
                     <p:outputLabel value="Tipo de documento:"/>
                     <p:selectOneMenu value="#{documentoC.selectedDocumento.TIPDOC}">
@@ -189,7 +213,11 @@
 
 
                     <p:outputLabel value="Fecha DOCUMENTO"/>
-                    <p:inputMask value="#{documentoC.selectedDocumento.FECDOC}" mask="99/99/9999"/>
+                    <p:inputMask value="#{documentoC.selectedDocumento.FECDOC}" mask="9999/99/99"/>
+
+
+                    <p:outputLabel value="Observacion del documento"/>
+                    <p:inputText value="#{documentoC.selectedDocumento.OBSDOC}"/>
 
                     <p:outputLabel value="Tupa"/>
                     <p:selectOneMenu value="#{documentoC.selectedDocumento.IDTUP}">
@@ -197,19 +225,23 @@
                         <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}"/>
                     </p:selectOneMenu>
 
+                    <p:outputLabel value="Empresa"/>
+                    <p:selectOneMenu value="#{documentoC.selectedDocumento.IDEMP}">
+                        <f:selectItem itemLabel="SELECCIONE LA EMPRESA" itemValue="#{null}"/>
+                        <f:selectItems value="#{empresaC.lstEmpresa}" var="txtEmpresa" itemLabel=" #{txtEmpresa.RAZSOCEMP}" itemValue="#{txtEmpresa.IDEMP}"/>
+                    </p:selectOneMenu>
+
                     <p:outputLabel value="Trabajador"/>
                     <p:selectOneMenu value="#{documentoC.selectedDocumento.IDLOG}">
                         <f:selectItem itemLabel="SELECCIONE EL TRABAJADOR" itemValue="#{null}"/>
                         <f:selectItems value="#{personaC.listaPersona}" var="txt" itemLabel=" #{txt.NOMPER} #{txt.APEPATPER} #{txt.APEMATPER}" itemValue="#{txt.IDPER}"/>
                     </p:selectOneMenu>
-                    <!--<personaC = persona>-->
 
-                    <p:outputLabel value="Persona"/>
+                    <p:outputLabel value="cliente"/>
                     <p:selectOneMenu value="#{documentoC.selectedDocumento.IDPER}">
-                        <f:selectItem itemLabel="SELECCIONE LA PERSONA" itemValue="#{null}"/>
-                        <f:selectItems value="#{persona.lstPersona}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
+                        <f:selectItem itemLabel="SELECCIONE LA CLIENTE" itemValue="#{null}"/>
+                        <f:selectItems value="#{personaC.listaPersona}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
                     </p:selectOneMenu>
-
 
                 </p:panelGrid>
                 <p:panelGrid columns="1" >
@@ -221,6 +253,11 @@
                                      maxlength="300"
                                      counterTemplate="{0} characters remaining."
                                      autoResize="false" />
+
+
+                    <p:outputLabel value="KEY" />
+                    <p:inputMask value="#{documentoC.selectedDocumento.KEYDOC}" mask="9999"/>
+
 
                     <h:outputText id="display" />
                     <p:commandButton value="MODIFICAR" actionListener="#{documentoC.modificarDocumento()}" update="FormTblDocumento:tblDocumento"/>

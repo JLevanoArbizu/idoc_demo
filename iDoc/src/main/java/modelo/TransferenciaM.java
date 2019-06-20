@@ -3,29 +3,21 @@ package modelo;
 
 public class TransferenciaM {
     
-    private String CODTRAN;
-    private String FECENTTRAN;
+    private String IDTRAN;
     private String FECSALTRAN;
     private String FECRECTRAN;
     private String OBSTRAN;
-    private String CODDOC;
-    private String CODAREORI;
-    private String CODAREDES;
+    private String ESTTRA;
+    private String IDDOC;
+    private String IDARE_EMI;
+    private String IDARE_REC;
 
-    public String getCODTRAN() {
-        return CODTRAN;
+    public String getIDTRAN() {
+        return IDTRAN;
     }
 
-    public void setCODTRAN(String CODTRAN) {
-        this.CODTRAN = CODTRAN;
-    }
-
-    public String getFECENTTRAN() {
-        return FECENTTRAN;
-    }
-
-    public void setFECENTTRAN(String FECENTTRAN) {
-        this.FECENTTRAN = FECENTTRAN;
+    public void setIDTRAN(String IDTRAN) {
+        this.IDTRAN = IDTRAN;
     }
 
     public String getFECSALTRAN() {
@@ -52,28 +44,36 @@ public class TransferenciaM {
         this.OBSTRAN = OBSTRAN;
     }
 
-    public String getCODDOC() {
-        return CODDOC;
+    public String getIDDOC() {
+        return IDDOC;
     }
 
-    public void setCODDOC(String CODDOC) {
-        this.CODDOC = CODDOC;
+    public void setIDDOC(String IDDOC) {
+        this.IDDOC = IDDOC;
     }
 
-    public String getCODAREORI() {
-        return CODAREORI;
+    public String getIDARE_EMI() {
+        return IDARE_EMI;
     }
 
-    public void setCODAREORI(String CODAREORI) {
-        this.CODAREORI = CODAREORI;
+    public void setIDARE_EMI(String IDARE_EMI) {
+        this.IDARE_EMI = IDARE_EMI;
     }
 
-    public String getCODAREDES() {
-        return CODAREDES;
+    public String getIDARE_REC() {
+        return IDARE_REC;
     }
 
-    public void setCODAREDES(String CODAREDES) {
-        this.CODAREDES = CODAREDES;
+    public void setIDARE_REC(String IDARE_REC) {
+        this.IDARE_REC = IDARE_REC;
+    }
+
+    public String getESTTRA() {
+        return ESTTRA;
+    }
+
+    public void setESTTRA(String ESTTRA) {
+        this.ESTTRA = ESTTRA;
     }
     
     

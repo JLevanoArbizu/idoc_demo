@@ -10,15 +10,14 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import modelo.TransferenciaM;
 
-@Named(value = "TransferenciaC")
+@Named(value = "transferenciaC")
 @SessionScoped
 public class TransferenciaC implements Serializable {
 
     TransferenciaM transferencia = new TransferenciaM();
     private TransferenciaM selectedTransferencia;
     List<TransferenciaM> lstTransferencia;
-    
-    
+
     @PostConstruct
     public void iniciar() {
         try {
@@ -41,7 +40,7 @@ public class TransferenciaC implements Serializable {
             limpiarTransferencia();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado Correctamente", null));
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Registrar", null));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Registrar" + e, null));
         }
     }
 
@@ -103,6 +102,4 @@ public class TransferenciaC implements Serializable {
         this.lstTransferencia = lstTransferencia;
     }
 
-    
-    
 }

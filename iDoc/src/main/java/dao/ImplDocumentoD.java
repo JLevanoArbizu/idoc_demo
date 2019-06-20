@@ -42,7 +42,7 @@ public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
 
         try {
             this.conectar();
-            String sql = "UPDATE TraDoc.DOCUMENTO SET CODDOC=?,MUNLIBDOC=?, NUMFOLDOC=? ,TIPDOC=?, FECDOC=?, ASUDOC=?,OBSDOC=?, ESTDOC=?, IDTUP=? ,IDLOG=?,IDEMP=?, IDPER=?, KEYDOC=? WHERE IDDOC LIKE ?";
+            String sql = "UPDATE TraDoc.DOCUMENTO SET CODDOC=?, NUMLIBDOC = ?, NUMFOLDOC=? , TIPDOC=? , FECDOC=? , ASUDOC = ? , OBSDOC = ? , ESTDOC = ? , IDTUP = ? , IDLOG = ? , IDEMP = ? , IDPER = ? , KEYDOC = ? WHERE IDDOC LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
 
             ps.setString(1, documento.getCODDOC());
@@ -58,6 +58,7 @@ public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
             ps.setString(11, documento.getIDEMP());
             ps.setString(12, documento.getIDPER());
             ps.setString(13, documento.getKEYDOC());
+            ps.setString(14, documento.getIDDOC());
 
 
             ps.executeUpdate();
@@ -90,7 +91,7 @@ public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
         ResultSet rs;
         try {
             this.conectar();
-            String sql = "SELECT * FROM VW_DOCUMENTO";
+            String sql = "SELECT * FROM TraDoc.DOCUMENTO";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             listaDocumento = new ArrayList();
@@ -106,9 +107,9 @@ public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
                 documento.setASUDOC(rs.getString("ASUDOC"));
                 documento.setOBSDOC(rs.getString("OBSDOC"));
                 documento.setESTDOC(rs.getString("ESTDOC"));
-                documento.setIDTUP(rs.getString("NOMTUP"));
+                documento.setIDTUP(rs.getString("IDTUP"));
                 documento.setIDLOG(rs.getString("IDLOG"));
-                documento.setIDEMP(rs.getString("RAZSOCEMP"));
+                documento.setIDEMP(rs.getString("IDEMP"));
                 documento.setIDPER(rs.getString("IDPER"));
                 documento.setKEYDOC(rs.getString("KEYDOC"));
                 listaDocumento.add(documento);

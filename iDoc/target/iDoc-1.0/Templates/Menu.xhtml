@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">  
+
+
+    <h:form rendered="#{trabajadorC.loginT.IDLOG != null ? true : false}" id="frmMenu">
+
+        <p:commandLink action="Home" ajax="false" class="mdl-navigation__link">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home
+        </p:commandLink>
+        <p:commandLink action="Persona" ajax="false" class="mdl-navigation__link">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">supervisor_account</i>Ciudadano
+        </p:commandLink>
+        <p:commandLink action="Area" ajax="false" class="mdl-navigation__link"
+                       rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">dns</i>Área
+        </p:commandLink>
+        <p:commandLink action="Trabajador" ajax="false" class="mdl-navigation__link"
+                       rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">work</i>Trabajador
+        </p:commandLink>
+
+
+        <p:commandLink action="Acta" ajax="false" class="mdl-navigation__link">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">book</i>Actas
+        </p:commandLink>
+
+        <p:commandLink action="Incidencia" ajax="false" class="mdl-navigation__link">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">autorenew</i>Incidencia
+        </p:commandLink>
+
+        <div class="mdl-layout-spacer"/>
+        <p:commandLink action="IncidenciaTipo" ajax="false" class="mdl-navigation__link"
+                       rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">group_work</i>Tipos de Incidencia
+        </p:commandLink>
+        <div class="mdl-layout-spacer"/>
+
+        <p:commandLink action="tupa" ajax="false" class="mdl-navigation__link">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">import_contacts</i>Tupa
+        </p:commandLink>
+        <p:commandLink action="empresa" ajax="false" class="mdl-navigation__link">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">
+account_balance</i>Empresa
+        </p:commandLink>
+
+        <p:commandLink action="transferencia" ajax="false" class="mdl-navigation__link">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">compare_arrows</i>Tranferencia
+        </p:commandLink>
+
+        <p:commandLink action="documento" ajax="false" class="mdl-navigation__link">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">description</i>Documento
+        </p:commandLink>
+
+
+        <p:commandLink action="Ajustes" ajax="false" class="mdl-navigation__link">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">settings https</i>Ajustes
+        </p:commandLink>
+
+        <p:commandLink action="Login" actionListener="#{trabajadorC.cerrarSesion()}" 
+                       ajax="false" class="mdl-navigation__link">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">exit_to_app</i>Salir
+        </p:commandLink>
+
+    </h:form>
+
+
+</html>
+
