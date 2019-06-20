@@ -43,6 +43,15 @@ public class AreaC implements Serializable {
 
     }
 
+    public void generarReporte(Area are)throws Exception{
+        try {
+            daoArea.generarReporte(are);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
     public void listar() throws Exception {
         try {
             listaArea = daoArea.listar();

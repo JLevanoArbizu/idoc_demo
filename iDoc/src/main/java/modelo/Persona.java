@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Persona {
 
-    String IDPER, APEPATPER, APEMATPER, NOMPER, DNIPER, CODUBI, DISTPER, DIRPER, NACPER, GENPER, ESTPER, COMPLETO;
+    String IDPER, APEPATPER, APEMATPER, NOMPER, DNIPER, CODUBI, DIRPER, NACPER, GENPER, ESTPER, COMPLETO;
 
     @Override
     public String toString() {

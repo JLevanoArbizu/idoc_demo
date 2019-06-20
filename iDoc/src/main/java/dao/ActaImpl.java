@@ -1,24 +1,23 @@
 package dao;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import modelo.Acta;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 import org.apache.commons.lang3.text.WordUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 public class ActaImpl extends Conexion implements IGenerica<Acta> {
 
@@ -203,55 +202,31 @@ public class ActaImpl extends Conexion implements IGenerica<Acta> {
     }
 
     @Override
-    public void generarReporte(Acta modelo) throws JRException, IOException,Exception {
-        Map<String,Object> parametros = new HashMap();
+    public void generarReporte(Acta modelo) throws Exception {
+        try {
+            Gson gson = new Gson();
+            HttpClient httpClient = HttpClientBuilder.create().build();
+            String url = "http://localhost:5000/api/RegistroCivil/reportes/actas/am";
+            HttpPost post = new HttpPost(url);
+            StringEntity postEntity = new StringEntity(gson.toJson(modelo), ContentType.APPLICATION_JSON);
+            post.setEntity(postEntity);
+            HttpResponse respuestaApi = httpClient.execute(post);
+            System.out.println(respuestaApi.getStatusLine().getStatusCode());
 
-        parametros.put("titular", modelo.getTitular());
-        //parametros.put("CODUBI", modelo.getCODUBI());
-        parametros.put("FECREGDOC", String.valueOf(modelo.getFECREGACTA()));
-        parametros.put("FECACT", String.valueOf(modelo.getFECACT()));
-        parametros.put("DIRACT", modelo.getDIRACT());
-        parametros.put("NACPER","Peruano");
+            FacesContext facesContext = FacesContext.getCurrentInstance();
 
-        String path = "Reportes\\Acta\\";
-
-        switch (modelo.getTIPACTA()){
-            case "1":
-                parametros.put("papa",modelo.getPapa());
-                parametros.put("mama",modelo.getMama());
-                parametros.put("medico",modelo.getMedico());
-                parametros.put("celebrante",modelo.getDeclarante());
-                path += "AN";
-                break;
-            case "2":
-                parametros.remove("titular");
-                parametros.put("esposo",modelo.getTitular());
-                parametros.put("esposa",modelo.getEsposa());
-                parametros.put("celebrante",modelo.getCelebrante());
-                path += "AM";
-                break;
-            case "3":
-                parametros.put("declarante",modelo.getDeclarante());
-                path += "AD";
-                break;
-            default:
-                return;
+            HttpServletResponse respuestaPF = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+            respuestaPF.reset();
+            respuestaPF.setContentType("application/pdf");
+            respuestaPF.setHeader("Content-disposition", "attachment; filename=Acta.pdf");
+            OutputStream output = respuestaPF.getOutputStream();
+            respuestaApi.getEntity().writeTo(output);
+            output.flush();
+            FacesContext.getCurrentInstance().responseComplete();
+            System.out.println("Terminó");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        System.out.println(parametros.values());
-
-        path = FacesContext.getCurrentInstance().getExternalContext().getRealPath(path+".jasper");
-        System.out.println("PATH: "+path);
-
-        File jasper = new File(path);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros);
-        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        response.addHeader("Content-disposition", "attachment; filename=Acta.pdf");
-        try (ServletOutputStream stream = response.getOutputStream()) {
-            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
-            stream.flush();
-        }
-        FacesContext.getCurrentInstance().responseComplete();
-        System.out.println("Terminó");
     }
 
 

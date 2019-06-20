@@ -28,8 +28,9 @@
             </p:panelGrid>
         </h:form>
         <h3>
-            para editar y/o eliminar click derecho
-            probando
+            <p:commandButton rendered="#{lstTupa}"
+                             class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
+                             title="Guardar" actionListener="#{tupaCC.generarReporte(lstTupa)}"/>
         </h3>
         <!--lista-->
 
@@ -54,7 +55,7 @@
                 <p:column headerText="Nombre del tupa" filterBy="#{tupa.NOMTUP}" filterMatchMode="contains" style="width: 300px">
                     <p:outputLabel value="#{tupa.NOMTUP}"/>
                 </p:column>
-                <p:column headerText="Area responsable del tramite" style="width: 300px">
+                <p:column headerText="Área responsable del tramite" style="width: 300px">
                     <p:outputLabel value="#{tupa.ARETUP}"/>
                 </p:column>
                 <p:column headerText="Plazo del tupa" style="width: 100px">

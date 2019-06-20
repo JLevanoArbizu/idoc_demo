@@ -1,8 +1,6 @@
 package dao;
 
-import net.sf.jasperreports.engine.JRException;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface IGenerica<T> {

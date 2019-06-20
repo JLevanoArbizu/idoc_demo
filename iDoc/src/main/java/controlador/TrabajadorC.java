@@ -95,6 +95,12 @@ public class TrabajadorC extends PersonaC implements Serializable {
             listaTrabajador = daoTrabajador.listar();
             List<Trabajador> listaTemp = new ArrayList<>();
             for (Trabajador trabajador1 : listaTrabajador) {
+                if (trabajador1.getESTTRAB().equals("A")){
+                    System.out.println(trabajador1.toString());
+                    contadorTA++;
+                }else{
+                    contadorTI++;
+                }
                 for (Persona persona1 : listaPersona) {
                     if (trabajador1.getPersona().getIDPER().equals(persona1.getIDPER())) {
                         trabajador1.setPersona(persona1);
@@ -172,47 +178,58 @@ public class TrabajadorC extends PersonaC implements Serializable {
         }
     }
 
+    public void generarReporte(Trabajador trab)throws  Exception{
+        try {
+            daoTrabajador.generarReporte(trab);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     private void createCombinedModel() {
 
         BarChartSeries year = new BarChartSeries();
         year.setLabel("Años");
 
-        year.set("2004", 120);
-        year.set("2005", 100);
-        year.set("2006", 44);
-        year.set("2007", 150);
-        year.set("2008", 25);
+        year.set("2004", 20);
+        year.set("2005", 30);
+        year.set("2006", 40);
+        year.set("2007", 50);
+        year.set("2008", 60);
 
         LineChartSeries activos = new LineChartSeries();
         activos.setLabel("Activos");
 
-        activos.set("2004", 50);
-        activos.set("2005", 60);
-        activos.set("2006", 110);
-        activos.set("2007", 135);
-        activos.set("2008", 120);
+        activos.set("2004", 15);
+        activos.set("2005", 23);
+        activos.set("2006", 25);
+        activos.set("2007", 30);
+        activos.set("2008", 40);
+
 
         LineChartSeries inactivos = new LineChartSeries();
         inactivos.setLabel("Inactivos");
 
-        inactivos.set("2004", 52);
-        inactivos.set("2005", 60);
-        inactivos.set("2006", 110);
-        inactivos.set("2007", 135);
-        inactivos.set("2008", 120);
+        inactivos.set("2004", 4);
+        inactivos.set("2005", 3);
+        inactivos.set("2006", 2);
+        inactivos.set("2007", 5);
+        inactivos.set("2008", 10);
+
 
         combinedModel.addSeries(year);
         combinedModel.addSeries(inactivos);
         combinedModel.addSeries(activos);
 
-        combinedModel.setTitle("Bar and Line");
+
+        combinedModel.setTitle("Lista Trabajadores");
         combinedModel.setLegendPosition("ne");
         combinedModel.setMouseoverHighlight(false);
         combinedModel.setShowDatatip(false);
         combinedModel.setShowPointLabels(true);
         Axis yAxis = combinedModel.getAxis(AxisType.Y);
         yAxis.setMin(0);
-        yAxis.setMax(200);
+        yAxis.setMax(100);
     }
 
     public AreaC getAreaC() {

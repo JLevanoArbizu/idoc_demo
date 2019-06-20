@@ -54,6 +54,10 @@
                     <f:setPropertyActionListener value="#{listaTrabajador}" 
                                                  target="#{trabajadorC.trabajador}"/>
                 </p:commandButton>
+                <p:commandButton rendered="#{listaTrabajador.ESTTRAB eq 'A'}" ajax="false"
+                                 title="Guardar" actionListener="#{trabajadorCC.generarReporte(listaTrabajador)}"/>
+
+
                 <p:commandButton value="Resetear Contraseña" update="frmListarTrabajador"
                                  rendered="#{listaTrabajador.ESTTRAB eq 'A'}"
                                  actionListener="#{trabajadorC.resetearContra(listaTrabajador)}"/>

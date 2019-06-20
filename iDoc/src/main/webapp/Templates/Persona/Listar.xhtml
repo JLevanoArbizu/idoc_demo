@@ -67,6 +67,8 @@
                     <f:setPropertyActionListener value="#{listaPersona}" 
                                                  target="#{personaC.persona}"/>
                 </p:commandButton>
+                <p:commandButton rendered="#{listaPersona.ESTPER eq 'A'}" ajax="false"
+                                 title="Guardar" actionListener="#{personaC.generarReporte(listaPersona)}"/>
             </p:column>
             <p:blockUI block="dtTblPersona" trigger="dtTblPersona">
             Actualizando

@@ -85,6 +85,15 @@ public class IncidenciaC implements Serializable {
         incidencia.setIDINCTIP(incidenciatipo.obtenerCodigoIncidenciaTipo().getIDINCTIP());
     }
 
+
+    public void generarReporte(Incidencia inci) throws  Exception{
+        try {
+            daoIncidencia.generarReporte(inci);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void listarIncidencia() throws Exception {
         try {
             listaIncidencia = daoIncidencia.listar();

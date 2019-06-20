@@ -1,5 +1,6 @@
 package controlador;
 
+import com.sun.istack.internal.Pool;
 import dao.ImplTupaD;
 import java.io.Serializable;
 import java.util.List;
@@ -18,6 +19,8 @@ public class TupaC implements Serializable {
     private TupaM selectedTupa;
     private List<TupaM> lstTupa;
     private List<TupaM> lstTupa2;
+    ImplTupaD daotupa;
+
 
     @PostConstruct
     public void iniciar() {
@@ -66,6 +69,16 @@ public class TupaC implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado Correctamente", null));
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar" + e, null));
+        }
+    }
+
+    public void generarReporte(TupaM tupa) throws  Exception{
+
+        try {
+            daotupa.generarReporte(tupa);
+        }catch (Exception e){
+            e.printStackTrace();
+
         }
     }
 

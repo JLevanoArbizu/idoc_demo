@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="iDoc" options="-endorseddirs C:\Users\MartinAlexis\IdeaProjects\AS2018S3_iDoc\iDoc\target/endorsed" />
+      <module name="iDoc" options="-endorseddirs C:\Users\JCardenas\IdeaProjects\AS2018S3_iDoc\iDoc\target/endorsed" />
     </option>
   </component>
 </project>

@@ -130,10 +130,9 @@ public class ActaC extends UbigeoC implements Serializable {
     public void registrarSolicitud(Login log) throws Exception {
         try {
             solicitud.setLogin(log);
-            System.out.println(solicitud.toString());
-            solicitud.clear();
+            //solicitud.clear();
             //daoSolicitud.registrar(solicitud);
-            //daoActa.generarReporte(solicitud.getActa());
+            daoActa.generarReporte(solicitud.getActa());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -274,16 +273,20 @@ public class ActaC extends UbigeoC implements Serializable {
 
     public void createBar() {
         bar = new BarChartModel();
-        ChartSeries listAN = new ChartSeries("Nacimiento");
-        listAN.set("    ", contadorAN);
-
         ChartSeries listAD = new ChartSeries("Defunción");
-        listAD.set("    ", contadorAD);
+        ChartSeries listAN = new ChartSeries("Nacimiento");
+        listAN.set("2004                                                          2008", contadorAN);
+        listAD.set("", contadorAD);
 
+        ChartSeries listANN = new ChartSeries("Nacimiento");
+        ChartSeries listADD = new ChartSeries("Defunción");
+        listANN.set("    ", contadorAN);
+        listADD.set("  2008", contadorAD);
 
 
         bar.addSeries(listAN);
         bar.addSeries(listAD);
+
         
 
         bar.setTitle("Tasa de Natalidad y Mortalidad");

@@ -39,6 +39,8 @@
                     <f:setPropertyActionListener value="#{listaIncidencia}" 
                                                  target="#{incidenciaC.incidencia}"/>
                 </p:commandButton>
+                <p:commandButton rendered="#{listaIncidencia.ESTINC eq 'A'}" ajax="false"
+                                 title="Guardar" actionListener="#{incidenciaCC.generarReporte(listaIncidencia)}"/>
 
                 <p:commandButton title="ELIMINAR" icon="ui-icon-circle-close" value="ELIMINAR" style="width: 22vh;"
                                  actionListener="#{incidenciaC.eliminar(listaIncidencia)}" 

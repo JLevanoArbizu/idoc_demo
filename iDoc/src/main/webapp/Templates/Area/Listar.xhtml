@@ -65,6 +65,13 @@
 
                 </p:commandButton>
 
+                <p:commandButton rendered="#{listaArea.ESTARE eq 'A'}" ajax="false"
+                                 title="Guardar" actionListener="#{areaC.generarReporte(listaArea)}"/>
+
+                <p:commandButton rendered="#{listaArea.ESTARE eq 'A'}"
+                                 class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
+                                 title="Guardar" actionListener="#{areaC.generarReporte(listaArea)}"/>
+
                 <p:commandButton title="Eliminar" icon="ui-icon-circle-close"
                                  actionListener="#{areaC.eliminarArea(listaArea)}" 
                                  update=":frmRegistrarArea :frmListarArea" >

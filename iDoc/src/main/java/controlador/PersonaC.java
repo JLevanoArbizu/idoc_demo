@@ -79,6 +79,14 @@ public class PersonaC extends UbigeoC implements Serializable {
         }
     }
 
+    public void generarReporte(Persona per) throws Exception{
+        try {
+            daoPersona.generarReporte(per);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void listarPersonas() throws Exception {
         try {
             listaPersona = daoPersona.listar();

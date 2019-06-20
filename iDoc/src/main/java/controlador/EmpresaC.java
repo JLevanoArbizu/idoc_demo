@@ -19,6 +19,7 @@ public class EmpresaC implements Serializable {
     EmpresaM empresa = new EmpresaM();
     private EmpresaM selectedEmpresa;
     private List<EmpresaM> lstEmpresa;
+    private ImplEmpresaD daoempresa;
 
     @PostConstruct
     public void iniciar() {
@@ -74,6 +75,15 @@ public class EmpresaC implements Serializable {
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar", null));
         }
+    }
+
+    public void generarReporte(EmpresaM emper)throws Exception{
+        try {
+            daoempresa.generarReporte(emper);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public void listarEmpresa() throws Exception {

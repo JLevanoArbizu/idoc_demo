@@ -44,6 +44,10 @@
                                                             completeMethod="HT{empresaC.completeTextUbi}"/>-->
                     <p:commandButton value="REGISTRAR" actionListener="#{empresaC.registrarEmpresa()}" 
                                      update="FormEmpresa FormTblEmpresa:tblEmpresa"/>
+
+                    <p:commandButton rendered="#{listaArea.ESTARE}"
+                                     class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
+                                     title="Guardar" actionListener="#{empresaCC.generarReporte(listaArea)}"/>
                 </p:panelGrid>
 
 
