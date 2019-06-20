@@ -10,31 +10,33 @@
     <ui:param name="tituloPagina" value="DOCUMENTO"/>
 
     <ui:define name="contenidoPagina">
+
         <h:head>
             <title>Ingresar Documento</title>
             <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
         </h:head>
-
+        <f:event type="preRenderView" listener="#{documentoC.documento.setIDLOG(trabajadorC.loginT.getIDLOG())}"/>
 
         <p:growl life="1500">
             <p:autoUpdate/>
         </p:growl>
 
         <h1>
-            
+
         </h1>
         <!--REGISTRAR DOCUMENTO-->
         <h:form id="FormDocumento">
             <p:panelGrid columns="2">
 
                 <p:outputLabel value="Codigo del Documento:"/>
-                <h:inputText value="#{documentoC.documento.CODDOC}"  />
+                <h:inputText value="#{documentoC.documento.CODDOC}" />
+
 
                 <p:outputLabel value="Numero de Libro:"/>
-                <h:inputText value="#{documentoC.documento.NUMLIBDOC}" maxlength="10" />
+                <h:inputText value="#{documentoC.documento.NUMLIBDOC}"  />
 
                 <p:outputLabel value="Numero de folio:"/>
-                <h:inputText value="#{documentoC.documento.NUMFOLDOC}" maxlength="10" />
+                <h:inputText value="#{documentoC.documento.NUMFOLDOC}"/>
 
 
                 <p:outputLabel value="Tipo de documento:"/>
@@ -60,36 +62,30 @@
                     <f:selectItem itemLabel="SELECCIONE TUPA" itemValue="#{null}"/>
                     <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}"/>
                 </p:selectOneMenu>
-
-                <p:outputLabel value="Trabajador-login"/>
-                <p:selectOneMenu value="#{documentoC.documento.IDLOG}">
-                    <f:selectItem itemLabel="SELECCIONE EL TRABAJADOR" itemValue="#{null}"/>
-                    <f:selectItems value="#{LoginC.lstLogin}" var="txt" itemLabel="#{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}"/>
-                </p:selectOneMenu>
-
                 <p:outputLabel value="Empresa"/>
-                <p:selectOneMenu value="#{empresaC.empresa.IDEMP}">
-                    <f:selectItem itemLabel="SELECCIONE EL TRABAJADOR" itemValue="#{null}"/>
+                <p:selectOneMenu value="#{documentoC.documento.IDEMP}">
+                    <f:selectItem itemLabel="SELECCIONE LA EMPRESA" itemValue="#{null}"/>
                     <f:selectItems value="#{empresaC.lstEmpresa}" var="txt" itemLabel=" #{txt.RAZSOCEMP}" itemValue="#{txt.IDEMP}"/>
                 </p:selectOneMenu>
 
-                <p:outputLabel value="cliente"/> 
+                <p:outputLabel value="cliente"/>
                 <p:selectOneMenu value="#{documentoC.documento.IDPER}">
                     <f:selectItem itemLabel="SELECCIONE LA CLIENTE" itemValue="#{null}"/>
                     <f:selectItems value="#{personaC.listaPersona}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
                 </p:selectOneMenu>
 
+                <p:outputLabel value="KEY" />
+                <p:inputMask value="#{documentoC.documento.KEYDOC}" mask="9999"/>
+
             </p:panelGrid>
-
-
             <p:panelGrid columns="1" >
                 <p:outputLabel value="Asunto" />
-                <p:inputTextarea value="#{documentoC.documento.ASUDOC}" 
-                                 rows="3" 
-                                 cols="100" 
+                <p:inputTextarea value="#{documentoC.documento.ASUDOC}"
+                                 rows="3"
+                                 cols="100"
                                  counter="display"
-                                 maxlength="300" 
-                                 counterTemplate="{0} characters remaining." 
+                                 maxlength="300"
+                                 counterTemplate="{0} characters remaining."
                                  autoResize="false" />
 
                 <h:outputText id="display" />
@@ -111,7 +107,12 @@
                          rows="10"
                          rowsPerPageTemplate="5,10,15">
 
-
+                <p:column headerText="Codigo de documento" style="width: 80px">
+                    <p:outputLabel value="#{documento.CODDOC}"/>
+                </p:column>
+                <p:column headerText="N° de Libro" style="width: 80px">
+                    <p:outputLabel value="#{documento.NUMLIBDOC}"/>
+                </p:column>
                 <p:column headerText="N° de Folio" style="width: 80px">
                     <p:outputLabel value="#{documento.NUMFOLDOC}"/>
                 </p:column>
@@ -128,11 +129,23 @@
                 <p:column headerText="Fecha de documento" style="width: 120px">
                     <h:outputText value="#{documento.FECDOC}"/>
                 </p:column>
+
+                <p:column headerText="Observacion de documento">
+                    <h:outputText value="#{documento.OBSDOC}"/>
+                </p:column>
+
+                <p:column headerText="Estado de documento">
+                    <h:outputText value="#{documento.ESTDOC}"/>
+                </p:column>
+
                 <p:column headerText="Tupa">
                     <h:outputText value="#{documento.IDTUP}"/>
                 </p:column>
                 <p:column headerText="Trabajador">
                     <h:outputText value="#{documento.IDLOG}"/>
+                </p:column>
+                <p:column headerText="Empresa">
+                    <h:outputText value="#{documento.IDEMP}"/>
                 </p:column>
                 <p:column headerText="Persona">
                     <h:outputText value="#{documento.IDPER}"/>
@@ -140,6 +153,10 @@
                 <p:column headerText="Asunto de documento">
                     <h:outputText value="#{documento.ASUDOC}"/>
                 </p:column>
+                <p:column headerText="Key">
+                    <h:outputText value="#{documento.KEYDOC}"/>
+                </p:column>
+
 
             </p:dataTable>
 
@@ -151,7 +168,7 @@
             </p:contextMenu>
         </h:form>
 
-        <p:dialog header="ACTUALIZAR DATOS" widgetVar="dlgModDocumento" resizable="false" modal="true"> 
+        <p:dialog header="ACTUALIZAR DATOS" widgetVar="dlgModDocumento" resizable="false" modal="true">
             <h:form id="FormDialogModDocumento">
                 <p:panelGrid columns="2">
 
@@ -197,12 +214,12 @@
                 </p:panelGrid>
                 <p:panelGrid columns="1" >
                     <p:outputLabel value="Asunto" />
-                    <p:inputTextarea value="#{documentoC.selectedDocumento.ASUDOC}" 
-                                     rows="3" 
-                                     cols="100" 
+                    <p:inputTextarea value="#{documentoC.selectedDocumento.ASUDOC}"
+                                     rows="3"
+                                     cols="100"
                                      counter="display"
-                                     maxlength="300" 
-                                     counterTemplate="{0} characters remaining." 
+                                     maxlength="300"
+                                     counterTemplate="{0} characters remaining."
                                      autoResize="false" />
 
                     <h:outputText id="display" />

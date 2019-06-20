@@ -13,7 +13,7 @@ public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
     public void registrar(DocumentoM documento) throws Exception {
         try {
             this.conectar();
-            String sql = "INSERT INTO TraDocDOCUMENTO(CODDOC,NUMLIBDOC,NUMFOLDOC,TIPDOC,FECDOC,ASUDOC,OBSDOC,IDTUP,IDLOG,IDEMP,IDPER,KEYDOC) VALUES(?,?,?,?,CONVERT(DATE,?,103),?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO TraDoc.DOCUMENTO (CODDOC,NUMLIBDOC,NUMFOLDOC,TIPDOC,FECDOC,ASUDOC,OBSDOC,IDTUP,IDLOG,IDEMP,IDPER,KEYDOC) VALUES(?,?,?,?,CONVERT(DATE,?,103),?,?,?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, documento.getCODDOC());
             ps.setString(2, documento.getNUMLIBDOC());
@@ -24,13 +24,14 @@ public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
             ps.setString(7, documento.getOBSDOC());
             ps.setString(8, documento.getIDTUP());
             ps.setString(9, documento.getIDLOG());
-            ps.setString(10, documento.getIDEMP());
+            ps.setString(10, documento.getIDEMP() == null ? "1":documento.getIDEMP());
             ps.setString(11, documento.getIDPER());
             ps.setString(12, documento.getKEYDOC());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
         } finally {
+            System.out.println();
             this.desconectar();
         }
 
@@ -105,9 +106,9 @@ public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
                 documento.setASUDOC(rs.getString("ASUDOC"));
                 documento.setOBSDOC(rs.getString("OBSDOC"));
                 documento.setESTDOC(rs.getString("ESTDOC"));
-                documento.setIDTUP(rs.getString("IDTUP"));
+                documento.setIDTUP(rs.getString("NOMTUP"));
                 documento.setIDLOG(rs.getString("IDLOG"));
-                documento.setIDEMP(rs.getString("IDEMP"));
+                documento.setIDEMP(rs.getString("RAZSOCEMP"));
                 documento.setIDPER(rs.getString("IDPER"));
                 documento.setKEYDOC(rs.getString("KEYDOC"));
                 listaDocumento.add(documento);
