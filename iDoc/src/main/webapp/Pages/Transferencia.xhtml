@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="../Templates/Default.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:param name="tituloPagina" value="Transferencia"/>
+
+    <ui:define name="contenidoPagina">
+
+
+
+        <h:form id="FormTransferencia"> 
+            
+            <p:panelGrid columns="4">
+                <p:outputLabel value="Fecha entrada"/>
+                <p:inputMask value="#{transferenciaC.transferencia.FECRECTRAN}" mask="99/99/9999"/>
+                <p:outputLabel value="Fecha salida"/>
+                <p:inputMask value="#{transferenciaC.transferencia.FECSALTRAN}" mask="99/99/9999"/>
+                <p:outputLabel value="Observación"/>
+                <p:inputText value="#{transferenciaC.transferencia.OBSTRAN}" />
+
+                <p:outputLabel value="Documento"/>
+                <p:selectOneMenu value="#{transferenciaC.transferencia.IDDOC}">
+                    <f:selectItem itemLabel="SELECCIONE LA EMPRESA" itemValue="#{null}"/>
+                    <f:selectItems value="#{documentoC.lstdocumento}" var="txtdocumento" itemLabel=" #{txtdocumento.IDDOC}" itemValue="#{txtdocumento.IDDOC}"/>
+                </p:selectOneMenu>
+
+
+                <p:outputLabel value="area Emitida"/>
+                <p:selectOneMenu value="#{transferenciaC.transferencia.IDARE_EMI}">
+                    <f:selectItem itemLabel="SELECCIONE LA EMPRESA" itemValue="#{null}"/>
+                    <f:selectItems value="#{areaC.listaArea}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" itemValue="#{txtarea.IDARE}"/>
+                </p:selectOneMenu>
+
+
+                <p:outputLabel value="area Recibida"/>
+                <p:selectOneMenu value="#{transferenciaC.transferencia.IDARE_REC}">
+                    <f:selectItem itemLabel="SELECCIONE LA EMPRESA" itemValue="#{null}"/>
+                    <f:selectItems value="#{areaC.listaArea}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" itemValue="#{txtarea.IDARE}"/>
+                </p:selectOneMenu>
+
+
+                <p:commandButton value="REGISTRAR" actionListener="#{transferenciaC.registrarTransferencia()}" update="FormTransferencia FormTblTransferencia:tblTransferencia"/>
+            </p:panelGrid>
+        </h:form>
+        <h4>
+            para editar y/o eliminar click derecho
+ 
+        </h4>
+        <!--        lista -->
+
+        <h:form id="FormTblTransferencia">
+            <p:dataTable id="tblTransferencia"
+                         value="#{transferenciaC.lstTransferencia}"
+                         var="transferencia"
+                         selection="#{transferenciaC.selectedTransferncia}"
+                         selectionMode="single"
+                         rowKey="#{transferencia.IDTRAN}"
+                         paginator="true"
+                         rows="50"
+                         rowsPerPageTemplate="5,10,15,50"
+                         filteredValue="#{transferenciaC.lstTransferencia}" >
+
+                <p:column headerText="Fecha entrada"  >
+                    <p:outputLabel value="#{transferencia.FECRECTRAN}"/>
+                </p:column>
+                <p:column headerText="Fecha salida ">
+                    <p:outputLabel value="#{transferencia.FECSALTRAN}"/>
+                </p:column>
+                <p:column headerText="Observación">
+                    <p:outputLabel value="#{transferencia.OBSTRAN}"/>
+                </p:column>
+                <p:column headerText="Estado de tramite:" >
+                    <p:outputLabel value="#{transferencia.ESTTRA}"/>
+                </p:column>
+                <p:column headerText="Documento">
+                    <p:outputLabel value="#{transferencia.IDDOC}" />
+                </p:column>
+                <p:column headerText="area emitida:">
+                    <p:outputLabel value="#{transferencia.IDARE_EMI}" />
+                </p:column>
+                <p:column headerText="area Recibida">
+                    <p:outputLabel value="#{transferencia.IDARE_REC}" />
+                </p:column>
+
+
+            </p:dataTable>
+            <p:contextMenu for="tblTransferencia">
+                <p:menuitem value="EDITAR" oncomplete="PF('dlgModTransferencia').show()" update="FormDialogModTemp"/>
+                <p:menuitem value="ELIMINAR" actionListener="{transferenciaC.eliminarTransferencia()}" update="tblTransferencia">
+                    <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
+                </p:menuitem>
+            </p:contextMenu>
+        </h:form>
+
+
+        <p:dialog header="ACTUALIZAR DATOS" widgetVar="dlgModTransferencia" resizable="false" > 
+            <h:form id="FormDialogModTemp">
+                <p:panelGrid columns="2">
+
+                    <p:outputLabel value="Fecha entrada"/>
+                    <p:inputText value="#{transferenciaC.selectedTransferncia.FECRECTRAN}" />
+                    <p:outputLabel value="Fecha salida "/>
+                    <p:inputText value="#{transferenciaC.selectedTransferncia.FECSALTRAN}" />
+                    <p:outputLabel value="Observación"/>
+                    <p:inputText value="#{transferenciaC.selectedTransferncia.OBSTRAN}" />
+                    <p:outputLabel value="Estado de tramite:"/>
+                    <p:inputText value="#{transferenciaC.selectedTransferncia.ESTTRA}"/>
+                    <p:outputLabel value="Documento"/>
+                    <p:inputText value="#{transferenciaC.selectedTransferncia.IDDOC}"/>
+                    <p:outputLabel value="area emitida:"/>
+                    <p:inputText value="#{transferenciaC.selectedTransferncia.IDARE_EMI}" />
+
+                    <p:outputLabel value="area Recibida"/>
+                    <p:inputText value="#{transferenciaC.selectedTransferncia.IDARE_REC}"/>
+
+
+
+                    <p:commandButton value="MODIFICAR" actionListener="#{transferenciaC.editarTransferencia()}" oncomplete="PF('dlgModTransferencia').hide()" update="FormTblTransferencia:tblTransferencia" />
+                    <p:commandButton value="CANCELAR" oncomplete="PF('dlgModTransferencia').hide()"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <h:form>
+            <p:confirmDialog global="true">
+                <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes"/>
+                <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no"/>
+            </p:confirmDialog>
+        </h:form>
+
+
+
+
+    </ui:define>
+</ui:composition>
