@@ -29,18 +29,14 @@ public class DocumentoC implements Serializable {
 
     }
 
-    public void limpiarDocumento() throws Exception {
-        documento = new DocumentoM();
-    }
-
     public void registrarDocumento() throws Exception {
         ImplDocumentoD dao;
         try {
             dao = new ImplDocumentoD();
             dao.registrar(documento);
-            limpiarDocumento();
             listarDocumento();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado Correctamente", null));
+            documento.clear();
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Registrar" + e, null));
             throw e;
