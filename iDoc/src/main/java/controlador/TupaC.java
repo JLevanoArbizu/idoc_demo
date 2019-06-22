@@ -1,6 +1,5 @@
 package controlador;
 
-import com.sun.istack.internal.Pool;
 import dao.ImplTupaD;
 import java.io.Serializable;
 import java.util.List;

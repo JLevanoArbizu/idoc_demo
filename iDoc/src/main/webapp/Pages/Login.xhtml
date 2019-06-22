@@ -1,32 +1,86 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core"
-                template="/Templates/Default.xhtml"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>iDoc</title>
 
-    <ui:param name="tituloPagina" value="Login"/>
-    <ui:define name="contenidoPagina">
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps."/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900' rel='stylesheet'
+              type='text/css'/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+        <h:outputStylesheet name="css/lib/getmdl-select.min.css"/>
+        <h:outputStylesheet name="css/lib/nv.d3.min.css"/>
+        <h:outputStylesheet name="css/application.min.css"/>
+
+        <h:outputScript name="js/d3.min.js"/>
+        <h:outputScript name="js/getmdl-select.min.js"/>
+        <h:outputScript name="js/material.min.js"/>
+        <h:outputScript name="js/nv.d3.min.js"/>
+        <h:outputScript name="js/layout/layout.min.js"/>
+        <h:outputScript name="js/scroll/scroll.min.js"/>
+        <h:outputScript name="js/widgets/employer-form/employer-form.min.js"/>
+
+
+    </h:head>
+    <h:body>
 
         <f:event type="preRenderView" listener="#{trabajadorC.volverHome()}"/>
 
-        <h:form id="frmIngresar">
-            <p:growl life="1000"/>
-            <ui:include src="../Templates/Login/frmLogin.xhtml"/>
-            <p:commandButton id="btnIngresar" ajax="false"
-                             actionListener="#{trabajadorC.iniciarSesion()}"
-                             value="Ingresar" update=":frmLogin :frmMenu"/>
-            <p:blockUI block="frmIngresar" trigger="btnIngresar">
-                Accediendo..
-            </p:blockUI>
-        </h:form>
+        <div class="mdl-layout mdl-js-layout color--gray is-small-screen login">
+            <main class="mdl-layout__content">
+                <div class="mdl-card mdl-card__login mdl-shadow--2dp">
+                    <div class="mdl-card__supporting-text color--dark-gray">
+                        <div class="mdl-grid">
+                            <h:form id="frmIngresar">
+                                <p:growl life="1000"/>
 
-        <h:form>
-            <p:commandLink action="Transparencia" ajax="false" value="VUT"/>
-        </h:form>
+                                <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone">
+                                    <span class="mdl-card__title-text text-color--smooth-gray">iDoc</span>
+                                </div>
+                                <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone">
+                                    <span class="login-name text-color--white">Acceder</span>
+                                </div>
+                                <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+                                        <p:inputText styleClass="mdl-textfield__input" type="text" id="e-mail" 
+                                               requiredMessage="Ingrese usuario"
+                                               value="#{trabajadorC.loginT.USRLOG}" required="true"/>
+                                        <p:outputLabel styleClass="mdl-textfield__label" for="e-mail" value="Usuario"/>
+                                    </div>
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
+                                        <p:password styleClass="mdl-textfield__input" id="password"
+                                               requiredMessage="Ingrese contraseña"
+                                               value="#{trabajadorC.loginT.PSSWLOG}" required="true"/>
+                                        <p:outputLabel styleClass="mdl-textfield__label" for="password" value="Contraseña"/>
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone submit-cell">
+                                    <p:commandLink action="Transparencia" ajax="false" value="Ventanilla Única de Trámite" immediate="true" styleClass="login-link"/>
 
-    </ui:define>
+                                    <div class="mdl-layout-spacer"></div>
+                                    <p:commandButton id="btnIngresar" ajax="false" styleClass="mdl-button mdl-js-button mdl-button--raised color--light-blue"
+                                                     actionListener="#{trabajadorC.iniciarSesion()}"
+                                                     value="Ingresar" update=":frmLogin :frmMenu"/>
+                                    <p:blockUI block="frmIngresar" trigger="btnIngresar">
+                                        Accediendo..
+                                    </p:blockUI>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
 
-</ui:composition>
+    </h:body>
+</html>
 

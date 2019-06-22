@@ -8,61 +8,53 @@
     <h:form rendered="#{trabajadorC.loginT.IDLOG != null ? true : false}" id="frmMenu">
 
         <p:commandLink action="Home" ajax="false" class="mdl-navigation__link">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home
+            <i class="material-icons" role="presentation">home</i>Home
         </p:commandLink>
         <p:commandLink action="Persona" ajax="false" class="mdl-navigation__link">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">supervisor_account</i>Ciudadano
+            <i class="material-icons" role="presentation">supervisor_account</i>Ciudadano
         </p:commandLink>
         <p:commandLink action="Area" ajax="false" class="mdl-navigation__link"
                        rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">dns</i>Área
+            <i class="material-icons" role="presentation">dns</i>Área
         </p:commandLink>
         <p:commandLink action="Trabajador" ajax="false" class="mdl-navigation__link"
                        rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">work</i>Trabajador
+            <i class="material-icons" role="presentation">work</i>Trabajador
         </p:commandLink>
 
 
         <p:commandLink action="Acta" ajax="false" class="mdl-navigation__link">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">book</i>Actas
+            <i class="material-icons" role="presentation">book</i>Actas
         </p:commandLink>
 
         <p:commandLink action="Incidencia" ajax="false" class="mdl-navigation__link">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">autorenew</i>Incidencia
+            <i class="material-icons" role="presentation">autorenew</i>Incidencia
         </p:commandLink>
 
         <div class="mdl-layout-spacer"/>
         <p:commandLink action="IncidenciaTipo" ajax="false" class="mdl-navigation__link"
                        rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">group_work</i>Tipos de Incidencia
+            <i class="material-icons" role="presentation">group_work</i>Tipos de Incidencia
         </p:commandLink>
         <div class="mdl-layout-spacer"/>
 
         <p:commandLink action="tupa" ajax="false" class="mdl-navigation__link">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">import_contacts</i>Tupa
+            <i class="material-icons" role="presentation">import_contacts</i>Tupa
         </p:commandLink>
         <p:commandLink action="empresa" ajax="false" class="mdl-navigation__link">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">
-account_balance</i>Empresa
+            <i class="material-icons" role="presentation">
+                account_balance</i>Empresa
         </p:commandLink>
 
         <p:commandLink action="Transferencia" ajax="false" class="mdl-navigation__link">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">compare_arrows</i>Tranferencia
+            <i class="material-icons" role="presentation">compare_arrows</i>Tranferencia
         </p:commandLink>
 
         <p:commandLink action="documento" ajax="false" class="mdl-navigation__link">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">description</i>Documento
+            <i class="material-icons" role="presentation">description</i>Documento
         </p:commandLink>
 
 
-        <p:commandLink action="Ajustes" ajax="false" class="mdl-navigation__link">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">settings https</i>Ajustes
-        </p:commandLink>
-
-        <p:commandLink action="Login" actionListener="#{trabajadorC.cerrarSesion()}" 
-                       ajax="false" class="mdl-navigation__link">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">exit_to_app</i>Salir
-        </p:commandLink>
 
     </h:form>
 

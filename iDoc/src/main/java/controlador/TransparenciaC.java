@@ -42,6 +42,7 @@ public class TransparenciaC implements Serializable {
 
     public void listar() throws Exception{
         try {
+            clear();
             listaTransparencia = daoTransparencia.listar(transparencia);
             if (listaTransparencia.size()>0){
                 persona = listaTransparencia.get(0).getPersona();

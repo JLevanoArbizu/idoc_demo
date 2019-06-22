@@ -1,107 +1,134 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
-                template="../Templates/Default.xhtml"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Transparencia</title>
 
-    <ui:param name="tituloPagina" value="Transparencia"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="description" content="Aplicación de Registro Civil y Trámite Documentario de la Municipalidad de Nuevo Imperial."/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900' rel='stylesheet'
+              type='text/css'/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-    <ui:define name="contenidoPagina">
+        <h:outputStylesheet name="css/lib/getmdl-select.min.css"/>
+        <h:outputStylesheet name="css/lib/nv.d3.min.css"/>
+        <h:outputStylesheet name="css/application.min.css"/>
 
-        <h:form id="frmTransparencia">
-            <p:growl life="1000"/>
-            <p:panelGrid columns="3">
-                <p:outputLabel value="DNI"/>
-                <p:outputLabel value="Identificador Trámite"/>
-                <p:outputLabel value="Llave"/>
+        <h:outputScript name="js/d3.min.js"/>
+        <h:outputScript name="js/getmdl-select.min.js"/>
+        <h:outputScript name="js/material.min.js"/>
+        <h:outputScript name="js/nv.d3.min.js"/>
+        <h:outputScript name="js/layout/layout.min.js"/>
+        <h:outputScript name="js/scroll/scroll.min.js"/>
+    </h:head>
+    <h:body>
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header is-small-screen">
+            <main class="mdl-layout__content">
+                <div class="mdl-grid mdl-grid--no-spacing dashboard">
 
-                <p:inputText value="${transparenciaC.transparencia.dni}" required="true"
-                             requiredMessage="Ingrese su DNI."/>
-                <p:inputText value="#{transparenciaC.transparencia.idtra}" required="true"
-                             requiredMessage="Ingrese su Identificador de Trámite"/>
-                <p:password value="#{transparenciaC.transparencia.key}" required="true"
-                             requiredMessage="Ingrese su llave por favor."/>
-                <p:commandButton actionListener="#{transparenciaC.listar()}" value="Consultar Trámite"
-                                 oncomplete="#{transparenciaC.clear()}"
-                update="frmTransparencia :frmListarTransparencia :frmDatosSolicitante"/>
-            </p:panelGrid>
-        </h:form>
+                    <div class="mdl-grid mdl-cell mdl-cell--9-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone mdl-cell--top">
 
-        <h:form id="frmDatosSolicitante">
-            <p:tabView>
-                <p:tab title="Persona">
-                    <h:panelGrid columns="2" cellpadding="5" >
-                        <p:outputLabel value="Apellidos y Nombres" style="font-weight: bold;"/>
-                        <p:outputLabel value="#{transparenciaC.persona.COMPLETO}" style="font-weight: normal"/>
-                        <p:outputLabel value="DNI" style="font-weight: bold;"/>
-                        <p:outputLabel value="#{transparenciaC.persona.DNIPER}" style="font-weight: normal"/>
-                    </h:panelGrid>
-                </p:tab>
-                <p:tab title="Empresa">
-                    <h:panelGrid columns="2" cellpadding="5" >
-                        <p:outputLabel value="Razón Social" style="font-weight: bold;"/>
-                        <p:outputLabel value="#{transparenciaC.empresa.RAZSOCEMP}" style="font-weight: normal"/>
-                        <p:outputLabel value="RUC" style="font-weight: bold;"/>
-                        <p:outputLabel value="#{transparenciaC.empresa.RUCEMP}" style="font-weight: normal"/>
-                    </h:panelGrid>
-                </p:tab>
-                <p:tab title="Documento">
-                    <h:panelGrid columns="2" cellpadding="5" >
-                        <p:outputLabel value="Fecha" style="font-weight: bold;"/>
-                        <p:outputLabel value="#{transparenciaC.documento.FECDOC}" style="font-weight: normal"/>
-                        <p:outputLabel value="Asunto" style="font-weight: bold;"/>
-                        <p:outputLabel value="#{transparenciaC.documento.ASUDOC}" style="font-weight: normal"/>
-                        <p:outputLabel value="Observación" style="font-weight: bold;"/>
-                        <p:outputLabel value="#{transparenciaC.documento.OBSDOC}" style="font-weight: normal"/>
-                    </h:panelGrid>
-                </p:tab>
-            </p:tabView>
-        </h:form>
+                        <h:form id="frmTransparencia">
+                            <p:growl life="1000"/>
+                            <p:panelGrid columns="3">
+                                <p:outputLabel value="DNI"/>
+                                <p:outputLabel value="Identificador Trámite"/>
+                                <p:outputLabel value="Llave"/>
 
-        <h:form id="frmListarTransparencia">
-            <p:dataTable id="dtTblTransparencia"  value="#{transparenciaC.listaTransparencia}" var="listaTransparencia"
-                         rows="10" emptyMessage="No se encontrarón datos."
-                         paginator="true" scrollable="true" scrollHeight="500"
-                         rowsPerPageTemplate="5,10,15,20">
+                                <p:inputText value="${transparenciaC.transparencia.dni}" required="true"
+                                             requiredMessage="Ingrese su DNI."/>
+                                <p:inputText value="#{transparenciaC.transparencia.idtra}" required="true"
+                                             requiredMessage="Ingrese su Identificador de Trámite"/>
+                                <p:password value="#{transparenciaC.transparencia.key}" required="true"
+                                            requiredMessage="Ingrese su llave por favor."/>
+                                <p:commandButton actionListener="#{transparenciaC.listar()}" value="Consultar Trámite"
+                                                 update="frmTransparencia :frmListarTransparencia :frmDatosSolicitante"/>
+                            </p:panelGrid>
+                        </h:form>
 
-                <f:facet name="header">
-                    Ventana Única de Trámite
-                </f:facet>
+                        <h:form id="frmDatosSolicitante">
+                            <p:tabView>
+                                <p:tab title="Persona">
+                                    <h:panelGrid columns="2" cellpadding="5" >
+                                        <p:outputLabel value="Apellidos y Nombres" style="font-weight: bold;"/>
+                                        <p:outputLabel value="#{transparenciaC.persona.COMPLETO}" style="font-weight: normal"/>
+                                        <p:outputLabel value="DNI" style="font-weight: bold;"/>
+                                        <p:outputLabel value="#{transparenciaC.persona.DNIPER}" style="font-weight: normal"/>
+                                    </h:panelGrid>
+                                </p:tab>
+                                <p:tab title="Empresa">
+                                    <h:panelGrid columns="2" cellpadding="5" >
+                                        <p:outputLabel value="Razón Social" style="font-weight: bold;"/>
+                                        <p:outputLabel value="#{transparenciaC.empresa.RAZSOCEMP}" style="font-weight: normal"/>
+                                        <p:outputLabel value="RUC" style="font-weight: bold;"/>
+                                        <p:outputLabel value="#{transparenciaC.empresa.RUCEMP}" style="font-weight: normal"/>
+                                    </h:panelGrid>
+                                </p:tab>
+                                <p:tab title="Documento">
+                                    <h:panelGrid columns="2" cellpadding="5" >
+                                        <p:outputLabel value="Fecha" style="font-weight: bold;"/>
+                                        <p:outputLabel value="#{transparenciaC.documento.FECDOC}" style="font-weight: normal"/>
+                                        <p:outputLabel value="Asunto" style="font-weight: bold;"/>
+                                        <p:outputLabel value="#{transparenciaC.documento.ASUDOC}" style="font-weight: normal"/>
+                                        <p:outputLabel value="Observación" style="font-weight: bold;"/>
+                                        <p:outputLabel value="#{transparenciaC.documento.OBSDOC}" style="font-weight: normal"/>
+                                    </h:panelGrid>
+                                </p:tab>
+                            </p:tabView>
+                        </h:form>
 
-                <p:column headerText="Área Emisora"
-                          style="font-weight: bold;">
-                    <h:outputLabel
-                            value="#{listaTransparencia.emisor.NOMARE}" style="font-weight: normal" />
-                </p:column>
+                        <h:form id="frmListarTransparencia">
+                            <p:dataTable id="dtTblTransparencia"  value="#{transparenciaC.listaTransparencia}" var="listaTransparencia"
+                                         rows="10" emptyMessage="No se encontrarón datos."
+                                         paginator="true" scrollable="true" scrollHeight="500"
+                                         rowsPerPageTemplate="5,10,15,20">
 
-                <p:column headerText="Área Receptora"
-                          style="font-weight: bold;">
-                    <h:outputLabel
-                            value="#{listaTransparencia.receptor.NOMARE}" style="font-weight: normal" />
-                </p:column>
+                                <f:facet name="header">
+                                    Ventana Única de Trámite
+                                </f:facet>
 
-                <p:column headerText="Fecha Recepción de la Transferencia"
-                          style="font-weight: bold;">
-                    <h:outputLabel
-                            value="#{listaTransparencia.transferencia.FECRECTRAN}" style="font-weight: normal" />
-                </p:column>
+                                <p:column headerText="Área Emisora"
+                                          style="font-weight: bold;">
+                                    <h:outputLabel
+                                        value="#{listaTransparencia.emisor.NOMARE}" style="font-weight: normal" />
+                                </p:column>
 
-                <p:column headerText="Fecha Salida de la Transferencia"
-                          style="font-weight: bold;">
-                    <h:outputLabel
-                            value="#{listaTransparencia.transferencia.FECSALTRAN}" style="font-weight: normal" />
-                </p:column>
+                                <p:column headerText="Área Receptora"
+                                          style="font-weight: bold;">
+                                    <h:outputLabel
+                                        value="#{listaTransparencia.receptor.NOMARE}" style="font-weight: normal" />
+                                </p:column>
 
-                <p:column headerText="Observación de la Transferencia"
-                          style="font-weight: bold;">
-                    <h:outputLabel
-                            value="#{listaTransparencia.transferencia.OBSTRAN}" style="font-weight: normal" />
-                </p:column>
+                                <p:column headerText="Fecha Recepción de la Transferencia"
+                                          style="font-weight: bold;">
+                                    <h:outputLabel
+                                        value="#{listaTransparencia.transferencia.FECRECTRAN}" style="font-weight: normal" />
+                                </p:column>
 
-            </p:dataTable>
-        </h:form>
+                                <p:column headerText="Fecha Salida de la Transferencia"
+                                          style="font-weight: bold;">
+                                    <h:outputLabel
+                                        value="#{listaTransparencia.transferencia.FECSALTRAN}" style="font-weight: normal" />
+                                </p:column>
 
-    </ui:define>
-</ui:composition>
+                                <p:column headerText="Observación de la Transferencia"
+                                          style="font-weight: bold;">
+                                    <h:outputLabel
+                                        value="#{listaTransparencia.transferencia.OBSTRAN}" style="font-weight: normal" />
+                                </p:column>
+
+                            </p:dataTable>
+                        </h:form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </h:body>
+</html>
