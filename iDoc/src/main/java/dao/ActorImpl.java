@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.util.List;
+import java.util.Map;
 import modelo.Actor;
 
 public class ActorImpl extends Conexion implements IGenerica<Actor> {
@@ -56,8 +57,10 @@ public class ActorImpl extends Conexion implements IGenerica<Actor> {
     }
 
     @Override
-    public void generarReporte(Actor modelo) throws Exception {
-
+    public void generarReporte(Map parameters) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+
 
 }

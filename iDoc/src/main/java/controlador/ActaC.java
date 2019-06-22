@@ -132,7 +132,7 @@ public class ActaC extends UbigeoC implements Serializable {
             solicitud.setLogin(log);
             //solicitud.clear();
             //daoSolicitud.registrar(solicitud);
-            daoActa.generarReporte(solicitud.getActa());
+         //   daoActa.generarReporte(solicitud.getActa());
         } catch (Exception e) {
             e.printStackTrace();
         }

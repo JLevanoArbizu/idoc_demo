@@ -1,30 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2019-06-22T10:16:02 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Ciudadano" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="e115bc59-fd0f-446b-a585-04725e27d7f0">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDoc"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#FFFFFF" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
-	<parameter name="APEPATPER" class="java.lang.String"/>
-	<parameter name="APEMATPER" class="java.lang.String"/>
-	<parameter name="NOMPER" class="java.lang.String"/>
-	<parameter name="DNIPER" class="java.lang.String"/>
-	<parameter name="CODUBI" class="java.lang.String"/>
-	<parameter name="DIRPER" class="java.lang.String"/>
-	<parameter name="GENPER" class="java.lang.String"/>
-	<parameter name="NACPER" class="java.lang.String"/>
-	<queryString>
-		<![CDATA[]]>
+	<queryString language="SQL">
+		<![CDATA[SELECT IDPER , APEPATPER  , APEMATPER ,
+NOMPER, DNIPER , CODUBI , DIRPER , NACPER , GENPER , ESTPER 
+FROM GENERAL.PERSONA]]>
 	</queryString>
+	<field name="IDPER" class="java.lang.Integer"/>
+	<field name="APEPATPER" class="java.lang.String"/>
+	<field name="APEMATPER" class="java.lang.String"/>
+	<field name="NOMPER" class="java.lang.String"/>
+	<field name="DNIPER" class="java.lang.String"/>
+	<field name="CODUBI" class="java.lang.String"/>
+	<field name="DIRPER" class="java.lang.String"/>
+	<field name="NACPER" class="java.lang.String"/>
+	<field name="GENPER" class="java.lang.String"/>
+	<field name="ESTPER" class="java.lang.String"/>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{IDPER}]]></groupExpression>
+		<groupHeader>
+			<band height="14"/>
+		</groupHeader>
+	</group>
+	<group name="Group2">
+		<groupExpression><![CDATA[$F{APEPATPER}]]></groupExpression>
+	</group>
+	<group name="APEMATPER">
+		<groupExpression><![CDATA[$F{APEMATPER}]]></groupExpression>
+	</group>
+	<group name="NOMPER">
+		<groupExpression><![CDATA[$F{NOMPER}]]></groupExpression>
+	</group>
+	<group name="DNIPER">
+		<groupExpression><![CDATA[$F{DNIPER}]]></groupExpression>
+	</group>
+	<group name="CODUBI">
+		<groupExpression><![CDATA[$F{CODUBI}]]></groupExpression>
+	</group>
+	<group name="DIRPER">
+		<groupExpression><![CDATA[$F{DIRPER}]]></groupExpression>
+	</group>
+	<group name="NACPER">
+		<groupExpression><![CDATA[$F{NACPER}]]></groupExpression>
+	</group>
+	<group name="GENPER">
+		<groupExpression><![CDATA[$F{GENPER}]]></groupExpression>
+	</group>
+	<group name="ESTPER">
+		<groupExpression><![CDATA[$F{ESTPER}]]></groupExpression>
+	</group>
 	<title>
-		<band height="62" splitType="Stretch">
+		<band height="76" splitType="Stretch">
 			<staticText>
-				<reportElement style="Title" x="0" y="-10" width="802" height="67" uuid="1dcadd54-7d50-4470-85ed-189e4d910b25"/>
+				<reportElement style="Title" x="0" y="0" width="802" height="67" uuid="1dcadd54-7d50-4470-85ed-189e4d910b25"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="50" isBold="false"/>
+					<font size="54" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Lista de Ciudadanos]]></text>
+				<text><![CDATA[Ciudadano]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -39,102 +78,102 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="78" splitType="Stretch">
+		<band height="73" splitType="Stretch">
 			<textField>
-				<reportElement x="-1" y="40" width="102" height="30" uuid="d5ed53c1-177c-4b4c-a5dd-e5173bcd650c"/>
+				<reportElement x="-2" y="40" width="102" height="30" uuid="698b729f-868a-44ea-af5f-45ef88b92ea3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{APEPATPER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{APEPATPER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="40" width="100" height="30" uuid="e82747f0-b07f-4ace-8b5a-6d85d2a0ef58"/>
+				<reportElement x="100" y="40" width="100" height="30" uuid="15213c40-c461-46c2-a717-ab4577d28b12"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{APEMATPER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{APEMATPER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="200" y="40" width="100" height="30" uuid="34b4cb41-5d73-41e4-9074-5e2ebd260366"/>
+				<reportElement x="200" y="40" width="100" height="30" uuid="34acbd6b-8878-40ef-9282-1002ec6b432c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{NOMPER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NOMPER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="300" y="40" width="100" height="30" uuid="d82c2c29-9255-48da-8838-cd411301cd36"/>
+				<reportElement x="300" y="40" width="100" height="30" uuid="f58b214e-eaea-4298-b92f-f6e7dce983ff"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{DNIPER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{DNIPER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="400" y="40" width="100" height="30" uuid="95db83d9-e122-4cce-b7f8-36717a95c90d"/>
+				<reportElement x="400" y="40" width="100" height="30" uuid="bfa359fc-94e0-4f68-b464-45bc45f8b34f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{CODUBI}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CODUBI}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="500" y="40" width="100" height="30" uuid="a82addfe-1e05-49f5-a3a6-eb99a83a5fc4"/>
+				<reportElement x="500" y="40" width="100" height="30" uuid="5b145199-4295-4df6-8abf-2525a59ccde4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{DIRPER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{DIRPER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="600" y="40" width="100" height="30" uuid="c6003d7c-cbfc-4640-ba1e-29ea90a0424c"/>
+				<reportElement x="600" y="40" width="100" height="30" uuid="cda75410-f1b0-49af-bd3b-adbae00c1642"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{GENPER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NACPER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="700" y="40" width="100" height="30" uuid="0603b112-3353-45fb-9ad4-279f09858f3d"/>
+				<reportElement x="700" y="40" width="100" height="30" uuid="eb426dfb-a420-4a18-8709-460c7a03401a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{NACPER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{GENPER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="10" width="100" height="30" uuid="e208ed16-95e5-424d-a1bc-097625785a74"/>
+				<reportElement x="0" y="10" width="100" height="30" uuid="c49b2676-761a-45d5-b551-cfa38cb0500a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Apellido Paterno]]></text>
+				<text><![CDATA[APELLIDO PATERNO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="10" width="100" height="30" uuid="859ba05c-263f-40d4-a345-7b973efbb316"/>
+				<reportElement x="100" y="10" width="100" height="30" uuid="43802689-4228-47e0-aa2a-dcf651ae9e81"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Apellido Materno]]></text>
+				<text><![CDATA[APELLIDO MATERNO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="10" width="100" height="30" uuid="2fd076f2-aa7a-47c9-957e-4bb07f5df8e1"/>
+				<reportElement x="200" y="10" width="100" height="30" uuid="718f1322-54d1-4c8d-a5c9-3e41f6d54ad0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nombres]]></text>
+				<text><![CDATA[NOMBRES]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="300" y="10" width="100" height="30" uuid="7d0b4b0c-1ec3-4920-baa4-5e65ed33b332"/>
+				<reportElement x="300" y="10" width="100" height="30" uuid="2723e56f-df69-4360-8278-cbecbba6eaad"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[DNI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="400" y="10" width="100" height="30" uuid="1737cf73-d843-4b79-a9ec-95173dad149f"/>
+				<reportElement x="400" y="10" width="100" height="30" uuid="b3822b92-863f-4236-a290-361dfc29b156"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Distrito]]></text>
+				<text><![CDATA[UBIGEO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="500" y="10" width="100" height="30" uuid="44bcdde0-235f-4012-8109-d31de0f8195d"/>
+				<reportElement x="500" y="10" width="100" height="30" uuid="dd857032-2d8e-4087-b44f-37f6be78b0d2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Dirección]]></text>
+				<text><![CDATA[DIRRECIÓN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="600" y="10" width="100" height="30" uuid="659c1aaa-2185-4300-8cdb-11281a54675b"/>
+				<reportElement x="600" y="10" width="100" height="30" uuid="576dc2d6-e51c-4bf0-9262-2363ea6da1a3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Género]]></text>
+				<text><![CDATA[NACIONALIDAD]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="700" y="10" width="100" height="30" uuid="5caffd30-be23-4da4-817a-faf64fa9102b"/>
+				<reportElement x="700" y="10" width="100" height="30" uuid="b8e8cbf7-7961-4994-973e-12c57b101a50"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nacionalidad]]></text>
+				<text><![CDATA[GENERO]]></text>
 			</staticText>
 		</band>
 	</detail>
@@ -142,7 +181,7 @@
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="39" splitType="Stretch">
+		<band height="27" splitType="Stretch">
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement style="Column header" x="671" y="0" width="131" height="20" forecolor="#000000" uuid="95484ca0-40b4-4752-95d8-1afbc33c820b"/>
 				<textElement textAlignment="Right">

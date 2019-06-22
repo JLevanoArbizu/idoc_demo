@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.util.List;
+import java.util.Map;
 import modelo.Solicitud;
 
 public class SolicitudImpl extends Conexion implements IGenerica<Solicitud> {
@@ -75,8 +76,10 @@ public class SolicitudImpl extends Conexion implements IGenerica<Solicitud> {
     }
 
     @Override
-    public void generarReporte(Solicitud modelo) throws Exception{
-
+    public void generarReporte(Map parameters) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+
 
 }

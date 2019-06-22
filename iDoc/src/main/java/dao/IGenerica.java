@@ -2,6 +2,7 @@ package dao;
 
 
 import java.util.List;
+import java.util.Map;
 
 public interface IGenerica<T> {
 
@@ -25,5 +26,5 @@ public interface IGenerica<T> {
 
     boolean existe(List<T> listaModelo, T modelo) throws Exception;
 
-    void generarReporte(T modelo) throws Exception;
+    void generarReporte(Map parameters) throws Exception;
 }

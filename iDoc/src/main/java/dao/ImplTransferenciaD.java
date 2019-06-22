@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import modelo.TransferenciaM;
 
 public class ImplTransferenciaD extends Conexion implements IGenerica<TransferenciaM> {
@@ -115,8 +116,10 @@ public class ImplTransferenciaD extends Conexion implements IGenerica<Transferen
     }
 
     @Override
-    public void generarReporte(TransferenciaM modelo) throws Exception {
+    public void generarReporte(Map parameters) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+
 
 }

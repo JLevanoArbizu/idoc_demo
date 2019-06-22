@@ -180,7 +180,7 @@ public class TrabajadorC extends PersonaC implements Serializable {
 
     public void generarReporte(Trabajador trab)throws  Exception{
         try {
-            daoTrabajador.generarReporte(trab);
+       //     daoTrabajador.generarReporte(trab);
         }catch (Exception e){
             e.printStackTrace();
         }

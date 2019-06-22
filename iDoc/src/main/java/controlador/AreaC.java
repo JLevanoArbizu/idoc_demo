@@ -45,7 +45,7 @@ public class AreaC implements Serializable {
 
     public void generarReporte(Area are)throws Exception{
         try {
-            daoArea.generarReporte(are);
+         //   daoArea.generarReporte(are);
         }catch (Exception e){
             e.printStackTrace();
         }

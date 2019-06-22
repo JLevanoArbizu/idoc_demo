@@ -88,7 +88,7 @@ public class IncidenciaC implements Serializable {
 
     public void generarReporte(Incidencia inci) throws  Exception{
         try {
-            daoIncidencia.generarReporte(inci);
+       //     daoIncidencia.generarReporte(inci);
         }catch (Exception e){
             e.printStackTrace();
         }

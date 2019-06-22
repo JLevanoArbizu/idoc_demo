@@ -1,24 +1,21 @@
 package dao;
 
-import com.google.gson.Gson;
+import java.io.File;
 import modelo.Persona;
 
-import java.io.OutputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.lang3.text.WordUtils;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
-
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletResponse;
 
 public class PersonaImpl extends Conexion implements IGenerica<Persona> {
 
@@ -148,32 +145,17 @@ public class PersonaImpl extends Conexion implements IGenerica<Persona> {
     }
 
     @Override
-    public void generarReporte(Persona modelo) throws Exception{
-        try {
-            Gson gson = new Gson();
-            HttpClient httpClient = HttpClientBuilder.create().build();
-            String url = "http://192.168.1.35:5000/iDoc/reportes/maestros";
-            HttpPost post = new HttpPost(url);
-            StringEntity postEntity = new StringEntity(gson.toJson(modelo), ContentType.APPLICATION_JSON);
-            post.setEntity(postEntity);
-            HttpResponse respuestaApi = httpClient.execute(post);
-            System.out.println(respuestaApi.getStatusLine().getStatusCode());
-
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-
-            HttpServletResponse respuestaPF = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-            respuestaPF.reset();
-            respuestaPF.setContentType("application/pdf");
-            respuestaPF.setHeader("Content-disposition", "attachment; filename=Persona.pdf");
-            OutputStream output = respuestaPF.getOutputStream();
-            respuestaApi.getEntity().writeTo(output);
-            output.flush();
-            FacesContext.getCurrentInstance().responseComplete();
-            System.out.println("Terminó");
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void generarReporte(Map parameters) throws Exception {
+        conectar();
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Ciudadano\\Ciudadano.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=Ciudadano.pdf");
+        try (ServletOutputStream stream = response.getOutputStream()) {
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            stream.flush();
         }
-
-
+        FacesContext.getCurrentInstance().responseComplete();
     }
+
 }

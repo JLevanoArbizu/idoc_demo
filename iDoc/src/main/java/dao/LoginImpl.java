@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import modelo.Login;
@@ -127,10 +128,7 @@ public class LoginImpl extends Conexion implements IGenerica<Login> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void generarReporte(Login modelo) throws Exception{
 
-    }
 
     public Login obtenerLogin(Login login) throws Exception {
         try {
@@ -158,5 +156,10 @@ public class LoginImpl extends Conexion implements IGenerica<Login> {
             this.desconectar();
         }
         return login;
+    }
+
+    @Override
+    public void generarReporte(Map parameters) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

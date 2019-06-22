@@ -58,6 +58,7 @@
                 <h:outputLabel value="#{listaPersona.NACPER}" style="font-weight: normal" />
             </p:column>
 
+
             <p:column exportable="false">
                 <p:commandButton update=":dlgDatosPersona" icon="ui-icon-pencil"
                                  rendered="#{listaPersona.ESTPER eq 'A'}"
@@ -67,12 +68,14 @@
                     <f:setPropertyActionListener value="#{listaPersona}" 
                                                  target="#{personaC.persona}"/>
                 </p:commandButton>
-                <p:commandButton rendered="#{listaPersona.ESTPER eq 'A'}" ajax="false"
-                                 title="Guardar" actionListener="#{personaC.generarReporte(listaPersona)}"/>
+                
+                <p:commandLink value="IMPRIMIR" ajax="false" actionListener="#{personaC.generarReporte(IDPER)}">
+                </p:commandLink>
+
             </p:column>
             <p:blockUI block="dtTblPersona" trigger="dtTblPersona">
-            Actualizando
-        </p:blockUI>
+                Actualizando
+            </p:blockUI>
         </p:dataTable>
     </h:form>
     <p:dialog id="dlgDatosPersona" widgetVar="wdlgDatosPersona" 

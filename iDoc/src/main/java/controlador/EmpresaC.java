@@ -79,7 +79,7 @@ public class EmpresaC implements Serializable {
 
     public void generarReporte(EmpresaM emper)throws Exception{
         try {
-            daoempresa.generarReporte(emper);
+         //   daoempresa.generarReporte(emper);
         }catch (Exception e){
             e.printStackTrace();
         }

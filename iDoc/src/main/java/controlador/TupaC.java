@@ -74,7 +74,7 @@ public class TupaC implements Serializable {
     public void generarReporte(TupaM tupa) throws  Exception{
 
         try {
-            daotupa.generarReporte(tupa);
+         //   daotupa.generarReporte(tupa);
         }catch (Exception e){
             e.printStackTrace();
 

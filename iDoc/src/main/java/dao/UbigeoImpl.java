@@ -5,6 +5,7 @@ import modelo.Ubigeo;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class UbigeoImpl extends Conexion implements IGenerica<Ubigeo> {
 
@@ -80,7 +81,9 @@ public class UbigeoImpl extends Conexion implements IGenerica<Ubigeo> {
     }
 
     @Override
-    public void generarReporte(Ubigeo modelo) throws Exception{
-
+    public void generarReporte(Map parameters) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+
 }

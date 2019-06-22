@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import modelo.IncidenciaTipo;
 
 public class IncidenciaTipoImpl extends Conexion implements IGenerica<IncidenciaTipo> {
@@ -123,8 +124,9 @@ public class IncidenciaTipoImpl extends Conexion implements IGenerica<Incidencia
     }
 
     @Override
-    public void generarReporte(IncidenciaTipo modelo) throws Exception{
-
+    public void generarReporte(Map parameters) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 
 }

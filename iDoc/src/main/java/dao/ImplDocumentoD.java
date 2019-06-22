@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import modelo.DocumentoM;
 
 public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
@@ -138,8 +139,10 @@ public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
     }
 
     @Override
-    public void generarReporte(DocumentoM modelo) throws Exception {
+    public void generarReporte(Map parameters) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+
 
 }
