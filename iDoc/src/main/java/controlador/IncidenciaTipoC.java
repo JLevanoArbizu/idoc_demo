@@ -3,7 +3,9 @@ package controlador;
 import dao.IncidenciaTipoImpl;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -111,7 +113,17 @@ public class IncidenciaTipoC implements Serializable {
         }
     }
 
-
+    public void generarReporte(String IDINCTIP) throws Exception {
+        IncidenciaTipoImpl reportInci = new IncidenciaTipoImpl();
+        try {
+            Map<String, Object> parameters = new HashMap(); // Libro de parametros
+            parameters.put(null, IDINCTIP); //Insertamos un parametro
+            reportInci.generarReporte(parameters); //Pido exportar Reporte con los parametros
+//            report.exportarPDF2(parameters);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 
     public List<String> buscarIncidenciaTipo(String nombre) throws Exception {
         return daoIncidenciaTipo.buscar(nombre, listaIncidenciaTipo);
@@ -119,5 +131,5 @@ public class IncidenciaTipoC implements Serializable {
 
     public IncidenciaTipo obtenerCodigoIncidenciaTipo() throws Exception {
         return daoIncidenciaTipo.obtenerCodigo(listaIncidenciaTipo, incidenciaTipo);
-    }    
+    }
 }

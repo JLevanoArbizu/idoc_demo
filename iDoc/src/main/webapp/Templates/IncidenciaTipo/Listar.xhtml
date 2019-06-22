@@ -31,8 +31,7 @@
                     <f:setPropertyActionListener value="#{listaIncidenciaTipo}" 
                                                  target="#{incidenciatipoC.incidenciaTipo}"/>
                 </p:commandButton>
-                <p:commandButton rendered="#{listaIncidenciaTipo.ESTINCTIP eq 'A'}" ajax="false"
-                                 title="Guardar" actionListener="#{incidenciatipoC.generarReporte(listaIncidenciaTipo)}"/>
+
 
                 <p:commandButton title="Eliminar" icon="ui-icon-circle-close"
                                  actionListener="#{incidenciatipoC.eliminar(listaIncidenciaTipo)}" 
@@ -44,6 +43,8 @@
                     <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>
+                                <p:commandLink value="IMPRIMIR" ajax="false" actionListener="#{incidenciatipoC.generarReporte(IDINCTIP)}">
+                </p:commandLink>
             </p:column>           >
 
         </p:dataTable>
