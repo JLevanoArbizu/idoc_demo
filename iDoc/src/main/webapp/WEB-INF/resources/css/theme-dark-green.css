@@ -5893,3 +5893,8 @@ body .ui-widget-header .ui-state-error {
         -webkit-border-bottom-right-radius: 3px;
         border-bottom-right-radius: 3px; } }
 /* Add your customizations of theme here */
+div.ui-growl {
+   left: 50%;
+   right: 0;
+   margin-left:-150px;
+}

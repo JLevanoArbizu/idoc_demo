@@ -1036,7 +1036,7 @@ body {
       width: 60px;
       height: 60px;
       margin: 0 auto 5px auto;
-      background: url("../icon/Ultima/avatar2x.png") top left no-repeat;
+      background: url("../WEB-INF/resources/icon/Ultima/avatar2x.png") top left no-repeat;
       background-size: 60px 60px; }
     .layout-wrapper .layout-menu .profile .profile-name {
       display: inline-block;

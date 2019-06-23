@@ -16,10 +16,12 @@
             <h:form id="frmRegistrarPersona">
                 <p:growl life="1000"/>
                 <ui:include src="../Templates/Persona/Registrar.xhtml"/>
-                <p:commandButton 
-                    id="btnRegistrarPersona"
-                    value="GUARDAR"
-                    actionListener="#{personaC.registrarPersona()}" update=":frmRegistrarPersona :frmListarPersona"/>
+                <h:panelGroup styleClass="mdl-button">
+                    <p:commandButton 
+                        id="btnRegistrarPersona"
+                        value="GUARDAR"
+                        actionListener="#{personaC.registrarPersona()}" update=":frmRegistrarPersona :frmListarPersona"/>
+                </h:panelGroup>
                 <p:blockUI block="frmRegistrarPersona" trigger="btnRegistrarPersona">
                     <div class="preloader-wrapper big active">
                         <div class="spinner-layer spinner-blue">
