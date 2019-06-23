@@ -5,7 +5,9 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -43,13 +45,16 @@ public class AreaC implements Serializable {
 
     }
 
-    public void generarReporte(Area are)throws Exception{
+    public void generarReporte(String NOMARE)throws Exception{
+        AreaImpl reportAre = new AreaImpl();
         try {
-         //   daoArea.generarReporte(are);
-        }catch (Exception e){
-            e.printStackTrace();
+            Map<String, Object> parameters = new HashMap(); // Libro de parametros
+            parameters.put(null, NOMARE); //Insertamos un parametro
+            reportAre.generarReporte(parameters); //Pido exportar Reporte con los parametros
+//            report.exportarPDF2(parameters);
+        } catch (Exception e) {
+            throw e;
         }
-
     }
 
     public void listar() throws Exception {

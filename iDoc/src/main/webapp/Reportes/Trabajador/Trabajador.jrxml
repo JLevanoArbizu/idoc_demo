@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Trabajador" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="01ba7ae2-7f11-47b3-ab53-404616564eaf">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="conexion"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+NOMPER, DNIPER, DISTUBI, DIRPER, GENPER, FECINITRAB, FECFINTRAB
+FROM General.TRABAJADOR
+INNER JOIN General.AREA ON TRABAJADOR.IDARE = AREA.IDARE
+INNER JOIN General.PERSONA ON TRABAJADOR.IDPER = PERSONA.IDPER
+INNER JOIN General.UBIGEO ON PERSONA.CODUBI = UBIGEO.CODUBI]]>
+	</queryString>
+	<field name="NOMPER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOMPER"/>
+	</field>
+	<field name="DNIPER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DNIPER"/>
+	</field>
+	<field name="DISTUBI" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DISTUBI"/>
+	</field>
+	<field name="DIRPER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DIRPER"/>
+	</field>
+	<field name="GENPER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="GENPER"/>
+	</field>
+	<field name="FECINITRAB" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="FECINITRAB"/>
+	</field>
+	<field name="FECFINTRAB" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="FECFINTRAB"/>
+	</field>
+	<group name="NOMPER">
+		<groupExpression><![CDATA[$F{NOMPER}]]></groupExpression>
+	</group>
+	<group name="DNIPER">
+		<groupExpression><![CDATA[$F{DNIPER}]]></groupExpression>
+	</group>
+	<group name="DISTUBI">
+		<groupExpression><![CDATA[$F{DISTUBI}]]></groupExpression>
+	</group>
+	<group name="DIRPER">
+		<groupExpression><![CDATA[$F{DIRPER}]]></groupExpression>
+	</group>
+	<group name="GENPER">
+		<groupExpression><![CDATA[$F{GENPER}]]></groupExpression>
+	</group>
+	<group name="FECINITRAB">
+		<groupExpression><![CDATA[$F{FECINITRAB}]]></groupExpression>
+	</group>
+	<group name="FECFINTRAB">
+		<groupExpression><![CDATA[$F{FECFINTRAB}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="15" width="800" height="48" uuid="851af5f0-7c44-45c8-814e-c9ebb387679f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="25" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lista de Trabajadores]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="58" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="19" width="120" height="30" uuid="90b7698f-8ed7-4e5f-91ac-7371a133d3ed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="19" width="114" height="30" uuid="1ad3b575-4af2-4437-a2b2-14b936ff6f0a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="19" width="114" height="30" uuid="d52180b4-0b6c-451f-9a21-ef9bcc55ca13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Distrito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="19" width="114" height="30" uuid="ac9abc4c-c585-49ae-8526-fbb5fc3209ad"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dirección]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="462" y="19" width="114" height="30" uuid="cd38983a-2e57-4940-b279-085f60c47c77"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Genero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="576" y="19" width="114" height="30" uuid="b29f97c6-bf49-47fe-92f6-6f5ea6539d52"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="691" y="19" width="112" height="30" uuid="6924f80f-5111-4d2b-9d81-dc6a0d688257"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Fin]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="0" width="118" height="30" uuid="742c9985-9052-4298-9743-a4d256090827"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOMPER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="0" width="114" height="30" uuid="b458a137-b9ca-4f4d-a28c-98db61535fe1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{DNIPER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="234" y="0" width="114" height="30" uuid="181c0939-ef6f-4d6f-a0f9-6eea03552489"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{DISTUBI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="348" y="0" width="114" height="30" uuid="668f4c6a-7e6d-408c-b5c0-d2016bc6940c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{DIRPER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="462" y="0" width="114" height="30" uuid="3317b0a2-8ccf-48a0-97eb-135d821d7a1f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{GENPER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="576" y="0" width="114" height="30" uuid="c3ea020a-7656-4b95-a7e7-8b18c7410927"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FECINITRAB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="690" y="0" width="114" height="30" uuid="7d892876-9db8-48ca-a235-908ebe904181"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FECFINTRAB}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="23" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="671" y="0" width="131" height="20" forecolor="#000000" uuid="a18d193b-5d95-4e01-8357-66746ee584a6"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

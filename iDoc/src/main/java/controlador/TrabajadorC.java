@@ -8,7 +8,9 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
@@ -178,11 +180,15 @@ public class TrabajadorC extends PersonaC implements Serializable {
         }
     }
 
-    public void generarReporte(Trabajador trab)throws  Exception{
+    public void generarReporte(Trabajador IDTRAB)throws  Exception{
+        TrabajadorImpl reportAre = new TrabajadorImpl();
         try {
-       //     daoTrabajador.generarReporte(trab);
-        }catch (Exception e){
-            e.printStackTrace();
+            Map<String, Object> parameters = new HashMap(); // Libro de parametros
+            parameters.put(null, IDTRAB); //Insertamos un parametro
+            reportAre.generarReporte(parameters); //Pido exportar Reporte con los parametros
+//            report.exportarPDF2(parameters);
+        } catch (Exception e) {
+            throw e;
         }
     }
 

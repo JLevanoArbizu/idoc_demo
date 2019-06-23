@@ -1,21 +1,24 @@
 package dao;
 
-
+import static dao.Conexion.conectar;
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
 import modelo.Area;
 import modelo.Persona;
 import modelo.Trabajador;
 
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 public class TrabajadorImpl extends Conexion implements IGenerica<Trabajador> {
 
@@ -125,9 +128,9 @@ public class TrabajadorImpl extends Conexion implements IGenerica<Trabajador> {
 
     @Override
     public boolean existe(List<Trabajador> listaModelo, Trabajador modelo) throws Exception {
-        for(Trabajador trabajador: listaModelo){
+        for (Trabajador trabajador : listaModelo) {
             if (modelo.getPersona().getCOMPLETO().equals(trabajador.getPersona().getCOMPLETO())
-            && trabajador.getESTTRAB().equals("A")){
+                    && trabajador.getESTTRAB().equals("A")) {
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya existe.", null));
                 return true;
@@ -138,8 +141,17 @@ public class TrabajadorImpl extends Conexion implements IGenerica<Trabajador> {
 
     @Override
     public void generarReporte(Map parameters) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        conectar();
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Trabajador\\Trabajador.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=Trabajador.pdf");
+        try (ServletOutputStream stream = response.getOutputStream()) {
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            stream.flush();
+        }
+        FacesContext.getCurrentInstance().responseComplete();
     }
-
-
 }
+
+

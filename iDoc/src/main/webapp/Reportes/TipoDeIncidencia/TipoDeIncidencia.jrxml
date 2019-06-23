@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2019-06-22T11:41:13 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TipoDeIncidencia" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="da9de9a8-a183-4e36-9dcf-c4b0c99b0712">
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TipoDeIncidencia" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1712c0d7-3b38-49ff-bc62-09a0a61dbf0e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDoc"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="conexion"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT IDINCTIP, NOMINCTIP, TIPINCTIP, LEYINCTIP, ESTINCTIP FROM REGCIV.INCIDENCIA_TIPO]]>
+		<![CDATA[SELECT * FROM RegCiv.INCIDENCIA_TIPO]]>
 	</queryString>
-	<field name="IDINCTIP" class="java.lang.Integer"/>
-	<field name="NOMINCTIP" class="java.lang.String"/>
-	<field name="TIPINCTIP" class="java.lang.String"/>
-	<field name="LEYINCTIP" class="java.lang.String"/>
-	<field name="ESTINCTIP" class="java.lang.String"/>
+	<field name="IDINCTIP" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="IDINCTIP"/>
+	</field>
+	<field name="NOMINCTIP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOMINCTIP"/>
+	</field>
+	<field name="TIPINCTIP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TIPINCTIP"/>
+	</field>
+	<field name="LEYINCTIP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="LEYINCTIP"/>
+	</field>
+	<field name="ESTINCTIP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ESTINCTIP"/>
+	</field>
 	<group name="IDINCTIP">
 		<groupExpression><![CDATA[$F{IDINCTIP}]]></groupExpression>
 	</group>
@@ -31,24 +40,69 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="800" height="53" uuid="2a8e5344-a44c-4e27-a57a-a15183f3a22e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="29"/>
+				</textElement>
+				<text><![CDATA[Lista de Tipos De Incidencia]]></text>
+			</staticText>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="268" height="30" uuid="f7897728-7dc2-440e-ac53-078160e3af23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre de Incidencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="268" y="20" width="267" height="30" uuid="d7ce57d4-0dc0-447b-80eb-40c9c50df6ac"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Incidencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="535" y="20" width="265" height="30" uuid="d1ac0db7-b304-4b82-85c9-b8d5c749c951"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ley de la Incidencia]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
-	<columnHeader>
-		<band height="61" splitType="Stretch"/>
-	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="268" height="30" uuid="a257d2fd-e5e7-4bd2-aebc-a34c2564e7d4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOMINCTIP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="" x="268" y="0" width="267" height="30" uuid="3a4e2639-b0b2-45ec-8ef5-1d5e84511f0e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TIPINCTIP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="535" y="0" width="267" height="30" uuid="b7ef497d-b959-459a-9ea0-f314e7a91513"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{LEYINCTIP}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="28" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="670" y="8" width="131" height="20" forecolor="#000000" uuid="f625c193-3a75-49f4-97d4-38a6beb1cb75"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>

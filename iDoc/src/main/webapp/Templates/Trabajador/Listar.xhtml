@@ -47,6 +47,8 @@
             </p:column>
 
             <p:column exportable="false">
+                <p:commandLink value="IMPRIMIR" ajax="false" actionListener="#{trabajadorC.generarReporte(IDTRAB)}">
+                </p:commandLink>
                 <p:commandButton update=":dlgDatosTrabajador" icon="ui-icon-pencil"
                                  class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
                                  title="Modificar" rendered="#{listaTrabajador.ESTTRAB eq 'A'}"
@@ -101,5 +103,6 @@
         </h:form>
 
     </p:dialog>
+
 </html>
 
