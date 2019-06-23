@@ -93,6 +93,18 @@ public class PersonaC extends UbigeoC implements Serializable {
         }
     }
 
+    public void generarReporteIndividual(String IDPER) throws Exception {
+        PersonaImpl reportePerIndi = new PersonaImpl();
+        try {
+            Map<String, Object> parameters = new HashMap(); // Libro de parametros
+            parameters.put(null, IDPER); //Insertamos un parametro
+            reportePerIndi.generarReporte(parameters); //Pido exportar Reporte con los parametros
+//            report.exportarPDF2(parameters);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
     public void listarPersonas() throws Exception {
         try {
             listaPersona = daoPersona.listar();

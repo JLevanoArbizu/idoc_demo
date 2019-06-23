@@ -1,15 +1,19 @@
 package dao;
 
-
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import modelo.Incidencia;
-
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 public class IncidenciaImpl extends Conexion implements IGenerica<Incidencia> {
 
@@ -129,10 +133,21 @@ public class IncidenciaImpl extends Conexion implements IGenerica<Incidencia> {
 
     @Override
     public void generarReporte(Map parameters) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        conectar();
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Incidencia\\Incidencia.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=ListaDeIncidencias.pdf");
+        try (ServletOutputStream stream = response.getOutputStream()) {
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            stream.flush();
+        }
+        FacesContext.getCurrentInstance().responseComplete();
     }
 
-
-
+    @Override
+    public void generarReporteIndividual(Map parameters) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

@@ -158,4 +158,18 @@ public class PersonaImpl extends Conexion implements IGenerica<Persona> {
         FacesContext.getCurrentInstance().responseComplete();
     }
 
+    @Override
+    public void generarReporteIndividual(Map parameters) throws Exception {
+        conectar();
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Ciudadano\\CiudadanoIndividual.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=DatosPersonales.pdf");
+        try (ServletOutputStream stream = response.getOutputStream()) {
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            stream.flush();
+        }
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+
 }

@@ -3,7 +3,9 @@ package controlador;
 import dao.IncidenciaImpl;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -86,11 +88,15 @@ public class IncidenciaC implements Serializable {
     }
 
 
-    public void generarReporte(Incidencia inci) throws  Exception{
+    public void generarReporte(Incidencia IDINC) throws  Exception{
+        IncidenciaImpl reportInci = new IncidenciaImpl();
         try {
-       //     daoIncidencia.generarReporte(inci);
-        }catch (Exception e){
-            e.printStackTrace();
+            Map<String, Object> parameters = new HashMap(); // Libro de parametros
+            parameters.put(null, IDINC); //Insertamos un parametro
+            reportInci.generarReporte(parameters); //Pido exportar Reporte con los parametros
+//            report.exportarPDF2(parameters);
+        } catch (Exception e) {
+            throw e;
         }
     }
 

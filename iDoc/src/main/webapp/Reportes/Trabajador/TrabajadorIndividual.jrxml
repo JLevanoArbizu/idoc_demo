@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TrabajadorIndividual" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3541e5aa-1b03-4ce3-86c5-46b9bedf1215">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="conexion"/>
+	<parameter name="IDTRAB" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+IDTRAB,APEPATPER,APEMATPER,NOMPER,REPLACE(REPLACE(NACPER,'1','Peruano'),'2','Extranjero') AS NACPER ,DNIPER, DISTUBI, DIRPER, REPLACE(REPLACE(GENPER,'M','Masculino'),'F','Femenino') AS GENPER ,
+CONVERT(VARCHAR(20),FECINITRAB, 106) AS FECINITRAB , CONVERT(VARCHAR(20),FECFINTRAB, 106) AS FECFINTRAB
+FROM General.TRABAJADOR
+INNER JOIN General.AREA ON TRABAJADOR.IDARE = AREA.IDARE
+INNER JOIN General.PERSONA ON TRABAJADOR.IDPER = PERSONA.IDPER
+INNER JOIN General.UBIGEO ON PERSONA.CODUBI = UBIGEO.CODUBI
+WHERE IDTRAB = $P!{IDTRAB}]]>
+	</queryString>
+	<field name="IDTRAB" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="IDTRAB"/>
+	</field>
+	<field name="APEPATPER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="APEPATPER"/>
+	</field>
+	<field name="APEMATPER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="APEMATPER"/>
+	</field>
+	<field name="NOMPER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOMPER"/>
+	</field>
+	<field name="NACPER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NACPER"/>
+	</field>
+	<field name="DNIPER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DNIPER"/>
+	</field>
+	<field name="DISTUBI" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DISTUBI"/>
+	</field>
+	<field name="DIRPER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DIRPER"/>
+	</field>
+	<field name="GENPER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="GENPER"/>
+	</field>
+	<field name="FECINITRAB" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FECINITRAB"/>
+	</field>
+	<field name="FECFINTRAB" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FECFINTRAB"/>
+	</field>
+	<group name="IDTRAB">
+		<groupExpression><![CDATA[$F{IDTRAB}]]></groupExpression>
+	</group>
+	<group name="APEPATPER">
+		<groupExpression><![CDATA[$F{APEPATPER}]]></groupExpression>
+	</group>
+	<group name="APEMATPER">
+		<groupExpression><![CDATA[$F{APEMATPER}]]></groupExpression>
+	</group>
+	<group name="NOMPER">
+		<groupExpression><![CDATA[$F{NOMPER}]]></groupExpression>
+	</group>
+	<group name="NACPER">
+		<groupExpression><![CDATA[$F{NACPER}]]></groupExpression>
+	</group>
+	<group name="DNIPER">
+		<groupExpression><![CDATA[$F{DNIPER}]]></groupExpression>
+	</group>
+	<group name="DISTUBI">
+		<groupExpression><![CDATA[$F{DISTUBI}]]></groupExpression>
+	</group>
+	<group name="DIRPER">
+		<groupExpression><![CDATA[$F{DIRPER}]]></groupExpression>
+	</group>
+	<group name="GENPER">
+		<groupExpression><![CDATA[$F{GENPER}]]></groupExpression>
+	</group>
+	<group name="FECINITRAB">
+		<groupExpression><![CDATA[$F{FECINITRAB}]]></groupExpression>
+	</group>
+	<group name="FECFINTRAB">
+		<groupExpression><![CDATA[$F{FECFINTRAB}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="1" width="270" height="30" uuid="143f2af4-2aaa-4179-bd49-c20d9b47d1fe">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="644625dc-2dfb-43ea-9dff-156d40ffc4f4"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apellidos y Nombres]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="1" width="100" height="30" uuid="94d7b614-2cc4-4ab9-a521-aaf06148a4aa">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5ea534e5-ad46-4da3-80bb-cfc6391b67e8"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nacionalidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="369" y="1" width="100" height="30" uuid="45c80dba-5f49-4985-b60b-2eaa2c25cd3d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c82da3aa-81d4-44fb-8611-b6d9873848f8"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N° de DNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="469" y="1" width="100" height="30" uuid="88a0e7a7-ee57-4785-95ee-ac408b38c87d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5ee2e843-0f80-4623-b8b9-e324a01f1fba"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Distrito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="569" y="1" width="131" height="30" uuid="533c2de0-e25d-4e68-a400-2c06bba0fd4f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="687e53a0-1e26-43d7-9fa3-70337f80da50"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dirección]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="700" y="1" width="100" height="30" uuid="ffec38e7-42ca-48ad-8ef2-9f622d76069e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="845f81b3-e398-4fba-a779-74bb26ebd6da"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="102" height="30" uuid="2286f07e-fadc-4ac6-bd89-79cda3338d24">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="644625dc-2dfb-43ea-9dff-156d40ffc4f4"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{APEPATPER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="0" width="100" height="30" uuid="da7aa853-f81b-443e-9793-23b0ddd2a230">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="894be1a7-586f-43b1-8417-c37bc1ce3532"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{APEMATPER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="0" width="100" height="30" uuid="58111387-264f-4872-aaa9-a5aac660bc25">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1ee82e6d-7a9e-4a80-a39c-3ba575a80aa1"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOMPER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="269" y="0" width="100" height="30" uuid="8521acca-e509-406c-890d-75db119b188f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5ea534e5-ad46-4da3-80bb-cfc6391b67e8"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NACPER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="0" width="100" height="30" uuid="99d1dfbc-e720-4d96-b0cb-127e9414556c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c82da3aa-81d4-44fb-8611-b6d9873848f8"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{DNIPER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="469" y="0" width="100" height="30" uuid="978af8b6-ecef-4d57-9590-f63e1fd830eb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5ee2e843-0f80-4623-b8b9-e324a01f1fba"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{DISTUBI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="569" y="0" width="131" height="30" uuid="03c3ca13-b679-45f1-b836-9dacdd5d114e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="687e53a0-1e26-43d7-9fa3-70337f80da50"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{DIRPER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="700" y="0" width="100" height="30" uuid="0e420f61-e198-4d31-9faf-8d7ac8f8f15b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="845f81b3-e398-4fba-a779-74bb26ebd6da"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{GENPER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="28" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="671" y="0" width="131" height="20" forecolor="#000000" uuid="af96d114-70e9-438b-b11e-7bf481d55185"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

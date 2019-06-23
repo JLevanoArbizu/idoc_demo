@@ -79,8 +79,6 @@
                     <p:confirm header="Confirmación" message="¿Deseas Eliminar? " icon="ui-icon-alert" />
                     <p:tooltip trackMouse="true"/>
                 </p:commandButton>
-                <p:commandLink value="IMPRIMIR" ajax="false" actionListener="#{areaC.generarReporte(NOMARE)}">
-                </p:commandLink>
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                     <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
@@ -90,6 +88,8 @@
                 <h:outputText value="#{areaC.listaArea.size}"/>
             </p:summaryRow>
         </p:dataTable>
+        <p:commandButton value="IMPRIMIR LISTA DE AREAS" ajax="false" actionListener="#{areaC.generarReporte(NOMARE)}">
+        </p:commandButton>
     </h:form>
     <p:dialog id="dlgDatosArea" widgetVar="wdlgDatosArea" 
               header="Datos del Área" closeOnEscape="true">

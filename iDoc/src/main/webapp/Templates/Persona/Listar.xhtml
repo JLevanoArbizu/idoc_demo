@@ -61,16 +61,15 @@
 
             </p:column>
             <p:column exportable="false">                
-                <p:commandLink value="IMPRIMIR" ajax="false" 
-                               rendered="#{listaPersona.ESTPER eq 'A'}" 
-                               actionListener="#{personaC.generarReporte(IDPER)}">
-                </p:commandLink>
+
 
             </p:column>
             <p:blockUI block="dtTblPersona" trigger="dtTblPersona">
                 Actualizando
             </p:blockUI>
         </p:dataTable>
+        <p:commandButton value="IMPRIMIR LISTA DE CIUDADANOS" ajax="false" actionListener="#{personaC.generarReporte(IDPER)}">
+        </p:commandButton>
     </h:form>
     <p:dialog id="dlgDatosPersona" widgetVar="wdlgDatosPersona" 
               class="mdl-dialog"
@@ -104,5 +103,6 @@
         </h:form>
 
     </p:dialog>
+
 </html>
 
