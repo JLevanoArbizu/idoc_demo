@@ -55,17 +55,17 @@ public class TransparenciaImpl extends Conexion implements IGenerica<Transparenc
             ps.setString(3, modelo.getIdtra());
             ResultSet rs = ps.executeQuery();
             Transparencia transparencia;
-            DocumentoM documento;
-            TransferenciaM transferencia;
-            EmpresaM empresa;
+            Documento documento;
+            Transferencia transferencia;
+            Empresa empresa;
             Persona persona;
             Area emisor, receptor;
             lista = new ArrayList<>();
             while (rs.next()){
                 transparencia = new Transparencia();
-                documento = new DocumentoM();
-                transferencia = new TransferenciaM();
-                empresa = new EmpresaM();
+                documento = new Documento();
+                transferencia = new Transferencia();
+                empresa = new Empresa();
                 persona = new Persona();
                 emisor = new Area();
                 receptor = new Area();

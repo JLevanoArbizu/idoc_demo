@@ -1,6 +1,6 @@
 package controlador;
 
-import dao.ImplEmpresaD;
+import dao.EmpresaImpl;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -9,17 +9,17 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import modelo.EmpresaM;
+import modelo.Empresa;
 import servicios.AutoCompleteS;
 
 @Named(value = "empresaC")
 @SessionScoped
 public class EmpresaC implements Serializable {
 
-    EmpresaM empresa = new EmpresaM();
-    private EmpresaM selectedEmpresa;
-    private List<EmpresaM> lstEmpresa;
-    private ImplEmpresaD daoempresa;
+    Empresa empresa = new Empresa();
+    private Empresa selectedEmpresa;
+    private List<Empresa> lstEmpresa;
+    private EmpresaImpl daoempresa;
 
     @PostConstruct
     public void iniciar() {
@@ -30,14 +30,14 @@ public class EmpresaC implements Serializable {
     }
 
     public void limpiarEmpresa() throws Exception {
-        empresa = new EmpresaM();
+        empresa = new Empresa();
     }
 
     public void registrarEmpresa() throws Exception {
-        ImplEmpresaD dao;
+        EmpresaImpl dao;
         AutoCompleteS svc;
         try {
-            dao = new ImplEmpresaD();
+            dao = new EmpresaImpl();
 //            svc = new AutoCompleteS();
 //            empresa.setCODUBI(svc.leerUbi(empresa.getCODUBI()));
             dao.registrar(empresa);
@@ -50,10 +50,10 @@ public class EmpresaC implements Serializable {
     }
 
     public void editarEmpresa() throws Exception {
-        ImplEmpresaD dao;
+        EmpresaImpl dao;
         AutoCompleteS svc;
         try {
-            dao = new ImplEmpresaD();
+            dao = new EmpresaImpl();
 //            svc = new AutoCompleteS();
 //            selectedEmpresa.setCODUBI(svc.leerUbi(selectedEmpresa.getUBIGEO()));
             dao.editar(selectedEmpresa);
@@ -66,9 +66,9 @@ public class EmpresaC implements Serializable {
     }
 
     public void eliminarEmpresa() throws Exception {
-        ImplEmpresaD dao;
+        EmpresaImpl dao;
         try {
-            dao = new ImplEmpresaD();
+            dao = new EmpresaImpl();
             dao.eliminar(selectedEmpresa);
             listarEmpresa();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado Correctamente", null));
@@ -77,7 +77,7 @@ public class EmpresaC implements Serializable {
         }
     }
 
-    public void generarReporte(EmpresaM emper)throws Exception{
+    public void generarReporte(Empresa emper)throws Exception{
         try {
          //   daoempresa.generarReporte(emper);
         }catch (Exception e){
@@ -87,9 +87,9 @@ public class EmpresaC implements Serializable {
     }
 
     public void listarEmpresa() throws Exception {
-        ImplEmpresaD dao;
+        EmpresaImpl dao;
         try {
-            dao = new ImplEmpresaD();
+            dao = new EmpresaImpl();
             lstEmpresa = dao.listar();
         } catch (Exception e) {
             throw e;
@@ -101,26 +101,26 @@ public class EmpresaC implements Serializable {
         return svc.queryAutoCompleteUbi(query);
     }
 
-    public EmpresaM getEmpresa() {
+    public Empresa getEmpresa() {
         return empresa;
     }
 
-    public void setEmpresa(EmpresaM empresa) {
+    public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }
 
-    public EmpresaM getSelectedEmpresa() {
+    public Empresa getSelectedEmpresa() {
         return selectedEmpresa;
     }
 
-    public void setSelectedEmpresa(EmpresaM selectedEmpresa) {
+    public void setSelectedEmpresa(Empresa selectedEmpresa) {
         this.selectedEmpresa = selectedEmpresa;
     }
-    public List<EmpresaM> getLstEmpresa() {
+    public List<Empresa> getLstEmpresa() {
         return lstEmpresa;
     }
 
-    public void setLstEmpresa(List<EmpresaM> lstEmpresa) {
+    public void setLstEmpresa(List<Empresa> lstEmpresa) {
         this.lstEmpresa = lstEmpresa;
     }
 

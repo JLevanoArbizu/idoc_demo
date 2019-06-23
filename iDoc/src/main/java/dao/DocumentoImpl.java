@@ -6,12 +6,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import modelo.DocumentoM;
+import modelo.Documento;
 
-public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
+public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
 
     @Override
-    public void registrar(DocumentoM documento) throws Exception {
+    public void registrar(Documento documento) throws Exception {
         try {
             this.conectar();
             String sql = "INSERT INTO TraDoc.DOCUMENTO (CODDOC,NUMLIBDOC,NUMFOLDOC,TIPDOC,FECDOC,ASUDOC,OBSDOC,IDTUP,IDLOG,IDEMP,IDPER,KEYDOC) VALUES(?,?,?,?,CONVERT(DATE,?,103),?,?,?,?,?,?,?)";
@@ -39,7 +39,7 @@ public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
     }
 
     @Override
-    public void editar(DocumentoM documento) throws Exception {
+    public void editar(Documento documento) throws Exception {
 
         try {
             this.conectar();
@@ -71,7 +71,7 @@ public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
     }
 
     @Override
-    public void eliminar(DocumentoM documento) throws Exception {
+    public void eliminar(Documento documento) throws Exception {
 
         try {
             this.conectar();
@@ -87,8 +87,8 @@ public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
     }
 
     @Override
-    public List<DocumentoM> listar() throws Exception {
-        List<DocumentoM> listaDocumento;
+    public List<Documento> listar() throws Exception {
+        List<Documento> listaDocumento;
         ResultSet rs;
         try {
             this.conectar();
@@ -96,9 +96,9 @@ public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             listaDocumento = new ArrayList();
-            DocumentoM documento;
+            Documento documento;
             while (rs.next()) {
-                documento = new DocumentoM();
+                documento = new Documento();
                 documento.setIDDOC(rs.getString("IDDOC"));
                 documento.setCODDOC(rs.getString("CODDOC"));
                 documento.setNUMLIBDOC(rs.getString("NUMLIBDOC"));
@@ -124,17 +124,17 @@ public class ImplDocumentoD extends Conexion implements IGenerica<DocumentoM> {
     }
 
     @Override
-    public List<String> buscar(String campo, List<DocumentoM> listaModelo) throws Exception {
+    public List<String> buscar(String campo, List<Documento> listaModelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public DocumentoM obtenerCodigo(List<DocumentoM> listaModelo, DocumentoM modelo) throws Exception {
+    public Documento obtenerCodigo(List<Documento> listaModelo, Documento modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean existe(List<DocumentoM> listaModelo, DocumentoM modelo) throws Exception {
+    public boolean existe(List<Documento> listaModelo, Documento modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -1,6 +1,6 @@
 package modelo;
 
-public class TupaM {
+public class Tupa {
 
     private String IDTUP;
     private String NUMTUP;

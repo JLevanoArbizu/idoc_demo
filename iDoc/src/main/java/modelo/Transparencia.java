@@ -3,9 +3,9 @@ package modelo;
 import java.util.Objects;
 
 public class Transparencia {
-    DocumentoM documento;
-    TransferenciaM transferencia;
-    EmpresaM empresa;
+    Documento documento;
+    Transferencia transferencia;
+    Empresa empresa;
     Persona persona;
     Area emisor, receptor;
     String key, dni, idtra;
@@ -46,27 +46,27 @@ public class Transparencia {
         return Objects.hash(documento, transferencia, empresa, persona, emisor, receptor, key, dni, idtra);
     }
 
-    public DocumentoM getDocumento() {
+    public Documento getDocumento() {
         return documento;
     }
 
-    public void setDocumento(DocumentoM documento) {
+    public void setDocumento(Documento documento) {
         this.documento = documento;
     }
 
-    public TransferenciaM getTransferencia() {
+    public Transferencia getTransferencia() {
         return transferencia;
     }
 
-    public void setTransferencia(TransferenciaM transferencia) {
+    public void setTransferencia(Transferencia transferencia) {
         this.transferencia = transferencia;
     }
 
-    public EmpresaM getEmpresa() {
+    public Empresa getEmpresa() {
         return empresa;
     }
 
-    public void setEmpresa(EmpresaM empresa) {
+    public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }
 

@@ -1,6 +1,6 @@
 package modelo;
 
-public class DocumentoM {
+public class Documento {
 
     private String IDDOC;
     private String CODDOC;

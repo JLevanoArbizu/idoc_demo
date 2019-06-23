@@ -1,6 +1,6 @@
 package controlador;
 
-import dao.ImplTupaD;
+import dao.TupaImpl;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -8,17 +8,17 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import modelo.TupaM;
+import modelo.Tupa;
 
 @Named(value = "tupaC")
 @SessionScoped
 public class TupaC implements Serializable {
 
-    TupaM tupa = new TupaM();
-    private TupaM selectedTupa;
-    private List<TupaM> lstTupa;
-    private List<TupaM> lstTupa2;
-    ImplTupaD daotupa;
+    Tupa tupa = new Tupa();
+    private Tupa selectedTupa;
+    private List<Tupa> lstTupa;
+    private List<Tupa> lstTupa2;
+    TupaImpl daotupa;
 
 
     @PostConstruct
@@ -30,13 +30,13 @@ public class TupaC implements Serializable {
     }
 
     public void limpiarTupa() throws Exception {
-        tupa = new TupaM();
+        tupa = new Tupa();
     }
 
     public void registrarTupa() throws Exception {
-        ImplTupaD dao;
+        TupaImpl dao;
         try {
-            dao = new ImplTupaD();
+            dao = new TupaImpl();
             dao.registrar(tupa);
             listarTupa();
             limpiarTupa();
@@ -48,9 +48,9 @@ public class TupaC implements Serializable {
     }
 
     public void editarTupa() throws Exception {
-        ImplTupaD dao;
+        TupaImpl dao;
         try {
-            dao = new ImplTupaD();
+            dao = new TupaImpl();
             dao.editar(selectedTupa);
             listarTupa();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
@@ -60,9 +60,9 @@ public class TupaC implements Serializable {
     }
 
     public void eliminarTupa() throws Exception {
-        ImplTupaD dao;
+        TupaImpl dao;
         try {
-            dao = new ImplTupaD();
+            dao = new TupaImpl();
             dao.eliminar(selectedTupa);
             listarTupa();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado Correctamente", null));
@@ -71,7 +71,7 @@ public class TupaC implements Serializable {
         }
     }
 
-    public void generarReporte(TupaM tupa) throws  Exception{
+    public void generarReporte(Tupa tupa) throws  Exception{
 
         try {
          //   daotupa.generarReporte(tupa);
@@ -82,9 +82,9 @@ public class TupaC implements Serializable {
     }
 
     public void listarTupa() throws Exception {
-        ImplTupaD dao;
+        TupaImpl dao;
         try {
-            dao = new ImplTupaD();
+            dao = new TupaImpl();
             lstTupa = dao.listar();
         } catch (Exception e) {
             throw e;
@@ -92,35 +92,35 @@ public class TupaC implements Serializable {
         }
     }
 
-    public TupaM getTupa() {
+    public Tupa getTupa() {
         return tupa;
     }
 
-    public void setTupa(TupaM tupa) {
+    public void setTupa(Tupa tupa) {
         this.tupa = tupa;
     }
 
-    public TupaM getSelectedTupa() {
+    public Tupa getSelectedTupa() {
         return selectedTupa;
     }
 
-    public void setSelectedTupa(TupaM selectedTupa) {
+    public void setSelectedTupa(Tupa selectedTupa) {
         this.selectedTupa = selectedTupa;
     }
 
-    public List<TupaM> getLstTupa() {
+    public List<Tupa> getLstTupa() {
         return lstTupa;
     }
 
-    public void setLstTupa(List<TupaM> lstTupa) {
+    public void setLstTupa(List<Tupa> lstTupa) {
         this.lstTupa = lstTupa;
     }
 
-    public List<TupaM> getLstTupa2() {
+    public List<Tupa> getLstTupa2() {
         return lstTupa2;
     }
 
-    public void setLstTupa2(List<TupaM> lstTupa2) {
+    public void setLstTupa2(List<Tupa> lstTupa2) {
         this.lstTupa2 = lstTupa2;
     }
 

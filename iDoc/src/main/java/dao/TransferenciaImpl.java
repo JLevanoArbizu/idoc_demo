@@ -6,12 +6,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import modelo.TransferenciaM;
+import modelo.Transferencia;
 
-public class ImplTransferenciaD extends Conexion implements IGenerica<TransferenciaM> {
+public class TransferenciaImpl extends Conexion implements IGenerica<Transferencia> {
 
     @Override
-    public void registrar(TransferenciaM trans) throws Exception {
+    public void registrar(Transferencia trans) throws Exception {
         try {
             this.conectar();
             String sql = "INSERT INTO TraDoc.TRANSFERENCIA (FECSALTRAN,FECRECTRAN,OBSTRAN,IDDOC,IDARE_EMI,IDARE_REC) VALUES(CONVERT(DATE,?,103),CONVERT(DATE,?,103),?,?,?,?)";
@@ -32,7 +32,7 @@ public class ImplTransferenciaD extends Conexion implements IGenerica<Transferen
     }
 
     @Override
-    public void editar(TransferenciaM trans) throws Exception {
+    public void editar(Transferencia trans) throws Exception {
 
         try {
             this.conectar();
@@ -55,7 +55,7 @@ public class ImplTransferenciaD extends Conexion implements IGenerica<Transferen
     }
 
     @Override
-    public void eliminar(TransferenciaM trans) throws Exception {
+    public void eliminar(Transferencia trans) throws Exception {
         try {
             this.conectar();
             String sql = "UPDATE TraDoc.TRANSFERENCIA SET ESTTRA='I' WHERE IDTRAN LIKE ?";
@@ -70,16 +70,16 @@ public class ImplTransferenciaD extends Conexion implements IGenerica<Transferen
     }
 
     @Override
-    public List<TransferenciaM> listar() throws Exception {
-        List<TransferenciaM> listaTransferencia;
+    public List<Transferencia> listar() throws Exception {
+        List<Transferencia> listaTransferencia;
         try {
             String sql = "SELECT * FROM TRADOC.TRANSFERENCIA WHERE TRADOC.TRANSFERENCIA.ESTTRA = 'A'";
             
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             listaTransferencia = new ArrayList();
-            TransferenciaM trans;
+            Transferencia trans;
             while (rs.next()) {
-                trans = new TransferenciaM();
+                trans = new Transferencia();
                 trans.setIDTRAN(String.valueOf(rs.getInt("IDTRAN")));
                 trans.setFECRECTRAN(rs.getString("FECRECTRAN"));
                 trans.setFECSALTRAN(rs.getString("FECSALTRAN"));
@@ -101,17 +101,17 @@ public class ImplTransferenciaD extends Conexion implements IGenerica<Transferen
     }
 
     @Override
-    public List<String> buscar(String campo, List<TransferenciaM> listaModelo) throws Exception {
+    public List<String> buscar(String campo, List<Transferencia> listaModelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public TransferenciaM obtenerCodigo(List<TransferenciaM> listaModelo, TransferenciaM modelo) throws Exception {
+    public Transferencia obtenerCodigo(List<Transferencia> listaModelo, Transferencia modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean existe(List<TransferenciaM> listaModelo, TransferenciaM modelo) throws Exception {
+    public boolean existe(List<Transferencia> listaModelo, Transferencia modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

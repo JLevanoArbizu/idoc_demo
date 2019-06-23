@@ -1,6 +1,6 @@
 package modelo;
 
-public class EmpresaM {
+public class Empresa {
    
    private String IDEMP;
    private String RAZSOCEMP;

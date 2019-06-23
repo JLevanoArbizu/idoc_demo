@@ -1,6 +1,6 @@
 package controlador;
 
-import dao.ImplTransferenciaD;
+import dao.TransferenciaImpl;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -8,15 +8,15 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import modelo.TransferenciaM;
+import modelo.Transferencia;
 
 @Named(value = "transferenciaC")
 @SessionScoped
 public class TransferenciaC implements Serializable {
 
-    TransferenciaM transferencia = new TransferenciaM();
-    private TransferenciaM selectedTransferencia;
-    List<TransferenciaM> lstTransferencia;
+    Transferencia transferencia = new Transferencia();
+    private Transferencia selectedTransferencia;
+    List<Transferencia> lstTransferencia;
 
     @PostConstruct
     public void iniciar() {
@@ -27,14 +27,14 @@ public class TransferenciaC implements Serializable {
     }
 
     public void limpiarTransferencia() throws Exception {
-        transferencia = new TransferenciaM();
+        transferencia = new Transferencia();
     }
 
 
     public void registrarTransferencia() throws Exception {
-        ImplTransferenciaD dao;
+        TransferenciaImpl dao;
         try {
-            dao = new ImplTransferenciaD();
+            dao = new TransferenciaImpl();
             dao.registrar(transferencia);
             listarTransferencia();
             limpiarTransferencia();
@@ -45,9 +45,9 @@ public class TransferenciaC implements Serializable {
     }
 
     public void editarTransferencia() throws Exception {
-        ImplTransferenciaD dao;
+        TransferenciaImpl dao;
         try {
-            dao = new ImplTransferenciaD();
+            dao = new TransferenciaImpl();
             dao.editar(selectedTransferencia);
             listarTransferencia();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
@@ -57,9 +57,9 @@ public class TransferenciaC implements Serializable {
     }
 
     public void eliminarTransferencia() throws Exception {
-        ImplTransferenciaD dao;
+        TransferenciaImpl dao;
         try {
-            dao = new ImplTransferenciaD();
+            dao = new TransferenciaImpl();
             dao.eliminar(selectedTransferencia);
             listarTransferencia();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado Correctamente", null));
@@ -69,36 +69,36 @@ public class TransferenciaC implements Serializable {
     }
 
     public void listarTransferencia() throws Exception {
-        ImplTransferenciaD dao;
+        TransferenciaImpl dao;
         try {
-            dao = new ImplTransferenciaD();
+            dao = new TransferenciaImpl();
             lstTransferencia = dao.listar();
         } catch (Exception e) {
             throw e;
         }
     }
 
-    public TransferenciaM getTransferencia() {
+    public Transferencia getTransferencia() {
         return transferencia;
     }
 
-    public void setTransferencia(TransferenciaM transferencia) {
+    public void setTransferencia(Transferencia transferencia) {
         this.transferencia = transferencia;
     }
 
-    public TransferenciaM getSelectedTransferncia() {
+    public Transferencia getSelectedTransferncia() {
         return selectedTransferencia;
     }
 
-    public void setSelectedTransferncia(TransferenciaM selectedTransferncia) {
+    public void setSelectedTransferncia(Transferencia selectedTransferncia) {
         this.selectedTransferencia = selectedTransferncia;
     }
 
-    public List<TransferenciaM> getLstTransferencia() {
+    public List<Transferencia> getLstTransferencia() {
         return lstTransferencia;
     }
 
-    public void setLstPersona(List<TransferenciaM> lstTransferencia) {
+    public void setLstPersona(List<Transferencia> lstTransferencia) {
         this.lstTransferencia = lstTransferencia;
     }
 

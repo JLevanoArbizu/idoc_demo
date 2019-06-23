@@ -1,7 +1,7 @@
 package modelo;
 
 
-public class TransferenciaM {
+public class Transferencia {
     
     private String IDTRAN;
     private String FECSALTRAN;

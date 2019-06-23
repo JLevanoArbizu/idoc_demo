@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.Map;
 
 
-import modelo.TupaM;
+import modelo.Tupa;
 
 
-public class ImplTupaD extends Conexion implements IGenerica<TupaM> {
+public class TupaImpl extends Conexion implements IGenerica<Tupa> {
 
     @Override
-    public void registrar(TupaM tupa) throws Exception {
+    public void registrar(Tupa tupa) throws Exception {
         try {
 //            this.conectar();
             String sql = "INSERT INTO TraDoc.TUPA(NUMTUP,NOMTUP,PRETUP,PLATUP,ARETUP) VALUES(?,?,?,?,?)";
@@ -39,7 +39,7 @@ public class ImplTupaD extends Conexion implements IGenerica<TupaM> {
     }
 
     @Override
-    public void editar(TupaM tupa) throws Exception {
+    public void editar(Tupa tupa) throws Exception {
         try {
 //            this.conectar();
             String sql = "UPDATE TraDoc.TUPA SET  NUMTUP=?, NOMTUP=?, PRETUP=?, PLATUP=?, ARETUP=? WHERE IDTUP LIKE ?";
@@ -60,7 +60,7 @@ public class ImplTupaD extends Conexion implements IGenerica<TupaM> {
     }
 
     @Override
-    public void eliminar(TupaM tupa) throws Exception {
+    public void eliminar(Tupa tupa) throws Exception {
 
         try {
             this.conectar();
@@ -76,8 +76,8 @@ public class ImplTupaD extends Conexion implements IGenerica<TupaM> {
     }
 
     @Override
-    public List<TupaM> listar() throws Exception {
-    List<TupaM> listaTupa;
+    public List<Tupa> listar() throws Exception {
+    List<Tupa> listaTupa;
         ResultSet rs;
         try {
             this.conectar();
@@ -86,9 +86,9 @@ public class ImplTupaD extends Conexion implements IGenerica<TupaM> {
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             listaTupa = new ArrayList();
-            TupaM tupa;
+            Tupa tupa;
             while (rs.next()) {
-                tupa = new TupaM();
+                tupa = new Tupa();
                 tupa.setIDTUP(rs.getString("IDTUP"));
                 tupa.setNUMTUP(rs.getString("NUMTUP"));
                 tupa.setNOMTUP(rs.getString("NOMTUP"));
@@ -106,17 +106,17 @@ public class ImplTupaD extends Conexion implements IGenerica<TupaM> {
     }    
 
     @Override
-    public List<String> buscar(String campo, List<TupaM> listaModelo) throws Exception {
+    public List<String> buscar(String campo, List<Tupa> listaModelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public TupaM obtenerCodigo(List<TupaM> listaModelo, TupaM modelo) throws Exception {
+    public Tupa obtenerCodigo(List<Tupa> listaModelo, Tupa modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean existe(List<TupaM> listaModelo, TupaM modelo) throws Exception {
+    public boolean existe(List<Tupa> listaModelo, Tupa modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -1,6 +1,6 @@
 package controlador;
 
-import dao.ImplDocumentoD;
+import dao.DocumentoImpl;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -8,16 +8,16 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import modelo.DocumentoM;
+import modelo.Documento;
 import modelo.Persona;  //PersonaM -tradoc
 
 @Named(value = "documentoC")
 @SessionScoped
 public class DocumentoC implements Serializable {
 
-    DocumentoM documento = new DocumentoM();
-    private DocumentoM selectedDocumento;
-    private List<DocumentoM> lstdocumento;
+    Documento documento = new Documento();
+    private Documento selectedDocumento;
+    private List<Documento> lstdocumento;
     private List<Persona> lstPersona;
 
     @PostConstruct
@@ -30,9 +30,9 @@ public class DocumentoC implements Serializable {
     }
 
     public void registrarDocumento() throws Exception {
-        ImplDocumentoD dao;
+        DocumentoImpl dao;
         try {
-            dao = new ImplDocumentoD();
+            dao = new DocumentoImpl();
             dao.registrar(documento);
             listarDocumento();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado Correctamente", null));
@@ -44,9 +44,9 @@ public class DocumentoC implements Serializable {
     }
 
     public void modificarDocumento() throws Exception {
-        ImplDocumentoD dao;
+        DocumentoImpl dao;
         try {
-            dao = new ImplDocumentoD();
+            dao = new DocumentoImpl();
             dao.editar(selectedDocumento);
             listarDocumento();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
@@ -56,9 +56,9 @@ public class DocumentoC implements Serializable {
     }
 
     public void eliminarDocumento() throws Exception {
-        ImplDocumentoD dao;
+        DocumentoImpl dao;
         try {
-            dao = new ImplDocumentoD();
+            dao = new DocumentoImpl();
             dao.eliminar(selectedDocumento);
             listarDocumento();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado Correctamente", null));
@@ -68,10 +68,10 @@ public class DocumentoC implements Serializable {
     }
 
     public void listarDocumento() {
-        ImplDocumentoD dao;
+        DocumentoImpl dao;
         try {
 
-            dao = new ImplDocumentoD();
+            dao = new DocumentoImpl();
             lstdocumento = dao.listar();
             lstPersona = getLstPersona();
 //            lstPersona = getLstPersona();
@@ -80,27 +80,27 @@ public class DocumentoC implements Serializable {
         }
     }
 
-    public DocumentoM getDocumento() {
+    public Documento getDocumento() {
         return documento;
     }
 
-    public void setDocumento(DocumentoM documento) {
+    public void setDocumento(Documento documento) {
         this.documento = documento;
     }
 
-    public DocumentoM getSelectedDocumento() {
+    public Documento getSelectedDocumento() {
         return selectedDocumento;
     }
 
-    public void setSelectedDocumento(DocumentoM selectedDocumento) {
+    public void setSelectedDocumento(Documento selectedDocumento) {
         this.selectedDocumento = selectedDocumento;
     }
 
-    public List<DocumentoM> getLstdocumento() {
+    public List<Documento> getLstdocumento() {
         return lstdocumento;
     }
 
-    public void setLstdocumento(List<DocumentoM> lstdocumento) {
+    public void setLstdocumento(List<Documento> lstdocumento) {
         this.lstdocumento = lstdocumento;
     }
 //=====================================================================

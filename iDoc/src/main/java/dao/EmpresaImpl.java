@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.Map;
 
 
-import modelo.EmpresaM;
+import modelo.Empresa;
 
 
-public class ImplEmpresaD extends Conexion implements IGenerica<EmpresaM> {
+public class EmpresaImpl extends Conexion implements IGenerica<Empresa> {
 
     @Override
-    public void registrar(EmpresaM empresa) throws Exception {
+    public void registrar(Empresa empresa) throws Exception {
         try {
             this.conectar();
             String sql = "INSERT INTO TraDoc.EMPRESA(RAZSOCEMP,RUCEMP,DIREMP) VALUES(?,?,?)";
@@ -33,7 +33,7 @@ public class ImplEmpresaD extends Conexion implements IGenerica<EmpresaM> {
     }
 
     @Override
-    public void editar(EmpresaM empresa) throws Exception {
+    public void editar(Empresa empresa) throws Exception {
         try {
             this.conectar();
             String sql = "UPDATE TraDoc.EMPRESA SET RAZSOCEMP=?, RUCEMP=?, DIREMP=?, WHERE IDEMP LIKE ?";
@@ -53,7 +53,7 @@ public class ImplEmpresaD extends Conexion implements IGenerica<EmpresaM> {
     }
 
     @Override
-    public void eliminar(EmpresaM empresa) throws Exception {
+    public void eliminar(Empresa empresa) throws Exception {
         try {
             this.conectar();
             String sql = "UPDATE TraDoc.EMPRESA SET ESTEMP = 'I' WHERE IDEMP LIKE ?";
@@ -68,8 +68,8 @@ public class ImplEmpresaD extends Conexion implements IGenerica<EmpresaM> {
     }
 
     @Override
-    public List<EmpresaM > listar() throws Exception {
-        List<EmpresaM> listadoEmpresa;
+    public List<Empresa > listar() throws Exception {
+        List<Empresa> listadoEmpresa;
         ResultSet rs;
         try {
             this.conectar();
@@ -77,9 +77,9 @@ public class ImplEmpresaD extends Conexion implements IGenerica<EmpresaM> {
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             listadoEmpresa = new ArrayList();
-            EmpresaM empresa;
+            Empresa empresa;
             while (rs.next()) {
-                empresa = new EmpresaM();
+                empresa = new Empresa();
                 empresa.setIDEMP(rs.getString("IDEMP"));
                 empresa.setRAZSOCEMP(rs.getString("RAZSOCEMP"));
                 empresa.setRUCEMP(rs.getString("RUCEMP"));
@@ -98,17 +98,17 @@ public class ImplEmpresaD extends Conexion implements IGenerica<EmpresaM> {
     }
 
     @Override
-    public List<String> buscar(String campo, List<EmpresaM> listaModelo) throws Exception {
+    public List<String> buscar(String campo, List<Empresa> listaModelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public EmpresaM obtenerCodigo(List<EmpresaM> listaModelo, EmpresaM modelo) throws Exception {
+    public Empresa obtenerCodigo(List<Empresa> listaModelo, Empresa modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean existe(List<EmpresaM> listaModelo, EmpresaM modelo) throws Exception {
+    public boolean existe(List<Empresa> listaModelo, Empresa modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

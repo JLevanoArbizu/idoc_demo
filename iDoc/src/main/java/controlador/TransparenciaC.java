@@ -1,8 +1,8 @@
 package controlador;
 
 import dao.TransparenciaImpl;
-import modelo.DocumentoM;
-import modelo.EmpresaM;
+import modelo.Documento;
+import modelo.Empresa;
 import modelo.Persona;
 import modelo.Transparencia;
 
@@ -22,16 +22,16 @@ public class TransparenciaC implements Serializable {
     TransparenciaImpl daoTransparencia;
 
     Persona persona;
-    EmpresaM empresa;
-    DocumentoM documento;
+    Empresa empresa;
+    Documento documento;
 
     public TransparenciaC(){
         transparencia = new Transparencia();
         listaTransparencia = new ArrayList<>();
         daoTransparencia = new TransparenciaImpl();
         persona = new Persona();
-        empresa = new EmpresaM();
-        documento = new DocumentoM();
+        empresa = new Empresa();
+        documento = new Documento();
     }
 
     public void clear(){
@@ -59,11 +59,11 @@ public class TransparenciaC implements Serializable {
         }
     }
 
-    public DocumentoM getDocumento() {
+    public Documento getDocumento() {
         return documento;
     }
 
-    public void setDocumento(DocumentoM documento) {
+    public void setDocumento(Documento documento) {
         this.documento = documento;
     }
 
@@ -75,11 +75,11 @@ public class TransparenciaC implements Serializable {
         this.persona = persona;
     }
 
-    public EmpresaM getEmpresa() {
+    public Empresa getEmpresa() {
         return empresa;
     }
 
-    public void setEmpresa(EmpresaM empresa) {
+    public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }
 
