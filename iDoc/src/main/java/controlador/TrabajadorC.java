@@ -98,7 +98,6 @@ public class TrabajadorC extends PersonaC implements Serializable {
             List<Trabajador> listaTemp = new ArrayList<>();
             for (Trabajador trabajador1 : listaTrabajador) {
                 if (trabajador1.getESTTRAB().equals("A")) {
-                    System.out.println(trabajador1.toString());
                     contadorTA++;
                 } else {
                     contadorTI++;

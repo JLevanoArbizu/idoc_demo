@@ -134,13 +134,15 @@
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Area" rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}" ajax="false">
+                                <p:commandLink action="Area" rendered="#{trabajadorC.loginT.TIPLOG.charAt(0) == 'S' 
+                                                                         && trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
+                                                                         ? true : false}" ajax="false">
                                     <i class="material-icons">dashboard</i>
                                     <span>Área</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Trabajador" rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}" ajax="false">
+                                <p:commandLink action="Trabajador" rendered="#{trabajadorC.loginT.TIPLOG.charAt(0) == 'S' ? true : false}" ajax="false">
                                     <i class="material-icons">work</i>
                                     <span>Trabajadores</span>
                                 </p:commandLink>
@@ -158,7 +160,9 @@
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="IncidenciaTipo" rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}" ajax="false">
+                                <p:commandLink action="IncidenciaTipo" rendered="#{trabajadorC.loginT.TIPLOG.charAt(0) == 'S' 
+                                                                                   && trabajadorC.loginT.TIPLOG.charAt(1) == 'R'
+                                                                                   ? true : false}" ajax="false">
                                     <i class="material-icons">dashboard</i>
                                     <span>Tipos de Incidencia</span>
                                 </p:commandLink>
