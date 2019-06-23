@@ -88,13 +88,13 @@
                       MENU DE USUARIO
             ===========================================-->
             <h:form id="menuform">
-                <div class="layout-menu layout-menu-dark">
-                    <div class="nano">
+                <div class="layout-menu layout-menu-slim">
+                    <div class="nano has-scrollbar">
                         <div class="nano-content menu-scroll-content">
                             <div class="profile">
                                 <div class="profile-image"></div>
                                 <a id="profile-options" href="#">
-                                    <span class="profile-name">Jane Williams</span>
+                                    <span class="profile-name">#{trabajadorC.loginT.trabajador.persona.NOMPER}</span>
                                     <i class="material-icons">keyboard_arrow_down</i>
                                 </a>
                             </div>
@@ -107,23 +107,16 @@
                                     </a>
                                 </li>
                                 <li role="menuitem">
-
-                                    <a href="#" class="ripplelink">
-                                        <i class="material-icons">security</i>
-                                        <span>Privacy</span>
-                                    </a>
-                                </li>
-                                <li role="menuitem">
-                                    <a href="#" class="ripplelink">
-                                        <i class="material-icons">settings</i>
-                                        <span>Settings</span>
-                                    </a>
+                                <p:commandLink action="Ajustes" styleClass="ripplelink" >
+                                    <i class="material-icons">settings</i>
+                                    <span>Ajustes</span>
+                                </p:commandLink>
                                 </li>
                                 <li role="menuitem">
                                 <p:commandLink action="Login" styleClass="ripplelink" 
                                                actionListener="#{trabajadorC.cerrarSesion()}">
                                     <i class="material-icons">power_settings_new</i>
-                                    <span>Logout</span>
+                                    <span>Salir</span>
                                 </p:commandLink>
                                 </li>
                             </ul>
@@ -136,8 +129,8 @@
                                 </li>
                                 <li role="menuitem">
                                 <p:commandLink action="Persona" ajax="false">
-                                    <i class="material-icons">dashboard</i>
-                                    <span>Ciudadano</span>
+                                    <i class="material-icons">group</i>
+                                    <span>Ciudadanos</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
@@ -148,19 +141,19 @@
                                 </li>
                                 <li role="menuitem">
                                 <p:commandLink action="Trabajador" rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}" ajax="false">
-                                    <i class="material-icons">dashboard</i>
+                                    <i class="material-icons">work</i>
                                     <span>Trabajadores</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
                                 <p:commandLink action="Acta" ajax="false">
-                                    <i class="material-icons">dashboard</i>
+                                    <i class="material-icons">collections_bookmark</i>
                                     <span>Actas</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
                                 <p:commandLink action="Incidencia" ajax="false">
-                                    <i class="material-icons">dashboard</i>
+                                    <i class="material-icons">error</i>
                                     <span>Incidencias</span>
                                 </p:commandLink>
                                 </li>

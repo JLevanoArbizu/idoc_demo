@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import modelo.Login;
+import modelo.Persona;
 import modelo.Trabajador;
 
 public class LoginImpl extends Conexion implements IGenerica<Login> {
@@ -44,15 +45,16 @@ public class LoginImpl extends Conexion implements IGenerica<Login> {
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             this.desconectar();
         }
     }
+
     public void editar2(Login modelo) throws Exception {
         try {
-            System.out.println("Editar2 "+modelo.toString());
+            System.out.println("Editar2 " + modelo.toString());
             String sql = "UPDATE GENERAL.LOGIN SET PSSWLOG=? WHERE USRLOG=? AND ESTLOG='A'";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getTrabajador().getPersona().getDNIPER());
@@ -60,9 +62,9 @@ public class LoginImpl extends Conexion implements IGenerica<Login> {
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             this.desconectar();
         }
     }
@@ -77,16 +79,16 @@ public class LoginImpl extends Conexion implements IGenerica<Login> {
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             this.desconectar();
         }
     }
 
     @Override
     public List<Login> listar() throws Exception {
-       List<Login> listaLogin;
+        List<Login> listaLogin;
         ResultSet rs;
         try {
             this.conectar();
@@ -111,7 +113,8 @@ public class LoginImpl extends Conexion implements IGenerica<Login> {
             throw e;
         } finally {
             this.desconectar();
-        }}
+        }
+    }
 
     @Override
     public List<String> buscar(String campo, List<Login> listaModelo) throws Exception {
@@ -128,19 +131,28 @@ public class LoginImpl extends Conexion implements IGenerica<Login> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-
-
     public Login obtenerLogin(Login login) throws Exception {
         try {
-            String sql = "SELECT IDLOG, IDTRAB, TIPLOG FROM GENERAL.LOGIN "
-                    + "WHERE USRLOG='" + login.getUSRLOG() + "' AND PSSWLOG='" + login.getPSSWLOG() + "' AND ESTLOG = 'A'";
+            String sql = "SELECT GENERAL.LOGIN.IDLOG, GENERAL.LOGIN.IDTRAB, GENERAL.LOGIN.TIPLOG, per.NOMPER FROM GENERAL.LOGIN "
+                    + "INNER JOIN GENERAL.TRABAJADOR trab "
+                    + "ON GENERAL.LOGIN.IDTRAB = trab.IDTRAB "
+                    + "INNER JOIN GENERAL.PERSONA per "
+                    + "ON trab.IDPER = per.IDPER "
+                    + "WHERE GENERAL.LOGIN.USRLOG='" + login.getUSRLOG() + "' "
+                    + "AND GENERAL.LOGIN.PSSWLOG='" + login.getPSSWLOG() + "' "
+                    + "AND GENERAL.LOGIN.ESTLOG = 'A'";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             while (rs.next()) {
                 Trabajador t = new Trabajador();
+                Persona p = new Persona();
+
                 login.setIDLOG(String.valueOf(rs.getInt(1)));
                 t.setIDTRAB(String.valueOf(rs.getInt(2)));
-                login.setTrabajador(t);
                 login.setTIPLOG(rs.getString(3));
+                p.setNOMPER(rs.getString(4));
+                
+                t.setPersona(p);
+                login.setTrabajador(t);
             }
             rs.close();
             if (login.getIDLOG() != null) {

@@ -9,50 +9,50 @@
     <ui:param name="tituloPagina" value="Ajustes"/>
     <ui:define name="contenidoPagina">
         <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
-        <div class="mdl-layout mdl-js-layout color--gray is-small-screen login">
-            <main class="mdl-layout__content">
-                <div class="mdl-card mdl-card__login mdl-shadow--2dp">
-                    <div class="mdl-card__supporting-text color--dark-gray">
-                        <h:form id="frmEditarLogin">
-                            <p:growl life="10000"/>
-                            <div class="mdl-grid">
-                                <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone">
-                                    <span class="mdl-card__title-text text-color--smooth-gray">iDoc</span>
-                                </div>
-                                <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone">
-                                    <span class="login-name text-color--white">Cambiar Contraseña</span>
-                                    <span class="login-secondary-text text-color--smoke">Ingrese su nueva contraseña.</span>
-                                </div>
-                                <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone">
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
-                                        <p:outputLabel value="Nueva Contraseña" styleClass="mdl-textfield__label" for="inptNewPssw"/>
-                                        <p:password value="#{trabajadorC.loginT.PSSWLOG}" required="true" id="inptNewPssw"
-                                                    feedback="true" styleClass="mdl-textfield__input" validatorMessage="No coinciden."
-                                                    weakLabel="Mala" goodLabel="Buena" strongLabel="Muy Buena" promptLabel="Ingrese Contraseña."
-                                                    match="repetido"
-                                                    requiredMessage="Ingrese contraseña"/>
-                                    </div>
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label full-size">
-                                        <p:outputLabel value="Repetir nueva Contraseña" styleClass="mdl-textfield__label" for="repetido"/>
-                                        <p:password id="repetido" value="#{trabajadorC.loginT.PSSWLOG}" required="true"
-                                                    styleClass="mdl-textfield__input"
-                                                    requiredMessage="Vuelva a ingresar la contrsaeña"/>
-                                    </div>
-                                </div>
-                                <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone submit-cell">
-                                    <div class="mdl-layout-spacer"></div>
-                                    <p:commandButton id="btnEditarLogin" styleClass="mdl-button mdl-js-button mdl-button--raised color--light-blue"
-                                                     actionListener="#{trabajadorC.editarLogin()}"
-                                                     value="Editar" update=":frmEditarLogin :frmMenu"/>
-                                    <p:blockUI block="frmEditarLogin" trigger="btnEditarLogin">
-                                        Editando..
-                                    </p:blockUI>
+        <div class="card card-w-title">
+            <h1>Cambiar Contraseña</h1>
+            <h:form id="frmEditarLogin">
+                <p:growl life="10000"/>
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:password value="#{trabajadorC.loginT.PSSWLOG}" required="true" id="inptNewPssw" inline="true"
+                                        feedback="true" validatorMessage="No coinciden."
+                                        weakLabel="Mala" goodLabel="Buena" strongLabel="Muy Buena" promptLabel="Ingrese Contraseña."
+                                        match="repetido"
+                                        requiredMessage="Ingrese contraseña"/>
+                            <p:outputLabel value="Nueva Contraseña" for="@previous"/>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:password id="repetido" value="#{trabajadorC.loginT.PSSWLOG}" required="true"
+                                        requiredMessage="Vuelva a ingresar la contraseña"/>
+                            <p:outputLabel value="Repetir nueva Contraseña" for="@previous"/>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="mdl-button">
+                            <p:commandButton id="btnEditarLogin"
+                                             actionListener="#{trabajadorC.editarLogin()}"
+                                             value="Editar" update="frmEditarLogin"/>
+                        </h:panelGroup>
+                    </div>
+                    <p:blockUI block="frmEditarLogin" trigger="btnEditarLogin">
+                        <div class="preloader-wrapper big active">
+                            <div class="spinner-layer spinner-blue">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div><div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div><div class="circle-clipper right">
+                                    <div class="circle"></div>
                                 </div>
                             </div>
-                        </h:form>
-                    </div>
+                        </div>
+                    </p:blockUI>
                 </div>
-            </main>
+            </h:form>
         </div>
     </ui:define>
 
