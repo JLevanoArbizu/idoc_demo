@@ -27,33 +27,33 @@ import org.primefaces.model.chart.LineChartSeries;
 @Named(value = "trabajadorC")
 @SessionScoped
 public class TrabajadorC extends PersonaC implements Serializable {
-
+    
     Trabajador trabajador;
     List<Trabajador> listaTrabajador;
     TrabajadorImpl daoTrabajador;
-
+    
     Login login, loginT;
     LoginImpl daoLogin;
-
+    
     private CartesianChartModel combinedModel;
-
+    
     int contadorTI, contadorTA;
-
+    
     @ManagedProperty("#{areaC}")
     AreaC areaC;
-
+    
     public TrabajadorC() throws Exception {
         trabajador = new Trabajador();
         listaTrabajador = new ArrayList<>();
         daoTrabajador = new TrabajadorImpl();
-
+        
         login = new Login();
         loginT = new Login();
         daoLogin = new LoginImpl();
         combinedModel = new BarChartModel();
-
+        
     }
-
+    
     @PostConstruct
     public void init() {
         try {
@@ -62,7 +62,7 @@ public class TrabajadorC extends PersonaC implements Serializable {
             e.printStackTrace();
         }
     }
-
+    
     public void iniciarSesion() throws Exception {
         try {
             loginT = daoLogin.obtenerLogin(loginT);
@@ -73,25 +73,25 @@ public class TrabajadorC extends PersonaC implements Serializable {
             e.printStackTrace();
         }
     }
-
+    
     public void seguridadSesion() throws IOException {
         if (loginT.getIDLOG() == null) {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc/faces/Pages/Login.xhtml");
         }
     }
-
+    
     public void volverHome() throws IOException {
         if (loginT.getIDLOG() != null) {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc/faces/Pages/Home.xhtml");
         }
     }
-
+    
     public void cerrarSesion() throws IOException {
         loginT.clear();
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
         FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc");
     }
-
+    
     public void listar() throws Exception {
         try {
             listaTrabajador = daoTrabajador.listar();
@@ -115,7 +115,7 @@ public class TrabajadorC extends PersonaC implements Serializable {
             e.printStackTrace();
         }
     }
-
+    
     public void registrar() throws Exception {
         try {
             trabajador.setFECINITRAB(new java.sql.Date(trabajador.getFECINITRAB_T().getTime()));
@@ -126,6 +126,7 @@ public class TrabajadorC extends PersonaC implements Serializable {
             daoTrabajador.registrar(trabajador);
             listar();
             login.setTrabajador(daoTrabajador.obtenerCodigo(listaTrabajador, trabajador));
+            login.setTIPLOG(login.getTIPLOG() + loginT.getTIPLOG().charAt(1));
             daoLogin.registrar(login);
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro Exitoso.", null));
@@ -137,7 +138,7 @@ public class TrabajadorC extends PersonaC implements Serializable {
             e.printStackTrace();
         }
     }
-
+    
     public void editar() throws Exception {
         try {
             trabajador.setFECINITRAB(new java.sql.Date(trabajador.getFECINITRAB_T().getTime()));
@@ -151,7 +152,7 @@ public class TrabajadorC extends PersonaC implements Serializable {
         } catch (Exception e) {
         }
     }
-
+    
     public void resetearContra(Trabajador trab) throws Exception {
         try {
             login.setTrabajador(daoTrabajador.obtenerCodigo(listaTrabajador, trab));
@@ -165,7 +166,7 @@ public class TrabajadorC extends PersonaC implements Serializable {
             e.printStackTrace();
         }
     }
-
+    
     public void editarLogin() throws Exception {
         try {
             daoLogin.editar(loginT);
@@ -178,7 +179,7 @@ public class TrabajadorC extends PersonaC implements Serializable {
             e.printStackTrace();
         }
     }
-
+    
     public void generarReporte(Trabajador CodigoTrabajador) throws Exception {
         TrabajadorImpl reportTrab = new TrabajadorImpl();
         try {
@@ -190,8 +191,7 @@ public class TrabajadorC extends PersonaC implements Serializable {
             throw e;
         }
     }
-
-
+    
     public void generarReporteI(String IDTRAB) throws Exception {
         try {
             Map<String, Object> parameters = new HashMap(); // Libro de parametros
@@ -201,40 +201,40 @@ public class TrabajadorC extends PersonaC implements Serializable {
             e.printStackTrace();
         }
     }
-
+    
     private void createCombinedModel() {
-
+        
         BarChartSeries year = new BarChartSeries();
         year.setLabel("Años");
-
+        
         year.set("2004", 20);
         year.set("2005", 30);
         year.set("2006", 40);
         year.set("2007", 50);
         year.set("2008", 60);
-
+        
         LineChartSeries activos = new LineChartSeries();
         activos.setLabel("Activos");
-
+        
         activos.set("2004", 15);
         activos.set("2005", 23);
         activos.set("2006", 25);
         activos.set("2007", 30);
         activos.set("2008", 40);
-
+        
         LineChartSeries inactivos = new LineChartSeries();
         inactivos.setLabel("Inactivos");
-
+        
         inactivos.set("2004", 4);
         inactivos.set("2005", 3);
         inactivos.set("2006", 2);
         inactivos.set("2007", 5);
         inactivos.set("2008", 10);
-
+        
         combinedModel.addSeries(year);
         combinedModel.addSeries(inactivos);
         combinedModel.addSeries(activos);
-
+        
         combinedModel.setTitle("Lista Trabajadores");
         combinedModel.setLegendPosition("ne");
         combinedModel.setMouseoverHighlight(false);
@@ -244,53 +244,53 @@ public class TrabajadorC extends PersonaC implements Serializable {
         yAxis.setMin(0);
         yAxis.setMax(100);
     }
-
+    
     public AreaC getAreaC() {
         return areaC;
     }
-
+    
     public void setAreaC(AreaC areaC) {
         this.areaC = areaC;
     }
-
+    
     public Trabajador getTrabajador() {
         return trabajador;
     }
-
+    
     public void setTrabajador(Trabajador trabajador) {
         this.trabajador = trabajador;
     }
-
+    
     public List<Trabajador> getListaTrabajador() {
         return listaTrabajador;
     }
-
+    
     public void setListaTrabajador(List<Trabajador> listaTrabajador) {
         this.listaTrabajador = listaTrabajador;
     }
-
+    
     public Login getLogin() {
         return login;
     }
-
+    
     public void setLogin(Login login) {
         this.login = login;
     }
-
+    
     public Login getLoginT() {
         return loginT;
     }
-
+    
     public void setLoginT(Login loginT) {
         this.loginT = loginT;
     }
-
+    
     public CartesianChartModel getCombinedModel() {
         return combinedModel;
     }
-
+    
     public void setCombinedModel(CartesianChartModel combinedModel) {
         this.combinedModel = combinedModel;
     }
-
+    
 }
