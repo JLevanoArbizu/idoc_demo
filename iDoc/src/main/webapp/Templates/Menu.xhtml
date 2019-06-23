@@ -5,57 +5,73 @@
       xmlns:p="http://primefaces.org/ui">  
 
 
-    <h:form rendered="#{trabajadorC.loginT.IDLOG != null ? true : false}" id="frmMenu">
-
-        <p:commandLink action="Home" ajax="false" class="mdl-navigation__link">
-            <i class="material-icons" role="presentation">home</i>Home
-        </p:commandLink>
-        <p:commandLink action="Persona" ajax="false" class="mdl-navigation__link">
-            <i class="material-icons" role="presentation">supervisor_account</i>Ciudadano
-        </p:commandLink>
-        <p:commandLink action="Area" ajax="false" class="mdl-navigation__link"
-                       rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}">
-            <i class="material-icons" role="presentation">dns</i>Área
-        </p:commandLink>
-        <p:commandLink action="Trabajador" ajax="false" class="mdl-navigation__link"
-                       rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}">
-            <i class="material-icons" role="presentation">work</i>Trabajador
-        </p:commandLink>
-
-
-        <p:commandLink action="Acta" ajax="false" class="mdl-navigation__link">
-            <i class="material-icons" role="presentation">book</i>Actas
-        </p:commandLink>
-
-        <p:commandLink action="Incidencia" ajax="false" class="mdl-navigation__link">
-            <i class="material-icons" role="presentation">autorenew</i>Incidencia
-        </p:commandLink>
-
-        <div class="mdl-layout-spacer"/>
-        <p:commandLink action="IncidenciaTipo" ajax="false" class="mdl-navigation__link"
-                       rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}">
-            <i class="material-icons" role="presentation">group_work</i>Tipos de Incidencia
-        </p:commandLink>
-        <div class="mdl-layout-spacer"/>
-
-        <p:commandLink action="tupa" ajax="false" class="mdl-navigation__link">
-            <i class="material-icons" role="presentation">import_contacts</i>Tupa
-        </p:commandLink>
-        <p:commandLink action="empresa" ajax="false" class="mdl-navigation__link">
-            <i class="material-icons" role="presentation">
-                account_balance</i>Empresa
-        </p:commandLink>
-
-        <p:commandLink action="Transferencia" ajax="false" class="mdl-navigation__link">
-            <i class="material-icons" role="presentation">compare_arrows</i>Tranferencia
-        </p:commandLink>
-
-        <p:commandLink action="documento" ajax="false" class="mdl-navigation__link">
-            <i class="material-icons" role="presentation">description</i>Documento
-        </p:commandLink>
-
-
-
+    <h:form id="frmMenu">
+        <li role="menuitem">
+            <p:commandLink action="Home">
+                <i class="material-icons">dashboard</i>
+                <span>Dashboard</span>
+            </p:commandLink>
+        </li>
+        <li role="menuitem">
+            <p:commandLink action="Persona">
+                <i class="material-icons">dashboard</i>
+                <span>Ciudadano</span>
+            </p:commandLink>
+        </li>
+        <li role="menuitem">
+            <p:commandLink action="Area" rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}">
+                <i class="material-icons">dashboard</i>
+                <span>Área</span>
+            </p:commandLink>
+        </li>
+        <li role="menuitem">
+            <p:commandLink action="Trabajador" rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}">
+                <i class="material-icons">dashboard</i>
+                <span>Trabajadores</span>
+            </p:commandLink>
+        </li>
+        <li role="menuitem">
+            <p:commandLink action="Acta">
+                <i class="material-icons">dashboard</i>
+                <span>Actas</span>
+            </p:commandLink>
+        </li>
+        <li role="menuitem">
+            <p:commandLink action="Incidencia">
+                <i class="material-icons">dashboard</i>
+                <span>Incidencias</span>
+            </p:commandLink>
+        </li>
+        <li role="menuitem">
+            <p:commandLink action="IncidenciaTipo" rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}">
+                <i class="material-icons">dashboard</i>
+                <span>Tipos de Incidencia</span>
+            </p:commandLink>
+        </li>
+        <li role="menuitem">
+            <p:commandLink action="tupa">
+                <i class="material-icons">dashboard</i>
+                <span>Tupa</span>
+            </p:commandLink>
+        </li>
+        <li role="menuitem">
+            <p:commandLink action="empresa">
+                <i class="material-icons">dashboard</i>
+                <span>Empresa</span>
+            </p:commandLink>
+        </li>
+        <li role="menuitem">
+            <p:commandLink action="Transferencia">
+                <i class="material-icons">dashboard</i>
+                <span>Transferencia</span>
+            </p:commandLink>
+        </li>
+        <li role="menuitem">
+            <p:commandLink action="documento">
+                <i class="material-icons">dashboard</i>
+                <span>Documento</span>
+            </p:commandLink>
+        </li>
     </h:form>
 
 

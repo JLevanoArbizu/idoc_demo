@@ -1,107 +1,216 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
     <h:head>
-        <title>#{tituloPagina}</title>
-
-        <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta name="description" content="Aplicación de Registro Civil y Trámite Documentario de la Municipalidad de Nuevo Imperial."/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
-        <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900' rel='stylesheet'
-              type='text/css'/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link rel="icon" href="../../resources/icon/group.png" sizes="32x32"/>
+        <!--Other CSS and JS-->
+        <h:outputStylesheet library="css"  name="materialize.min.css"/>
+        <h:outputStylesheet library="css"  name="IconFontsMaterialize.css"/>
+        <h:outputStylesheet library="css"  name="style.css"/>
+        <h:outputScript library="js" name="jsfcrud.js" />
+        <!--***-->
+        <!--CSS and JS - Van en esta Posicion para que funcione bien-->
+        <h:outputStylesheet library="css"  name="fontawesome-all.css"/>
+        <h:outputStylesheet library="css"  name="charts.css"/>
+        <h:outputStylesheet library="css"  name="clock.css"/>
+        <h:outputStylesheet library="css"  name="components.css"/>
+        <h:outputStylesheet library="css"  name="fileupload.css"/>
+        <h:outputStylesheet library="css"  name="galleria.css"/>
+        <h:outputStylesheet library="css"  name="inputswitch.css"/>
+        <h:outputStylesheet library="css"  name="keyboard.css"/>
+        <h:outputStylesheet library="css"  name="nanoscroller.css"/>
+        <h:outputStylesheet library="css"  name="ripple.css"/>
+        <h:outputStylesheet library="css"  name="schedule.css"/>
+        <h:outputStylesheet library="css"  name="scrollpanel.css"/>
+        <h:outputStylesheet library="css"  name="animate.css"/>
+        <h:outputStylesheet library="css"  name="layout-dark-green.css"/>
+        <h:outputStylesheet library="css"  name="theme-dark-green.css"/>
+        <h:outputScript library="js" name="charts.js" />
+        <h:outputScript library="js" name="clock.js" />
+        <h:outputScript library="js" name="components.js" />
+        <h:outputScript library="js" name="core.js" />
+        <h:outputScript library="js" name="fileupload.js" />
+        <h:outputScript library="js" name="galleria.js" />
+        <h:outputScript library="js" name="inputswitch.js" />
+        <h:outputScript library="js" name="keyboard.js" />
+        <h:outputScript library="js" name="layout.js" />
+        <h:outputScript library="js" name="moment.js" />
+        <h:outputScript library="js" name="nanoscroller.js" />
+        <h:outputScript library="js" name="raphael.js" />
+        <h:outputScript library="js" name="ripple.js" />
+        <h:outputScript library="js" name="schedule.js" />
+        <h:outputScript library="js" name="scrollpanel.js" />
+        <h:outputScript library="js" name="swipe.js" />
+        <h:outputScript library="js" name="touchswipe.js" />   
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-        <h:outputStylesheet name="css/lib/getmdl-select.min.css"/>
-        <h:outputStylesheet name="css/lib/nv.d3.min.css"/>
-        <h:outputStylesheet name="css/application.min.css"/>
-
-        <h:outputScript name="js/d3.min.js"/>
-        <h:outputScript name="js/getmdl-select.min.js"/>
-        <h:outputScript name="js/material.min.js"/>
-        <h:outputScript name="js/nv.d3.min.js"/>
-        <h:outputScript name="js/layout/layout.min.js"/>
-        <h:outputScript name="js/scroll/scroll.min.js"/>
-
-        <h:outputScript name="js/widgets/charts/discreteBarChart.min.js"/>
-        <h:outputScript name="js/widgets/charts/linePlusBarChart.min.js"/>
-        <h:outputScript name="js/widgets/charts/stackedBarChart.min.js"/>
-        <h:outputScript name="js/widgets/employer-form/employer-form.min.js"/>
-        <h:outputScript name="js/widgets/line-chart/line-charts-nvd3.min.js"/>
-        <h:outputScript name="js/widgets/map/maps.min.js"/>
-        <h:outputScript name="js/widgets/pie-chart/pie-charts-nvd3.min.js"/>
-        <h:outputScript name="js/widgets/table/table.min.js"/>
-        <h:outputScript name="js/widgets/todo/todo.min.js"/>
-
-
+        <h:outputScript library="js" name="plugins.js" />   
+        <!--***-->        
+        <title>#{tituloPagina}</title>
+        <style type="text/css">
+            .main-content {
+                padding: 0;
+            }
+        </style>
     </h:head>
-    <h:body>
-        <ui:insert name="plantilla">
-            <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header is-small-screen">
-                <header class="mdl-layout__header">
-                    <div class="mdl-layout__header-row">
-                        <span class="mdl-layout-title">#{tituloPagina}</span>
-                        <div class="mdl-layout-spacer"/>
+    <h:body class="main-body">
 
-                        <div class="avatar-dropdown" id="icon">
-                            <span>#{trabajadorC.loginT.USRLOG}</span>
-                            <h:graphicImage name="images/Icon_header.png"/>
-                        </div>
-                        <!-- Account dropdawn-->
-                        <ul class="mdl-menu mdl-list mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp account-dropdown"
-                            for="icon">
-                            <h:form>
-                                <li class="mdl-menu__item mdl-list__item">
-                                    <p:commandLink action="Ajustes" ajax="false" class="mdl-list__item-primary-content">
-                                        <i class="material-icons mdl-list__item-icon text-color--secondary">settings</i>
-                                        Ajustes
-                                    </p:commandLink>
-                                </li>
-                                <li class="mdl-menu__item mdl-list__item">
-                                    <p:commandLink action="Login" actionListener="#{trabajadorC.cerrarSesion()}" class="mdl-list__item-primary-content"
-                                                   ajax="false">
-                                        <i class="material-icons mdl-list__item-icon text-color--secondary">exit_to_app</i>
-                                        Salir
-                                    </p:commandLink>
-                                </li>
-                            </h:form>
+        <p:growl><p:autoUpdate/></p:growl>
 
-                        </ul>
-                    </div>
-                </header>
-
-                <div class="mdl-layout__drawer">
-                    <header>iDoc</header>
-                    <div class="scroll__wrapper" id="scroll__wrapper">
-                        <div class="scroller" id="scroller">
-                            <div class="scroll__container" id="scroll__container">
-                                <nav class="mdl-navigation">
-                                    <ui:insert name="menu">
-                                        <ui:include src="Menu.xhtml"/>
-                                    </ui:insert>
-
-                                </nav>
-                            </div>
-                        </div>
-                        <div class='scroller__bar' id="scroller__bar"></div>
+        <div class="layout-wrapper menu-layout-static ">
+            <!--==========================================
+                      BARRA SUPERIOR
+            ===========================================-->
+            <div class="topbar clearfix">                
+                <!--Icono-->
+                <div class="topbar-left">
+                    <div class="logo">
+                        <img src="../../resources/icon/Ultima/logo.png"/>
                     </div>
                 </div>
 
-                <main class="mdl-layout__content">
-                    <div class="mdl-grid mdl-grid--no-spacing dashboard">
+                <!--El resto de la Barra-->
+                <div class="topbar-right">
+                    <a id="menu-button" href="#">
+                        <i class="material-icons">keyboard_arrow_left</i>
+                    </a>
+                </div>
+            </div>
 
-                        <div class="mdl-grid mdl-cell mdl-cell--9-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone mdl-cell--top">
-                            <ui:insert name="contenidoPagina"/>                        
+            <!--==========================================
+                      MENU DE USUARIO
+            ===========================================-->
+            <h:form id="menuform">
+                <div class="layout-menu layout-menu-dark">
+                    <div class="nano">
+                        <div class="nano-content menu-scroll-content">
+                            <div class="profile">
+                                <div class="profile-image"></div>
+                                <a id="profile-options" href="#">
+                                    <span class="profile-name">Jane Williams</span>
+                                    <i class="material-icons">keyboard_arrow_down</i>
+                                </a>
+                            </div>
+
+                            <ul id="profile-menu" class="ultima-menu">
+                                <li role="menuitem">
+                                    <a href="#" class="ripplelink">
+                                        <i class="material-icons">person</i>
+                                        <span>Profile</span>
+                                    </a>
+                                </li>
+                                <li role="menuitem">
+
+                                    <a href="#" class="ripplelink">
+                                        <i class="material-icons">security</i>
+                                        <span>Privacy</span>
+                                    </a>
+                                </li>
+                                <li role="menuitem">
+                                    <a href="#" class="ripplelink">
+                                        <i class="material-icons">settings</i>
+                                        <span>Settings</span>
+                                    </a>
+                                </li>
+                                <li role="menuitem">
+                                <p:commandLink action="Login" styleClass="ripplelink" 
+                                               actionListener="#{trabajadorC.cerrarSesion()}">
+                                    <i class="material-icons">power_settings_new</i>
+                                    <span>Logout</span>
+                                </p:commandLink>
+                                </li>
+                            </ul>
+                            <ul id="menuform:submenu" class="ultima-menu clearfix">
+                                <li role="menuitem">
+                                <p:commandLink action="Home" ajax="false">
+                                    <i class="material-icons">dashboard</i>
+                                    <span>Dashboard</span>
+                                </p:commandLink>
+                                </li>
+                                <li role="menuitem">
+                                <p:commandLink action="Persona" ajax="false">
+                                    <i class="material-icons">dashboard</i>
+                                    <span>Ciudadano</span>
+                                </p:commandLink>
+                                </li>
+                                <li role="menuitem">
+                                <p:commandLink action="Area" rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}" ajax="false">
+                                    <i class="material-icons">dashboard</i>
+                                    <span>Área</span>
+                                </p:commandLink>
+                                </li>
+                                <li role="menuitem">
+                                <p:commandLink action="Trabajador" rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}" ajax="false">
+                                    <i class="material-icons">dashboard</i>
+                                    <span>Trabajadores</span>
+                                </p:commandLink>
+                                </li>
+                                <li role="menuitem">
+                                <p:commandLink action="Acta" ajax="false">
+                                    <i class="material-icons">dashboard</i>
+                                    <span>Actas</span>
+                                </p:commandLink>
+                                </li>
+                                <li role="menuitem">
+                                <p:commandLink action="Incidencia" ajax="false">
+                                    <i class="material-icons">dashboard</i>
+                                    <span>Incidencias</span>
+                                </p:commandLink>
+                                </li>
+                                <li role="menuitem">
+                                <p:commandLink action="IncidenciaTipo" rendered="#{trabajadorC.loginT.TIPLOG == 'S' ? true : false}" ajax="false">
+                                    <i class="material-icons">dashboard</i>
+                                    <span>Tipos de Incidencia</span>
+                                </p:commandLink>
+                                </li>
+                                <li role="menuitem">
+                                <p:commandLink action="tupa" ajax="false">
+                                    <i class="material-icons">dashboard</i>
+                                    <span>Tupa</span>
+                                </p:commandLink>
+                                </li>
+                                <li role="menuitem">
+                                <p:commandLink action="empresa" ajax="false">
+                                    <i class="material-icons">dashboard</i>
+                                    <span>Empresa</span>
+                                </p:commandLink>
+                                </li>
+                                <li role="menuitem">
+                                <p:commandLink action="Transferencia" ajax="false">
+                                    <i class="material-icons">dashboard</i>
+                                    <span>Transferencia</span>
+                                </p:commandLink>
+                                </li>
+                                <li role="menuitem">
+                                <p:commandLink action="documento" ajax="false">
+                                    <i class="material-icons">dashboard</i>
+                                    <span>Documento</span>
+                                </p:commandLink>
+                                </li>
+                            </ul>
+                            <script>
+                                PrimeFaces.cw("Ultima", "me", {id: "menuform"});
+                            </script>
                         </div>
                     </div>
-                </main>
+                </div>
+            </h:form>
+
+            <!--==========================================
+                              CONTENIDO
+            ===========================================-->
+            <div class="layout-main">
+                <ui:insert name="contenidoPagina"/>
+
             </div>
-        </ui:insert>
+        </div>
     </h:body>
 </html>
 

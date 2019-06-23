@@ -2,38 +2,42 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-
-    <p:panelGrid columns="2" layout="tabular">
-        <p:outputLabel value="Apellido Paterno" />
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:panelGrid columns="2">
+        <p:outputLabel value="Apellido Paterno" for="apePatPer"/>
         <p:inputText value="#{personaC.persona.APEPATPER}"
                      requiredMessage="Apellido Paterno Requerido."
-                     required="true" maxlength="50" 
+                     required="true" maxlength="50" id="apePatPer"
                      style="text-transform: uppercase">
             <p:keyFilter regEx='/[\a-z ]/i'/>
         </p:inputText>
-        <p:outputLabel value="Apellido Materno"/>
+        <p:outputLabel value="Apellido Materno" for="apeMatPer"/>
         <p:inputText value="#{personaC.persona.APEMATPER}"  requiredMessage="Apellido Materno Requerido."
+                     id="apeMatPer"
                      required="true"  maxlength="50" style="text-transform: uppercase" >
             <p:keyFilter regEx='/[\a-z ]/i'/>
         </p:inputText>
-        <p:outputLabel value="Nombres"/>
+        <p:outputLabel value="Nombres" for="nomPer"/>
         <p:inputText value="#{personaC.persona.NOMPER}" requiredMessage="Nombres Requerido."
+                     id="nomPer"
                      required="true" maxlength="50" style="text-transform: capitalize">
             <p:keyFilter regEx='/[\a-z ]/i'/>
         </p:inputText>
-        <p:outputLabel value="DNI"/>
+        <p:outputLabel value="DNI" for="dniPer"/>
         <p:inputMask value="#{personaC.persona.DNIPER}" maxlength="8" mask="99999999" requiredMessage="DNI Requerido."
+                     id="dniPer"
                      required="false"/>
-        <p:outputLabel value="Distrito"/>
-        <p:autoComplete  value="#{personaC.persona.CODUBI}" 
+        <p:outputLabel value="Distrito" for="distPer"/>
+        <p:autoComplete  value="#{personaC.persona.CODUBI}" id="distPer"
                          forceSelection="true " maxlength="36" 
                          completeMethod="#{personaC.buscarUbigeo}"                             
                          minQueryLength="1" maxResults="6" queryDelay="1" required="true">
             <p:keyFilter regEx='/[\a-z ]/i'/>
         </p:autoComplete>
-        <p:outputLabel value="Dirección"/>
+        <p:outputLabel value="Dirección" for="dirPer"/>
         <p:inputText value="#{personaC.persona.DIRPER}" requiredMessage="Direccion Requerida."
+                     id="dirPer"
                      required="true"  maxlength="100" style="text-transform: capitalize" />
         <p:outputLabel value="Sexo"/>
         <p:selectOneRadio value="#{personaC.persona.GENPER}" requiredMessage="Seleccione un Sexo"
@@ -41,6 +45,7 @@
             <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
             <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
         </p:selectOneRadio>
-    </p:panelGrid>
+    </h:panelGrid>
+
 </html>
 

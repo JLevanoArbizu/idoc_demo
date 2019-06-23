@@ -62,7 +62,7 @@ public class PersonaC extends UbigeoC implements Serializable {
 
     public void registrarPersona() throws Exception {
         try {
-            if (!daoPersona.existe(listaPersona, persona) && !persona.getDNIPER().equals("00000000")) {
+            if (daoPersona.existe(listaPersona, persona) == false && !persona.getDNIPER().equals("00000000")) {
                 seterCodigoUbigeo();
                 daoPersona.registrar(persona);
                 FacesContext.getCurrentInstance().addMessage(null,

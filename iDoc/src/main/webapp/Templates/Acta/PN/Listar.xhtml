@@ -54,26 +54,26 @@
             <h:outputLabel value="#{listaAN.OBSACTA}" style="font-weight: normal" />
 
         </p:column>
-        <p:column exportable="false" headerText="Accion">
+        <p:column exportable="false" headerText="Acción">
             <p:commandButton update=":dlgDatosAN" icon="ui-icon-pencil" title="Modificar" 
                              rendered="#{listaAN.ESTACTA eq 'A'}"
-                             class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
                              actionListener="#{actaC.ubigeo.setDISTUBI(listaAN.CODUBI)}"
                              oncomplete="PF('wdlgDatosAN').show();">
                 <f:setPropertyActionListener value="#{listaAN}" 
                                              target="#{actaC.acta}"/>
             </p:commandButton>
-            <p:commandButton update=":dlgRegistrarIncidencia" title="Agregar Incidencia" value="+"
+            <p:commandButton update=":dlgRegistrarIncidencia" value="Incidir"
                              rendered="#{listaAN.ESTACTA eq 'A'}"
                              class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"
                              actionListener="#{incidenciaC.incidencia.setIDDOC(listaAN.IDACTA)}"
                              oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
-            <p:commandButton value="Solicitud" rendered="#{listaAN.ESTACTA eq 'A'}"
+
+            <p:commandButton value="Solicitar" rendered="#{listaAN.ESTACTA eq 'A'}"
                              oncomplete="PF('wdlgRegistrarSolicitud').show();">
                 <f:setPropertyActionListener value="#{listaAN}"
                                              target="#{actaC.solicitud.acta}"/>
             </p:commandButton>
-        </p:column> 
+        </p:column>
         <p:rowExpansion>
             <p:panelGrid columns="4">
                 <h:outputLabel value="Padre" style="font-weight: bold"/>

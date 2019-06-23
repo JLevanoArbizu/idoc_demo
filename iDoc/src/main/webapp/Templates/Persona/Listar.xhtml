@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:form id="frmListarPersona">
-        <p:dataTable id="dtTblPersona"  value="#{personaC.listaPersona}" var="listaPersona"
+        <p:dataTable id="dtTblPersona"  value="#{personaC.listaPersona}" var="listaPersona" reflow="true"
                      rowStyleClass="#{listaPersona.ESTPER le 'Activo' ? null : 'inactivo'}"
                      rows="10" emptyMessage="No se encontrarón datos." filteredValue="#{personaC.listaPersonaFiltrado}"
                      paginator="true" scrollable="true" scrollHeight="500"
@@ -18,58 +18,52 @@
             <p:column headerText="Apellido Paterno" 
                       sortBy="#{listaPersona.APEPATPER}"                       
                       filterMatchMode="contains"
-                      filterBy="#{listaPersona.APEPATPER}" 
-                      style="font-weight: bold;">
+                      filterBy="#{listaPersona.APEPATPER}">
                 <h:outputLabel
-                    value="#{listaPersona.APEPATPER}" style="font-weight: normal" />
+                    value="#{listaPersona.APEPATPER}"/>
             </p:column>
             <p:column headerText="Apellido Materno"
                       sortBy="#{listaPersona.APEMATPER}"                       
                       filterMatchMode="contains"
-                      filterBy="#{listaPersona.APEMATPER}" 
-                      style="font-weight: bold;">
-                <h:outputLabel value="#{listaPersona.APEMATPER}"  style="font-weight: normal" />
+                      filterBy="#{listaPersona.APEMATPER}" >
+                <h:outputLabel value="#{listaPersona.APEMATPER}"/>
             </p:column>            
             <p:column headerText="Nombres" 
                       sortBy="#{listaPersona.NOMPER}"                       
-                      filterMatchMode="contains"
-                      style="font-weight: bold">
-                <h:outputLabel value="#{listaPersona.NOMPER}" style="font-weight: normal" />
+                      filterMatchMode="contains">
+                <h:outputLabel value="#{listaPersona.NOMPER}"/>
             </p:column>
             <p:column headerText="DNI"
                       sortBy="#{listaPersona.DNIPER}"                       
                       filterMatchMode="contains"
-                      filterBy="#{listaPersona.DNIPER}" 
-                      style="font-weight: bold;">
-                <h:outputLabel value="#{listaPersona.DNIPER}"  style="font-weight: normal" />
+                      filterBy="#{listaPersona.DNIPER}">
+                <h:outputLabel value="#{listaPersona.DNIPER}"/>
             </p:column>
-            <p:column headerText="Distrito"  style="font-weight: bold">
-                <h:outputLabel value="#{listaPersona.CODUBI}"  style="font-weight: normal" />
+            <p:column headerText="Distrito">
+                <h:outputLabel value="#{listaPersona.CODUBI}"/>
             </p:column>
-            <p:column headerText="Dirección"  style="font-weight: bold">
-                <h:outputLabel value="#{listaPersona.DIRPER}"  style="font-weight: normal" />
+            <p:column headerText="Dirección" >
+                <h:outputLabel value="#{listaPersona.DIRPER}" />
             </p:column>
             <p:column headerText="Sexo"  
-                      sortBy="#{listaPersona.GENPER}" 
-                      style="font-weight: bold;">
-                <h:outputLabel value="#{listaPersona.GENPER}" style="font-weight: normal" />
-            </p:column>
-            <p:column headerText="Nacionalidad"  style="font-weight: bold">
-                <h:outputLabel value="#{listaPersona.NACPER}" style="font-weight: normal" />
+                      sortBy="#{listaPersona.GENPER}">
+                <h:outputLabel value="#{listaPersona.GENPER}"/>
             </p:column>
 
 
             <p:column exportable="false">
                 <p:commandButton update=":dlgDatosPersona" icon="ui-icon-pencil"
-                                 rendered="#{listaPersona.ESTPER eq 'A'}"
-                                 class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
-                                 title="Modificar" 
+                                 rendered="#{listaPersona.ESTPER eq 'A'}" title="Modificar" 
                                  oncomplete="PF('wdlgDatosPersona').show();">
                     <f:setPropertyActionListener value="#{listaPersona}" 
                                                  target="#{personaC.persona}"/>
-                </p:commandButton>
-                
-                <p:commandLink value="IMPRIMIR" ajax="false" actionListener="#{personaC.generarReporte(IDPER)}">
+                </p:commandButton>                
+
+            </p:column>
+            <p:column exportable="false">                
+                <p:commandLink value="IMPRIMIR" ajax="false" 
+                               rendered="#{listaPersona.ESTPER eq 'A'}" 
+                               actionListener="#{personaC.generarReporte(IDPER)}">
                 </p:commandLink>
 
             </p:column>
@@ -81,7 +75,7 @@
     <p:dialog id="dlgDatosPersona" widgetVar="wdlgDatosPersona" 
               class="mdl-dialog"
               header="Datos de la Persona" closeOnEscape="true">
-        <h:form id="frmEditarPersona" class="mdl-dialog__content">
+        <h:form id="frmEditarPersona">
             <ui:include src="Registrar.xhtml"/>
 
             <p:selectOneRadio value="#{personaC.persona.ESTPER}" 
