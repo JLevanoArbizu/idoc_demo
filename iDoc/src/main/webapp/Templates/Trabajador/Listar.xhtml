@@ -45,10 +45,11 @@
                     <f:convertDateTime locale="es" pattern="dd MMM yyyy"  />
                 </h:outputLabel>
             </p:column>
+            
 
             <p:column exportable="false">
-                <p:commandLink value="IMPRIMIR" ajax="false" actionListener="#{trabajadorC.generarReporte(IDTRAB)}">
-                </p:commandLink>
+                <p:commandButton value="IMPRIMIR" ajax="false" 
+                                 actionListener="#{trabajadorC.generarReporteI(listaTrabajador.IDTRAB)}"/>
                 <p:commandButton update=":dlgDatosTrabajador" icon="ui-icon-pencil"
                                  class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
                                  title="Modificar" rendered="#{listaTrabajador.ESTTRAB eq 'A'}"
@@ -56,8 +57,6 @@
                     <f:setPropertyActionListener value="#{listaTrabajador}" 
                                                  target="#{trabajadorC.trabajador}"/>
                 </p:commandButton>
-                <p:commandButton rendered="#{listaTrabajador.ESTTRAB eq 'A'}" ajax="false"
-                                 title="Guardar" actionListener="#{trabajadorCC.generarReporte(listaTrabajador)}"/>
 
 
                 <p:commandButton value="Resetear Contraseña" update="frmListarTrabajador"
@@ -68,6 +67,8 @@
                 Actualizando
             </p:blockUI>
         </p:dataTable>
+        <p:commandButton value="IMPRIMIR LISTA DE TRABAJADORES" ajax="false" actionListener="#{trabajadorC.generarReporte(IDTRAB)}">
+        </p:commandButton>>
     </h:form>
     <p:dialog id="dlgDatosTrabajador" widgetVar="wdlgDatosTrabajador" 
               class="mdl-dialog"

@@ -43,11 +43,12 @@
                     <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>
-                                <p:commandLink value="IMPRIMIR" ajax="false" actionListener="#{incidenciatipoC.generarReporte(IDINCTIP)}">
-                </p:commandLink>
+
             </p:column>           >
 
         </p:dataTable>
+        <p:commandButton value="IMPRIMIR LISTA DE INCIDENCIAS" ajax="false" actionListener="#{incidenciatipoC.generarReporte(IDINCTIP)}">
+        </p:commandButton>
     </h:form>
     ,
     <p:dialog id="dlgDatosIncidenciaTipo" widgetVar="wdlgDatosIncidenciaTipo" 

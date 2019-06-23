@@ -152,6 +152,18 @@ public class TrabajadorImpl extends Conexion implements IGenerica<Trabajador> {
         }
         FacesContext.getCurrentInstance().responseComplete();
     }
+
+    @Override
+    public void generarReporteIndividual(Map parameters) throws Exception {
+        conectar();
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Trabajador\\TrabajadorIndividual.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=DatosPersonalesTrabajador.pdf");
+        try (ServletOutputStream stream = response.getOutputStream()) {
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            stream.flush();
+        }
+        FacesContext.getCurrentInstance().responseComplete();
+    }
 }
-
-

@@ -27,4 +27,6 @@ public interface IGenerica<T> {
     boolean existe(List<T> listaModelo, T modelo) throws Exception;
 
     void generarReporte(Map parameters) throws Exception;
+    
+    void generarReporteIndividual(Map parameters) throws Exception;
 }

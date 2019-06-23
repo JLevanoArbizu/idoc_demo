@@ -130,6 +130,11 @@ public class MunicipalidadImpl extends Conexion implements IGenerica<Municipalid
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void generarReporteIndividual(Map parameters) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
  
 
 }

@@ -97,10 +97,10 @@ public class TrabajadorC extends PersonaC implements Serializable {
             listaTrabajador = daoTrabajador.listar();
             List<Trabajador> listaTemp = new ArrayList<>();
             for (Trabajador trabajador1 : listaTrabajador) {
-                if (trabajador1.getESTTRAB().equals("A")){
+                if (trabajador1.getESTTRAB().equals("A")) {
                     System.out.println(trabajador1.toString());
                     contadorTA++;
-                }else{
+                } else {
                     contadorTI++;
                 }
                 for (Persona persona1 : listaPersona) {
@@ -180,15 +180,26 @@ public class TrabajadorC extends PersonaC implements Serializable {
         }
     }
 
-    public void generarReporte(Trabajador IDTRAB)throws  Exception{
-        TrabajadorImpl reportAre = new TrabajadorImpl();
+    public void generarReporte(Trabajador CodigoTrabajador) throws Exception {
+        TrabajadorImpl reportTrab = new TrabajadorImpl();
         try {
             Map<String, Object> parameters = new HashMap(); // Libro de parametros
-            parameters.put(null, IDTRAB); //Insertamos un parametro
-            reportAre.generarReporte(parameters); //Pido exportar Reporte con los parametros
+            parameters.put(null, CodigoTrabajador); //Insertamos un parametro
+            reportTrab.generarReporte(parameters); //Pido exportar Reporte con los parametros
 //            report.exportarPDF2(parameters);
         } catch (Exception e) {
             throw e;
+        }
+    }
+
+
+    public void generarReporteI(String IDTRAB) throws Exception {
+        try {
+            Map<String, Object> parameters = new HashMap(); // Libro de parametros
+            parameters.put("IDTRAB", IDTRAB); //Insertamos un parametro
+            daoTrabajador.generarReporteIndividual(parameters); //Pido exportar Reporte con los parametros
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -212,7 +223,6 @@ public class TrabajadorC extends PersonaC implements Serializable {
         activos.set("2007", 30);
         activos.set("2008", 40);
 
-
         LineChartSeries inactivos = new LineChartSeries();
         inactivos.setLabel("Inactivos");
 
@@ -222,11 +232,9 @@ public class TrabajadorC extends PersonaC implements Serializable {
         inactivos.set("2007", 5);
         inactivos.set("2008", 10);
 
-
         combinedModel.addSeries(year);
         combinedModel.addSeries(inactivos);
         combinedModel.addSeries(activos);
-
 
         combinedModel.setTitle("Lista Trabajadores");
         combinedModel.setLegendPosition("ne");

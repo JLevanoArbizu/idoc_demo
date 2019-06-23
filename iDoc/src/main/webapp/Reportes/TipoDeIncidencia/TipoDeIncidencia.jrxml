@@ -4,7 +4,9 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="conexion"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM RegCiv.INCIDENCIA_TIPO]]>
+		<![CDATA[SELECT
+IDINCTIP, NOMINCTIP, REPLACE(REPLACE(TIPINCTIP,'J','Judicial'),'N','Notarial') AS TIPINCTIP, LEYINCTIP,ESTINCTIP
+FROM RegCiv.INCIDENCIA_TIPO]]>
 	</queryString>
 	<field name="IDINCTIP" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="IDINCTIP"/>

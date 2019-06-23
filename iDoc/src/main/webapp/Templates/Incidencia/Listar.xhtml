@@ -39,9 +39,6 @@
                     <f:setPropertyActionListener value="#{listaIncidencia}" 
                                                  target="#{incidenciaC.incidencia}"/>
                 </p:commandButton>
-                <p:commandButton rendered="#{listaIncidencia.ESTINC eq 'A'}" ajax="false"
-                                 title="Guardar" actionListener="#{incidenciaCC.generarReporte(listaIncidencia)}"/>
-
                 <p:commandButton title="ELIMINAR" icon="ui-icon-circle-close" value="ELIMINAR" style="width: 22vh;"
                                  actionListener="#{incidenciaC.eliminar(listaIncidencia)}" 
                                  update=":frmListarIncidencia" >
@@ -54,6 +51,7 @@
                 </p:confirmDialog>
             </p:column>
         </p:dataTable>
+        <p:commandButton value="IMPRIMIR LISTA DE INCIDENCIAS" ajax="false" actionListener="#{incidenciaC.generarReporte(IDINC)}"/>
     </h:form>
 
     <p:dialog id="dlgDatosIncidencia" widgetVar="wdlgDatosIncidencia" 
