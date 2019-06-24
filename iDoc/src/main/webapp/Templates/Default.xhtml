@@ -142,24 +142,21 @@
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Acta" ajax="false" rendered="#{trabajadorC.loginT.TIPLOG.charAt(0) == 'S' 
-                                                                                      and trabajadorC.loginT.TIPLOG.charAt(1) == 'R'
+                                <p:commandLink action="Acta" ajax="false" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'R'
                                                                                       ? true : false}">
                                     <i class="material-icons">collections_bookmark</i>
                                     <span>Actas</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Incidencia" ajax="false" rendered="#{trabajadorC.loginT.TIPLOG.charAt(0) == 'S' 
-                                                                                            and trabajadorC.loginT.TIPLOG.charAt(1) == 'R'
+                                <p:commandLink action="Incidencia" ajax="false" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'R'
                                                                                             ? true : false}">
                                     <i class="material-icons">error</i>
                                     <span>Incidencias</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="IncidenciaTipo" rendered="#{trabajadorC.loginT.TIPLOG.charAt(0) == 'S' 
-                                                                                   and trabajadorC.loginT.TIPLOG.charAt(1) == 'R'
+                                <p:commandLink action="IncidenciaTipo" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'R'
                                                                                    ? true : false}" ajax="false">
                                     <i class="material-icons">dashboard</i>
                                     <span>Tipos de Incidencia</span>
