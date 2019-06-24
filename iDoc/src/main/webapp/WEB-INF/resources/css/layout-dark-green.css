@@ -415,7 +415,7 @@
 
 .login-body {
     /* Location of the image */
-    background-image: url(../icon/ImagenVG.jpg);
+    background-image: url(http://muninuevoimperial.gob.pe/imagenes/mdni.jpg);
     /* Background image is centered vertically and horizontally at all times */
     background-position: center center;
 
@@ -1036,7 +1036,7 @@ body {
       width: 60px;
       height: 60px;
       margin: 0 auto 5px auto;
-      background: url("../WEB-INF/resources/icon/Ultima/avatar2x.png") top left no-repeat;
+      background: url("http://www.iestppacaran.edu.pe/wp-content/uploads/2017/11/muni_nuevo_imperial.png") top left no-repeat;
       background-size: 60px 60px; }
     .layout-wrapper .layout-menu .profile .profile-name {
       display: inline-block;

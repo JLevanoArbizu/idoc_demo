@@ -49,10 +49,6 @@ public class TrabajadorImpl extends Conexion implements IGenerica<Trabajador> {
             String sql = "UPDATE GENERAL.TRABAJADOR SET FECINITRAB=?, FECFINTRAB=?, ESTTRAB=? "
                     + "WHERE IDTRAB=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-//            ps.setInt(1, Integer.valueOf(modelo.getArea().getIDARE()));
-//            ps.setInt(1, 2);
-//            ps.setInt(2, Integer.valueOf(modelo.getPersona().getIDPER()));
-//            ps.setString(3, modelo.getESTTRAB());
             ps.setDate(1, modelo.getFECINITRAB());
             if (modelo.getFECFINTRAB() != null) {
                 ps.setDate(2, modelo.getFECFINTRAB());

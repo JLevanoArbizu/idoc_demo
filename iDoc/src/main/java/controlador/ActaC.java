@@ -422,3 +422,4 @@ public class ActaC extends UbigeoC implements Serializable {
         this.bar = bar;
     }
 }
+

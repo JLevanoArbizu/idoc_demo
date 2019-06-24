@@ -84,7 +84,15 @@ WHERE IDTRAB = $P!{IDTRAB}]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="800" height="50" uuid="6ed8a194-8975-4f6b-b223-901ab9644bff"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="25" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Datos Personales del Trabajador]]></text>
+			</staticText>
+		</band>
 	</title>
 	<columnHeader>
 		<band height="33" splitType="Stretch">
@@ -154,14 +162,14 @@ WHERE IDTRAB = $P!{IDTRAB}]]>
 				<textFieldExpression><![CDATA[$F{APEPATPER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="90" y="0" width="100" height="30" uuid="da7aa853-f81b-443e-9793-23b0ddd2a230">
+				<reportElement x="70" y="0" width="100" height="30" uuid="da7aa853-f81b-443e-9793-23b0ddd2a230">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="894be1a7-586f-43b1-8417-c37bc1ce3532"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{APEMATPER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="170" y="0" width="100" height="30" uuid="58111387-264f-4872-aaa9-a5aac660bc25">
+				<reportElement x="130" y="0" width="139" height="30" uuid="58111387-264f-4872-aaa9-a5aac660bc25">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1ee82e6d-7a9e-4a80-a39c-3ba575a80aa1"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
