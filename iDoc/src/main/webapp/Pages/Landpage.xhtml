@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <h:head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link rel="icon" href="../../resources/icon/group.png" sizes="32x32"/>
+        <!--Other CSS and JS-->
+        <h:outputStylesheet library="css"  name="materialize.min.css"/>
+        <h:outputStylesheet library="css"  name="IconFontsMaterialize.css"/>
+        <h:outputStylesheet library="css"  name="style.css"/>
+        <h:outputScript library="js" name="jsfcrud.js" />
+        <!--***-->
+        <!--CSS and JS - Van en esta Posicion para que funcione bien-->
+        <h:outputStylesheet library="css"  name="fontawesome-all.css"/>
+        <h:outputStylesheet library="css"  name="charts.css"/>
+        <h:outputStylesheet library="css"  name="clock.css"/>
+        <h:outputStylesheet library="css"  name="components.css"/>
+        <h:outputStylesheet library="css"  name="fileupload.css"/>
+        <h:outputStylesheet library="css"  name="galleria.css"/>
+        <h:outputStylesheet library="css"  name="inputswitch.css"/>
+        <h:outputStylesheet library="css"  name="keyboard.css"/>
+        <h:outputStylesheet library="css"  name="nanoscroller.css"/>
+        <h:outputStylesheet library="css"  name="ripple.css"/>
+        <h:outputStylesheet library="css"  name="schedule.css"/>
+        <h:outputStylesheet library="css"  name="scrollpanel.css"/>
+        <h:outputStylesheet library="css"  name="animate.css"/>
+        <h:outputStylesheet library="css"  name="layout-dark-green.css"/>
+        <h:outputStylesheet library="css"  name="theme-dark-green.css"/>
+        <h:outputScript library="js" name="charts.js" />
+        <h:outputScript library="js" name="clock.js" />
+        <h:outputScript library="js" name="components.js" />
+        <h:outputScript library="js" name="core.js" />
+        <h:outputScript library="js" name="fileupload.js" />
+        <h:outputScript library="js" name="galleria.js" />
+        <h:outputScript library="js" name="inputswitch.js" />
+        <h:outputScript library="js" name="keyboard.js" />
+        <h:outputScript library="js" name="layout.js" />
+        <h:outputScript library="js" name="moment.js" />
+        <h:outputScript library="js" name="nanoscroller.js" />
+        <h:outputScript library="js" name="raphael.js" />
+        <h:outputScript library="js" name="ripple.js" />
+        <h:outputScript library="js" name="schedule.js" />
+        <h:outputScript library="js" name="scrollpanel.js" />
+        <h:outputScript library="js" name="swipe.js" />
+        <h:outputScript library="js" name="touchswipe.js" />   
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <h:outputScript library="js" name="plugins.js" />   
+        <!--***-->        
+        <title>Landpage</title>
+        <style type="text/css">
+            .main-content {
+                padding: 0;
+            }
+        </style>
+    </h:head>
+    <body class="landing-body">
+        <div class="landing-wrapper">
+            <div id="header">
+                <div class="header-top clearfix">
+                    <span class="logo"></span>
+
+                    <ul id="menu" class="animated">
+                        <li><a href="#"><span>Home</span></a></li>
+                        <li><a href="#features"><span>Features</span></a></li>
+                        <li><a href="#promotion"><span>Promotion</span></a></li>
+                    </ul>
+                </div>
+
+                <div class="header-content clearfix">
+                    <h1>iDoc</h1>
+                    <p:commandButton action="Login" value="Ingresar"/>
+                </div>
+            </div>
+
+            <div id="features">
+                <h2>Sistema Trámite Documentario y Registro Civil en una sola solución.</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse delectus sit velit, aspernatur voluptates molestiae, enim recusandae. Odit dicta, maiores quas ad nesciunt, illum expedita veritatis illo quam odio id!</p>
+
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-4">
+                        <h3>Creative</h3>
+                        <p>Lorem ipsum dolor sit amet</p>
+                        <div class="feature-icon">
+                            <i class="material-icons"></i>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-4">
+                        <h3>Responsive</h3>
+                        <p>Lorem ipsum dolor sit amet</p>
+                        <div class="feature-icon">
+                            <i class="material-icons"></i>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-4">
+                        <h3>Cross Browser</h3>
+                        <p>Lorem ipsum dolor sit amet</p>
+                        <div class="feature-icon">
+                            <i class="material-icons"></i>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4">
+                        <div class="feature-icon">
+                            <i class="material-icons"></i>
+                        </div>
+                        <h3>Well Organized</h3>
+                        <p>Well Organ</p>
+                    </div>
+                    <div class="ui-g-12 ui-md-4">
+                        <div class="feature-icon">
+                            <i class="material-icons"></i>
+                        </div>
+                        <h3>Beautiful</h3>
+                        <p>Lorem ipsum dolor sit amet</p>
+                    </div>
+                    <div class="ui-g-12 ui-md-4">
+                        <div class="feature-icon">
+                            <i class="material-icons"></i>
+                        </div>
+                        <h3>Just For you</h3>
+                        <p>Lorem ipsum dolor sit amet</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="promotion" class="clearfix">
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-lg-8">
+                        <h1>Boost Your Productivity.</h1><button id="j_idt11" name="j_idt11" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only secondary" onclick="window.open('\/ultima\/dashboard.xhtml', '_self')" role="button" aria-disabled="false"><span class="ui-button-text ui-c">Sign Up Now</span></button>
+                    </div>
+                    <div class="ui-g-12 ui-lg-4">
+                        <div class="card">
+                            <h3>Just</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab perferendis nesciunt ad reiciendis explicabo consequatur sapiente odit ipsa harum illum, necessitatibus quaerat voluptates aspernatur iure, aperiam possimus sint sit mollitia!</p>
+                        </div>
+
+                        <div class="card">
+                            <h3>Like</h3>
+                            <p>Ab perferendis nesciunt ad reiciendis explicabo consequatur sapiente odit ipsa harum illum. Necessitatibus quaerat voluptates aspernatur iure, aperiam possimus sint sit mollitia!</p>
+                        </div>
+
+                        <div class="card">
+                            <h3>That</h3>
+                            <p>Necessitatibus quaerat voluptates aspernatur iure, aperiam possimus sint sit mollitia! Ab perferendis nesciunt ad reiciendis explicabo consequatur sapiente odit ipsa harum illum.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pricing">
+                <h2>Pricing</h2>
+                <p>Esse delectus sit velit, aspernatur voluptates molestiae, enim recusandae. Odit dicta, maiores quas ad nesciunt, illum expedita veritatis illo quam odio id!</p>
+
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-4 pricing-box pricing-basic">
+                        <div class="card">
+                            <div class="pricing-header">
+                                <span class="name">BASIC</span>
+                                <span class="fee">$5</span>
+                                <span class="type">Monthly</span>
+                            </div>
+                            <div class="pricing-content">
+                                <ul>
+                                    <li><i class="material-icons"></i><span>Responsive</span></li>
+                                    <li><i class="material-icons"></i><span>Push Messages</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-4 pricing-box pricing-standard">
+                        <div class="card">
+                            <div class="pricing-header">
+                                <span class="name">STANDARD</span>
+                                <span class="fee">$25</span>
+                                <span class="type">Monthly</span>
+                            </div>
+                            <div class="pricing-content">
+                                <ul>
+                                    <li><i class="material-icons"></i><span>Responsive</span></li>
+                                    <li><i class="material-icons"></i><span>Push Messages</span></li>
+                                    <li><i class="material-icons"></i><span>7/24 Support</span></li>
+                                    <li><i class="material-icons"></i><span>Free Shipping</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-4 pricing-box pricing-professional">
+                        <div class="card">
+                            <div class="pricing-header">
+                                <span class="name">PROFESSIONAL</span>
+                                <span class="fee">$50</span>
+                                <span class="type">Monthly</span>
+                            </div>
+                            <div class="pricing-content">
+                                <ul>
+                                    <li><i class="material-icons"></i><span>Responsive</span></li>
+                                    <li><i class="material-icons"></i><span>Push Messages</span></li>
+                                    <li><i class="material-icons"></i><span>7/24 Support</span></li>
+                                    <li><i class="material-icons"></i><span>Free Shipping</span></li>
+                                    <li><i class="material-icons"></i><span>Unlimited Bandwidth</span></li>
+                                    <li><i class="material-icons"></i><span>Unlimited Storage</span></li>
+                                    <li><i class="material-icons"></i><span>Gift Cards</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="video">
+                <div class="video-content">
+                    <h2>Video</h2>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.</p>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/B_lYGUtCd0g" frameborder="0" width="560" height="330"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="footer-content">
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6">
+                            <p>PRIMEFACES ULTIMA</p>
+                        </div>
+                        <div class="ui-g-12 ui-md-6">
+                            <ul>
+                                <li><a href="#mobile">Promotion</a></li>
+                                <li><a href="#pricing">Pricing</a></li>
+                                <li><a href="#video">Video</a></li>
+                            </ul>
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#introduction">Introduction</a></li>
+                                <li><a href="#features">Features</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+</html>
+
