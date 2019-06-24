@@ -14,6 +14,9 @@ public class Documento {
     private String IDTUP;
     private String IDLOG;
     private String IDEMP;
+    private String IDPER;
+    private String KEYDOC;
+    
 
     public void clear(){
         this.IDDOC = null;
@@ -31,6 +34,7 @@ public class Documento {
                 this.IDEMP=null;
     }
 
+    
     public String getCODDOC() {
         return CODDOC;
     }
@@ -78,10 +82,6 @@ public class Documento {
     public void setKEYDOC(String KEYDOC) {
         this.KEYDOC = KEYDOC;
     }
-    private String IDPER;
-    private String KEYDOC;
-
-
 
     public String getIDDOC() {
         return IDDOC;
