@@ -9,7 +9,7 @@
 
     <ui:param name="tituloPagina" value="TUPA"/>
 
-            <ui:define name="contenidoPagina">
+    <ui:define name="contenidoPagina">
 
 
         <h:form id="FormTupa"> 
@@ -25,15 +25,17 @@
                 <p:outputLabel value="area tupa:"/>
                 <p:inputText value="#{tupaC.tupa.ARETUP}" placeholder="area tupa" maxlength="50"/>
                 <p:commandButton value="Registrar" actionListener="#{tupaC.registrarTupa()}" update="FormTupa FormTblTupa:tblTupa"/>
-            
-            
+
+
             </p:panelGrid>
         </h:form>
+        <h:form>
         <h3>
             <p:commandButton rendered="#{lstTupa}"
                              class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
                              title="Guardar" actionListener="#{tupaCC.generarReporte(lstTupa)}"/>
         </h3>
+        </h:form>
         <!--lista-->
 
         <h:form id="FormTblTupa">
@@ -103,6 +105,6 @@
                 <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no"/>
             </p:confirmDialog>
         </h:form>
-    
+
     </ui:define>
 </ui:composition>

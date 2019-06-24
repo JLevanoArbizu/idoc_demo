@@ -92,7 +92,7 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
         ResultSet rs;
         try {
             this.conectar();
-            String sql = "SELECT * FROM TraDoc.DOCUMENTO";
+            String sql = "SELECT * FROM VW_DOCUMENTO";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             listaDocumento = new ArrayList();

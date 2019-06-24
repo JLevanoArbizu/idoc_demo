@@ -81,7 +81,7 @@ public class TransferenciaImpl extends Conexion implements IGenerica<Transferenc
     public List<Transferencia> listar() throws Exception {
         List<Transferencia> listaTransferencia;
         try {
-            String sql = "SELECT * FROM TRADOC.TRANSFERENCIA WHERE TRADOC.TRANSFERENCIA.ESTTRA = 'A'";
+            String sql = "SELECT * FROM VW_TRANSFERENCIA ";
 
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             listaTransferencia = new ArrayList();
