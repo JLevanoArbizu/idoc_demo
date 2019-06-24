@@ -78,13 +78,13 @@
                 <p:outputLabel value="Fecha Inicio"/>
                 <p:calendar value="#{trabajadorC.trabajador.FECINITRAB_T}" 
                             readonlyInput="true" required="true" disabled="true"
-                            locale="es" navigator="true" pattern="dd MMM yyyy" >
+                            locale="es" navigator="false" pattern="dd MMM yyyy" >
                 </p:calendar>
 
                 <p:outputLabel value="Fecha Fin"/>
                 <p:calendar value="#{trabajadorC.trabajador.FECFINTRAB_T}" 
                             readonlyInput="true" required="true"
-                            locale="es" navigator="true" pattern="dd MMM yyyy" >
+                            locale="es" navigator="false" pattern="dd MMM yyyy" >
                 </p:calendar>
             </p:panelGrid>
             <p:commandButton value="Modificar" actionListener="#{trabajadorC.editar()}"
