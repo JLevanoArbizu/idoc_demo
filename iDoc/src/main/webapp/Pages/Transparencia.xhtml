@@ -101,8 +101,6 @@
                     </div>
                 </div>
             </h:form>
-        </div>
-        <div class="card">
             <h:form id="frmDatosSolicitante">
                 <p:tabView>
                     <p:tab title="Persona">
@@ -133,44 +131,50 @@
                     </p:tab>
                 </p:tabView>
             </h:form>
+
+            <h:form id="frmListarTransparencia">
+                <p:dataTable id="dtTblTransparencia"  value="#{transparenciaC.listaTransparencia}" var="listaTransparencia"
+                             rows="10" emptyMessage="No se encontrarón datos." reflow="true"
+                             paginator="true" scrollable="true" scrollHeight="500"
+                             rowsPerPageTemplate="5,10,15,20">
+
+                    <f:facet name="header">
+                        Ventana Única de Trámite
+                    </f:facet>
+
+                    <p:column headerText="Área Emisora">
+                        <h:outputLabel
+                            value="#{listaTransparencia.emisor.NOMARE}" />
+                    </p:column>
+
+                    <p:column headerText="Área Receptora">
+                        <h:outputLabel
+                            value="#{listaTransparencia.receptor.NOMARE}"/>
+                    </p:column>
+
+                    <p:column headerText="Fecha Recepción de la Transferencia">
+                        <h:outputLabel
+                            value="#{listaTransparencia.transferencia.FECRECTRAN}"/>
+                    </p:column>
+
+                    <p:column headerText="Fecha Salida de la Transferencia">
+                        <h:outputLabel
+                            value="#{listaTransparencia.transferencia.FECSALTRAN}"/>
+                    </p:column>
+
+                    <p:column headerText="Observación de la Transferencia">
+                        <h:outputLabel
+                            value="#{listaTransparencia.transferencia.OBSTRAN}"/>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
         </div>
-
-        <h:form id="frmListarTransparencia">
-            <p:dataTable id="dtTblTransparencia"  value="#{transparenciaC.listaTransparencia}" var="listaTransparencia"
-                         rows="10" emptyMessage="No se encontrarón datos." reflow="true"
-                         paginator="true" scrollable="true" scrollHeight="500"
-                         rowsPerPageTemplate="5,10,15,20">
-
-                <f:facet name="header">
-                    Ventana Única de Trámite
-                </f:facet>
-
-                <p:column headerText="Área Emisora">
-                    <h:outputLabel
-                        value="#{listaTransparencia.emisor.NOMARE}" />
-                </p:column>
-
-                <p:column headerText="Área Receptora">
-                    <h:outputLabel
-                        value="#{listaTransparencia.receptor.NOMARE}"/>
-                </p:column>
-
-                <p:column headerText="Fecha Recepción de la Transferencia">
-                    <h:outputLabel
-                        value="#{listaTransparencia.transferencia.FECRECTRAN}"/>
-                </p:column>
-
-                <p:column headerText="Fecha Salida de la Transferencia">
-                    <h:outputLabel
-                        value="#{listaTransparencia.transferencia.FECSALTRAN}"/>
-                </p:column>
-
-                <p:column headerText="Observación de la Transferencia">
-                    <h:outputLabel
-                        value="#{listaTransparencia.transferencia.OBSTRAN}"/>
-                </p:column>
-
-            </p:dataTable>
-        </h:form>
+        <div class="footer">
+            <div class="card clearfix">
+                <span class="footer-text-left">Valle Grande</span>
+                <span class="footer-text-right"><span class="ui-icon ui-icon-copyright"></span>  <span>Todos los Derechos Reservados.</span></span>
+            </div>
+        </div>
     </h:body>
 </html>
