@@ -16,18 +16,6 @@
     
     <dependencies>
         <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-            <version>2.2.13</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-impl</artifactId>
-            <version>2.2.19</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>7.0</version>
@@ -50,17 +38,11 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.3</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.3.4</version>
-            <type>jar</type>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
+            <version>1.6.2</version>
         </dependency>
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
