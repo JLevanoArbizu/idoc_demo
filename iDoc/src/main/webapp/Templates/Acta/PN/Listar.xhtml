@@ -11,6 +11,7 @@
                  rows="20" emptyMessage="No se encontrarón datos."
                  paginator="true" scrollable="true" scrollHeight="500"
                  rowsPerPageTemplate="10,20,30">
+
         <f:facet name="header">
             Partidas de Nacimiento
         </f:facet> 
@@ -38,7 +39,8 @@
             <h:outputLabel value="#{listaAN.FECREGACTA}">
                 <f:convertDateTime locale="es" pattern="dd MMM yyyy"/>
             </h:outputLabel>
-        </p:column>
+        </p:column> 
+        
         <p:column headerText="Fecha de Nacimiento"  
                   sortBy="#{listaAN.FECACT}">
             <h:outputLabel value="#{listaAN.FECACT}">

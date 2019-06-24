@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <p:panelGrid columns="4">
         <p:outputLabel value="Hijo"/>
         <p:autoComplete value="#{actaC.acta.titular}" forceSelection="true"
@@ -53,14 +55,14 @@
         <p:outputLabel value="Fecha de Nacimiento" />
         <p:calendar id="popupRegistrarNacimiento" value="#{actaC.acta.FECACT}" 
                     readonlyInput="true"
-                    locale="es" navigator="true" pattern="dd MMM yyyy" >
+                    locale="es" navigator="false" pattern="dd MMM yyyy" >
         </p:calendar>
         <p:outputLabel value="Fecha de Registro" />
         <p:calendar id="popupRegistrarFecha1" value="#{actaC.acta.FECREGACTA}" 
                     readonlyInput="true"
-                    locale="es" navigator="true" pattern="dd MMM yyyy" >
+                    locale="es" navigator="false" pattern="dd MMM yyyy" maxlength="20" mindate="01/01/2019" maxdate="01/05/2019">
         </p:calendar>
-        
+
 
     </p:panelGrid>
 </html>

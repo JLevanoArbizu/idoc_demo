@@ -86,8 +86,11 @@
                                  oncomplete="if(!args.validationFailed)PF('wdlgDatosAN').hide();"
                                  id="btnEditarAN"
                                  update="frmEditarAN tb:frmListarAN tb:frmListarAM  tb:frmListarAD">
-                    <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
+                    <center>
+                        <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
+                    </center>
                 </p:commandButton>
+
 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                     <p:commandButton value="Si" type="button"
