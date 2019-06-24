@@ -1,12 +1,20 @@
 package dao;
 
+
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import modelo.Transferencia;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 public class TransferenciaImpl extends Conexion implements IGenerica<Transferencia> {
 
@@ -74,7 +82,7 @@ public class TransferenciaImpl extends Conexion implements IGenerica<Transferenc
         List<Transferencia> listaTransferencia;
         try {
             String sql = "SELECT * FROM TRADOC.TRANSFERENCIA WHERE TRADOC.TRANSFERENCIA.ESTTRA = 'A'";
-            
+
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             listaTransferencia = new ArrayList();
             Transferencia trans;
@@ -122,9 +130,17 @@ public class TransferenciaImpl extends Conexion implements IGenerica<Transferenc
 
     @Override
     public void generarReporteIndividual(Map parameters) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Transferencia\\Transferencia.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+        this.desconectar();
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=Transferencia.pdf");
+        try (ServletOutputStream stream = response.getOutputStream()) {
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            stream.flush();
+        }
+        FacesContext.getCurrentInstance().responseComplete();
     }
-
-
-
 }
+
+

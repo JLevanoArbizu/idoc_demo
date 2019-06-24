@@ -1,16 +1,21 @@
 package dao;
 
-
+import static dao.Conexion.conectar;
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import modelo.Empresa;
-
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 public class EmpresaImpl extends Conexion implements IGenerica<Empresa> {
 
@@ -68,7 +73,7 @@ public class EmpresaImpl extends Conexion implements IGenerica<Empresa> {
     }
 
     @Override
-    public List<Empresa > listar() throws Exception {
+    public List<Empresa> listar() throws Exception {
         List<Empresa> listadoEmpresa;
         ResultSet rs;
         try {
@@ -114,13 +119,21 @@ public class EmpresaImpl extends Conexion implements IGenerica<Empresa> {
 
     @Override
     public void generarReporte(Map parameters) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        conectar();
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Empresa\\Empresa.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=ListaDeEmpresas.pdf");
+        try (ServletOutputStream stream = response.getOutputStream()) {
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            stream.flush();
+        }
+        FacesContext.getCurrentInstance().responseComplete();
     }
 
     @Override
     public void generarReporteIndividual(Map parameters) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 
 }

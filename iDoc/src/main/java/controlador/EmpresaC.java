@@ -5,7 +5,9 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -77,11 +79,15 @@ public class EmpresaC implements Serializable {
         }
     }
 
-    public void generarReporte(Empresa emper)throws Exception{
+    public void generarReporte(Empresa IDEMP)throws Exception{
+        EmpresaImpl reportPer = new EmpresaImpl();
         try {
-         //   daoempresa.generarReporte(emper);
-        }catch (Exception e){
-            e.printStackTrace();
+            Map<String, Object> parameters = new HashMap(); // Libro de parametros
+            parameters.put(null, IDEMP); //Insertamos un parametro
+            reportPer.generarReporte(parameters); //Pido exportar Reporte con los parametros
+//            report.exportarPDF2(parameters);
+        } catch (Exception e) {
+            throw e;
         }
 
     }

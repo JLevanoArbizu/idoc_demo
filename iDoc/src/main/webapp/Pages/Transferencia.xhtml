@@ -80,10 +80,10 @@
                 <p:column headerText="Documento">
                     <p:outputLabel value="#{transferencia.IDDOC}" />
                 </p:column>
-                <p:column headerText="area emitida:">
+                <p:column headerText="Area emitida:">
                     <p:outputLabel value="#{transferencia.IDARE_EMI}" />
                 </p:column>
-                <p:column headerText="area Recibida">
+                <p:column headerText="Area Recibida">
                     <p:outputLabel value="#{transferencia.IDARE_REC}" />
                 </p:column>
 
@@ -91,6 +91,7 @@
             </p:dataTable>
             <p:contextMenu for="tblTransferencia">
                 <p:menuitem value="EDITAR" oncomplete="PF('dlgModTransferencia').show()" update="FormDialogModTemp"/>
+                <p:menuitem value="EXPORTAR" actionListener="#{transferenciaC.generarReporteI(transferenciaC.selectedTransferncia.IDDOC)}" ajax="false"/>
                 <p:menuitem value="ELIMINAR" actionListener="{transferenciaC.eliminarTransferencia()}" update="tblTransferencia">
                     <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
                 </p:menuitem>

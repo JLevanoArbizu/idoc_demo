@@ -12,6 +12,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 import dao.SolicitudImpl;
+import java.util.HashMap;
+import java.util.Map;
 import modelo.Acta;
 import modelo.Login;
 import modelo.Solicitud;
@@ -132,7 +134,7 @@ public class ActaC extends UbigeoC implements Serializable {
             solicitud.setLogin(log);
             //solicitud.clear();
             //daoSolicitud.registrar(solicitud);
-         //   daoActa.generarReporte(solicitud.getActa());
+            //   daoActa.generarReporte(solicitud.getActa());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -283,11 +285,8 @@ public class ActaC extends UbigeoC implements Serializable {
         listANN.set("    ", contadorAN);
         listADD.set("  2008", contadorAD);
 
-
         bar.addSeries(listAN);
         bar.addSeries(listAD);
-
-        
 
         bar.setTitle("Tasa de Natalidad y Mortalidad");
         bar.setLegendPosition("ne");
@@ -295,6 +294,28 @@ public class ActaC extends UbigeoC implements Serializable {
 
         bar.getAxis(AxisType.Y).setMax(listaDocumentosGeneral.size());
 
+    }
+
+    public void generarReporteIndividual(String IDACTA) throws Exception {
+        ActaImpl reportActaN = new ActaImpl();
+        try {
+            Map<String, Object> parameters = new HashMap(); // Libro de parametros
+            parameters.put("IDACTA", IDACTA); //Insertamos un parametro
+            parameters.put("titular", IDACTA); //Insertamos un parametro
+            parameters.put("FECREGACTA", IDACTA); //Insertamos un parametro
+            parameters.put("FECACT", IDACTA); //Insertamos un parametro
+            parameters.put("OBSACTA", IDACTA); //Insertamos un parametro
+            parameters.put("papa", IDACTA); //Insertamos un parametro
+            parameters.put("mama", IDACTA); //Insertamos un parametro
+            parameters.put("declarante", IDACTA); //Insertamos un parametro
+            parameters.put("medico", IDACTA); //Insertamos un parametro
+            parameters.put("CODUBI", IDACTA); //Insertamos un parametro
+            parameters.put("DIRACT", IDACTA); //Insertamos un parametro
+            reportActaN.generarReporteIndividual(parameters); //Pido exportar Reporte con los parametros
+//            report.exportarPDF2(parameters);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public Acta getActa() {

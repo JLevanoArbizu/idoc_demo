@@ -2,7 +2,9 @@ package controlador;
 
 import dao.TupaImpl;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -19,7 +21,6 @@ public class TupaC implements Serializable {
     private List<Tupa> lstTupa;
     private List<Tupa> lstTupa2;
     TupaImpl daotupa;
-
 
     @PostConstruct
     public void iniciar() {
@@ -71,13 +72,15 @@ public class TupaC implements Serializable {
         }
     }
 
-    public void generarReporte(Tupa tupa) throws  Exception{
-
+    public void generarReporte(String IDTUP) throws Exception {
+        TupaImpl reportTup = new TupaImpl();
         try {
-         //   daotupa.generarReporte(tupa);
-        }catch (Exception e){
-            e.printStackTrace();
-
+            Map<String, Object> parameters = new HashMap(); // Libro de parametros
+            parameters.put(null, IDTUP); //Insertamos un parametro
+            reportTup.generarReporte(parameters); //Pido exportar Reporte con los parametros
+//            report.exportarPDF2(parameters);
+        } catch (Exception e) {
+            throw e;
         }
     }
 

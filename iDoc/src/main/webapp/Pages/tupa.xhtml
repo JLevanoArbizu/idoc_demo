@@ -68,6 +68,7 @@
                 </p:column>
 
             </p:dataTable>
+            <p:commandButton value="EXPORTA LISTA DE TUPA" ajax="false" actionListener="#{tupaC.generarReporte(IDTUP)}"/>
             <p:contextMenu for="tblTupa">
                 <p:menuitem value="EDITAR" oncomplete="PF('dlgModTupa').show()" update="FormDialogModTup"/>
                 <p:menuitem value="ELIMINAR" actionListener="#{tupaC.eliminarTupa()}" update="tblTupa">
@@ -79,7 +80,6 @@
         <p:dialog header="ACTUALIZAR DATOS" widgetVar="dlgModTupa" resizable="false" > 
             <h:form id="FormDialogModTup">
                 <p:panelGrid columns="2">
-
                     <p:outputLabel value="Nombre Tupa:"/>
                     <p:inputText value="#{tupaC.selectedTupa.NOMTUP}" placeholder="Nombre tupa" maxlength="50" required="false"/>
                     <p:outputLabel value="Numero Tupa:"/>

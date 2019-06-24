@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Tupa" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e1de093c-40ce-4d22-8407-6a6ffe68b08a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="conexion"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT IDTUP, NOMTUP, ARETUP,
+REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(PLATUP,'07','7 Días'),'60','60 Días'),'30','30 Días'),'50','50 Días'),'03','3 Días'),'02','2 Días'),'03','3 Días'),'10','10 Días'),'03','3 Días'),'15','15 Días'),'90','90 Días'),'01','1 Día'),'05','5 Días')AS PLATUP,
+REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(PRETUP,'1.00', 'S/1'),'33.33','S/33'),'12.00','S/12'),'45.00','S/45'),'25.00','S/25'),'35.00','S/35'),'70.00','S/70'),'25.35','S/25'),'10.52','S/10'),'0.00','S/0') AS PRETUP
+FROM TraDoc.TUPA]]>
+	</queryString>
+	<field name="IDTUP" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="IDTUP"/>
+	</field>
+	<field name="NOMTUP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOMTUP"/>
+	</field>
+	<field name="ARETUP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ARETUP"/>
+	</field>
+	<field name="PLATUP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PLATUP"/>
+	</field>
+	<field name="PRETUP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PRETUP"/>
+	</field>
+	<group name="IDTUP">
+		<groupExpression><![CDATA[$F{IDTUP}]]></groupExpression>
+	</group>
+	<group name="NOMTUP">
+		<groupExpression><![CDATA[$F{NOMTUP}]]></groupExpression>
+	</group>
+	<group name="ARETUP">
+		<groupExpression><![CDATA[$F{ARETUP}]]></groupExpression>
+	</group>
+	<group name="PLATUP">
+		<groupExpression><![CDATA[$F{PLATUP}]]></groupExpression>
+	</group>
+	<group name="PRETUP">
+		<groupExpression><![CDATA[$F{PRETUP}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="802" height="60" uuid="69e21d70-9231-498d-a8ba-43e27c8f521c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="29" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lista de TUPA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="340" height="30" uuid="ee38aca7-18a4-4eb7-8a92-04e439933814">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="88d8c689-c499-4a3c-98a0-f092a5b5f769"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre del TUPA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="0" width="198" height="30" uuid="7ac84b29-0daf-48f4-bbad-b0394f04b738">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d9c4bb44-e9b7-4f71-aea1-f2f436066ee4"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Área de TUPA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="538" y="0" width="122" height="30" uuid="93b1c4df-4eee-4916-8596-4b4d84efdad9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fc66247b-d168-4b17-8147-7a4340c8e943"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Plazo del TUPA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="660" y="0" width="142" height="30" uuid="72374666-6bf6-4881-b409-4350937a408d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5a546979-1602-40e5-98e8-fa026f5e9c71"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio del TUPA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="340" height="30" uuid="22e7cb64-d6ee-4016-adfa-ce2151bb7440">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="88d8c689-c499-4a3c-98a0-f092a5b5f769"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOMTUP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="0" width="198" height="30" uuid="c8d5a553-eb94-4a8c-844c-fc5e3714da06">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d9c4bb44-e9b7-4f71-aea1-f2f436066ee4"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ARETUP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="538" y="0" width="122" height="30" uuid="ddc1c213-09c5-4df6-bfe7-2e3427c06ac9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fc66247b-d168-4b17-8147-7a4340c8e943"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{PLATUP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="660" y="0" width="142" height="30" uuid="038123fc-a2db-44b2-8f78-12fb5c4ecb31">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5a546979-1602-40e5-98e8-fa026f5e9c71"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{PRETUP}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="28" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="671" y="0" width="131" height="20" forecolor="#000000" uuid="3d33a31b-371d-4a48-8837-522aadeba94c"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -5,17 +5,22 @@ package dao;
 //import java.sql.SQLException;
 //import java.util.ArrayList;
 //import java.util.List;
-
+import static dao.Conexion.conectar;
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import modelo.Tupa;
-
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 public class TupaImpl extends Conexion implements IGenerica<Tupa> {
 
@@ -77,7 +82,7 @@ public class TupaImpl extends Conexion implements IGenerica<Tupa> {
 
     @Override
     public List<Tupa> listar() throws Exception {
-    List<Tupa> listaTupa;
+        List<Tupa> listaTupa;
         ResultSet rs;
         try {
             this.conectar();
@@ -103,7 +108,7 @@ public class TupaImpl extends Conexion implements IGenerica<Tupa> {
         } finally {
             this.desconectar();
         }
-    }    
+    }
 
     @Override
     public List<String> buscar(String campo, List<Tupa> listaModelo) throws Exception {
@@ -122,15 +127,19 @@ public class TupaImpl extends Conexion implements IGenerica<Tupa> {
 
     @Override
     public void generarReporte(Map parameters) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        conectar();
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Tupa\\Tupa.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=ListaDeTupa.pdf");
+        try (ServletOutputStream stream = response.getOutputStream()) {
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            stream.flush();
+        }
+        FacesContext.getCurrentInstance().responseComplete();
     }
 
     @Override
     public void generarReporteIndividual(Map parameters) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-
-
-
 }

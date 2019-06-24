@@ -2,7 +2,9 @@ package controlador;
 
 import dao.TransferenciaImpl;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -17,6 +19,7 @@ public class TransferenciaC implements Serializable {
     Transferencia transferencia = new Transferencia();
     private Transferencia selectedTransferencia;
     List<Transferencia> lstTransferencia;
+    TransferenciaImpl daoTransferenciaImpl;
 
     @PostConstruct
     public void iniciar() {
@@ -29,7 +32,6 @@ public class TransferenciaC implements Serializable {
     public void limpiarTransferencia() throws Exception {
         transferencia = new Transferencia();
     }
-
 
     public void registrarTransferencia() throws Exception {
         TransferenciaImpl dao;
@@ -53,6 +55,16 @@ public class TransferenciaC implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar", null));
+        }
+    }
+
+    public void generarReporteI(String IDDOC) throws Exception {
+        try {
+            Map<String, Object> parameters = new HashMap(); // Libro de parametros
+            parameters.put("IDDOC", IDDOC); //Insertamos un parametro
+            daoTransferenciaImpl.generarReporteIndividual(parameters); //Pido exportar Reporte con los parametros
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
