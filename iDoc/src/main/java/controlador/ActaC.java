@@ -400,4 +400,5 @@ public class ActaC extends UbigeoC implements Serializable {
     public void setBar(BarChartModel bar) {
         this.bar = bar;
     }
+
 }
