@@ -181,7 +181,10 @@
 
             <p:contextMenu for="tblDocumento">
                 <p:menuitem value="EDITAR" oncomplete="PF('dlgModDocumento').show()" update="FormDialogModDocumento"/>
+                <p:menuitem value="EXPORTAR" actionListener="#{documentoC.generarReporteI(documentoC.selectedDocumento.IDDOC)}" ajax="false"/>
+               
                 <p:menuitem value="ELIMINAR" actionListener="#{documentoC.eliminarDocumento()}" update="tblDocumento">
+                
                     <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
                 </p:menuitem>
             </p:contextMenu>
@@ -262,6 +265,7 @@
 
                     <h:outputText id="display" />
                     <p:commandButton value="MODIFICAR" actionListener="#{documentoC.modificarDocumento()}" update="FormTblDocumento:tblDocumento"/>
+                    
                     <p:commandButton value="CANCELAR" oncomplete="PF('dlgModDocumento').hide()"/>
                 </p:panelGrid>
 
