@@ -23,9 +23,19 @@
                              class="mdl-button mdl-js-button  mdl-js-ripple-effect
                              mdl-button--colored"
                              value="Agregar Ciudadano" type="button"
-                             onclick="PF('dlgRegistrarPersona').show();"/>
+                             oncomplete="PF('dlgRegistrarPersona').show();"/>
             <p:blockUI block="frmRegistrarTrabajador" trigger="btnRegistrarTrabajador">
-                Guardando..
+                <div class="preloader-wrapper big active">
+                    <div class="spinner-layer spinner-blue">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div><div class="gap-patch">
+                            <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
             </p:blockUI>
         </h:form>
         <ui:include src="../Templates/Trabajador/Listar.xhtml"/>
