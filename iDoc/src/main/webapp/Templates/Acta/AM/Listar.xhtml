@@ -88,6 +88,8 @@
                 <f:setPropertyActionListener value="#{listaAM}"
                                              target="#{actaC.solicitud.acta}"/>
             </p:commandButton>
+            <p:commandButton value="EXPORTAR PDF" ajax="false" 
+                             actionListener="#{actaC.generarReporteM(listaAM.IDACTA)}" rendered="#{listaAM.ESTACTA eq 'A'}" />
         </p:column> 
         <p:blockUI block="dtTblDocumentoAM" trigger="dtTblDocumentoAM">
             Actualizando

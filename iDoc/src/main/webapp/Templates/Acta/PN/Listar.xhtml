@@ -66,8 +66,8 @@
                                  actionListener="#{incidenciaC.incidencia.setIDDOC(listaAN.IDACTA)}"
                                  oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
 
-                <p:commandButton value="IMPRIMIR" ajax="false" actionListener="#{actaC.generarReporteIndividual(IDACTA)}">
-                </p:commandButton>
+                <p:commandButton value="EXPORTAR PDF" ajax="false" 
+                                 actionListener="#{actaC.generarReporteI(listaAN.IDACTA)}" rendered="#{listaAN.ESTACTA eq 'A'}" />
 
                 <p:commandButton value="Solicitar" rendered="#{listaAN.ESTACTA eq 'A'}"
                                  oncomplete="PF('wdlgRegistrarSolicitud').show();">

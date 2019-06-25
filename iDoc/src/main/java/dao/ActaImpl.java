@@ -205,7 +205,6 @@ public class ActaImpl extends Conexion implements IGenerica<Acta> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
     @Override
     public void generarReporteIndividual(Map parameters) throws Exception {
         conectar();
@@ -213,6 +212,32 @@ public class ActaImpl extends Conexion implements IGenerica<Acta> {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         response.addHeader("Content-disposition", "attachment; filename=ActaDeNacimiento.pdf");
+        try (ServletOutputStream stream = response.getOutputStream()) {
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            stream.flush();
+        }
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    public void generarReporteMatrimonio(Map parameters) throws Exception {
+        conectar();
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Acta\\ActaM.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=ActaDeMatrimonio.pdf");
+        try (ServletOutputStream stream = response.getOutputStream()) {
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            stream.flush();
+        }
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    public void generarReporteDefuncion(Map parameters) throws Exception {
+        conectar();
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Acta\\ActaD.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=ActaDefuncion.pdf");
         try (ServletOutputStream stream = response.getOutputStream()) {
             JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
             stream.flush();

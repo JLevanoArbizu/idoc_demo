@@ -296,25 +296,33 @@ public class ActaC extends UbigeoC implements Serializable {
 
     }
 
-    public void generarReporteIndividual(String IDACTA) throws Exception {
-        ActaImpl reportActaN = new ActaImpl();
+    public void generarReporteI(String IDACTA) throws Exception {
         try {
             Map<String, Object> parameters = new HashMap(); // Libro de parametros
             parameters.put("IDACTA", IDACTA); //Insertamos un parametro
-            parameters.put("titular", IDACTA); //Insertamos un parametro
-            parameters.put("FECREGACTA", IDACTA); //Insertamos un parametro
-            parameters.put("FECACT", IDACTA); //Insertamos un parametro
-            parameters.put("OBSACTA", IDACTA); //Insertamos un parametro
-            parameters.put("papa", IDACTA); //Insertamos un parametro
-            parameters.put("mama", IDACTA); //Insertamos un parametro
-            parameters.put("declarante", IDACTA); //Insertamos un parametro
-            parameters.put("medico", IDACTA); //Insertamos un parametro
-            parameters.put("CODUBI", IDACTA); //Insertamos un parametro
-            parameters.put("DIRACT", IDACTA); //Insertamos un parametro
-            reportActaN.generarReporteIndividual(parameters); //Pido exportar Reporte con los parametros
-//            report.exportarPDF2(parameters);
+            daoActa.generarReporteIndividual(parameters); //Pido exportar Reporte con los parametros
         } catch (Exception e) {
-            throw e;
+            e.printStackTrace();
+        }
+    }
+
+    public void generarReporteM(String IDACTA) throws Exception {
+        try {
+            Map<String, Object> parameters = new HashMap(); // Libro de parametros
+            parameters.put("IDACTA", IDACTA); //Insertamos un parametro
+            daoActa.generarReporteMatrimonio(parameters); //Pido exportar Reporte con los parametros
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void generarReporteD(String IDACTA) throws Exception {
+        try {
+            Map<String, Object> parameters = new HashMap(); // Libro de parametros
+            parameters.put("IDACTA", IDACTA); //Insertamos un parametro
+            daoActa.generarReporteDefuncion(parameters); //Pido exportar Reporte con los parametros
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -422,4 +430,3 @@ public class ActaC extends UbigeoC implements Serializable {
         this.bar = bar;
     }
 }
-
