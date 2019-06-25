@@ -2,7 +2,9 @@ package controlador;
 
 import dao.DocumentoImpl;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -19,6 +21,7 @@ public class DocumentoC implements Serializable {
     private Documento selectedDocumento;
     private List<Documento> lstdocumento;
     private List<Persona> lstPersona;
+    private DocumentoImpl daoDocumentoImpl;
 
     @PostConstruct
     public void iniciar() {
@@ -77,6 +80,17 @@ public class DocumentoC implements Serializable {
 //            lstPersona = getLstPersona();
 
         } catch (Exception e) {
+        }
+    }
+    
+    
+        public void generarReporteI(String CODDOC) throws Exception {
+        try {
+            Map<String, Object> parameters = new HashMap(); // Libro de parametros
+            parameters.put("CODDOC", CODDOC); //Insertamos un parametro
+            daoDocumentoImpl.generarReporteIndividual(parameters); //Pido exportar Reporte con los parametros
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
