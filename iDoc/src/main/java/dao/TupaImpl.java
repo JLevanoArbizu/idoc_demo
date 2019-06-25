@@ -128,7 +128,7 @@ public class TupaImpl extends Conexion implements IGenerica<Tupa> {
     @Override
     public void generarReporte(Map parameters) throws Exception {
         conectar();
-        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Tupa\\Tupa.jasper"));
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Tupa/Tupa.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         response.addHeader("Content-disposition", "attachment; filename=ListaDeTupa.pdf");

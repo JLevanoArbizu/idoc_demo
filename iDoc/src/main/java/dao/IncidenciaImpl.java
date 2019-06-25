@@ -134,7 +134,7 @@ public class IncidenciaImpl extends Conexion implements IGenerica<Incidencia> {
     @Override
     public void generarReporte(Map parameters) throws Exception {
         conectar();
-        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Incidencia\\Incidencia.jasper"));
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Incidencia/Incidencia.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         response.addHeader("Content-disposition", "attachment; filename=ListaDeIncidencias.pdf");

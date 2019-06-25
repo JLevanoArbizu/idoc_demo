@@ -138,7 +138,7 @@ public class TrabajadorImpl extends Conexion implements IGenerica<Trabajador> {
     @Override
     public void generarReporte(Map parameters) throws Exception {
         conectar();
-        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Trabajador\\Trabajador.jasper"));
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Trabajador/Trabajador.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         response.addHeader("Content-disposition", "attachment; filename=Trabajador.pdf");
@@ -153,7 +153,7 @@ public class TrabajadorImpl extends Conexion implements IGenerica<Trabajador> {
     @Override
     public void generarReporteIndividual(Map parameters) throws Exception {
         conectar();
-        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Trabajador\\TrabajadorIndividual.jasper"));
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Trabajador/TrabajadorIndividual.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         response.reset();

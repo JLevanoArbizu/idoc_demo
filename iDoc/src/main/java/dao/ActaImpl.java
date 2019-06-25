@@ -208,7 +208,7 @@ public class ActaImpl extends Conexion implements IGenerica<Acta> {
     @Override
     public void generarReporteIndividual(Map parameters) throws Exception {
         conectar();
-        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Acta\\ActaN.jasper"));
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Acta/ActaN.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         response.addHeader("Content-disposition", "attachment; filename=ActaDeNacimiento.pdf");
@@ -221,7 +221,7 @@ public class ActaImpl extends Conexion implements IGenerica<Acta> {
 
     public void generarReporteMatrimonio(Map parameters) throws Exception {
         conectar();
-        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Acta\\ActaM.jasper"));
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Acta/ActaM.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         response.addHeader("Content-disposition", "attachment; filename=ActaDeMatrimonio.pdf");
@@ -234,7 +234,7 @@ public class ActaImpl extends Conexion implements IGenerica<Acta> {
 
     public void generarReporteDefuncion(Map parameters) throws Exception {
         conectar();
-        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Acta\\ActaD.jasper"));
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Acta/ActaD.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         response.addHeader("Content-disposition", "attachment; filename=ActaDefuncion.pdf");
