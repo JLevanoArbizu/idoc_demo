@@ -63,12 +63,12 @@
         <div class="card card-w-title">
             <h1>Contáctanos</h1>
             <h:form id="frmContacto">
-                <p:growl life="1000"/>
+                <p:growl life="10000"/>
                 <div class="ui-g">
                     <div class="ui-g-12">
                         <h:panelGroup styleClass="md-inputfield">
                             <p:inputText value="#{contactoC.contacto.user}"
-                                         requiredMessage="Correo."
+                                         requiredMessage="Ingrese Correo."
                                          required="true" id="usr"/>
                             <p:outputLabel value="Correo" for="@previous"/>
                         </h:panelGroup>
@@ -76,7 +76,7 @@
                     <div class="ui-g-12">
                         <h:panelGroup styleClass="md-inputfield">
                             <p:password value="#{contactoC.contacto.pssw}"
-                                        requiredMessage="Contraseña."
+                                        requiredMessage="Ingrese Contraseña."
                                         required="true" id="pssw"/>
                             <p:outputLabel value="Contraseña" for="@previous"/>
                         </h:panelGroup>
@@ -86,7 +86,7 @@
                     <div class="ui-g-12">
                         <h:panelGroup styleClass="md-inputfield">
                             <p:inputText value="#{contactoC.contacto.subject}"
-                                         requiredMessage="Asunto."
+                                         requiredMessage="Ingrese Asunto."
                                          required="true" id="asnt"/>
                             <p:outputLabel value="Asunto" for="@previous"/>
                         </h:panelGroup>
@@ -94,15 +94,15 @@
                     <div class="ui-g-12">
                         <h:panelGroup styleClass="md-inputfield">
                             <p:inputText value="#{contactoC.contacto.phone}"
-                                         requiredMessage="Celular."
-                                         required="true" id="cel"/>
+                                         requiredMessage="Ingrese Celular."
+                                         required="false" id="cel"/>
                             <p:outputLabel value="Celular" for="@previous"/>
                         </h:panelGroup>
                     </div>
                     <div class="ui-g-12">
                         <h:panelGroup styleClass="md-inputfield">
                             <p:inputTextarea value="#{contactoC.contacto.description}"
-                                             requiredMessage="Descripción."
+                                             requiredMessage="Ingrese Descripción."
                                              required="true" id="desc"/>
                             <p:outputLabel value="Descripción" for="@previous"/>
                         </h:panelGroup>
@@ -111,7 +111,22 @@
                 </div>
                 <h:panelGroup styleClass="mdl-button" >
                     <p:commandButton actionListener="#{contactoC.enviarMensaje()}" update="frmContacto" id="btnContactar" value="Contactar"/>
+                    <p:commandButton action="Login" value="Volver" immediate="true"/>
+
                 </h:panelGroup>
+                <p:blockUI blocked="frmContacto" trigger="btnContactar">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </p:blockUI>
             </h:form>
         </div>
     </h:body>

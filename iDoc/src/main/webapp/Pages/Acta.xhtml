@@ -150,7 +150,17 @@
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>
                 <p:blockUI block="frmEditarAM" trigger="btnEditarAM" >
-                    Editando..
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
                 </p:blockUI>
                 <p:commandButton value="Cancelar" immediate="true"
                                  oncomplete="PF('wdlgDatosAM').hide();"/>
@@ -171,7 +181,17 @@
                     oncomplete="#{actaC.actorC.listarPersonas()}"
                     update="frmRegistrarAD tb:frmListarAN tb:frmListarAM  tb:frmListarAD :dlgPersona"/>
                 <p:blockUI block="frmRegistrarAD" trigger="btnRegistrarAD" >
-                    Guardando..
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
                 </p:blockUI>
                 <p:commandButton value="Cancelar" oncomplete="PF('wdlgRegistrarAD').hide();" immediate="true"/>
             </h:form>
@@ -204,7 +224,17 @@
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:confirmDialog>
                 <p:blockUI block="frmEditarAD" trigger="btnEditarAD" >
-                    Editando..
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
                 </p:blockUI>
                 <p:commandButton value="Cancelar" immediate="true"
                                  oncomplete="PF('wdlgDatosAD').hide();"/>

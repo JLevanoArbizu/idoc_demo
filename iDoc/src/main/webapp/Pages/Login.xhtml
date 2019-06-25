@@ -78,7 +78,7 @@
                     </div>
 
                     <div class="ui-g-12">
-                        <p:commandButton ajax="false" actionListener="#{trabajadorC.iniciarSesion()}"
+                        <p:commandButton actionListener="#{trabajadorC.iniciarSesion()}"
                                          id="btnIngresar"
                                          value="Ingresar" update="frmIngresar"/>
                     </div>
@@ -89,7 +89,17 @@
                         <p:commandButton action="Contacto" immediate="true" value="Contacto"/>
                     </div>
                     <p:blockUI block="frmIngresar" trigger="btnIngresar">
-                        Accediendo..
+                        <div class="preloader-wrapper big active">
+                            <div class="spinner-layer spinner-blue">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div><div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div><div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
                     </p:blockUI>
                 </h:form>
             </div>
