@@ -36,8 +36,8 @@ public class ContactoImpl {
         mensaje = new MimeMessage(sesion);
 
         try {
-            mensaje.setContent(contacto.getDescription(), "text/plain");
             mensaje.setSubject(contacto.getSubject());
+            mensaje.setContent(contacto.getDescription() + " Mi celular (" + contacto.getPhone() + " )", "text/plain");
 
             fromAddress = new InternetAddress(contacto.getFrom());
             mensaje.setFrom(fromAddress);
@@ -45,7 +45,7 @@ public class ContactoImpl {
             toAddress = new InternetAddress(contacto.getTo());
 
             mensaje.setRecipient(
-                    Message.RecipientType.TO, 
+                    Message.RecipientType.TO,
                     toAddress
             );
             mensaje.saveChanges();

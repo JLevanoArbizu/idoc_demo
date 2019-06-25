@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Transferencia" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fe62983e-78ff-4396-9afe-fa86cf767d66">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="conexion"/>
+	<parameter name="LoggedInUser" class="com.jaspersoft.jasperserver.api.metadata.user.domain.client.UserImpl" isForPrompting="false">
+		<parameterDescription><![CDATA[Not usable in query input control, but is used as parameter to report]]></parameterDescription>
+		<defaultValueExpression><![CDATA[new com.jaspersoft.jasperserver.api.metadata.user.domain.client.UserImpl()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LoggedInUsername" class="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[Of logged in user]]></parameterDescription>
+		<defaultValueExpression><![CDATA["joeuser"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LoggedInUserFullName" class="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[Of logged in user]]></parameterDescription>
+		<defaultValueExpression><![CDATA["Joe Smith"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LoggedInUserEmailAddress" class="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[Of logged in user]]></parameterDescription>
+		<defaultValueExpression><![CDATA["joe@some.email"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LoggedInUserEnabled" class="java.lang.Boolean" isForPrompting="false">
+		<parameterDescription><![CDATA[Is logged in user enabled?]]></parameterDescription>
+		<defaultValueExpression><![CDATA[Boolean.TRUE]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LoggedInUserExternallyDefined" class="java.lang.Boolean" isForPrompting="false">
+		<parameterDescription><![CDATA[Is logged in user externally defined? ie. authenticated externally]]></parameterDescription>
+		<defaultValueExpression><![CDATA[Boolean.FALSE]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LoggedInUserTenantId" class="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[Of logged in user. Only relevant in Pro/Enterprise.]]></parameterDescription>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LoggedInUserRoles" class="java.util.Collection" nestedType="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[Current set of roles of logged in user. Useful for $X parameter]]></parameterDescription>
+		<defaultValueExpression><![CDATA[new ArrayList()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LoggedInUserAttributes" class="java.util.Map" nestedType="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[Not usable in query input control, but is used as parameter to report. Empty map if no attributes]]></parameterDescription>
+		<defaultValueExpression><![CDATA[new HashMap()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LoggedInUserAttributeNames" class="java.util.Collection" nestedType="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[User profile attribute names. Useful for $X parameters. Empty collection if no attributes]]></parameterDescription>
+		<defaultValueExpression><![CDATA[new ArrayList()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LoggedInUserAttributeValues" class="java.util.Collection" nestedType="CODDOC" isForPrompting="false">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[new ArrayList()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CODDOC" class="java.lang.String">
+		<parameterDescription><![CDATA[codigo del documento]]></parameterDescription>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[    SELECT
+
+           CODDOC,
+           IDTRAN,
+           FORMAT(FECRECTRAN,'dd/MMM/yyyy','es-gb') AS FECRECTRAN,
+           FORMAT(FECSALTRAN,'dd/MMM/yyyy','es-gb') AS FECSALTRAN,
+           OBSTRAN,
+           REPLACE(REPLACE(ESTTRA,'A','ACTIVO'),'R','RECIBIDO')AS ESTTRA,
+           AE.NOMARE AS IDARE_REC,
+           AR.NOMARE AS IDARE_EMI
+
+     FROM TraDoc.DOCUMENTO
+
+    INNER JOIN TraDoc.TRANSFERENCIA ON DOCUMENTO.IDDOC = TRANSFERENCIA.IDDOC
+    INNER JOIN General.AREA AE ON TRANSFERENCIA.IDARE_EMI = AE.IDARE
+    INNER JOIN General.AREA AR ON TRANSFERENCIA.IDARE_REC = AR.IDARE
+
+WHERE CODDOC = $P{CODDOC}
+    ]]>
+	</queryString>
+	<field name="CODDOC" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="CODDOC"/>
+	</field>
+	<field name="IDTRAN" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="IDTRAN"/>
+	</field>
+	<field name="FECRECTRAN" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FECRECTRAN"/>
+	</field>
+	<field name="FECSALTRAN" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FECSALTRAN"/>
+	</field>
+	<field name="OBSTRAN" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="OBSTRAN"/>
+	</field>
+	<field name="ESTTRA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ESTTRA"/>
+	</field>
+	<field name="IDARE_REC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="IDARE_REC"/>
+	</field>
+	<field name="IDARE_EMI" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="IDARE_EMI"/>
+	</field>
+	<group name="CODDOC">
+		<groupExpression><![CDATA[$F{CODDOC}]]></groupExpression>
+	</group>
+	<group name="IDTRAN">
+		<groupExpression><![CDATA[$F{IDTRAN}]]></groupExpression>
+	</group>
+	<group name="FECRECTRAN">
+		<groupExpression><![CDATA[$F{FECRECTRAN}]]></groupExpression>
+	</group>
+	<group name="FECSALTRAN">
+		<groupExpression><![CDATA[$F{FECSALTRAN}]]></groupExpression>
+	</group>
+	<group name="OBSTRAN">
+		<groupExpression><![CDATA[$F{OBSTRAN}]]></groupExpression>
+	</group>
+	<group name="ESTTRA">
+		<groupExpression><![CDATA[$F{ESTTRA}]]></groupExpression>
+	</group>
+	<group name="IDARE_REC">
+		<groupExpression><![CDATA[$F{IDARE_REC}]]></groupExpression>
+	</group>
+	<group name="IDARE_EMI">
+		<groupExpression><![CDATA[$F{IDARE_EMI}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="42" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="30" height="30" uuid="fd5acb8c-95dd-42b2-b233-6a5bb52a39c6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b08c91f3-8b6f-4134-b550-0c83c17c4995"/>
+				</reportElement>
+				<text><![CDATA[CODDOC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="0" width="90" height="30" uuid="2ab2f269-b333-4c20-8bc8-933b8d18c2ba">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="523d1b8f-e143-4b17-b638-53e6c9d965b9"/>
+				</reportElement>
+				<text><![CDATA[IDTRAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="202" y="0" width="100" height="30" uuid="043cb4b3-6b72-4f25-848a-21086aa0ccbc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c66942a4-353c-4e1e-b736-caefa6139e9b"/>
+				</reportElement>
+				<text><![CDATA[FECRECTRAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="302" y="0" width="100" height="30" uuid="3e92fa91-8b18-49cc-b48b-9446840c501c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="519f5b4a-06a6-40a4-aef9-e6794c923eea"/>
+				</reportElement>
+				<text><![CDATA[FECSALTRAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="0" width="100" height="30" uuid="97567217-d6ef-41c2-902f-07fffaa025d2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="49136e93-5115-4091-abf7-d1b68759141d"/>
+				</reportElement>
+				<text><![CDATA[OBSTRAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="502" y="0" width="100" height="30" uuid="d6381cce-73d1-4a8e-a249-e907bc0fa93e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cc94587a-49d2-4433-8bfb-0374a12bb831"/>
+				</reportElement>
+				<text><![CDATA[ESTTRA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="602" y="0" width="100" height="30" uuid="bb34be0b-338c-4a75-b5cb-aaf2262ea055">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="61cd33a4-ff4a-40fd-b4da-83cd30a88c82"/>
+				</reportElement>
+				<text><![CDATA[IDARE_REC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="702" y="0" width="100" height="30" uuid="c9bf44f1-59eb-4ae2-ac5f-f33680d2df44">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f1b25902-bebc-4bf4-a9c8-96996d92a103"/>
+				</reportElement>
+				<text><![CDATA[IDARE_EMI]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="90" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="30" height="30" uuid="b0c058df-ecec-46b1-99d4-e61846de2fe1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b08c91f3-8b6f-4134-b550-0c83c17c4995"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{CODDOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="0" width="90" height="30" uuid="1d777345-b0fd-43fb-a8c3-a469590fb2fa">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="523d1b8f-e143-4b17-b638-53e6c9d965b9"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{IDTRAN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="202" y="0" width="100" height="30" uuid="81bfd349-0eb0-4048-9b5d-f90d6a8d951c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c66942a4-353c-4e1e-b736-caefa6139e9b"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{FECRECTRAN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="302" y="0" width="100" height="30" uuid="cd38e829-0b76-4a5f-98e9-5f6910835822">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="519f5b4a-06a6-40a4-aef9-e6794c923eea"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{FECSALTRAN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="0" width="100" height="30" uuid="72b3f896-de99-4cda-8afd-f89fffa1428d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="49136e93-5115-4091-abf7-d1b68759141d"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{OBSTRAN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="502" y="0" width="100" height="30" uuid="fc46339a-8e3d-4429-8417-f796ebcc085a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cc94587a-49d2-4433-8bfb-0374a12bb831"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{ESTTRA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="602" y="0" width="100" height="30" uuid="d2194a15-4a92-41c5-bb32-96defe20cd8e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="61cd33a4-ff4a-40fd-b4da-83cd30a88c82"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{IDARE_REC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="702" y="0" width="100" height="30" uuid="e95749c0-5559-4db9-b9a4-6d99dd4f9061">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f1b25902-bebc-4bf4-a9c8-96996d92a103"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{IDARE_EMI}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
