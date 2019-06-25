@@ -125,9 +125,19 @@ public class TransferenciaImpl extends Conexion implements IGenerica<Transferenc
 
     @Override
     public void generarReporte(Map parameters) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        conectar();
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Trabajador\\Trabajador.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=Trabajador.pdf");
+        try (ServletOutputStream stream = response.getOutputStream()) {
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            stream.flush();
+        }
+        FacesContext.getCurrentInstance().responseComplete();
     }
 
+    
     @Override
     public void generarReporteIndividual(Map parameters) throws Exception {
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Transferencia\\Transferencia.jasper"));
