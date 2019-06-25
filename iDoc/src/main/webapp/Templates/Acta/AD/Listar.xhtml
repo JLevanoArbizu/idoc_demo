@@ -66,12 +66,7 @@
                              class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"
                              actionListener="#{incidenciaC.incidencia.setIDDOC(listaAD.IDACTA)}"
                              oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
-            <p:commandButton value="Solicitud" rendered="#{listaAD.ESTACTA eq 'A'}"
-                             oncomplete="PF('wdlgRegistrarSolicitud').show();">
-                <f:setPropertyActionListener value="#{listaAD}"
-                                             target="#{actaC.solicitud.acta}"/>
-            </p:commandButton>
-            <p:commandButton value="EXPORTAR PDF" ajax="false" 
+            <p:commandButton value="Exportar" ajax="false" 
                              actionListener="#{actaC.generarReporteD(listaAD.IDACTA)}" rendered="#{listaAD.ESTACTA eq 'A'}"/>
         </p:column> 
 

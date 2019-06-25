@@ -66,14 +66,9 @@
                                  actionListener="#{incidenciaC.incidencia.setIDDOC(listaAN.IDACTA)}"
                                  oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
 
-                <p:commandButton value="EXPORTAR PDF" ajax="false" 
+                <p:commandButton value="Exportar" ajax="false" 
                                  actionListener="#{actaC.generarReporteI(listaAN.IDACTA)}" rendered="#{listaAN.ESTACTA eq 'A'}" />
 
-                <p:commandButton value="Solicitar" rendered="#{listaAN.ESTACTA eq 'A'}"
-                                 oncomplete="PF('wdlgRegistrarSolicitud').show();">
-                    <f:setPropertyActionListener value="#{listaAN}"
-                                                 target="#{actaC.solicitud.acta}"/>
-                </p:commandButton>
             </h:panelGroup>
         </p:column>
         <p:rowExpansion>

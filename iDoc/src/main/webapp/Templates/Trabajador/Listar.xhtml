@@ -48,7 +48,7 @@
             
 
             <p:column exportable="false">
-                <p:commandButton value="EXPORTAR PDF" ajax="false" 
+                <p:commandButton value="Exportar" ajax="false" rendered="#{listaTrabajador.ESTTRAB eq 'A'}"
                                  actionListener="#{trabajadorC.generarReporteI(listaTrabajador.IDTRAB)}"/>
                 <p:commandButton update=":dlgDatosTrabajador" icon="ui-icon-pencil"
                                  class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
@@ -67,7 +67,7 @@
                 Actualizando
             </p:blockUI>
         </p:dataTable>
-        <p:commandButton value="EXPORTAR LISTA EN PDF" ajax="false" actionListener="#{trabajadorC.generarReporte(IDTRAB)}">
+        <p:commandButton value="Exportar Lista de Trabajadores en pdf" ajax="false" actionListener="#{trabajadorC.generarReporte(IDTRAB)}">
         </p:commandButton>
     </h:form>
     <p:dialog id="dlgDatosTrabajador" widgetVar="wdlgDatosTrabajador" 
