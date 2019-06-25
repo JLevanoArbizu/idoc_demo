@@ -126,10 +126,22 @@ public class TransferenciaImpl extends Conexion implements IGenerica<Transferenc
     @Override
     public void generarReporte(Map parameters) throws Exception {
         conectar();
-        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Trabajador\\Trabajador.jasper"));
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Transferencia/Transferencia.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        response.addHeader("Content-disposition", "attachment; filename=Trabajador.pdf");
+        response.addHeader("Content-disposition", "attachment; filename=Transferencia.pdf");
+        try (ServletOutputStream stream = response.getOutputStream()) {
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            stream.flush();
+        }
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+     public void generarReporteTRANS(Map parameters) throws Exception {
+        conectar();
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Transferencia/Transferencia.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=Transferencia.pdf");
         try (ServletOutputStream stream = response.getOutputStream()) {
             JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
             stream.flush();
@@ -140,17 +152,16 @@ public class TransferenciaImpl extends Conexion implements IGenerica<Transferenc
     
     @Override
     public void generarReporteIndividual(Map parameters) throws Exception {
-        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Transferencia\\Transferencia.jasper"));
+        conectar();
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Transferencia/Transferencia.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
-        this.desconectar();
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         response.addHeader("Content-disposition", "attachment; filename=Transferencia.pdf");
         try (ServletOutputStream stream = response.getOutputStream()) {
             JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
             stream.flush();
         }
-        FacesContext.getCurrentInstance().responseComplete();
-    }
+        FacesContext.getCurrentInstance().responseComplete();}
 }
 
 

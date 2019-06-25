@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Documento" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1dc9a8a3-c1d6-4e0c-a767-96a7af415f12">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="conexion"/>
+	<parameter name="IDDOC" class="java.lang.String">
+		<parameterDescription><![CDATA[id del documento]]></parameterDescription>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+    IDDOC,
+    CODDOC,
+    NUMLIBDOC,
+    NUMFOLDOC,
+    TIPDOC,
+    FORMAT(TD.FECDOC,'dd/MMM/yyyy ','es-gb') AS FECDOC,
+    ASUDOC,
+    OBSDOC,
+    REPLACE(ESTDOC,'A','ACTIVO')  AS ESTDOC,
+    NOMTUP AS IDTUP,
+    GP2.NOMPER AS IDLOG,
+    RAZSOCEMP AS IDEMP,
+    GP.NOMPER AS IDPER,
+    KEYDOC
+
+FROM
+TraDoc.DOCUMENTO TD
+
+    INNER JOIN General.LOGIN GL on TD.IDLOG = GL.IDLOG
+    INNER JOIN General.TRABAJADOR ON GL.IDTRAB = TRABAJADOR.IDTRAB
+    INNER JOIN General.PERSONA GP ON TD.IDPER = GP.IDPER
+    INNER JOIN General.PERSONA GP2 ON TRABAJADOR.IDPER = GP2.IDPER
+    INNER JOIN TraDoc.TUPA TT ON TD.IDTUP = TT.IDTUP
+    INNER JOIN TraDoc.EMPRESA TE ON TD.IDEMP = TE.IDEMP
+    
+    where IDDOC =  $P{IDDOC}]]>
+	</queryString>
+	<field name="IDDOC" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="IDDOC"/>
+	</field>
+	<field name="CODDOC" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="CODDOC"/>
+	</field>
+	<field name="NUMLIBDOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NUMLIBDOC"/>
+	</field>
+	<field name="NUMFOLDOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NUMFOLDOC"/>
+	</field>
+	<field name="TIPDOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TIPDOC"/>
+	</field>
+	<field name="FECDOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FECDOC"/>
+	</field>
+	<field name="ASUDOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ASUDOC"/>
+	</field>
+	<field name="OBSDOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="OBSDOC"/>
+	</field>
+	<field name="ESTDOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ESTDOC"/>
+	</field>
+	<field name="IDTUP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="IDTUP"/>
+	</field>
+	<field name="IDLOG" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="IDLOG"/>
+	</field>
+	<field name="IDEMP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="IDEMP"/>
+	</field>
+	<field name="IDPER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="IDPER"/>
+	</field>
+	<field name="KEYDOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="KEYDOC"/>
+	</field>
+	<group name="IDDOC">
+		<groupExpression><![CDATA[$F{IDDOC}]]></groupExpression>
+	</group>
+	<group name="CODDOC">
+		<groupExpression><![CDATA[$F{CODDOC}]]></groupExpression>
+	</group>
+	<group name="NUMLIBDOC">
+		<groupExpression><![CDATA[$F{NUMLIBDOC}]]></groupExpression>
+	</group>
+	<group name="NUMFOLDOC">
+		<groupExpression><![CDATA[$F{NUMFOLDOC}]]></groupExpression>
+	</group>
+	<group name="TIPDOC">
+		<groupExpression><![CDATA[$F{TIPDOC}]]></groupExpression>
+	</group>
+	<group name="FECDOC">
+		<groupExpression><![CDATA[$F{FECDOC}]]></groupExpression>
+	</group>
+	<group name="ASUDOC">
+		<groupExpression><![CDATA[$F{ASUDOC}]]></groupExpression>
+	</group>
+	<group name="OBSDOC">
+		<groupExpression><![CDATA[$F{OBSDOC}]]></groupExpression>
+	</group>
+	<group name="ESTDOC">
+		<groupExpression><![CDATA[$F{ESTDOC}]]></groupExpression>
+	</group>
+	<group name="IDTUP">
+		<groupExpression><![CDATA[$F{IDTUP}]]></groupExpression>
+	</group>
+	<group name="IDLOG">
+		<groupExpression><![CDATA[$F{IDLOG}]]></groupExpression>
+	</group>
+	<group name="IDEMP">
+		<groupExpression><![CDATA[$F{IDEMP}]]></groupExpression>
+	</group>
+	<group name="IDPER">
+		<groupExpression><![CDATA[$F{IDPER}]]></groupExpression>
+	</group>
+	<group name="KEYDOC">
+		<groupExpression><![CDATA[$F{KEYDOC}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="57" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="1" width="480" height="48" uuid="01bd4cf5-f54e-4706-a7c2-c8a58290d02c"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[DOCUMENTO INGRESADO A LA MUNISIPALIDAD DISTRITAL DE NUEVO IMPERIAL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="277" splitType="Stretch">
+			<textField>
+				<reportElement x="89" y="77" width="80" height="16" uuid="ece72ccc-ac5f-4a6f-927f-abcbb57bb55c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="341e0bf1-7b44-47d1-955e-8a0f86bbe045"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{CODDOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="89" y="110" width="80" height="16" uuid="4a3ef534-19c4-49f0-aae5-677a8515a6c9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dcf5febb-783f-4524-8c90-98e32aa3478b"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{NUMLIBDOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="89" y="136" width="80" height="14" uuid="363e2d6f-0f77-4ec3-8bf7-a27304976be5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ae6255c1-944e-4c3f-bc3d-2f51b3dd6229"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{NUMFOLDOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="85" y="45" width="84" height="20" uuid="e83e203d-576d-4a3f-97b4-bc609041b6df">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="96ed771b-d014-4df1-9d7d-b3adab0d4ba9"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{FECDOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="210" width="321" height="30" uuid="d3ba938c-56bf-4bce-92fb-811e2e8754e4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3a2cf7da-9341-48a9-9aaf-d64353b255c8"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{ASUDOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="180" width="320" height="30" uuid="706fb022-8a90-4df1-8266-ee9ee11564c3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4e152623-d4e3-4e59-828f-363f4db43834"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{OBSDOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="468" y="210" width="68" height="30" uuid="a5e6ced7-7e2a-4508-b302-54eb936df532">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="46c3fb1a-812c-42a3-9504-47433fbe4621"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{ESTDOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="326" y="40" width="210" height="30" uuid="e9901ab9-e7db-43d8-b0f7-8e62eb8a6fed">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="227f5ced-c33b-4f6e-bb81-27ad020b994a"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{IDTUP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="326" y="70" width="210" height="30" uuid="cdaad856-9a26-4aa8-90e2-3dabcf7c2e3d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="715c861b-06e1-43ae-9ebd-890d885d31e8"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{IDLOG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="326" y="101" width="210" height="30" uuid="98e008f7-c06f-42c0-9f98-0cfc0ea1ec4a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c8096e49-0359-4c59-aba1-b8c956ba73e1"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{IDEMP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="326" y="130" width="210" height="30" uuid="d6c4c34c-40de-44ae-b02d-c99f97767e6f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="841dd552-836e-4177-9280-26c034a7a52e"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{IDPER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="466" y="180" width="70" height="30" uuid="39332e30-7024-4b6e-8873-ac272ba1ee8f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="09ab6a5a-6235-470b-bd24-4c193c9e2c7b"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{KEYDOC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-4" y="70" width="80" height="30" uuid="da166a61-ecab-4db7-9c3e-89ef59250e1b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="341e0bf1-7b44-47d1-955e-8a0f86bbe045"/>
+				</reportElement>
+				<text><![CDATA[CODIGO DEL DOCUMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-4" y="100" width="80" height="30" uuid="5d88b2ff-465a-4b1f-906b-df29f4bc4cfe">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dcf5febb-783f-4524-8c90-98e32aa3478b"/>
+				</reportElement>
+				<text><![CDATA[NUMERO DE LIBRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-4" y="130" width="80" height="30" uuid="81e3629f-f88f-4058-8841-24cc8e4f5910">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ae6255c1-944e-4c3f-bc3d-2f51b3dd6229"/>
+				</reportElement>
+				<text><![CDATA[NUMERO DE FOLIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="80" height="30" uuid="9787db00-a0ec-4bda-a14d-de5e47dae4b4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="96ed771b-d014-4df1-9d7d-b3adab0d4ba9"/>
+				</reportElement>
+				<text><![CDATA[FECHA DE DOCUMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-4" y="210" width="89" height="30" uuid="fca60cdf-c68f-42a4-a38b-16ce96fab6e0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3a2cf7da-9341-48a9-9aaf-d64353b255c8"/>
+				</reportElement>
+				<text><![CDATA[ASUNTO DEL DOCUMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-4" y="180" width="89" height="30" uuid="9b42e6b9-9621-4df7-883f-32fa9649501c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4e152623-d4e3-4e59-828f-363f4db43834"/>
+				</reportElement>
+				<text><![CDATA[OBSERVACION DEL DOCUMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="70" width="9" height="30" uuid="37fe3240-d58a-4562-9048-d1c8c269db6e"/>
+				<textElement>
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="100" width="9" height="30" uuid="6fbe88d1-9aec-467f-90f3-cc5db6952722"/>
+				<textElement>
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="130" width="9" height="30" uuid="35c4539e-fed4-493c-8073-c4bbc93c37b8"/>
+				<textElement>
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="180" width="9" height="30" uuid="6e513955-c93c-4d6f-8c9f-9443b38d7f8b"/>
+				<textElement>
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="86" y="210" width="10" height="30" uuid="9a68e9fe-41be-42d0-a1d9-94cb1da6ca91"/>
+				<textElement>
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="416" y="180" width="50" height="30" uuid="fba28560-62ed-4f7b-bfd2-1e47392344c1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="09ab6a5a-6235-470b-bd24-4c193c9e2c7b"/>
+				</reportElement>
+				<text><![CDATA[KEYDOC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="246" y="130" width="72" height="30" uuid="11fc1981-2753-4302-b528-4f5380e449b1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="841dd552-836e-4177-9280-26c034a7a52e"/>
+				</reportElement>
+				<text><![CDATA[CLIENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="246" y="100" width="72" height="30" uuid="d39f3462-c74b-40e3-a512-460024321457">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c8096e49-0359-4c59-aba1-b8c956ba73e1"/>
+				</reportElement>
+				<text><![CDATA[EMPRESA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="246" y="70" width="72" height="30" uuid="95ad0df6-3e07-4bbb-b392-a0551da9142b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="715c861b-06e1-43ae-9ebd-890d885d31e8"/>
+				</reportElement>
+				<text><![CDATA[FUNCIONARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="246" y="41" width="62" height="30" uuid="d55fe65c-5953-4318-85db-89b0c1d4d7c7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="227f5ced-c33b-4f6e-bb81-27ad020b994a"/>
+				</reportElement>
+				<text><![CDATA[TUPA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="416" y="210" width="52" height="30" uuid="74a5afd9-145b-4930-87f4-f4e530176d9a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="46c3fb1a-812c-42a3-9504-47433fbe4621"/>
+				</reportElement>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="40" width="9" height="30" uuid="eb9aa52a-0c54-4511-9a3b-b5143f77d6e4"/>
+				<textElement>
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="436" y="230" width="100" height="30" uuid="6df746b3-bedc-4f61-b813-4cce461eff2c"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="-10" y="10" width="551" height="11" forecolor="#30BFB1" backcolor="#26BD94" uuid="eedfea8e-827f-477a-af18-8700c8f945ce"/>
+			</rectangle>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="29" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="15" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -152,9 +152,9 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
 
     @Override
     public void generarReporteIndividual(Map parameters) throws Exception {
-            File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Documento\\Documento.jasper"));
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
-        this.desconectar();
+        conectar();
+            File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Documento/Documento.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters,this.conectar() );
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         response.addHeader("Content-disposition", "attachment; filename=Documento.pdf");
         try (ServletOutputStream stream = response.getOutputStream()) {

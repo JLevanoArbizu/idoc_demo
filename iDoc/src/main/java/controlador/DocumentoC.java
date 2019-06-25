@@ -82,15 +82,15 @@ public class DocumentoC implements Serializable {
         } catch (Exception e) {
         }
     }
-    
-    
-        public void generarReporteI(String CODDOC) throws Exception {
+
+    public void generarReporteI(String IDDOC) throws Exception {
+        DocumentoImpl Documento = new DocumentoImpl();
         try {
             Map<String, Object> parameters = new HashMap(); // Libro de parametros
-            parameters.put("CODDOC", CODDOC); //Insertamos un parametro
-            daoDocumentoImpl.generarReporteIndividual(parameters); //Pido exportar Reporte con los parametros
+            parameters.put("IDDOC", IDDOC); //Insertamos un parametro
+            Documento.generarReporteIndividual(parameters); //Pido exportar Reporte con los parametros
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
     }
 

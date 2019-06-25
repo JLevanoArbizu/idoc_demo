@@ -58,13 +58,14 @@ public class TransferenciaC implements Serializable {
         }
     }
 
-    public void generarReporteI(String CODDOC) throws Exception {
+    public void generarReporteTRANS(String IDTRAN) throws Exception {
+        TransferenciaImpl Tranferen = new TransferenciaImpl();
         try {
             Map<String, Object> parameters = new HashMap(); // Libro de parametros
-            parameters.put("CODDOC", CODDOC); //Insertamos un parametro
-            daoTransferenciaImpl.generarReporteIndividual(parameters); //Pido exportar Reporte con los parametros
+            parameters.put("IDTRAN", IDTRAN); //Insertamos un parametro
+            Tranferen.generarReporteTRANS(parameters); //Pido exportar Reporte con los parametros
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
     }
 

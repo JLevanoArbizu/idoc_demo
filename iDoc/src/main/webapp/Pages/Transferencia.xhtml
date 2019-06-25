@@ -14,7 +14,7 @@
 
 
         <h:form id="FormTransferencia"> 
-            
+
             <p:panelGrid columns="4">
                 <p:outputLabel value="Fecha entrada"/>
                 <p:inputMask value="#{transferenciaC.transferencia.FECRECTRAN}" mask="99/99/9999"/>
@@ -49,7 +49,7 @@
         </h:form>
         <h4>
             para editar y/o eliminar click derecho
- 
+
         </h4>
         <!--        lista -->
 
@@ -64,7 +64,9 @@
                          rows="50"
                          rowsPerPageTemplate="5,10,15,50"
                          filteredValue="#{transferenciaC.lstTransferencia}" >
-
+                <p:column headerText="IDTRAN"  >
+                    <p:outputLabel value="#{transferencia.IDTRAN}"/>
+                </p:column>
                 <p:column headerText="Fecha entrada"  >
                     <p:outputLabel value="#{transferencia.FECRECTRAN}"/>
                 </p:column>
@@ -86,12 +88,20 @@
                 <p:column headerText="Area Recibida">
                     <p:outputLabel value="#{transferencia.IDARE_REC}" />
                 </p:column>
+                <p:column>
+                    <p:commandButton value="EXPORTAR" actionListener="#{transferenciaC.generarReporteTRANS(transferencia.IDTRAN)}" />
+                </p:column>
+                <p:column>
+                    <h:commandLink value="EXPORTAR" actionListener="#{transferenciaC.generarReporteTRANS(transferencia.IDTRAN)}">
+                        
+                    </h:commandLink>
+                </p:column>
 
 
             </p:dataTable>
             <p:contextMenu for="tblTransferencia">
                 <p:menuitem value="EDITAR" oncomplete="PF('dlgModTransferencia').show()" update="FormDialogModTemp"/>
-                <p:menuitem value="EXPORTAR" actionListener="#{transferenciaC.generarReporteI(transferenciaC.selectedTransferncia.IDDOC)}" ajax="false"/>
+                <p:menuitem value="EXPORTAR" actionListener="#{transferenciaC.generarReporteTRANS(transferencia.IDTRAN)}" ajax="false"/>
                 <p:menuitem value="ELIMINAR" actionListener="{transferenciaC.eliminarTransferencia()}" update="tblTransferencia">
                     <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
                 </p:menuitem>
