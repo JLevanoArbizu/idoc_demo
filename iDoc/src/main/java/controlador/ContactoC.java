@@ -5,6 +5,8 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import modelo.Contacto;
 
 @Named(value = "contactoC")
@@ -18,16 +20,23 @@ public class ContactoC implements Serializable {
         contacto = new Contacto();
         daoContacto = new ContactoImpl();
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         contacto.clear();
     }
-    
-    public void enviarMensaje(){
-        daoContacto.enviarMensaje(contacto);
+
+    public void enviarMensaje() {
+        try {
+            contacto.setFrom(contacto.getUser());
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, daoContacto.enviarMensaje(contacto), null));
+            contacto.clear();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    
+
     public Contacto getContacto() {
         return contacto;
     }

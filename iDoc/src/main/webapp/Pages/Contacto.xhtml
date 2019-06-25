@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <h:head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link rel="icon" href="../../resources/icon/group.png" sizes="32x32"/>
+        <!--Other CSS and JS-->
+        <h:outputStylesheet library="css"  name="materialize.min.css"/>
+        <h:outputStylesheet library="css"  name="IconFontsMaterialize.css"/>
+        <h:outputStylesheet library="css"  name="style.css"/>
+        <h:outputScript library="js" name="jsfcrud.js" />
+        <!--***-->
+        <!--CSS and JS - Van en esta Posicion para que funcione bien-->
+        <h:outputStylesheet library="css"  name="fontawesome-all.css"/>
+        <h:outputStylesheet library="css"  name="charts.css"/>
+        <h:outputStylesheet library="css"  name="clock.css"/>
+        <h:outputStylesheet library="css"  name="components.css"/>
+        <h:outputStylesheet library="css"  name="fileupload.css"/>
+        <h:outputStylesheet library="css"  name="galleria.css"/>
+        <h:outputStylesheet library="css"  name="inputswitch.css"/>
+        <h:outputStylesheet library="css"  name="keyboard.css"/>
+        <h:outputStylesheet library="css"  name="nanoscroller.css"/>
+        <h:outputStylesheet library="css"  name="ripple.css"/>
+        <h:outputStylesheet library="css"  name="schedule.css"/>
+        <h:outputStylesheet library="css"  name="scrollpanel.css"/>
+        <h:outputStylesheet library="css"  name="animate.css"/>
+        <h:outputStylesheet library="css"  name="layout-dark-green.css"/>
+        <h:outputStylesheet library="css"  name="theme-dark-green.css"/>
+        <h:outputScript library="js" name="charts.js" />
+        <h:outputScript library="js" name="clock.js" />
+        <h:outputScript library="js" name="components.js" />
+        <h:outputScript library="js" name="core.js" />
+        <h:outputScript library="js" name="fileupload.js" />
+        <h:outputScript library="js" name="galleria.js" />
+        <h:outputScript library="js" name="inputswitch.js" />
+        <h:outputScript library="js" name="keyboard.js" />
+        <h:outputScript library="js" name="layout.js" />
+        <h:outputScript library="js" name="moment.js" />
+        <h:outputScript library="js" name="nanoscroller.js" />
+        <h:outputScript library="js" name="raphael.js" />
+        <h:outputScript library="js" name="ripple.js" />
+        <h:outputScript library="js" name="schedule.js" />
+        <h:outputScript library="js" name="scrollpanel.js" />
+        <h:outputScript library="js" name="swipe.js" />
+        <h:outputScript library="js" name="touchswipe.js" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <!--***-->        
+        <title>Login</title>
+        <style type="text/css">
+            .main-content {
+                padding: 0;
+            }
+        </style>
+    </h:head>
+    <h:body class="main-body">
+        <div class="card card-w-title">
+            <h1>Contáctanos</h1>
+            <h:form id="frmContacto">
+                <p:growl life="1000"/>
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputText value="#{contactoC.contacto.user}"
+                                         requiredMessage="Correo."
+                                         required="true" id="usr"/>
+                            <p:outputLabel value="Correo" for="@previous"/>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:password value="#{contactoC.contacto.pssw}"
+                                        requiredMessage="Contraseña."
+                                        required="true" id="pssw"/>
+                            <p:outputLabel value="Contraseña" for="@previous"/>
+                        </h:panelGroup>
+                    </div>
+
+
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputText value="#{contactoC.contacto.subject}"
+                                         requiredMessage="Asunto."
+                                         required="true" id="asnt"/>
+                            <p:outputLabel value="Asunto" for="@previous"/>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputText value="#{contactoC.contacto.phone}"
+                                         requiredMessage="Celular."
+                                         required="true" id="cel"/>
+                            <p:outputLabel value="Celular" for="@previous"/>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputTextarea value="#{contactoC.contacto.description}"
+                                             requiredMessage="Descripción."
+                                             required="true" id="desc"/>
+                            <p:outputLabel value="Descripción" for="@previous"/>
+                        </h:panelGroup>
+                    </div>
+
+                </div>
+                <h:panelGroup styleClass="mdl-button" >
+                    <p:commandButton actionListener="#{contactoC.enviarMensaje()}" update="frmContacto" id="btnContactar" value="Contactar"/>
+                </h:panelGroup>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

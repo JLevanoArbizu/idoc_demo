@@ -2,18 +2,19 @@ package modelo;
 
 public class Contacto {
 
-    String to, from, subject, description, user, pssw, smtp;
+    String to, from, subject, description, user, pssw, smtp, phone;
     int puerto;
 
     public void clear() {
-        this.to = null;
-        this.from = "martin.saman@vallegrande.edu.pe";
+        this.to = "martin.saman@vallegrande.edu.pe";
+        this.from = null;
         this.subject = null;
         this.description = null;
         this.user = null;
         this.pssw = null;
         this.smtp = "smtp.gmail.com";
-        this.puerto = 465;
+        this.puerto = 587;
+        this.phone = null;
     }
 
     public String getTo() {
@@ -72,6 +73,14 @@ public class Contacto {
         this.smtp = smtp;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public int getPuerto() {
         return puerto;
     }
@@ -79,4 +88,5 @@ public class Contacto {
     public void setPuerto(int puerto) {
         this.puerto = puerto;
     }
+
 }
