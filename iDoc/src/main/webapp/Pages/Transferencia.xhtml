@@ -89,19 +89,18 @@
                     <p:outputLabel value="#{transferencia.IDARE_REC}" />
                 </p:column>
                 <p:column>
-                    <p:commandButton value="EXPORTAR" actionListener="#{transferenciaC.generarReporteTRANS(transferencia.IDTRAN)}" />
+                    <p:commandButton value="EXPORTAR" ajax="false" 
+                                     actionListener="#{transferenciaC.generarReporteTRANS(transferencia.IDTRAN)}" />
                 </p:column>
-                <p:column>
+<!--                <p:column>
                     <h:commandLink value="EXPORTAR" actionListener="#{transferenciaC.generarReporteTRANS(transferencia.IDTRAN)}">
-                        
                     </h:commandLink>
-                </p:column>
+                </p:column>-->
 
 
             </p:dataTable>
             <p:contextMenu for="tblTransferencia">
                 <p:menuitem value="EDITAR" oncomplete="PF('dlgModTransferencia').show()" update="FormDialogModTemp"/>
-                <p:menuitem value="EXPORTAR" actionListener="#{transferenciaC.generarReporteTRANS(transferencia.IDTRAN)}" ajax="false"/>
                 <p:menuitem value="ELIMINAR" actionListener="{transferenciaC.eliminarTransferencia()}" update="tblTransferencia">
                     <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
                 </p:menuitem>

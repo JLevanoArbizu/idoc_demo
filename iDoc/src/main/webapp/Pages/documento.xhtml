@@ -76,7 +76,7 @@
                 <p:outputLabel value="Tupa" style="width: 100px"/>
                 <p:selectOneMenu value="#{documentoC.documento.IDTUP}">
                     <f:selectItem itemLabel="SELECCIONE TUPA" itemValue="#{null}" />
-                    <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.IDTUP}" itemValue="#{txtTupa.IDTUP}" />
+                    <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}" />
                 </p:selectOneMenu>
 
                 <p:outputLabel value="KEY" />
@@ -140,15 +140,15 @@
                     <h:outputText value="#{documento.TIPDOC eq 'O' ? 'Original' :  ''}"/>
                     <h:outputText value="#{documento.TIPDOC eq 'D' ? 'Documento' :  ''}"/>
                 </p:column>
-                <p:column>
+                <p:column style="width: 130px" >
                     <p:commandButton value="Exportar" ajax="false" 
                                      actionListener="#{documentoC.generarReporteI(documento.IDDOC)}" />
                 </p:column>
-                <p:column>
+<!--                <p:column>
                     <h:commandLink value="reporte" actionListener="#{documentoC.generarReporteI(documento.IDDOC)}"> 
                         
                     </h:commandLink>
-                </p:column>
+                </p:column>-->
 
                 <p:rowExpansion>
                     <p:panelGrid columns="4">
@@ -191,7 +191,7 @@
 
             <p:contextMenu for="tblDocumento">
                 <p:menuitem value="EDITAR" oncomplete="PF('dlgModDocumento').show()" update="FormDialogModDocumento"/>
-                <p:menuitem value="EXPORTAR" actionListener="#{documentoC.generarReporteI(documento.CODDOC)}" ajax="false"/>
+
                 <p:menuitem value="ELIMINAR" actionListener="#{documentoC.eliminarDocumento()}" update="tblDocumento">
 
 
@@ -227,7 +227,7 @@
 
 
                     <p:outputLabel value="Fecha DOCUMENTO"/>
-                    <p:inputMask value="#{documentoC.selectedDocumento.FECDOC}" mask="9999/99/99"/>
+                    <p:inputMask value="#{documentoC.selectedDocumento.FECDOC}" mask="99/99/9999"/>
 
 
                     <p:outputLabel value="Observacion del documento"/>
@@ -235,25 +235,22 @@
 
                     <p:outputLabel value="Tupa"/>
                     <p:selectOneMenu value="#{documentoC.selectedDocumento.IDTUP}">
-                        <f:selectItem itemLabel="SELECCIONE TUPA" itemValue="#{null}"/>
                         <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Empresa"/>
                     <p:selectOneMenu value="#{documentoC.selectedDocumento.IDEMP}">
-                        <f:selectItem itemLabel="SELECCIONE LA EMPRESA" itemValue="#{null}"/>
                         <f:selectItems value="#{empresaC.lstEmpresa}" var="txtEmpresa" itemLabel=" #{txtEmpresa.RAZSOCEMP}" itemValue="#{txtEmpresa.IDEMP}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Trabajador"/>
                     <p:selectOneMenu value="#{documentoC.selectedDocumento.IDLOG}">
-                        <f:selectItem itemLabel="SELECCIONE EL TRABAJADOR" itemValue="#{null}"/>
                         <f:selectItems value="#{personaC.listaPersona}" var="txt" itemLabel=" #{txt.NOMPER} #{txt.APEPATPER} #{txt.APEMATPER}" itemValue="#{txt.IDPER}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="cliente"/>
                     <p:selectOneMenu value="#{documentoC.selectedDocumento.IDPER}">
-                        <f:selectItem itemLabel="SELECCIONE LA CLIENTE" itemValue="#{null}"/>
+                        <!--<f:selectItem itemLabel="SELECCIONE LA CLIENTE" itemValue="#{null}"/>-->
                         <f:selectItems value="#{personaC.listaPersona}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
                     </p:selectOneMenu>
 

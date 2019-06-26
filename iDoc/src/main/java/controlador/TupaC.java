@@ -22,6 +22,8 @@ public class TupaC implements Serializable {
     private List<Tupa> lstTupa2;
     TupaImpl daotupa;
 
+
+
     @PostConstruct
     public void iniciar() {
         try {
@@ -125,6 +127,15 @@ public class TupaC implements Serializable {
 
     public void setLstTupa2(List<Tupa> lstTupa2) {
         this.lstTupa2 = lstTupa2;
+    }
+    
+    
+        public TupaImpl getDaotupa() {
+        return daotupa;
+    }
+
+    public void setDaotupa(TupaImpl daotupa) {
+        this.daotupa = daotupa;
     }
 
 }
