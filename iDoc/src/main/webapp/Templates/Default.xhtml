@@ -204,6 +204,11 @@
                               CONTENIDO
             ===========================================-->
             <div class="layout-main">
+                <h:form>
+                    <p:idleMonitor timeout="30000">
+                        <p:ajax event="idle" listener="#{trabajadorC.cerrarSesion()}" />
+                    </p:idleMonitor>
+                </h:form>
                 <ui:insert name="contenidoPagina"/>
                 <div class="footer">
                     <div class="card clearfix">
@@ -212,7 +217,7 @@
                     </div>
                 </div>
             </div>
- 
+
         </div>
     </h:body>
 </html>
