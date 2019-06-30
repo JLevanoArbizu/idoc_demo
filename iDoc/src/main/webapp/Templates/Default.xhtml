@@ -69,18 +69,19 @@
                       BARRA SUPERIOR
             ===========================================-->
             <div class="topbar clearfix">                
-                <!--Icono-->
-                <div class="topbar-left">
-                    <div class="logo">
-                        <img src="../WEB-INF/resources/icon/Ultima/logo.png" alt="iDoc"/>
-                    </div>
-                </div>
 
                 <!--El resto de la Barra-->
                 <div class="topbar-right">
                     <a id="menu-button" href="#">
-                        <i class="material-icons">keyboard_arrow_left</i>
+                        <i class="material-icons">menu</i>
                     </a>
+                    <p:ajaxStatus>
+                        <f:facet name="start">
+                            <div class="progress">
+                                <div class="indeterminate"></div>
+                            </div>
+                        </f:facet>
+                    </p:ajaxStatus>
                 </div>
             </div>
 
@@ -101,13 +102,19 @@
 
                             <ul id="profile-menu" class="ultima-menu">
                                 <li role="menuitem">
-                                <p:commandLink action="Ajustes" styleClass="ripplelink" >
+                                <p:commandLink action="Ajustes" styleClass="ripplelink" ajax="true">
                                     <i class="material-icons">settings</i>
                                     <span>Ajustes</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Login" styleClass="ripplelink" 
+                                <p:commandLink action="Nosotros" styleClass="ripplelink" ajax="true" >
+                                    <i class="material-icons">info</i>
+                                    <span>Acerca</span>
+                                </p:commandLink>
+                                </li>
+                                <li role="menuitem">
+                                <p:commandLink action="Login" styleClass="ripplelink" ajax="true"
                                                actionListener="#{trabajadorC.cerrarSesion()}">
                                     <i class="material-icons">power_settings_new</i>
                                     <span>Salir</span>
@@ -116,77 +123,80 @@
                             </ul>
                             <ul id="menuform:submenu" class="ultima-menu clearfix">
                                 <li role="menuitem">
-                                <p:commandLink action="Home" ajax="false">
+                                <p:commandLink action="Home" ajax="true">
                                     <i class="material-icons">dashboard</i>
                                     <span>Dashboard</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Persona" ajax="false">
+                                <p:commandLink action="Persona" ajax="true">
                                     <i class="material-icons">group</i>
                                     <span>Ciudadanos</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Area" rendered="#{trabajadorC.loginT.TIPLOG.charAt(0) == 'S' 
-                                                                         and trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
-                                                                         ? true : false}" ajax="false">
+                                <p:commandLink action="Area" 
+                                               rendered="#{trabajadorC.loginT.TIPLOG.charAt(0) == 'S' 
+                                                           and trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
+                                                           ? true : false}" ajax="true">
                                     <i class="material-icons">dashboard</i>
                                     <span>Área</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Trabajador" rendered="#{trabajadorC.loginT.TIPLOG.charAt(0) == 'S' ? true : false}" ajax="false">
+                                <p:commandLink action="Trabajador" 
+                                               rendered="#{trabajadorC.loginT.TIPLOG.charAt(0) == 'S' ? true : false}" 
+                                               ajax="true">
                                     <i class="material-icons">work</i>
                                     <span>Trabajadores</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Acta" ajax="false" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'R'
-                                                                                      ? true : false}">
+                                <p:commandLink action="Acta" ajax="true" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'R'
+                                                                                     ? true : false}">
                                     <i class="material-icons">collections_bookmark</i>
                                     <span>Actas</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Incidencia" ajax="false" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'R'
-                                                                                            ? true : false}">
+                                <p:commandLink action="Incidencia" ajax="true" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'R'
+                                                                                           ? true : false}">
                                     <i class="material-icons">error</i>
                                     <span>Incidencias</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
                                 <p:commandLink action="IncidenciaTipo" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'R'
-                                                                                   ? true : false}" ajax="false">
+                                                                                   ? true : false}" ajax="true">
                                     <i class="material-icons">dashboard</i>
                                     <span>Tipos de Incidencia</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="tupa" ajax="false" rendered="#{trabajadorC.loginT.TIPLOG.charAt(0) == 'S' 
-                                                                                      and trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
-                                                                                      ? true : false}">
+                                <p:commandLink action="tupa" ajax="true" rendered="#{trabajadorC.loginT.TIPLOG.charAt(0) == 'S' 
+                                                                                     and trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
+                                                                                     ? true : false}">
                                     <i class="material-icons">import_contacts</i>
                                     <span>Tupa</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="empresa" ajax="false" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
-                                                                                         ? true : false}">
+                                <p:commandLink action="empresa" ajax="true" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
+                                                                                        ? true : false}">
                                     <i class="material-icons">account_balance</i>
                                     <span>Empresa</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Transferencia" ajax="false" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
-                                                                                               ? true : false}">
+                                <p:commandLink action="Transferencia" ajax="true" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
+                                                                                              ? true : false}">
                                     <i class="material-icons">compare_arrows</i>
                                     <span>Transferencia</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="documento" ajax="false" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
-                                                                                           ? true : false}">
+                                <p:commandLink action="documento" ajax="true" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
+                                                                                          ? true : false}">
                                     <i class="material-icons">description</i>
                                     <span>Documento</span>
                                 </p:commandLink>
@@ -205,7 +215,7 @@
             ===========================================-->
             <div class="layout-main">
                 <h:form>
-                    <p:idleMonitor timeout="30000">
+                    <p:idleMonitor timeout="60000">
                         <p:ajax event="idle" listener="#{trabajadorC.cerrarSesion()}" />
                     </p:idleMonitor>
                 </h:form>

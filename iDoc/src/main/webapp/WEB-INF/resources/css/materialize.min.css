@@ -2916,12 +2916,10 @@ td, th {
 
 .progress {
     position: relative;
-    height: 4px;
-    display: block;
+    height: 2px;
     width: 100%;
-    background-color: #acece6;
-    border-radius: 2px;
-    margin: .5rem 0 1rem 0;
+    background-color: #2f4050;
+    border-radius: 10px;
     overflow: hidden
 }
 

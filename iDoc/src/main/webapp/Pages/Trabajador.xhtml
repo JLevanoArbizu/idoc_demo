@@ -11,33 +11,35 @@
 
     <ui:define name="contenidoPagina"> 
         <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
-
-        <h:form id="frmRegistrarTrabajador">
-            <p:growl life="1000"/>
-            <ui:include src="../Templates/Trabajador/Registrar.xhtml"/>
-            <p:commandButton id="btnRegistrarTrabajador"
-                             actionListener="#{trabajadorC.registrar()}" value="Guardar"
-                             class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
-                             update=":frmRegistrarTrabajador :frmListarTrabajador"/>
-            <p:commandButton title="Agregar Ciudadano"
-                             class="mdl-button mdl-js-button  mdl-js-ripple-effect
-                             mdl-button--colored"
-                             value="Agregar Ciudadano" type="button"
-                             oncomplete="PF('dlgRegistrarPersona').show();"/>
-            <p:blockUI block="frmRegistrarTrabajador" trigger="btnRegistrarTrabajador">
-                <div class="preloader-wrapper big active">
-                    <div class="spinner-layer spinner-blue">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div><div class="gap-patch">
-                            <div class="circle"></div>
-                        </div><div class="circle-clipper right">
-                            <div class="circle"></div>
+        <div class="card card-w-title ui-fluid">
+            <h1>Registrar Trabajador</h1>
+            <h:form id="frmRegistrarTrabajador">
+                <p:growl life="1000"/>
+                <ui:include src="../Templates/Trabajador/Registrar.xhtml"/>
+                <p:commandButton id="btnRegistrarTrabajador"
+                                 actionListener="#{trabajadorC.registrar()}" value="Guardar"
+                                 class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
+                                 update=":frmRegistrarTrabajador :frmListarTrabajador"/>
+                <p:commandButton title="Agregar Ciudadano"
+                                 class="mdl-button mdl-js-button  mdl-js-ripple-effect
+                                 mdl-button--colored"
+                                 value="Agregar Ciudadano" type="button"
+                                 oncomplete="PF('dlgRegistrarPersona').show();"/>
+                <p:blockUI block="frmRegistrarTrabajador" trigger="btnRegistrarTrabajador">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </p:blockUI>
-        </h:form>
+                </p:blockUI>
+            </h:form>
+        </div>
         <ui:include src="../Templates/Trabajador/Listar.xhtml"/>
 
     </ui:define>

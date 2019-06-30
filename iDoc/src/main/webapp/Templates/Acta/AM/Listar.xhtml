@@ -9,82 +9,93 @@
                  filteredValue="#{actaC.listaDocumentosAMfiltrado}"
                  rowStyleClass="#{listaAM.ESTACTA eq 'A' ? null : 'inactivo'}"
                  rows="20" emptyMessage="No se encontrarón datos."
-                 paginator="true" scrollable="true" scrollHeight="500"
+                 paginator="true" scrollable="false" scrollHeight="500"
                  rowsPerPageTemplate="10,20,30">
         <f:facet name="header">
             Actas de Matrimonio
         </f:facet>
         <p:column filterBy="#{listaAM.ESTACTA}"
-                  filterMatchMode="equals"
-                  style="width: 15vh;">
+                  filterMatchMode="equals">
             <f:facet name="filter">
                 <p:selectOneButton onchange="PF('wdtTblDocumentoAM').filter()">
-                    <f:selectItem itemLabel="Todos" itemValue="" />
                     <f:selectItem itemLabel="Activos" itemValue="A" />
-                    <f:selectItem itemLabel="Inactivos" itemValue="I" />
                 </p:selectOneButton>
             </f:facet>
             <p:rowToggler/>
         </p:column>
-        <p:column headerText="Esposo"  
-                  style="font-weight: bold" 
+        <p:column headerText="Esposo"
                   filterBy="#{listaAM.titular}"
                   filterMatchMode="contains"
                   sortBy="#{listaAM.titular}">
-            <h:outputLabel value="#{listaAM.titular}" style="font-weight: normal" />
+            <h:outputLabel value="#{listaAM.titular}" />
         </p:column> 
 
         <p:column headerText="Esposa"
-                  style="font-weight: bold" 
                   filterBy="#{listaAM.esposa}"
                   filterMatchMode="contains"
                   sortBy="#{listaAM.esposa}">
-            <h:outputLabel value="#{listaAM.esposa}" style="font-weight: normal" />
+            <h:outputLabel value="#{listaAM.esposa}"/>
         </p:column> 
 
-        <p:column headerText="Fecha de Registro"  style="font-weight: bold" sortBy="#{listaAM.FECREGACTA}">
-            <h:outputLabel value="#{listaAM.FECREGACTA}" style="font-weight: normal">
+        <p:column headerText="Fecha de Registro" sortBy="#{listaAM.FECREGACTA}">
+            <h:outputLabel value="#{listaAM.FECREGACTA}">
                 <f:convertDateTime locale="es" pattern="dd MMM yyyy"/>
             </h:outputLabel>
         </p:column>
-        <p:column headerText="Fecha de Matrimonio"  style="font-weight: bold" sortBy="#{listaAM.FECACT}">
-            <h:outputLabel value="#{listaAM.FECACT}" style="font-weight: normal">
+        <p:column headerText="Fecha de Matrimonio"  sortBy="#{listaAM.FECACT}">
+            <h:outputLabel value="#{listaAM.FECACT}">
                 <f:convertDateTime locale="es" pattern="dd MMM yyyy"  />
             </h:outputLabel>
         </p:column>
-        <p:column headerText="Observacion"  style="font-weight: bold">
-            <h:outputLabel value="#{listaAM.OBSACTA}" style="font-weight: normal" />
+        <p:column headerText="Observacion">
+            <h:outputLabel value="#{listaAM.OBSACTA}"/>
         </p:column>
         <p:rowExpansion>
             <p:panelGrid columns="4">
-                <h:outputLabel value="Celebrante" style="font-weight: bold"/>
-                <h:outputText value="#{listaAM.celebrante}" style="font-weight: normal" />
-                <h:outputLabel value="Libro" style="font-weight: bold"/>
-                <h:outputText value="#{listaAM.NUMLIBACTA}" style="font-weight: normal" />
-                <h:outputLabel value="Folio" style="font-weight: bold"/>
-                <h:outputText value="#{listaAM.NUMFOLACTA}" style="font-weight: normal" />
-                <h:outputLabel value="Distrito de Matrimonio" style="font-weight: bold"/>
-                <h:outputText value="#{listaAM.CODUBI}" style="font-weight: normal" />
-                <h:outputLabel value="Lugar de Matrimonio" style="font-weight: bold"/>
-                <h:outputText value="#{listaAM.DIRACT}" style="font-weight: normal" />
+                <h:outputLabel value="Celebrante"/>
+                <h:outputText value="#{listaAM.celebrante}" />
+                <h:outputLabel value="Libro" />
+                <h:outputText value="#{listaAM.NUMLIBACTA}" />
+                <h:outputLabel value="Folio"/>
+                <h:outputText value="#{listaAM.NUMFOLACTA}" />
+                <h:outputLabel value="Distrito de Matrimonio"/>
+                <h:outputText value="#{listaAM.CODUBI}" />
+                <h:outputLabel value="Lugar de Matrimonio"/>
+                <h:outputText value="#{listaAM.DIRACT}" />
             </p:panelGrid>
         </p:rowExpansion>
         <p:column exportable="false" headerText="Accion">
-            <p:commandButton update=":dlgDatosAM" icon="ui-icon-pencil" title="Modificar" 
-                             rendered="#{listaAM.ESTACTA eq 'A'}"
-                             class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
-                             actionListener="#{actaC.ubigeo.setDISTUBI(listaAM.CODUBI)}"
-                             oncomplete="PF('wdlgDatosAM').show();">
-                <f:setPropertyActionListener value="#{listaAM}" 
-                                             target="#{actaC.acta}"/>
-            </p:commandButton>
-            <p:commandButton update=":dlgRegistrarIncidencia" title="Agregar Incidencia" value="+"
-                             rendered="#{listaAM.ESTACTA eq 'A'}"
-                             class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"
-                             actionListener="#{incidenciaC.incidencia.setIDDOC(listaAM.IDACTA)}"
-                             oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
-            <p:commandButton value="Exportar" ajax="false" 
-                             actionListener="#{actaC.generarReporteM(listaAM.IDACTA)}" rendered="#{listaAM.ESTACTA eq 'A'}" />
+            <div class="ui-g">       
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <h:panelGroup styleClass="mdl-button">
+                            <p:commandButton update=":dlgDatosAM" icon="ui-icon-pencil" title="Modificar" 
+                                             rendered="#{listaAM.ESTACTA eq 'A'}"
+                                             actionListener="#{actaC.ubigeo.setDISTUBI(listaAM.CODUBI)}"
+                                             oncomplete="PF('wdlgDatosAM').show();">
+                                <f:setPropertyActionListener value="#{listaAM}" 
+                                                             target="#{actaC.acta}"/>
+                            </p:commandButton>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-4">
+                        <h:panelGroup styleClass="mdl-button">
+
+                            <p:commandButton update=":dlgRegistrarIncidencia" 
+                                             icon="ui-icon-alert" title="Incidir"
+                                             rendered="#{listaAM.ESTACTA eq 'A'}"
+                                             actionListener="#{incidenciaC.incidencia.setIDDOC(listaAM.IDACTA)}"
+                                             oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-4">
+                        <h:panelGroup styleClass="mdl-button">
+                            <p:commandButton  title="Exportar" ajax="false" icon="ui-icon-print"
+                                             actionListener="#{actaC.generarReporteM(listaAM.IDACTA)}" rendered="#{listaAM.ESTACTA eq 'A'}" />
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </div>
         </p:column> 
         <p:blockUI block="dtTblDocumentoAM" trigger="dtTblDocumentoAM">
             <div class="preloader-wrapper big active">

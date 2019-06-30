@@ -9,7 +9,7 @@
         <p:dataTable id="dtTblPersona"  value="#{personaC.listaPersona}" var="listaPersona" reflow="true"
                      rowStyleClass="#{listaPersona.ESTPER le 'Activo' ? null : 'inactivo'}"
                      rows="10" emptyMessage="No se encontrarón datos." filteredValue="#{personaC.listaPersonaFiltrado}"
-                     paginator="true" scrollable="true" scrollHeight="500"
+                     paginator="true" scrollable="false" scrollHeight="500"
                      rowsPerPageTemplate="5,10,15,20">
 
             <f:facet name="header">
@@ -58,11 +58,6 @@
                     <f:setPropertyActionListener value="#{listaPersona}" 
                                                  target="#{personaC.persona}"/>
                 </p:commandButton>                
-
-            </p:column>
-            <p:column exportable="false">                
-
-
             </p:column>
             <p:blockUI block="dtTblPersona" trigger="dtTblPersona">
                 Actualizando
@@ -72,8 +67,8 @@
         </p:commandButton>
     </h:form>
     <p:dialog id="dlgDatosPersona" widgetVar="wdlgDatosPersona" 
-              class="mdl-dialog"
               header="Datos de la Persona" closeOnEscape="true">
+        <div class="ui-fluid">
         <h:form id="frmEditarPersona">
             <ui:include src="Registrar.xhtml"/>
             <h:panelGroup styleClass="mdl-button">
@@ -101,6 +96,7 @@
             <p:commandButton value="Cancelar" immediate="true"
                              oncomplete="PF('wdlgDatosPersona').hide();"/>
         </h:form>
+            </div>
 
     </p:dialog>
 

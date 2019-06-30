@@ -10,78 +10,90 @@
                  filteredValue="#{actaC.listaDocumentosADfiltrado}"
                  rowStyleClass="#{listaAD.ESTACTA eq 'A' ? null : 'inactivo'}"
                  rows="20" emptyMessage="No se encontrarón datos."
-                 paginator="true" scrollable="true" scrollHeight="500"
+                 paginator="true" scrollable="false" scrollHeight="500"
                  rowsPerPageTemplate="10,20,30">
         <f:facet name="header">
             Actas de Defunción
         </f:facet>
         <p:column filterBy="#{listaAD.ESTACTA}"
-                  filterMatchMode="equals"
-                  style="width: 15vh;">
+                  filterMatchMode="equals">
             <f:facet name="filter">
                 <p:selectOneButton onchange="PF('wdtTblDocumentoAD').filter()">
-                    <f:selectItem itemLabel="Todos" itemValue="" />
                     <f:selectItem itemLabel="Activos" itemValue="A" />
-                    <f:selectItem itemLabel="Inactivos" itemValue="I" />
                 </p:selectOneButton>
             </f:facet>
             <p:rowToggler/>
         </p:column>
 
         <p:column headerText="Fallecido"  
-                  style="font-weight: bold"
                   filterBy="#{listaAD.titular}"
                   filterMatchMode="contains"
                   sortBy="#{listaAD.titular}">
-            <h:outputLabel value="#{listaAD.titular}" style="font-weight: normal" />
+            <h:outputLabel value="#{listaAD.titular}"/>
         </p:column> 
 
-        <p:column headerText="Fecha de Registro"  style="font-weight: bold" sortBy="#{listaAD.FECREGACTA}">
+        <p:column headerText="Fecha de Registro" sortBy="#{listaAD.FECREGACTA}">
 
-            <h:outputLabel value="#{listaAD.FECREGACTA}" style="font-weight: normal" >
+            <h:outputLabel value="#{listaAD.FECREGACTA}" >
                 <f:convertDateTime locale="es" pattern="dd MMM yyyy"  />
             </h:outputLabel>
         </p:column>
-        <p:column headerText="Fecha de Fallecimiento"  style="font-weight: bold" sortBy="#{listaAD.FECACT}">
-            <h:outputLabel value="#{listaAD.FECACT}" style="font-weight: normal">
+        <p:column headerText="Fecha de Fallecimiento"  sortBy="#{listaAD.FECACT}">
+            <h:outputLabel value="#{listaAD.FECACT}">
                 <f:convertDateTime locale="es" pattern="dd MMM yyyy"  />
             </h:outputLabel>
         </p:column>
 
-        <p:column headerText="Observacion"  style="font-weight: bold">
-            <h:outputLabel value="#{listaAD.OBSACTA}" style="font-weight: normal" />
+        <p:column headerText="Observacion">
+            <h:outputLabel value="#{listaAD.OBSACTA}" />
         </p:column>
 
         <p:column exportable="false" headerText="Accion">
-            <p:commandButton update=":dlgDatosAD" icon="ui-icon-pencil" title="Modificar"
-                             rendered="#{listaAD.ESTACTA eq 'A'}"
-                             class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
-                             actionListener="#{actaC.ubigeo.setDISTUBI(listaAD.CODUBI)}"
-                             oncomplete="PF('wdlgDatosAD').show();">
-                <f:setPropertyActionListener value="#{listaAD}" 
-                                             target="#{actaC.acta}"/>
-            </p:commandButton>
-            <p:commandButton update=":dlgRegistrarIncidencia" title="Agregar Incidencia" value="+"
-                             rendered="#{listaAD.ESTACTA eq 'A'}"
-                             class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"
-                             actionListener="#{incidenciaC.incidencia.setIDDOC(listaAD.IDACTA)}"
-                             oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
-            <p:commandButton value="Exportar" ajax="false" 
-                             actionListener="#{actaC.generarReporteD(listaAD.IDACTA)}" rendered="#{listaAD.ESTACTA eq 'A'}"/>
+            <div class="ui-g">       
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <h:panelGroup styleClass="mdl-button">
+                            <p:commandButton update=":dlgDatosAD" icon="ui-icon-pencil" title="Modificar"
+                                             rendered="#{listaAD.ESTACTA eq 'A'}"
+                                             actionListener="#{actaC.ubigeo.setDISTUBI(listaAD.CODUBI)}"
+                                             oncomplete="PF('wdlgDatosAD').show();">
+                                <f:setPropertyActionListener value="#{listaAD}" 
+                                                             target="#{actaC.acta}"/>
+                            </p:commandButton>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-4">
+                        <h:panelGroup styleClass="mdl-button">
+                            <p:commandButton update=":dlgRegistrarIncidencia"
+                                             icon="ui-icon-alert" title="Incidir"
+                                             rendered="#{listaAD.ESTACTA eq 'A'}"
+                                             actionListener="#{incidenciaC.incidencia.setIDDOC(listaAD.IDACTA)}"
+                                             oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-4">
+                        <h:panelGroup styleClass="mdl-button">
+                            <p:commandButton title="Exportar" ajax="false" icon="ui-icon-print"
+                                             actionListener="#{actaC.generarReporteD(listaAD.IDACTA)}" 
+                                             rendered="#{listaAD.ESTACTA eq 'A'}"/>
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </div>
         </p:column> 
 
         <p:rowExpansion>
             <p:panelGrid columns="4">
-                <h:outputLabel value="Declarante" style="font-weight: bold"/>
-                <h:outputText value="#{listaAD.declarante}" style="font-weight: normal" />
+                <h:outputLabel value="Declarante"/>
+                <h:outputText value="#{listaAD.declarante}"/>
                 <h:outputLabel value="Libro" style="font-weight: bold"/>
-                <h:outputText value="#{listaAD.NUMLIBACTA}" style="font-weight: normal" />
-                <h:outputLabel value="Folio" style="font-weight: bold"/>
-                <h:outputText value="#{listaAD.NUMFOLACTA}" style="font-weight: normal" />
-                <h:outputLabel value="Distrito de Fallecimiento" style="font-weight: bold"/>
-                <h:outputText value="#{listaAD.CODUBI}" style="font-weight: normal" />
-                <h:outputLabel value="Lugar de Fallecimiento" style="font-weight: bold"/>
-                <h:outputText value="#{listaAD.DIRACT}" style="font-weight: normal" />
+                <h:outputText value="#{listaAD.NUMLIBACTA}"/>
+                <h:outputLabel value="Folio"/>
+                <h:outputText value="#{listaAD.NUMFOLACTA}"/>
+                <h:outputLabel value="Distrito de Fallecimiento"/>
+                <h:outputText value="#{listaAD.CODUBI}"/>
+                <h:outputLabel value="Lugar de Fallecimiento"/>
+                <h:outputText value="#{listaAD.DIRACT}"/>
             </p:panelGrid>
         </p:rowExpansion>
 

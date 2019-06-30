@@ -277,7 +277,7 @@ public class ActaC extends UbigeoC implements Serializable {
         bar = new BarChartModel();
         ChartSeries listAD = new ChartSeries("Defunción");
         ChartSeries listAN = new ChartSeries("Nacimiento");
-        listAN.set("2004                                                          2008", contadorAN);
+        listAN.set("", contadorAN);
         listAD.set("", contadorAD);
 
         ChartSeries listANN = new ChartSeries("Nacimiento");

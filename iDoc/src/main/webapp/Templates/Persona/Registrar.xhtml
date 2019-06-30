@@ -6,25 +6,27 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <div class="ui-g">
         <div class="ui-g-12">
-            <h:panelGroup styleClass="md-inputfield">
-                <p:inputText value="#{personaC.persona.APEPATPER}"
-                             requiredMessage="Apellido Paterno Requerido."
-                             required="true" maxlength="50" id="apePatPer"
-                             style="text-transform: uppercase">
-                    <p:keyFilter regEx='/[\a-z ]/i'/>
-                </p:inputText>
-                <p:outputLabel value="Apellido Paterno" for="@previous"/>
-            </h:panelGroup>
-        </div>
-        <div class="ui-g-12">
-            <h:panelGroup styleClass="md-inputfield">
-                <p:inputText value="#{personaC.persona.APEMATPER}"  requiredMessage="Apellido Materno Requerido."
-                             id="apeMatPer"
-                             required="true"  maxlength="50" style="text-transform: uppercase" >
-                    <p:keyFilter regEx='/[\a-z ]/i'/>
-                </p:inputText>
-                <p:outputLabel value="Apellido Materno" for="@previous"/>
-            </h:panelGroup>
+            <div class="ui-g-6">
+                <h:panelGroup styleClass="md-inputfield">
+                    <p:inputText value="#{personaC.persona.APEPATPER}"
+                                 requiredMessage="Apellido Paterno Requerido."
+                                 required="true" maxlength="50" id="apePatPer"
+                                 style="text-transform: uppercase">
+                        <p:keyFilter regEx='/[\a-z ]/i'/>
+                    </p:inputText>
+                    <p:outputLabel value="Apellido Paterno" for="@previous"/>
+                </h:panelGroup>
+            </div>
+            <div class="ui-g-6">
+                <h:panelGroup styleClass="md-inputfield">
+                    <p:inputText value="#{personaC.persona.APEMATPER}"  requiredMessage="Apellido Materno Requerido."
+                                 id="apeMatPer"
+                                 required="true"  maxlength="50" style="text-transform: uppercase" >
+                        <p:keyFilter regEx='/[\a-z ]/i'/>
+                    </p:inputText>
+                    <p:outputLabel value="Apellido Materno" for="@previous"/>
+                </h:panelGroup>
+            </div>
         </div>
         <div class="ui-g-12">
             <h:panelGroup styleClass="md-inputfield">
@@ -37,23 +39,25 @@
             </h:panelGroup>
         </div>
         <div class="ui-g-12">
-            <h:panelGroup styleClass="md-inputfield">
-                <p:inputMask value="#{personaC.persona.DNIPER}" maxlength="8" mask="99999999" requiredMessage="DNI Requerido."
-                             id="dniPer"
-                             required="false"/>
-                <p:outputLabel value="DNI" for="@previous"/>
-            </h:panelGroup>
-        </div>
-        <div class="ui-g-12">
-            <h:panelGroup styleClass="md-inputfield">
-                <p:autoComplete  value="#{personaC.persona.CODUBI}" id="distPer" requiredMessage="Distrito requerido."
-                                 forceSelection="true" maxlength="36" emptyMessage="No se encontrarón datos."
-                                 completeMethod="#{personaC.buscarUbigeo}"                             
-                                 minQueryLength="1" maxResults="6" queryDelay="1" required="true">
-                    <p:keyFilter regEx='/[\a-z ]/i'/>
-                </p:autoComplete>
-                <p:outputLabel value="Distrito" for="@previous"/>
-            </h:panelGroup>
+            <div class="ui-g-4">
+                <h:panelGroup styleClass="md-inputfield">
+                    <p:inputMask value="#{personaC.persona.DNIPER}" maxlength="8" mask="99999999" requiredMessage="DNI Requerido."
+                                 id="dniPer"
+                                 required="false"/>
+                    <p:outputLabel value="DNI" for="@previous"/>
+                </h:panelGroup>
+            </div>
+            <div class="ui-g-8">
+                <h:panelGroup styleClass="md-inputfield">
+                    <p:autoComplete  value="#{personaC.persona.CODUBI}" id="distPer" requiredMessage="Distrito requerido."
+                                     forceSelection="true" maxlength="36" emptyMessage="No se encontrarón datos."
+                                     completeMethod="#{personaC.buscarUbigeo}"                             
+                                     minQueryLength="1" maxResults="6" queryDelay="1" required="true">
+                        <p:keyFilter regEx='/[\a-z ]/i'/>
+                    </p:autoComplete>
+                    <p:outputLabel value="Distrito" for="@previous"/>
+                </h:panelGroup>
+            </div>
         </div>
         <div class="ui-g-12">
             <h:panelGroup styleClass="md-inputfield">

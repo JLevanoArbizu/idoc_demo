@@ -5,27 +5,24 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <p:dataTable id="dtTblDocumentoPN" widgetVar="wdtTblDocumentoAN" reflow="true"
-                 value="#{actaC.listaDocumentosAN}" var="listaAN"
+                 value="#{actaC.listaDocumentosAN}" var="listaAN" 
                  filteredValue="#{actaC.listaDocumentosANfiltrado}"
                  rowStyleClass="#{listaAN.ESTACTA eq 'A' ? null : 'inactivo'}"
                  rows="20" emptyMessage="No se encontrarón datos."
-                 paginator="true" scrollable="true" scrollHeight="500"
+                 paginator="true" scrollable="false" scrollHeight="500"
                  rowsPerPageTemplate="10,20,30">
 
         <f:facet name="header">
             Partidas de Nacimiento
         </f:facet> 
         <p:column filterBy="#{listaAN.ESTACTA}"
-                  filterMatchMode="equals"
-                  style="width: 15vh;">
+                  filterMatchMode="equals">
+            <p:rowToggler/>
             <f:facet name="filter">
                 <p:selectOneButton onchange="PF('wdtTblDocumentoAN').filter()">
-                    <f:selectItem itemLabel="Todos" itemValue="" />
-                    <f:selectItem itemLabel="Activos" itemValue="A" />
-                    <f:selectItem itemLabel="Inactivos" itemValue="I" />
+                    <f:selectItem itemLabel="Activos" itemValue="A"/>
                 </p:selectOneButton>
             </f:facet>
-            <p:rowToggler/>
         </p:column>
         <p:column headerText="Hijo"  
                   sortBy="#{listaAN.titular}"
@@ -52,43 +49,56 @@
             <h:outputLabel value="#{listaAN.OBSACTA}" />
         </p:column>
         <p:column exportable="false" headerText="Acción">
-            <h:panelGroup styleClass="mdl-button">
-                <p:commandButton update=":dlgDatosAN" icon="ui-icon-pencil" title="Modificar" 
-                                 rendered="#{listaAN.ESTACTA eq 'A'}"
-                                 actionListener="#{actaC.ubigeo.setDISTUBI(listaAN.CODUBI)}"
-                                 oncomplete="PF('wdlgDatosAN').show();">
-                    <f:setPropertyActionListener value="#{listaAN}" 
-                                                 target="#{actaC.acta}"/>
-                </p:commandButton>
-                <p:commandButton update=":dlgRegistrarIncidencia" value="Incidir"
-                                 rendered="#{listaAN.ESTACTA eq 'A'}"
-                                 class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"
-                                 actionListener="#{incidenciaC.incidencia.setIDDOC(listaAN.IDACTA)}"
-                                 oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
+            <div class="ui-g">       
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <h:panelGroup styleClass="mdl-button">
+                            <p:commandButton update=":dlgDatosAN" icon="ui-icon-pencil" title="Modificar" 
+                                             rendered="#{listaAN.ESTACTA eq 'A'}"
+                                             actionListener="#{actaC.ubigeo.setDISTUBI(listaAN.CODUBI)}"
+                                             oncomplete="PF('wdlgDatosAN').show();">
+                                <f:setPropertyActionListener value="#{listaAN}" 
+                                                             target="#{actaC.acta}"/>
+                            </p:commandButton>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-4">
+                        <h:panelGroup styleClass="mdl-button">
 
-                <p:commandButton value="Exportar" ajax="false" 
-                                 actionListener="#{actaC.generarReporteI(listaAN.IDACTA)}" rendered="#{listaAN.ESTACTA eq 'A'}" />
+                            <p:commandButton update=":dlgRegistrarIncidencia" icon="ui-icon-alert" title="Incidir"
+                                             rendered="#{listaAN.ESTACTA eq 'A'}"
+                                             actionListener="#{incidenciaC.incidencia.setIDDOC(listaAN.IDACTA)}"
+                                             oncomplete="PF('wdlgRegistrarIncidencia').show();"/>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-4">
+                        <h:panelGroup styleClass="mdl-button">
 
-            </h:panelGroup>
+                            <p:commandButton title="Exportar" ajax="false" icon="ui-icon-print"
+                                             actionListener="#{actaC.generarReporteI(listaAN.IDACTA)}" rendered="#{listaAN.ESTACTA eq 'A'}" />
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </div>
         </p:column>
         <p:rowExpansion>
             <p:panelGrid columns="4">
-                <h:outputLabel value="Padre" style="font-weight: bold"/>
-                <h:outputText value="#{listaAN.papa}" style="font-weight: normal" />
-                <h:outputLabel value="Madre" style="font-weight: bold"/>
-                <h:outputText value="#{listaAN.mama}" style="font-weight: normal" />
-                <h:outputLabel value="Declarante" style="font-weight: bold"/>
-                <h:outputText value="#{listaAN.declarante}" style="font-weight: normal" />
-                <h:outputLabel value="Médico" style="font-weight: bold"/>
-                <h:outputText value="#{listaAN.medico}" style="font-weight: normal" />
-                <h:outputLabel value="Libro" style="font-weight: bold"/>
-                <h:outputText value="#{listaAN.NUMLIBACTA}" style="font-weight: normal" />
-                <h:outputLabel value="Folio" style="font-weight: bold"/>
-                <h:outputText value="#{listaAN.NUMFOLACTA}" style="font-weight: normal" />
-                <h:outputLabel value="Distrito de Nacimiento" style="font-weight: bold"/>
-                <h:outputText value="#{listaAN.CODUBI}" style="font-weight: normal" />
-                <h:outputLabel value="Lugar de Nacimiento" style="font-weight: bold"/>
-                <h:outputText value="#{listaAN.DIRACT}" style="font-weight: normal" />
+                <p:outputLabel value="Padre"/>
+                <p:outputLabel value="#{listaAN.papa}"/>
+                <p:outputLabel value="Madre"/>
+                <p:outputLabel value="#{listaAN.mama}"/>
+                <p:outputLabel value="Declarante"/>
+                <p:outputLabel value="#{listaAN.declarante}"/>
+                <p:outputLabel value="Médico"/>
+                <p:outputLabel value="#{listaAN.medico}"/>
+                <p:outputLabel value="Libro"/>
+                <p:outputLabel value="#{listaAN.NUMLIBACTA}"/>
+                <p:outputLabel value="Folio"/>
+                <p:outputLabel value="#{listaAN.NUMFOLACTA}"/>
+                <p:outputLabel value="Distrito de Nacimiento"/>
+                <p:outputLabel value="#{listaAN.CODUBI}"/>
+                <p:outputLabel value="Lugar de Nacimiento"/>
+                <p:outputLabel value="#{listaAN.DIRACT}"/>
             </p:panelGrid>
         </p:rowExpansion>
         <p:blockUI block="dtTblDocumentoPN" trigger="dtTblDocumentoPN">

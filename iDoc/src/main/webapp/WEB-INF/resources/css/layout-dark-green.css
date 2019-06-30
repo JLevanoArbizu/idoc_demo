@@ -874,11 +874,8 @@ body {
     padding: 20px;
     height: 75px;
     width: 250px;
-    background-color: #0e2031;
-    float: left;
-    -webkit-box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
-    box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3); }
+    background-color: #00695c;
+    float: left; }
   .layout-wrapper .topbar .topbar-right {
     padding: 15px;
     position: relative; }
@@ -886,22 +883,11 @@ body {
       color: #ffffff;
       display: inline-block;
       vertical-align: middle;
-      height: 36px;
-      margin-right: 10px;
       position: relative;
-      left: -16px;
-      top: 3px;
-      background-color: #1ab394;
-      -moz-border-radius: 50%;
-      -webkit-border-radius: 50%;
-      border-radius: 50%;
       -moz-transition: all 0.3s;
       -o-transition: all 0.3s;
       -webkit-transition: all 0.3s;
-      transition: all 0.3s;
-      -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
-      -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16); }
+      transition: all 0.3s; }
       .layout-wrapper .topbar .topbar-right #menu-button:hover {
         -webkit-transform: scale(1.2);
         -moz-transform: scale(1.2);
@@ -1063,7 +1049,7 @@ body {
     .layout-wrapper .layout-menu #profile-menu li:last-child {
       margin-bottom: 16px; }
   .layout-wrapper .layout-menu.layout-menu-dark {
-    background-color: #0e2031; }
+    background-color: #00695c; }
     .layout-wrapper .layout-menu.layout-menu-dark .profile {
       background-image: url("../icon/Ultima/profile-bg-dark.png"); }
       .layout-wrapper .layout-menu.layout-menu-dark .profile .profile-name {
@@ -1580,7 +1566,7 @@ body {
     width: calc(100% - 75px); }
     .layout-wrapper.layout-menu-slim .topbar .topbar-left {
       box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-      background-color: #2f4050; }
+      background-color: #00695c; }
     .layout-wrapper.layout-menu-slim .topbar .topbar-right #menu-button {
       display: none; }
   .layout-wrapper.layout-menu-slim .layout-main {

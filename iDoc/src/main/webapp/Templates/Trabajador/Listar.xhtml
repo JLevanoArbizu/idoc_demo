@@ -3,65 +3,74 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:form id="frmListarTrabajador">
         <p:growl life="1000"/>
-        <p:dataTable id="dtTblTrabajador"  value="#{trabajadorC.listaTrabajador}" var="listaTrabajador"
+        <p:dataTable id="dtTblTrabajador" widgetVar="wdtTblTrabajador" value="#{trabajadorC.listaTrabajador}" var="listaTrabajador"
                      rowStyleClass="#{listaTrabajador.ESTTRAB le 'Activo' ? null : 'inactivo'}"
                      rows="10" emptyMessage="No se encontrarón datos."
-                     paginator="true" scrollable="true" scrollHeight="500"
+                     paginator="true" scrollable="false" scrollHeight="500" reflow="true"
                      rowsPerPageTemplate="5,10,15,20">
 
             <f:facet name="header">
                 Trabajadores
-            </f:facet>     
-            <p:column headerText="Apellidos y Nombres" 
-                      style="font-weight: bold">
-                <h:outputLabel value="#{listaTrabajador.persona.COMPLETO}" style="font-weight: normal" />
+            </f:facet>
+            <p:column filterBy="#{listaTrabajador.ESTTRAB}"
+                      filterMatchMode="equals">
+                <f:facet name="filter">
+                    <p:selectOneButton onchange="PF('wdtTblTrabajador').filter()">
+                        <f:selectItem itemLabel="Activos" itemValue="A"/>
+                    </p:selectOneButton>
+                </f:facet>
             </p:column>
-            <p:column headerText="DNI" 
-                      style="font-weight: bold;">
-                <h:outputLabel value="#{listaTrabajador.persona.DNIPER}"  style="font-weight: normal" />
+            <p:column headerText="Apellidos y Nombres">
+                <h:outputLabel value="#{listaTrabajador.persona.COMPLETO}"/>
             </p:column>
-            <p:column headerText="Distrito"  style="font-weight: bold">
-                <h:outputLabel value="#{listaTrabajador.persona.CODUBI}"  style="font-weight: normal" />
+            <p:column headerText="DNI">
+                <h:outputLabel value="#{listaTrabajador.persona.DNIPER}"/>
             </p:column>
-            <p:column headerText="Dirección"  style="font-weight: bold">
-                <h:outputLabel value="#{listaTrabajador.persona.DIRPER}"  style="font-weight: normal" />
+            <p:column headerText="Distrito">
+                <h:outputLabel value="#{listaTrabajador.persona.CODUBI}"/>
+            </p:column>
+            <p:column headerText="Dirección">
+                <h:outputLabel value="#{listaTrabajador.persona.DIRPER}"/>
             </p:column>
             <p:column headerText="Sexo"  
-                      sortBy="#{listaTrabajador.persona.GENPER}" 
-                      style="font-weight: bold;">
-                <h:outputLabel value="#{listaTrabajador.persona.GENPER}" style="font-weight: normal" />
+                      sortBy="#{listaTrabajador.persona.GENPER}">
+                <h:outputLabel value="#{listaTrabajador.persona.GENPER}"/>
             </p:column>
-            <p:column headerText="Fecha Inicio"  style="font-weight: bold">
-                <h:outputLabel value="#{listaTrabajador.FECINITRAB_T}" style="font-weight: normal">
+            <p:column headerText="Fecha Inicio">
+                <h:outputLabel value="#{listaTrabajador.FECINITRAB_T}">
                     <f:convertDateTime locale="es" pattern="dd MMM yyyy"  />
                 </h:outputLabel>
             </p:column>
-            <p:column headerText="Fecha Fin"  style="font-weight: bold">
-                <h:outputLabel value="#{listaTrabajador.FECFINTRAB_T}" style="font-weight: normal">
+            <p:column headerText="Fecha Fin">
+                <h:outputLabel value="#{listaTrabajador.FECFINTRAB_T}">
                     <f:convertDateTime locale="es" pattern="dd MMM yyyy"  />
                 </h:outputLabel>
             </p:column>
-            
-
-            <p:column exportable="false">
-                <p:commandButton value="Exportar" ajax="false" rendered="#{listaTrabajador.ESTTRAB eq 'A'}"
-                                 actionListener="#{trabajadorC.generarReporteI(listaTrabajador.IDTRAB)}"/>
-                <p:commandButton update=":dlgDatosTrabajador" icon="ui-icon-pencil"
-                                 class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
-                                 title="Modificar" rendered="#{listaTrabajador.ESTTRAB eq 'A'}"
-                                 oncomplete="PF('wdlgDatosTrabajador').show();">
-                    <f:setPropertyActionListener value="#{listaTrabajador}" 
-                                                 target="#{trabajadorC.trabajador}"/>
-                </p:commandButton>
 
 
-                <p:commandButton value="Resetear Contraseña" update="frmListarTrabajador"
-                                 rendered="#{listaTrabajador.ESTTRAB eq 'A'}"
-                                 actionListener="#{trabajadorC.resetearContra(listaTrabajador)}"/>
+            <p:column exportable="false" headerText="Acción">
+                <h:panelGroup styleClass="mdl-button">
+                    <p:commandButton update=":dlgDatosTrabajador" icon="ui-icon-pencil"
+                                     title="Modificar" rendered="#{listaTrabajador.ESTTRAB eq 'A'}"
+                                     oncomplete="PF('wdlgDatosTrabajador').show();">
+                        <f:setPropertyActionListener value="#{listaTrabajador}" 
+                                                     target="#{trabajadorC.trabajador}"/>
+                    </p:commandButton>
+                </h:panelGroup>
+                <h:panelGroup styleClass="mdl-button">
+                    <p:commandButton title="Resetear Contraseña" icon="ui-icon-refresh" 
+                                     update="frmListarTrabajador"
+                                     rendered="#{listaTrabajador.ESTTRAB eq 'A'}"
+                                     actionListener="#{trabajadorC.resetearContra(listaTrabajador)}"/>
+                </h:panelGroup>
+                <h:panelGroup styleClass="mdl-button">
+                    <p:commandButton title="Exportar" ajax="false" icon="ui-icon-print"
+                                     rendered="#{listaTrabajador.ESTTRAB eq 'A'}"
+                                     actionListener="#{trabajadorC.generarReporteI(listaTrabajador.IDTRAB)}"/>
+                </h:panelGroup>
             </p:column>
             <p:blockUI block="dtTblTrabajador" trigger="dtTblTrabajador">
                 Actualizando
