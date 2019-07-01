@@ -11,7 +11,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import modelo.Documento;
+import modelo.Empresa;
 import modelo.Persona;  //PersonaM -tradoc
+import modelo.Tupa;
 
 @Named(value = "documentoC")
 @SessionScoped
@@ -21,7 +23,10 @@ public class DocumentoC implements Serializable {
     private Documento selectedDocumento;
     private List<Documento> lstdocumento;
     private List<Persona> lstPersona;
+    private List<Empresa> lstEmpresa;
+    private List<Tupa> lstTupa;
     private DocumentoImpl daoDocumentoImpl;
+
 
     @PostConstruct
     public void iniciar() {
@@ -77,6 +82,10 @@ public class DocumentoC implements Serializable {
             dao = new DocumentoImpl();
             lstdocumento = dao.listar();
             lstPersona = getLstPersona();
+            lstTupa = getLstTupa();
+            lstEmpresa = getLstEmpresa();
+                    
+            
 //            lstPersona = getLstPersona();
 
         } catch (Exception e) {
@@ -127,4 +136,29 @@ public class DocumentoC implements Serializable {
         this.lstPersona = lstPersona;
     }
 //=====================================================================
+
+    public List<Empresa> getLstEmpresa() {
+        return lstEmpresa;
+    }
+
+    public void setLstEmpresa(List<Empresa> lstEmpresa) {
+        this.lstEmpresa = lstEmpresa;
+    }
+
+    public List<Tupa> getLstTupa() {
+        return lstTupa;
+    }
+
+    public void setLstTupa(List<Tupa> lstTupa) {
+        this.lstTupa = lstTupa;
+    }
+
+    public DocumentoImpl getDaoDocumentoImpl() {
+        return daoDocumentoImpl;
+    }
+
+    public void setDaoDocumentoImpl(DocumentoImpl daoDocumentoImpl) {
+        this.daoDocumentoImpl = daoDocumentoImpl;
+    }
+
 }
