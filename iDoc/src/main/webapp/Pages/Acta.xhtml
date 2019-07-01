@@ -53,10 +53,12 @@
             <h:form id="frmRegistrarAN">
                 <p:growl life="1000"/>
                 <ui:include src="../Templates/Acta/PN/Registrar.xhtml"/>
-                <p:commandButton
-                    id="btnRegistrarAN"
-                    actionListener="#{actaC.accionActa('1','1',null)}" value="GUARDAR"
-                    update="frmRegistrarAN tb:frmListarAN tb:frmListarAM tb:frmListarAD"/>
+                <h:panelGroup styleClass="mdl-button">
+                    <p:commandButton
+                        id="btnRegistrarAN"
+                        actionListener="#{actaC.accionActa('1','1',null)}" value="GUARDAR"
+                        update="frmRegistrarAN tb:frmListarAN tb:frmListarAM tb:frmListarAD"/>
+                </h:panelGroup>
                 <p:blockUI block="frmRegistrarAN" trigger="btnRegistrarAN" >
                     Guardando..
                 </p:blockUI>
@@ -246,13 +248,15 @@
 
         <p:dialog header="Agregar Ciudadanos" widgetVar="dlgRegistrarPersona" dynamic="true"
                   resizable="false" responsive="true" draggable="false" closeOnEscape="true">
-            <h:form id="dlgPersona">
-                <p:growl life="1000"/>
-                <ui:include src="../Templates/Persona/Registrar.xhtml"/>
-                <p:commandButton value="GUARDAR"
-                                 actionListener="#{personaC.registrarPersona()}" update=":dlgPersona"
-                                 oncomplete="#{actaC.actorC.listarPersonas()}"/>
-            </h:form>
+            <div class="ui-fluid">
+                <h:form id="dlgPersona">
+                    <p:growl life="1000"/>
+                    <ui:include src="../Templates/Persona/Registrar.xhtml"/>
+                    <p:commandButton value="GUARDAR"
+                                     actionListener="#{personaC.registrarPersona()}" update=":dlgPersona"
+                                     oncomplete="#{actaC.actorC.listarPersonas()}"/>
+                </h:form>
+            </div>
         </p:dialog>
 
         <!--Incidencia-->

@@ -60,11 +60,11 @@
         </style>
     </h:head>
     <h:body class="main-body">
-        <div class="card card-w-title">
+        <div class="card card-w-title ui-fluid">
             <h1>Contáctanos</h1>
-            <h:form id="frmContacto">
-                <p:growl life="10000"/>
-                <div class="ui-g">
+            <div class="ui-g">
+                <h:form id="frmContacto">
+                    <p:growl life="10000"/>
                     <div class="ui-g-12">
                         <h:panelGroup styleClass="md-inputfield">
                             <p:inputText value="#{contactoC.contacto.user}"
@@ -108,26 +108,26 @@
                         </h:panelGroup>
                     </div>
 
-                </div>
-                <h:panelGroup styleClass="mdl-button" >
-                    <p:commandButton actionListener="#{contactoC.enviarMensaje()}" update="frmContacto" id="btnContactar" value="Contactar"/>
-                    <p:commandButton action="Login" value="Volver" immediate="true"/>
+                    <h:panelGroup styleClass="mdl-button" >
+                        <p:commandButton actionListener="#{contactoC.enviarMensaje()}" update="frmContacto" id="btnContactar" value="Contactar"/>
+                        <p:commandButton action="Login" value="Volver" immediate="true"/>
 
-                </h:panelGroup>
-                <p:blockUI blocked="frmContacto" trigger="btnContactar">
-                    <div class="preloader-wrapper big active">
-                        <div class="spinner-layer spinner-blue">
-                            <div class="circle-clipper left">
-                                <div class="circle"></div>
-                            </div><div class="gap-patch">
-                                <div class="circle"></div>
-                            </div><div class="circle-clipper right">
-                                <div class="circle"></div>
+                    </h:panelGroup>
+                    <p:blockUI blocked="frmContacto" trigger="btnContactar">
+                        <div class="preloader-wrapper big active">
+                            <div class="spinner-layer spinner-blue">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div><div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div><div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </p:blockUI>
-            </h:form>
+                    </p:blockUI>
+                </h:form>
+            </div>
         </div>
     </h:body>
 </html>

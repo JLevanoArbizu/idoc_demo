@@ -114,7 +114,7 @@ public class PersonaImpl extends Conexion implements IGenerica<Persona> {
         List<String> lista = new ArrayList<>();
         campo = campo.toUpperCase();
         for (Persona persona1 : listaModelo) {
-            if (persona1.getCOMPLETO().startsWith(campo) && persona1.getESTPER().equals("A")) {
+            if (persona1.getCOMPLETO().contains(campo) && persona1.getESTPER().equals("A")) {
                 lista.add(persona1.getCOMPLETO());
             }
         }
