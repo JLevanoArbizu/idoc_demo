@@ -9,91 +9,433 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <link rel="icon" href="../../resources/icon/group.png" sizes="32x32"/>
-        <!--Other CSS and JS-->
-        <h:outputStylesheet library="css"  name="materialize.min.css"/>
-        <h:outputStylesheet library="css"  name="IconFontsMaterialize.css"/>
-        <h:outputStylesheet library="css"  name="style.css"/>
-        <h:outputScript library="js" name="jsfcrud.js" />
-        <!--***-->
-        <!--CSS and JS - Van en esta Posicion para que funcione bien-->
-        <h:outputStylesheet library="css"  name="fontawesome-all.css"/>
-        <h:outputStylesheet library="css"  name="charts.css"/>
-        <h:outputStylesheet library="css"  name="clock.css"/>
-        <h:outputStylesheet library="css"  name="components.css"/>
-        <h:outputStylesheet library="css"  name="fileupload.css"/>
-        <h:outputStylesheet library="css"  name="galleria.css"/>
-        <h:outputStylesheet library="css"  name="inputswitch.css"/>
-        <h:outputStylesheet library="css"  name="keyboard.css"/>
-        <h:outputStylesheet library="css"  name="nanoscroller.css"/>
-        <h:outputStylesheet library="css"  name="ripple.css"/>
-        <h:outputStylesheet library="css"  name="schedule.css"/>
-        <h:outputStylesheet library="css"  name="scrollpanel.css"/>
-        <h:outputStylesheet library="css"  name="animate.css"/>
-        <h:outputStylesheet library="css"  name="layout-dark-green.css"/>
-        <h:outputStylesheet library="css"  name="theme-dark-green.css"/>
-        <h:outputScript library="js" name="charts.js" />
-        <h:outputScript library="js" name="clock.js" />
-        <h:outputScript library="js" name="components.js" />
-        <h:outputScript library="js" name="core.js" />
-        <h:outputScript library="js" name="fileupload.js" />
-        <h:outputScript library="js" name="galleria.js" />
-        <h:outputScript library="js" name="inputswitch.js" />
-        <h:outputScript library="js" name="keyboard.js" />
-        <h:outputScript library="js" name="layout.js" />
-        <h:outputScript library="js" name="moment.js" />
-        <h:outputScript library="js" name="nanoscroller.js" />
-        <h:outputScript library="js" name="raphael.js" />
-        <h:outputScript library="js" name="ripple.js" />
-        <h:outputScript library="js" name="schedule.js" />
-        <h:outputScript library="js" name="scrollpanel.js" />
-        <h:outputScript library="js" name="swipe.js" />
-        <h:outputScript library="js" name="touchswipe.js" />   
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-        <h:outputScript library="js" name="plugins.js" />   
-        <!--***-->        
-        <title>Landpage</title>
-        <style type="text/css">
-            .main-content {
+        <meta name="apple-mobile-web-app-capable" content="yes" />    
+        <title>Acerca</title>
+    </h:head>
+    <h:body>
+        <style>
+            @import 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css';
+            @import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css';
+            @import 'https://fonts.googleapis.com/css?family=Raleway:100,600';
+            @import 'https://fonts.googleapis.com/css?family=Open+Sans:300';
+            html,
+            body {
+                width: 100%;
+                height: 100%;
+            }
+
+            body {
+                font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-weight: 300;
+                color: #999;
+                background-color: #fff;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                margin: 0 0 20px 0;
+                text-transform: none;
+                color: rgba(254, 82, 76, 1);
+                font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-weight: 600;
+                letter-spacing: 1px;
+                line-height: 1.5;
+            }
+
+            a:link,
+            a:active,
+            a:visited{
+                color:rgba(255,255,255,1);
+            }
+
+            a:hover{
+                color:rgba(255,255,255,0.6);
+            }
+
+            .gray {
+                color: #a5a5a5;
+            }
+
+            .team{
+                margin:40px;
+            }
+
+            .team-member {
+                margin: 15px 0;
                 padding: 0;
             }
+
+            .team-member figure {
+                position: relative;
+                overflow: hidden;
+                padding: 0;
+                margin: 0;
+            }
+
+            .team-member figure img {
+                min-width: 50%;
+            }
+
+            .team-member figcaption p {
+                font-size: 16px;
+            }
+
+            .team-member figcaption ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .team-member figcaption ul {
+                visibility: visible;
+                -webkit-transition: all 0.1s ease-in-out;
+                -moz-transition: all 0.1s ease-in-out;
+                -o-transition: all 0.1s ease-in-out;
+                transition: all 0.1s ease-in-out;
+            }
+
+            .team-member figcaption ul li {
+                display: inline-block;
+                padding: 10px;
+            }
+
+            .team-member h4 {
+                margin: 10px 0 0;
+                padding: 0;
+            }
+
+            .team-member figcaption {
+                padding: 50px;
+                color: transparent;
+                background-color: transparent;
+                position: absolute;
+                z-index: 996;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 0;
+                overflow: hidden;
+                visibility: hidden;
+                -webkit-transition: all 0.3s ease-in-out;
+                -moz-transition: all 0.3s ease-in-out;
+                -o-transition: all 0.3s ease-in-out;
+                transition: all 0.3s ease-in-out;
+            }
+
+            .team-member figure:hover figcaption {
+                visibility: visible;
+                color: #fff;
+                background: rgba(230, 78, 62, 0.9);
+                /* Primary color, can be changed via colors.css */
+
+                height: 100%;
+                -webkit-transition: all 0.3s ease-in-out;
+                -moz-transition: all 0.3s ease-in-out;
+                -o-transition: all 0.3s ease-in-out;
+                transition: all 0.3s ease-in-out;
+            }
+
+            .team-member figure:hover figcaption ul li a:hover {
+                color: rgba(49, 49, 49, .97);
+            }
+
+            .team-member figure img {
+                -webkit-transform: scale(1) rotate(0) translateY(0);
+                -moz-transform: scale(1) rotate(0) translateY(0);
+                -o-transform: scale(1) rotate(0) translateY(0);
+                -ms-transform: scale(1) rotate(0) translateY(0);
+                transform: scale(1) rotate(0) translateY(0);
+                -webkit-transition: all 0.4s ease-in-out;
+                -moz-transition: all 0.4s ease-in-out;
+                -o-transition: all 0.4s ease-in-out;
+                transition: all 0.4s ease-in-out;
+            }
+
+            .team-member figure:hover img {
+                -webkit-transform: scale(1.1) rotate(1deg) translateY(12px);
+                -moz-transform: scale(1.1) rotate(1deg) translateY(12px);
+                -o-transform: scale(1.1) rotate(1deg) translateY(12px);
+                -ms-transform: scale(1.1) rotate(1deg) translateY(12px);
+                transform: scale(1.1) rotate(1deg) translateY(12px);
+                -webkit-transition: all 0.4s ease-in-out;
+                -moz-transition: all 0.4s ease-in-out;
+                -o-transition: all 0.4s ease-in-out;
+                transition: all 0.4s ease-in-out;
+            }
+            body {
+                font-family: Montserrat,sans-serif;
+            }
+            body > h1 {
+                text-align: center;
+                margin-bottom: 40px;
+            }
+
+            .timeline {
+                padding: 0px 5%;
+            }
+
+            .timeline-item {
+                display: flex;
+                align-items: flex-start;
+            }
+            .timeline-item > div {
+                flex: 1;
+                padding: 20px 40px;
+            }
+            .timeline-item > div:last-child {
+                text-align: left;
+                padding-bottom: 40px !important;
+            }
+            .timeline-item:nth-child(odd) > div:first-child {
+                text-align: right;
+                position: relative;
+            }
+            .timeline-item:nth-child(odd) > div:first-child::after {
+                right: -11px;
+            }
+            .timeline-item:nth-child(odd) > div:last-child {
+                text-align: left;
+                border-left: 2px solid #e0e0e0;
+            }
+            .timeline-item:nth-child(odd) .timeline-content > h2 {
+                text-align: left !important;
+            }
+            .timeline-item:nth-child(odd) .timeline-date > div {
+                margin-right: 0px;
+            }
+            .timeline-item:nth-child(even) > div:first-child {
+                order: 2;
+                text-align: left;
+                position: relative;
+            }
+            .timeline-item:nth-child(even) > div:first-child::after {
+                left: -1px;
+            }
+            .timeline-item:nth-child(even) > div:last-child {
+                order: 1;
+                text-align: right;
+                border-right: 2px solid #e0e0e0;
+            }
+            .timeline-item:nth-child(even) .timeline-date > div {
+                margin-left: 0px;
+            }
+            .timeline-item:nth-child(even) .timeline-content > h2 {
+                text-align: right !important;
+            }
+            .timeline-item > div:first-child::after {
+                content: "";
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background-color: #673AB7;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                box-shadow: 0 0 0 4px rgba(103, 58, 183, 0.2);
+            }
+            .timeline-item .timeline-date > div {
+                background-color: #673AB7;
+                box-shadow: 0 0 0 4px rgba(103, 58, 183, 0.2);
+                border-radius: 50px;
+                color: #ffffff;
+                text-align: center;
+                max-width: max-content;
+                margin: auto;
+                padding: 10px 20px;
+            }
+            .timeline-item .timeline-content .fa-icon {
+                font-size: 80px;
+            }
+            .timeline-item .timeline-content > h2 {
+                margin: 0px;
+                font-size: 1.5em;
+                font-weight: bold;
+                color: #673AB7;
+            }
+            .timeline-item:not(:last-child) .timeline-content > .fa-icon {
+                margin-bottom: 70px;
+            }
+
+            @media (max-width: 767px) {
+                .timeline-item {
+                    flex-direction: column;
+                    border-left: 2px solid #e0e0e0;
+                }
+                .timeline-item > div {
+                    border-width: 0px !important;
+                    text-align: left !important;
+                    order: unset !important;
+                }
+                .timeline-item > div::after {
+                    left: 0% !important;
+                }
+                .timeline-item:nth-child(odd) .timeline-content > h2 {
+                    text-align: left !important;
+                }
+                .timeline-item:nth-child(even) .timeline-content > h2 {
+                    text-align: left !important;
+                }
+            }
+
         </style>
-    </h:head>
-    <body class="landing-body">
-        <div class="landing-wrapper">
-            <div id="promotion" class="clearfix">
-                <div class="ui-g">
-                    <div class="ui-g-12 ui-lg-8">
-                        <h1>Boost Your Productivity.</h1>
-                        <h:form>
-                            <p:commandButton action="Login" value="Acceder" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only secondary"/>
-                        </h:form>
-                    </div>
-                    <div class="ui-g-12 ui-lg-4">
-                        <div class="card">
-                            <h3>Just</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab perferendis nesciunt ad reiciendis explicabo consequatur sapiente odit ipsa harum illum, necessitatibus quaerat voluptates aspernatur iure, aperiam possimus sint sit mollitia!</p>
-                        </div>
+        <!-- Our team Section -->
+        <section id="team" class="team content-section">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <h2>Team iDoc</h2>
+                        <h3 class="caption gray">Proyecto de Integración de Sistema de Trámite Documentario y Registro Civil para la Municipalidad de Nuevo Imperial promovido por el ISTP Valle Grande</h3>
+                    </div><!-- /.col-md-12 -->
 
-                        <div class="card">
-                            <h3>Like</h3>
-                            <p>Ab perferendis nesciunt ad reiciendis explicabo consequatur sapiente odit ipsa harum illum. Necessitatibus quaerat voluptates aspernatur iure, aperiam possimus sint sit mollitia!</p>
-                        </div>
+                    <div class="container">
+                        <div class="row">
 
-                        <div class="card">
-                            <h3>That</h3>
-                            <p>Necessitatibus quaerat voluptates aspernatur iure, aperiam possimus sint sit mollitia! Ab perferendis nesciunt ad reiciendis explicabo consequatur sapiente odit ipsa harum illum.</p>
-                        </div>
+                            <div class="col-md-4">
+                                <div class="team-member">
+                                    <figure>
+                                        <h:graphicImage library="img" name="martin.jpg" class="img-responsive"/>
+                                        <figcaption>
+                                            <p>Muchas ideas, una realidad.</p>
+                                            <ul>
+                                                <li><a href="https://www.facebook.com/maldito.idealismo"><i class="fa fa-facebook fa-2x"></i></a></li>
+                                                <li><a href="https://twitter.com/malditoidealism"><i class="fa fa-twitter fa-2x"></i></a></li>
+                                                <li><a href="https://www.linkedin.com/in/malditoidealismo"><i class="fa fa-linkedin fa-2x"></i></a></li>
+                                                <li><a href="https://github.com/MartinSamanArata2018"><i class="fa fa-github fa-2x"></i></a></li>
+                                            </ul>
+                                        </figcaption>
+                                    </figure>
+                                    <h4>Martín Alexis</h4>
+                                    <p>Desarrollador</p>
+                                </div><!-- /.team-member-->
+                            </div><!-- /.col-md-4 -->
+
+                            <div class="col-md-4">
+                                <div class="team-member">
+                                    <figure>
+                                        <h:graphicImage library="img" name="jesus.jpg" class="img-responsive"/>
+                                        <figcaption>
+                                            <p>Neque minima ea, a praesentium saepe nihil maxime quod esse numquam explicabo eligendi.</p>
+                                            <ul>
+                                                <li><a href=""><i class="fa fa-facebook fa-2x"></i></a></li>
+                                                <li><a href=""><i class="fa fa-twitter fa-2x"></i></a></li>
+                                                <li><a href=""><i class="fa fa-linkedin fa-2x"></i></a></li>
+                                            </ul>
+                                        </figcaption>
+                                    </figure>
+                                    <h4>Jesús Alejandro</h4>
+                                    <p>Desarrollador</p>
+                                </div><!-- /.team-member-->
+                            </div><!-- /.col-md-4 -->
+
+                            <div class="col-md-4">
+                                <div class="team-member">
+                                    <figure>
+                                        <h:graphicImage library="img" name="jose.jpg" class="img-responsive"/>
+                                        <figcaption>
+                                            <p>Temporibus dolor, quisquam consectetur molestias, veniam voluptatum. Beatae alias omnis totam.</p>
+                                            <ul>
+                                                <li><a href=""><i class="fa fa-facebook fa-2x"></i></a></li>
+                                                <li><a href=""><i class="fa fa-twitter fa-2x"></i></a></li>
+                                                <li><a href=""><i class="fa fa-linkedin fa-2x"></i></a></li>
+                                            </ul>
+                                        </figcaption>
+                                    </figure>
+                                    <h4>José Fernando</h4>
+                                    <p>Desarrollador</p>
+                                </div><!-- /.team-member-->
+                            </div><!-- /.col-md-4 -->
+
+
+                        </div><!-- /.row -->
+                    </div><!-- /.container -->
+
+                </div><!-- /.row -->
+                <h:form>
+                    <p:commandButton action="Login" value="Acceder"/>
+                </h:form>
+            </div><!-- /.container -->
+        </section><!-- /.our-team -->
+        
+        
+        <h1>Timeline</h1>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">
+                    <div>
+                       19 Marzo 2019
                     </div>
+                </div>
+                <div class="timeline-content">
+                    <h2>Inicio</h2>
+                    <p>Se comenzó el Análisis del Negocio</p>
+                    <br/>
+                    <i class="fa fa-rocket fa-4x"></i>
                 </div>
             </div>
 
-
+            <div class="timeline-item">
+                <div class="timeline-date">
+                    <div>
+                        22 Marzo 2019
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <h2>Identificación de Problemas!</h2>
+                    <p>Se encontrarón los principales problemas que padecían las dos áreas: procedimientos manuales de búsqueda y seguridad en los documentos</p>
+                    <br/>
+                    <i class="fa fa-search fa-4x"></i>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-date">
+                    <div>
+                        25 Marzo 2019
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <h2>Registro Civil</h2>
+                    <p>Se inició la elaboración del Sistema de Registro Civil</p>
+                    <br/>
+                    <i class="fa fa-wpforms fa-4x"></i>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-date">
+                    <div>
+                        25 Marzo 2019
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <h2>Trámite Documentario</h2>
+                    <p>Se inició la elaboración del Sistema de Trámite Documentario</p>
+                    <br/>
+                    <i class="fa fa-user-astronaut fa-4x"></i>
+                </div>
+            </div>
+            
+            
+            <div class="timeline-item">
+                <div class="timeline-date">
+                    <div>
+                        15 Junio 2019
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <h2>Integración</h2>
+                    <p>Se unificó ambos sistemas en uno sólo: iDoc</p>
+                    <br/>
+                    <i class="fa fa-infinity fa-4x"></i>
+                </div>
+            </div>
 
         </div>
-
-    </body>
+    </h:body>
 
 </html>
 

@@ -79,39 +79,54 @@
         <p:commandButton value="Exportar Lista de Trabajadores en pdf" ajax="false" actionListener="#{trabajadorC.generarReporte(IDTRAB)}">
         </p:commandButton>
     </h:form>
-    <p:dialog id="dlgDatosTrabajador" widgetVar="wdlgDatosTrabajador" 
-              class="mdl-dialog"
+    <p:dialog id="dlgDatosTrabajador" widgetVar="wdlgDatosTrabajador" blockScroll="true" modal="true"
               header="Datos del Trabajador" closeOnEscape="true">
-        <h:form id="frmEditarTrabajador" class="mdl-dialog__content">
-            <p:panelGrid columns="2">
-                <p:outputLabel value="Fecha Inicio"/>
-                <p:calendar value="#{trabajadorC.trabajador.FECINITRAB_T}" 
-                            readonlyInput="true" required="true" disabled="true"
-                            locale="es" navigator="false" pattern="dd MMM yyyy" >
-                </p:calendar>
+        <div class="ui-fluid">
+            <h:form id="frmEditarTrabajador">
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:calendar value="#{trabajadorC.trabajador.FECINITRAB_T}" 
+                                        readonlyInput="true" required="true" disabled="true"
+                                        locale="es" navigator="false" pattern="dd MMM yyyy" >
+                            </p:calendar>
+                            <p:outputLabel value="Fecha Inicio" for="@previous"/>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:calendar value="#{trabajadorC.trabajador.FECFINTRAB_T}" 
+                                        readonlyInput="true" required="true"
+                                        locale="es" navigator="false" pattern="dd MMM yyyy" >
+                            </p:calendar>
+                            <p:outputLabel value="Fecha Fin" for="@previous"/>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <p:commandButton value="Modificar" actionListener="#{trabajadorC.editar()}"
+                                             oncomplete="if(!args.validationFailed)PF('wdlgDatosTrabajador').hide();"
+                                             update=":frmListarTrabajador :frmRegistrarTrabajador">
+                                <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
+                                <p:tooltip trackMouse="true"/>
+                            </p:commandButton>
+                            <p:confirmDialog global="true" closeOnEscape="true">
+                                <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </div>
+                        <div class="ui-g-6">
+                            <h:panelGroup styleClass="mdl-button">
+                                <p:commandButton value="Cancelar" immediate="true"
+                                                 oncomplete="PF('wdlgDatosTrabajador').hide();"/>
+                            </h:panelGroup>
+                        </div>
+                    </div>
 
-                <p:outputLabel value="Fecha Fin"/>
-                <p:calendar value="#{trabajadorC.trabajador.FECFINTRAB_T}" 
-                            readonlyInput="true" required="true"
-                            locale="es" navigator="false" pattern="dd MMM yyyy" >
-                </p:calendar>
-            </p:panelGrid>
-            <p:commandButton value="Modificar" actionListener="#{trabajadorC.editar()}"
-                             oncomplete="if(!args.validationFailed)PF('wdlgDatosTrabajador').hide();"
-                             update=":frmListarTrabajador :frmRegistrarTrabajador">
+                </div>
 
-                <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
-            </p:commandButton>
-
-            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-            </p:confirmDialog>
-
-            <p:commandButton value="Cancelar" immediate="true"
-                             oncomplete="PF('wdlgDatosTrabajador').hide();"/>
-        </h:form>
-
+            </h:form>
+        </div>
     </p:dialog>
 
 </html>

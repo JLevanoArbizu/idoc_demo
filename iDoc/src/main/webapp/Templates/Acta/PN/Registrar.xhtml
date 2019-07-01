@@ -1,69 +1,110 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:p="http://primefaces.org/ui">
-    <p:panel>
-        <p:panelGrid columns="4">
-            <p:outputLabel value="Hijo"/>
-            <p:autoComplete value="#{actaC.acta.titular}" forceSelection="true"
-                            required="true" requiredMessage="Hijo requerido." queryDelay="1"
-                            emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
-                            completeMethod="#{actaC.actorC.buscarPersona}"/>
-
-            <p:outputLabel value="Padre"/>
-            <p:autoComplete value="#{actaC.acta.papa}" forceSelection="true"
-                            required="true" requiredMessage="Padre requerida." queryDelay="1"
-                            emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
-                            completeMethod="#{actaC.actorC.buscarPersona}"/>
-
-            <p:outputLabel value="Madre"/>
-            <p:autoComplete value="#{actaC.acta.mama}" forceSelection="true"
-                            required="true" requiredMessage="Madre requerido." queryDelay="1"
-                            emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
-                            completeMethod="#{actaC.actorC.buscarPersona}"/>
-
-            <p:outputLabel value="Declarante"/>
-            <p:autoComplete value="#{actaC.acta.declarante}" forceSelection="true"
-                            required="true" requiredMessage="Declarante requerido." queryDelay="1"
-                            emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
-                            completeMethod="#{actaC.actorC.buscarPersona}"/>
-
-            <p:outputLabel value="Médico"/>
-            <p:autoComplete value="#{actaC.acta.medico}" forceSelection="true"
-                            required="true" requiredMessage="Médico requerido." queryDelay="1"
-                            emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
-                            completeMethod="#{actaC.actorC.buscarPersona}"/>
-
-
-            <p:outputLabel value="Distrito de Nacimiento"/>
-            <p:autoComplete value="#{actaC.ubigeo.DISTUBI}" forceSelection="true" queryDelay="1"
-                            required="true" requiredMessage="Distrito requerido"
-                            emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
-                            completeMethod="#{actaC.buscarUbigeo}"/>
-            <p:outputLabel value="Dirección de Nacimiento"/>
-            <p:inputText value="#{actaC.acta.DIRACT}" maxlength="100" required="true" requiredMessage="Dirección requerida." style="text-transform: capitalize"/>
-            <p:outputLabel value="Número de Libro"/>
-            <p:spinner value="#{actaC.acta.NUMLIBACTA}" min="1"
-                       maxlength="8" required="true" requiredMessage="Número de Libro Requerido"/>
-            <p:outputLabel value="Número de Folio"/>
-            <p:spinner value="#{actaC.acta.NUMFOLACTA}" min="1"
-                       maxlength="8" required="true" requiredMessage="Número de Folio Requerido."/>
-            <p:outputLabel value="Observación"/>
-            <p:inputTextarea value="#{actaC.acta.OBSACTA}"
-                             rows="5" cols="30" maxlength="500" autoResize="false" required="false" style="text-transform: capitalize"/>
-            <p:outputLabel value="Fecha de Nacimiento" />
-            <p:calendar id="popupRegistrarNacimiento" value="#{actaC.acta.FECACT}" 
-                        readonlyInput="true"
-                        locale="es" navigator="false" pattern="dd MMM yyyy" >
-            </p:calendar>
-            <p:outputLabel value="Fecha de Registro" />
-            <p:calendar id="popupRegistrarFecha1" value="#{actaC.acta.FECREGACTA}" 
-                        readonlyInput="true"
-                        locale="es" navigator="false" pattern="dd MMM yyyy" >
-            </p:calendar>
-
-
-        </p:panelGrid>
-    </p:panel>
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <h:panelGroup styleClass="md-inputfield">
+                <p:outputLabel value="Hijo" for="@next"/>
+                <p:autoComplete value="#{actaC.acta.titular}" forceSelection="true"
+                                required="true" requiredMessage="Hijo requerido." queryDelay="1"
+                                emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
+                                completeMethod="#{actaC.actorC.buscarPersona}"/>
+            </h:panelGroup>
+        </div>
+        <div class="ui-g-12">
+            <h:panelGroup styleClass="md-inputfield">
+                <p:outputLabel value="Padre" for="@next"/>
+                <p:autoComplete value="#{actaC.acta.papa}" forceSelection="true"
+                                required="true" requiredMessage="Padre requerida." queryDelay="1"
+                                emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
+                                completeMethod="#{actaC.actorC.buscarPersona}"/>
+            </h:panelGroup>
+        </div>
+        <div class="ui-g-12">
+            <h:panelGroup styleClass="md-inputfield">
+                <p:outputLabel value="Madre" for="@next"/>
+                <p:autoComplete value="#{actaC.acta.mama}" forceSelection="true"
+                                required="true" requiredMessage="Madre requerido." queryDelay="1"
+                                emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
+                                completeMethod="#{actaC.actorC.buscarPersona}"/>
+            </h:panelGroup>
+        </div>
+        <div class="ui-g-12">
+            <h:panelGroup styleClass="md-inputfield">
+                <p:outputLabel value="Declarante" for="@next"/>
+                <p:autoComplete value="#{actaC.acta.declarante}" forceSelection="true"
+                                required="true" requiredMessage="Declarante requerido." queryDelay="1"
+                                emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
+                                completeMethod="#{actaC.actorC.buscarPersona}"/>
+            </h:panelGroup>
+        </div>
+        <div class="ui-g-12">
+            <h:panelGroup styleClass="md-inputfield">
+                <p:outputLabel value="Médico" for="@next"/>
+                <p:autoComplete value="#{actaC.acta.medico}" forceSelection="true"
+                                required="true" requiredMessage="Médico requerido." queryDelay="1"
+                                emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
+                                completeMethod="#{actaC.actorC.buscarPersona}"/>
+            </h:panelGroup>
+        </div>
+        <div class="ui-g-12">
+            <h:panelGroup styleClass="md-inputfield">
+                <p:outputLabel value="Distrito de Nacimiento" for="@next"/>
+                <p:autoComplete value="#{actaC.ubigeo.DISTUBI}" forceSelection="true" queryDelay="1"
+                                required="true" requiredMessage="Distrito requerido"
+                                emptyMessage="No se encontraron datos." minQueryLength="1" maxResults="5"
+                                completeMethod="#{actaC.buscarUbigeo}"/>
+            </h:panelGroup>
+        </div>
+        <div class="ui-g-12">
+            <h:panelGroup styleClass="md-inputfield">
+                <p:outputLabel value="Dirección de Nacimiento" for="@next"/>
+                <p:inputText value="#{actaC.acta.DIRACT}" maxlength="100" required="true" requiredMessage="Dirección requerida." style="text-transform: capitalize"/>
+            </h:panelGroup>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-6">
+                <h:panelGroup styleClass="md-inputfield">
+                    <p:outputLabel value="Número de Libro" for="@next"/>
+                    <p:spinner value="#{actaC.acta.NUMLIBACTA}" min="1"
+                               maxlength="8" required="true" requiredMessage="Número de Libro Requerido"/>
+                </h:panelGroup>
+            </div>
+            <div class="ui-g-6">
+                <h:panelGroup styleClass="md-inputfield">
+                    <p:outputLabel value="Número de Folio" for="@next"/>
+                    <p:spinner value="#{actaC.acta.NUMFOLACTA}" min="1"
+                               maxlength="8" required="true" requiredMessage="Número de Folio Requerido."/>
+                </h:panelGroup>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <h:panelGroup styleClass="md-inputfield">
+                <p:outputLabel value="Observación" for="@next"/>
+                <p:inputTextarea value="#{actaC.acta.OBSACTA}"
+                                 rows="5" cols="30" maxlength="500" autoResize="false" required="false" style="text-transform: capitalize"/>
+            </h:panelGroup>
+        </div>
+        <div class="ui-g-12">
+            <h:panelGroup styleClass="md-inputfield">
+                <p:outputLabel value="Fecha de Nacimiento" for="@next"/>
+                <p:calendar id="popupRegistrarNacimiento" value="#{actaC.acta.FECACT}" 
+                            readonlyInput="true"
+                            locale="es" navigator="false" pattern="dd MMM yyyy" >
+                </p:calendar>
+            </h:panelGroup>
+        </div>
+        <div class="ui-g-12">
+            <h:panelGroup styleClass="md-inputfield">
+                <p:outputLabel value="Fecha de Registro" for="@next"/>
+                <p:calendar id="popupRegistrarFecha1" value="#{actaC.acta.FECREGACTA}" 
+                            readonlyInput="true"
+                            locale="es" navigator="false" pattern="dd MMM yyyy" >
+                </p:calendar>
+            </h:panelGroup>
+        </div>
+    </div>
 </html>
 

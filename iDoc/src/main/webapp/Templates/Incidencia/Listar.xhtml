@@ -10,36 +10,36 @@
                      value="#{incidenciaC.listaIncidencia}" var="listaIncidencia"
                      rowStyleClass="#{listaIncidencia.ESTINC le 'Activo' ? null : 'inactivo'}"
                      rows="10" emptyMessage="No se encontrarón datos."
-                     paginator="true" scrollable="true" scrollHeight="500"
+                     paginator="true" scrollable="false" scrollHeight="500"
                      rowsPerPageTemplate="5,10,15,20">
 
             <f:facet name="header">
                 Incidencia
             </f:facet>
 
-            <p:column headerText="Documento"  style="font-weight: bold">
-                <h:outputLabel value="#{listaIncidencia.IDDOC}" style="font-weight: normal" />
+            <p:column headerText="Documento">
+                <h:outputLabel value="#{listaIncidencia.IDDOC}"/>
             </p:column>
-            <p:column headerText="Tipo"  style="font-weight: bold">
-                <h:outputLabel value="#{listaIncidencia.IDINCTIP}" style="font-weight: normal"/>
+            <p:column headerText="Tipo">
+                <h:outputLabel value="#{listaIncidencia.IDINCTIP}"/>
             </p:column>
-            <p:column headerText="Fecha"  style="font-weight: bold">
-                <h:outputLabel value="#{listaIncidencia.fechaTemporal}" style="font-weight: normal">
+            <p:column headerText="Fecha">
+                <h:outputLabel value="#{listaIncidencia.fechaTemporal}">
                     <f:convertDateTime locale="es" pattern="dd MMM yyyy"  />
                 </h:outputLabel>
             </p:column>
-            <p:column headerText="Motivo"  style="font-weight: bold">
-                <h:outputLabel value="#{listaIncidencia.MOTINC}" style="font-weight: normal" />
+            <p:column headerText="Motivo">
+                <h:outputLabel value="#{listaIncidencia.MOTINC}"/>
             </p:column>
 
 
             <p:column exportable="false" headerText="Acción">
-                <p:commandButton update=":dlgDatosIncidencia" icon="ui-icon-pencil" value="EDITAR" style="width: 22vh;"
+                <p:commandButton update=":dlgDatosIncidencia" icon="ui-icon-pencil" value="EDITAR"
                                  oncomplete="PF('wdlgDatosIncidencia').show();">
                     <f:setPropertyActionListener value="#{listaIncidencia}" 
                                                  target="#{incidenciaC.incidencia}"/>
                 </p:commandButton>
-                <p:commandButton title="ELIMINAR" icon="ui-icon-circle-close" value="ELIMINAR" style="width: 22vh;"
+                <p:commandButton title="ELIMINAR" icon="ui-icon-circle-close" value="ELIMINAR"
                                  actionListener="#{incidenciaC.eliminar(listaIncidencia)}" 
                                  update=":frmListarIncidencia" >
                     <p:confirm header="Confirmación" message="¿Deseas Eliminar? " icon="ui-icon-alert" />
@@ -68,7 +68,7 @@
             <p:commandButton value="Modificar" actionListener="#{incidenciaC.editarI()}"
                              oncomplete="if(!args.validationFailed)PF('wdlgDatosIncidencia').hide();"
                              update=":frmListarIncidencia">
-                <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
+                <p:confirm header="Confirmacion" message="¿Quiere Modificar?" icon="ui-icon-alert" />
             </p:commandButton>
 
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
