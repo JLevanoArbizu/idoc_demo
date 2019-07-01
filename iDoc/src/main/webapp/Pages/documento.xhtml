@@ -209,21 +209,9 @@
                     <p:outputLabel value="Numero de Libro:"/>
                     <h:inputText value="#{documentoC.selectedDocumento.NUMLIBDOC}"  />
 
-                    <p:outputLabel value="Tipo de documento:"/>
-                    <p:selectOneMenu value="#{documentoC.selectedDocumento.TIPDOC}">
-                        <f:selectItem itemLabel="Seleccione Tipo" itemValue="#{null}"/>
-                        <f:selectItem itemLabel="Documento interno" itemValue="I"/>
-                        <f:selectItem itemLabel="Documento externo" itemValue="E"/>
-                        <f:selectItem itemLabel="Tupa" itemValue="T"/>
-                        <f:selectItem itemLabel="Copia " itemValue="C"/>
-                        <f:selectItem itemLabel="Original " itemValue="O"/>
-                        <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}"/>
-
-                    </p:selectOneMenu>
-
 
                     <p:outputLabel value="Fecha DOCUMENTO"/>
-                    <p:inputMask value="#{documentoC.selectedDocumento.FECDOC}" mask="99/99/9999"/>
+                    <p:inputText value="#{documentoC.selectedDocumento.FECDOC}" />
 
 
                     <p:outputLabel value="Observacion del documento"/>
@@ -231,22 +219,16 @@
 
                     <p:outputLabel value="Tupa"/>
                     <p:selectOneMenu value="#{documentoC.selectedDocumento.IDTUP}">
-                        <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}"/>
+                        <f:selectItems value="#{tupaC.lstTupa}" var="tup" itemLabel=" #{tup.NOMTUP}" itemValue="#{tup.IDTUP}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Empresa"/>
                     <p:selectOneMenu value="#{documentoC.selectedDocumento.IDEMP}">
-                        <f:selectItems value="#{empresaC.lstEmpresa}" var="txtEmpresa" itemLabel=" #{txtEmpresa.RAZSOCEMP}" itemValue="#{txtEmpresa.IDEMP}"/>
-                    </p:selectOneMenu>
-
-                    <p:outputLabel value="Trabajador"/>
-                    <p:selectOneMenu value="#{documentoC.selectedDocumento.IDLOG}">
-                        <f:selectItems value="#{personaC.listaPersona}" var="txt" itemLabel=" #{txt.NOMPER} #{txt.APEPATPER} #{txt.APEMATPER}" itemValue="#{txt.IDPER}"/>
+                        <f:selectItems value="#{empresaC.lstEmpresa}" var="DEMO" itemLabel=" #{DEMO.RAZSOCEMP}" itemValue="#{DEMO.IDEMP}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="cliente"/>
                     <p:selectOneMenu value="#{documentoC.selectedDocumento.IDPER}">
-                        <!--<f:selectItem itemLabel="SELECCIONE LA CLIENTE" itemValue="#{null}"/>-->
                         <f:selectItems value="#{personaC.listaPersona}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
                     </p:selectOneMenu>
 
@@ -276,7 +258,7 @@
             </h:form>
         </p:dialog>
 
-
+        
         <h:form>
             <p:confirmDialog global="true">
                 <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes"/>

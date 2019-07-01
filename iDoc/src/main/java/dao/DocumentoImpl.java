@@ -50,25 +50,23 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
 
         try {
             this.conectar();
-            String sql = "UPDATE TraDoc.DOCUMENTO SET CODDOC=?, NUMLIBDOC = ?, NUMFOLDOC=? , TIPDOC=? , FECDOC=? , ASUDOC = ? , OBSDOC = ? , ESTDOC = ? , IDTUP = ? , IDLOG = ? , IDEMP = ? , IDPER = ? , KEYDOC = ? WHERE IDDOC LIKE ?";
+            String sql = "UPDATE TraDoc.DOCUMENTO SET CODDOC=?, NUMLIBDOC = ?, NUMFOLDOC=?, FECDOC=? , ASUDOC = ? , OBSDOC = ? , IDTUP = ? , IDEMP = ? , IDPER = ? , KEYDOC = ? WHERE IDDOC LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
 
             ps.setString(1, documento.getCODDOC());
             ps.setString(2, documento.getNUMLIBDOC());
             ps.setString(3, documento.getNUMFOLDOC());
-            ps.setString(4, documento.getTIPDOC());
-            ps.setString(5, documento.getFECDOC());
-            ps.setString(6, documento.getASUDOC());
-            ps.setString(7, documento.getOBSDOC());
-            ps.setString(8, documento.getESTDOC());
-            ps.setString(9, documento.getIDTUP());
-            ps.setString(10, documento.getIDLOG());
-            ps.setString(11, documento.getIDEMP());
-            ps.setString(12, documento.getIDPER());
-            ps.setString(13, documento.getKEYDOC());
-            ps.setString(14, documento.getIDDOC());
-
-
+//            ps.setString(4, documento.getTIPDOC());
+            ps.setString(4, documento.getFECDOC());
+            ps.setString(5, documento.getASUDOC());
+            ps.setString(6, documento.getOBSDOC());
+//            ps.setString(8, documento.getESTDOC());
+            ps.setString(7, documento.getIDTUP());
+//            ps.setString(10, documento.getIDLOG());
+            ps.setString(8, documento.getIDEMP());
+            ps.setString(9, documento.getIDPER());
+            ps.setString(10, documento.getKEYDOC());
+            ps.setString(11, documento.getIDDOC());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
@@ -99,7 +97,7 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
         ResultSet rs;
         try {
             this.conectar();
-            String sql = "SELECT * FROM VW_DOCUMENTO";
+            String sql = "SELECT * FROM VW_DOCUMENTO WHERE ESTDOC = 'ACTIVO' ";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             listaDocumento = new ArrayList();
