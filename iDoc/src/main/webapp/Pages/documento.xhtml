@@ -54,8 +54,7 @@
 
 
                 <p:outputLabel value="Fecha DOCUMENTO"/>
-                <p:inputMask value="#{documentoC.documento.FECDOC}" mask="99/99/9999">
-                </p:inputMask>
+                <p:inputMask value="#{documentoC.documento.FECDOC}" mask="99/99/9999"/>
 
 
                 <p:outputLabel value="Observacion del documento"/>
@@ -102,9 +101,6 @@
         <!--listar-->
 
         <h:form id="FormTblDocumento">
-
-
-
             <p:dataTable id="tblDocumento"
                          value="#{documentoC.lstdocumento}"
                          var="documento"

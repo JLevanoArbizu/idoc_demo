@@ -44,16 +44,15 @@ public class TransferenciaImpl extends Conexion implements IGenerica<Transferenc
 
         try {
             this.conectar();
-            String sql = "UPDATE TraDoc.TRANSFERENCIA SET  FECSALTRA=?, FECRECTRA=?, OBSTRA=?, ESTTRA=?, IDDOC=?, IDARE_EMI=?, IDARE_REC=? WHERE IDTRAN LIKE ?";
+            String sql = "UPDATE TraDoc.TRANSFERENCIA SET  FECSALTRAN=?, FECRECTRAN=?, OBSTRAN=?, IDDOC=?, IDARE_EMI=?, IDARE_REC=? WHERE IDTRAN LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, trans.getFECSALTRAN());
             ps.setString(2, trans.getFECRECTRAN());
             ps.setString(3, trans.getOBSTRAN());
-            ps.setString(4, trans.getESTTRA());
-            ps.setString(5, trans.getIDDOC());
-            ps.setString(6, trans.getIDARE_EMI());
-            ps.setString(7, trans.getIDARE_REC());
-            ps.setString(8, trans.getIDTRAN());
+            ps.setString(4, trans.getIDDOC());
+            ps.setString(5, trans.getIDARE_EMI());
+            ps.setString(6, trans.getIDARE_REC());
+            ps.setString(7, trans.getIDTRAN());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;

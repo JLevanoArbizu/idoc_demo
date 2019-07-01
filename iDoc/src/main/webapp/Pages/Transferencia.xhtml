@@ -12,7 +12,6 @@
     <ui:define name="contenidoPagina">
 
 
-
         <h:form id="FormTransferencia"> 
 
             <p:panelGrid columns="4">
@@ -26,14 +25,14 @@
                 <p:outputLabel value="Documento"/>
                 <p:selectOneMenu value="#{transferenciaC.transferencia.IDDOC}">
                     <f:selectItem itemLabel="SELECCIONE LA EMPRESA" itemValue="#{null}"/>
-                    <f:selectItems value="#{documentoC.lstdocumento}" var="txtdocumento" itemLabel=" #{txtdocumento.IDDOC}" itemValue="#{txtdocumento.IDDOC}"/>
+                    <f:selectItems value="#{documentoC.lstdocumento}" var="txtdocumento" itemLabel=" #{txtdocumento.ASUDOC}" itemValue="#{txtdocumento.IDDOC}"/>
                 </p:selectOneMenu>
 
 
                 <p:outputLabel value="area Emitida"/>
                 <p:selectOneMenu value="#{transferenciaC.transferencia.IDARE_EMI}">
                     <f:selectItem itemLabel="SELECCIONE LA EMPRESA" itemValue="#{null}"/>
-                    <f:selectItems value="#{areaC.listaArea}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" itemValue="#{txtarea.IDARE_PADR}"/>
+                    <f:selectItems value="#{areaC.listaArea}" var="txtarea1" itemLabel=" #{txtarea1.NOMARE}" itemValue="#{txtarea1.IDARE_PADR}"/>
                 </p:selectOneMenu>
 
 
@@ -92,10 +91,10 @@
                     <p:commandButton value="EXPORTAR" ajax="false" 
                                      actionListener="#{transferenciaC.generarReporteTRANS(transferencia.IDTRAN)}" />
                 </p:column>
-<!--                <p:column>
-                    <h:commandLink value="EXPORTAR" actionListener="#{transferenciaC.generarReporteTRANS(transferencia.IDTRAN)}">
-                    </h:commandLink>
-                </p:column>-->
+                <!--                <p:column>
+                                    <h:commandLink value="EXPORTAR" actionListener="#{transferenciaC.generarReporteTRANS(transferencia.IDTRAN)}">
+                                    </h:commandLink>
+                                </p:column>-->
 
 
             </p:dataTable>
@@ -106,28 +105,33 @@
                 </p:menuitem>
             </p:contextMenu>
         </h:form>
-
-
         <p:dialog header="ACTUALIZAR DATOS" widgetVar="dlgModTransferencia" resizable="false" > 
             <h:form id="FormDialogModTemp">
                 <p:panelGrid columns="2">
 
                     <p:outputLabel value="Fecha entrada"/>
                     <p:inputText value="#{transferenciaC.selectedTransferncia.FECRECTRAN}" />
+                    
                     <p:outputLabel value="Fecha salida "/>
                     <p:inputText value="#{transferenciaC.selectedTransferncia.FECSALTRAN}" />
+                    
                     <p:outputLabel value="Observación"/>
                     <p:inputText value="#{transferenciaC.selectedTransferncia.OBSTRAN}" />
-                    <p:outputLabel value="Estado de tramite:"/>
-                    <p:inputText value="#{transferenciaC.selectedTransferncia.ESTTRA}"/>
+                    
                     <p:outputLabel value="Documento"/>
-                    <p:inputText value="#{transferenciaC.selectedTransferncia.IDDOC}"/>
+                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.IDDOC}">
+                        <f:selectItems value="#{documentoC.lstdocumento}" var="documen" itemLabel=" #{documen.ASUDOC}"  itemValue="#{documen.IDDOC}" />
+                    </p:selectOneMenu>
+
                     <p:outputLabel value="area emitida:"/>
-                    <p:inputText value="#{transferenciaC.selectedTransferncia.IDARE_EMI}" />
+                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.IDARE_EMI}" >
+                        <f:selectItems value="#{areaC.listaArea}" var="areae" itemLabel=" #{areae.NOMARE}" itemValue="#{areae.IDARE}"/>
+                    </p:selectOneMenu>
 
                     <p:outputLabel value="area Recibida"/>
-                    <p:inputText value="#{transferenciaC.selectedTransferncia.IDARE_REC}"/>
-
+                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.IDARE_REC}">
+                        <f:selectItems value="#{areaC.listaArea}" var="areae" itemLabel=" #{areae.NOMARE}" itemValue="#{areae.IDARE}"/>
+                    </p:selectOneMenu>
 
 
                     <p:commandButton value="MODIFICAR" actionListener="#{transferenciaC.editarTransferencia()}" oncomplete="PF('dlgModTransferencia').hide()" update="FormTblTransferencia:tblTransferencia" />
@@ -142,9 +146,6 @@
                 <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no"/>
             </p:confirmDialog>
         </h:form>
-
-
-
 
     </ui:define>
 </ui:composition>

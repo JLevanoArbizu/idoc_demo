@@ -4,8 +4,8 @@ package modelo;
 public class Transferencia {
     
     private String IDTRAN;
-    private String FECSALTRAN;
     private String FECRECTRAN;
+    private String FECSALTRAN;
     private String OBSTRAN;
     private String ESTTRA;
     private String IDDOC;
