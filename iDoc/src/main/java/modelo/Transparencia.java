@@ -8,7 +8,7 @@ public class Transparencia {
     Empresa empresa;
     Persona persona;
     Area emisor, receptor;
-    String key, dni, idtra;
+    String key, dni, coddoc;
 
     @Override
     public String toString() {
@@ -21,7 +21,7 @@ public class Transparencia {
                 ", receptor=" + receptor +
                 ", key='" + key + '\'' +
                 ", dni='" + dni + '\'' +
-                ", idtra='" + idtra + '\'' +
+                ", idtra='" + coddoc + '\'' +
                 '}';
     }
 
@@ -38,12 +38,12 @@ public class Transparencia {
                 Objects.equals(receptor, that.receptor) &&
                 Objects.equals(key, that.key) &&
                 Objects.equals(dni, that.dni) &&
-                Objects.equals(idtra, that.idtra);
+                Objects.equals(coddoc, that.coddoc);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(documento, transferencia, empresa, persona, emisor, receptor, key, dni, idtra);
+        return Objects.hash(documento, transferencia, empresa, persona, emisor, receptor, key, dni, coddoc);
     }
 
     public Documento getDocumento() {
@@ -110,11 +110,11 @@ public class Transparencia {
         this.dni = dni;
     }
 
-    public String getIdtra() {
-        return idtra;
+    public String getCoddoc() {
+        return coddoc;
     }
 
-    public void setIdtra(String idtra) {
-        this.idtra = idtra;
+    public void setCoddoc(String coddoc) {
+        this.coddoc = coddoc;
     }
 }

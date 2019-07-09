@@ -111,7 +111,6 @@ public class PersonaC extends UbigeoC implements Serializable {
             List<Persona> listaTemp = new ArrayList<>();
             for (Persona nextPersona : listaPersona) {
                 if (nextPersona.getESTPER().equals("A")) {
-                    System.out.println(nextPersona.toString());
                     if (nextPersona.getGENPER().equals("Masculino")) {
                         contadorM++;
                     } else {

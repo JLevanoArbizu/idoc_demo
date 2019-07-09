@@ -7,8 +7,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import servicios.EncriptarS;
 
 public class TransparenciaImpl extends Conexion implements IGenerica<Transparencia> {
+
     @Override
     public void registrar(Transparencia modelo) throws Exception {
 
@@ -32,27 +34,27 @@ public class TransparenciaImpl extends Conexion implements IGenerica<Transparenc
     public List<Transparencia> listar(Transparencia modelo) throws Exception {
         List<Transparencia> lista = null;
         try {
-            String sql = "SELECT persona.APEPATPER, persona.APEMATPER, persona.NOMPER, persona.DNIPER, " +
-                    "       doc.FECDOC, doc.ASUDOC, doc.OBSDOC, doc.KEYDOC, " +
-                    "       emisor.NOMARE, receptor.NOMARE, " +
-                    "       empresa.RAZSOCEMP, empresa.RUCEMP, " +
-                    "       trans.FECRECTRAN, trans.FECSALTRAN, trans.ESTTRA, trans.OBSTRAN " +
-                    "       FROM TraDoc.DOCUMENTO doc " +
-                    "    INNER JOIN TraDoc.EMPRESA empresa " +
-                    "        ON doc.IDEMP = empresa.IDEMP " +
-                    "    INNER JOIN General.PERSONA persona " +
-                    "        ON doc.IDPER = persona.IDPER " +
-                    "    INNER JOIN TraDoc.TRANSFERENCIA trans " +
-                    "        ON doc.IDDOC = trans.IDDOC " +
-                    "    INNER JOIN General.AREA emisor " +
-                    "        ON trans.IDARE_EMI = emisor.IDARE " +
-                    "    INNER JOIN General.AREA receptor " +
-                    "        ON trans.IDARE_REC = receptor.IDARE " +
-                    "WHERE persona.DNIPER = ? AND doc.KEYDOC = ? AND doc.IDDOC = ?";
+            String sql = "SELECT persona.APEPATPER, persona.APEMATPER, persona.NOMPER, persona.DNIPER, "
+                    + "       doc.FECDOC, doc.ASUDOC, doc.OBSDOC, doc.KEYDOC, "
+                    + "       emisor.NOMARE, receptor.NOMARE, "
+                    + "       empresa.RAZSOCEMP, empresa.RUCEMP, "
+                    + "       trans.FECRECTRAN, trans.FECSALTRAN, trans.ESTTRA, trans.OBSTRAN "
+                    + "       FROM TraDoc.DOCUMENTO doc "
+                    + "    INNER JOIN TraDoc.EMPRESA empresa "
+                    + "        ON doc.IDEMP = empresa.IDEMP "
+                    + "    INNER JOIN General.PERSONA persona "
+                    + "        ON doc.IDPER = persona.IDPER "
+                    + "    INNER JOIN TraDoc.TRANSFERENCIA trans "
+                    + "        ON doc.IDDOC = trans.IDDOC "
+                    + "    INNER JOIN General.AREA emisor "
+                    + "        ON trans.IDARE_EMI = emisor.IDARE "
+                    + "    INNER JOIN General.AREA receptor "
+                    + "        ON trans.IDARE_REC = receptor.IDARE "
+                    + "WHERE persona.DNIPER = ? AND doc.KEYDOC = ? AND doc.CODDOC = ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getDni());
-            ps.setString(2, modelo.getKey());
-            ps.setString(3, modelo.getIdtra());
+            ps.setString(2, EncriptarS.encriptarDocumento(modelo.getKey()));
+            ps.setString(3, modelo.getCoddoc());
             ResultSet rs = ps.executeQuery();
             Transparencia transparencia;
             Documento documento;
@@ -61,7 +63,7 @@ public class TransparenciaImpl extends Conexion implements IGenerica<Transparenc
             Persona persona;
             Area emisor, receptor;
             lista = new ArrayList<>();
-            while (rs.next()){
+            while (rs.next()) {
                 transparencia = new Transparencia();
                 documento = new Documento();
                 transferencia = new Transferencia();
@@ -74,7 +76,7 @@ public class TransparenciaImpl extends Conexion implements IGenerica<Transparenc
                 persona.setAPEMATPER(rs.getString(2));
                 persona.setNOMPER(rs.getString(3));
                 persona.setDNIPER(rs.getString(4));
-                persona.setCOMPLETO(persona.getAPEPATPER()+" "+persona.getAPEMATPER()+", "+persona.getNOMPER());
+                persona.setCOMPLETO(persona.getAPEPATPER() + " " + persona.getAPEMATPER() + ", " + persona.getNOMPER());
 
                 documento.setFECDOC(String.valueOf(rs.getDate(5)));
                 documento.setASUDOC(rs.getString(6));
@@ -103,13 +105,14 @@ public class TransparenciaImpl extends Conexion implements IGenerica<Transparenc
             rs.close();
             ps.clearParameters();
             ps.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             this.desconectar();
         }
         return lista;
     }
+
     @Override
     public List<String> buscar(String campo, List<Transparencia> listaModelo) throws Exception {
         return null;
@@ -134,6 +137,5 @@ public class TransparenciaImpl extends Conexion implements IGenerica<Transparenc
     public void generarReporteIndividual(Map parameters) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 
 }

@@ -14,6 +14,7 @@ import modelo.Documento;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import servicios.EncriptarS;
 
 public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
 
@@ -23,7 +24,7 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
             this.conectar();
             String sql = "INSERT INTO TraDoc.DOCUMENTO (CODDOC,NUMLIBDOC,NUMFOLDOC,TIPDOC,FECDOC,ASUDOC,OBSDOC,IDTUP,IDLOG,IDEMP,IDPER,KEYDOC) VALUES(?,?,?,?,CONVERT(DATE,?,103),?,?,?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-            ps.setString(1, documento.getCODDOC());
+            ps.setString(1, EncriptarS.encriptarDocumento(documento.getCODDOC()));
             ps.setString(2, documento.getNUMLIBDOC());
             ps.setString(3, documento.getNUMFOLDOC());
             ps.setString(4, documento.getTIPDOC());
@@ -32,14 +33,13 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
             ps.setString(7, documento.getOBSDOC());
             ps.setString(8, documento.getIDTUP());
             ps.setString(9, documento.getIDLOG());
-            ps.setString(10, documento.getIDEMP() == null ? "1":documento.getIDEMP());
+            ps.setString(10, documento.getIDEMP() == null ? "1" : documento.getIDEMP());
             ps.setString(11, documento.getIDPER());
             ps.setString(12, documento.getKEYDOC());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
         } finally {
-            System.out.println();
             this.desconectar();
         }
 
@@ -151,16 +151,15 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
     @Override
     public void generarReporteIndividual(Map parameters) throws Exception {
         conectar();
-            File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Documento/Documento.jasper"));
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters,this.conectar() );
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Documento/Documento.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         response.addHeader("Content-disposition", "attachment; filename=Documento.pdf");
         try (ServletOutputStream stream = response.getOutputStream()) {
             JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
             stream.flush();
         }
-        FacesContext.getCurrentInstance().responseComplete();}
-
-
+        FacesContext.getCurrentInstance().responseComplete();
+    }
 
 }

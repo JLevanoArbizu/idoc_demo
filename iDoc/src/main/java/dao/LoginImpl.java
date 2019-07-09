@@ -22,7 +22,7 @@ public class LoginImpl extends Conexion implements IGenerica<Login> {
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setInt(1, Integer.valueOf(modelo.getTrabajador().getIDTRAB()));
             ps.setString(2, modelo.getTrabajador().getPersona().getDNIPER());
-            ps.setString(3, EncriptarS.encriptar(modelo.getTrabajador().getPersona().getDNIPER()));
+            ps.setString(3, EncriptarS.encriptarPssw(modelo.getTrabajador().getPersona().getDNIPER()));
             ps.setString(4, "A");
             ps.setString(5, modelo.getTIPLOG());
             ps.executeUpdate();
@@ -41,7 +41,7 @@ public class LoginImpl extends Conexion implements IGenerica<Login> {
             String sql = "UPDATE GENERAL.LOGIN SET USRLOG=?, PSSWLOG=? WHERE IDLOG=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getUSRLOG());
-            ps.setString(2, EncriptarS.encriptar(modelo.getPSSWLOG()));
+            ps.setString(2, EncriptarS.encriptarPssw(modelo.getPSSWLOG()));
             ps.setInt(3, Integer.valueOf(modelo.getIDLOG()));
             ps.executeUpdate();
             ps.clearParameters();
@@ -59,7 +59,7 @@ public class LoginImpl extends Conexion implements IGenerica<Login> {
             String sql = "UPDATE GENERAL.LOGIN SET PSSWLOG=? WHERE USRLOG=? AND ESTLOG='A'";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getTrabajador().getPersona().getDNIPER());
-            ps.setString(2, EncriptarS.encriptar(modelo.getTrabajador().getPersona().getDNIPER()));
+            ps.setString(2, EncriptarS.encriptarPssw(modelo.getTrabajador().getPersona().getDNIPER()));
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
@@ -140,7 +140,7 @@ public class LoginImpl extends Conexion implements IGenerica<Login> {
                     + "INNER JOIN GENERAL.PERSONA per "
                     + "ON trab.IDPER = per.IDPER "
                     + "WHERE GENERAL.LOGIN.USRLOG='" + login.getUSRLOG() + "' "
-                    + "AND GENERAL.LOGIN.PSSWLOG='" + EncriptarS.encriptar(login.getPSSWLOG()) + "' "
+                    + "AND GENERAL.LOGIN.PSSWLOG='" + EncriptarS.encriptarPssw(login.getPSSWLOG()) + "' "
                     + "AND GENERAL.LOGIN.ESTLOG = 'A'";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             while (rs.next()) {
