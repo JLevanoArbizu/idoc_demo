@@ -140,11 +140,11 @@
                     <p:commandButton value="Exportar" ajax="false" 
                                      actionListener="#{documentoC.generarReporteI(documento.IDDOC)}" />
                 </p:column>
-<!--                <p:column>
-                    <h:commandLink value="reporte" actionListener="#{documentoC.generarReporteI(documento.IDDOC)}"> 
-                        
-                    </h:commandLink>
-                </p:column>-->
+                <!--                <p:column>
+                                    <h:commandLink value="reporte" actionListener="#{documentoC.generarReporteI(documento.IDDOC)}"> 
+                                        
+                                    </h:commandLink>
+                                </p:column>-->
 
                 <p:rowExpansion>
                     <p:panelGrid columns="4">
@@ -186,15 +186,50 @@
             </p:dataTable>
 
             <p:contextMenu for="tblDocumento">
-                <p:menuitem value="EDITAR" oncomplete="PF('dlgModDocumento').show()" update="FormDialogModDocumento"/>
-
+                <p:menuitem value="EDITAR" oncomplete="PF('dlgModDocumento').show()" update="FormDialogModDocumento"/>                
+                <p:menuitem value="DERIVAR" oncomplete="PF('dlgTranferencia').show()" update="FormTransferencia"/>
                 <p:menuitem value="ELIMINAR" actionListener="#{documentoC.eliminarDocumento()}" update="tblDocumento">
-
-
                     <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
                 </p:menuitem>
             </p:contextMenu>
         </h:form>
+        <!--trasferencia-->
+        <p:dialog header="TRANFERIR DATOS" widgetVar="dlgTranferencia" resizable="false" modal="false">
+            <h:form id="FormTransferencia">
+                <p:panelGrid columns="4">
+                    <p:outputLabel value="Fecha entrada"/>
+                    <p:inputMask value="#{transferenciaC.transferencia.FECRECTRAN}" mask="99/99/9999"/>
+                    <p:outputLabel value="Fecha salida"/>
+                    <p:inputMask value="#{transferenciaC.transferencia.FECSALTRAN}" mask="99/99/9999"/>
+                    <p:outputLabel value="Observación"/>
+                    <p:inputText value="#{transferenciaC.transferencia.OBSTRAN}" />
+
+                    <p:outputLabel value="Documento"/>
+                    <p:selectOneMenu value="#{transferenciaC.transferencia.IDDOC}">
+                        <f:selectItems value="#{documentoC.lstdocumento}" var="txtdocu" itemLabel="#{txtdocu.ASUDOC}" itemValue="#{txtdocu.IDDOC}"/>
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel value="area Emitida"/>
+                    <p:selectOneMenu value="#{transferenciaC.transferencia.IDARE_EMI}">
+                        <f:selectItems value="#{areaC.listaArea}" var="txtarea1" itemLabel=" #{txtarea1.NOMARE}" itemValue="#{txtarea1.IDARE_PADR}"/>
+                    </p:selectOneMenu>
+
+
+                    <p:outputLabel value="area Recibida"/>
+                    <p:selectOneMenu value="#{transferenciaC.transferencia.IDARE_REC}">
+                        <f:selectItem itemLabel="SELECCIONE LA EMPRESA" itemValue="#{null}"/>
+                        <f:selectItems value="#{areaC.listaArea}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" itemValue="#{txtarea.IDARE}"/>
+                    </p:selectOneMenu>
+
+
+                    <p:commandButton value="REGISTRAR" actionListener="#{transferenciaC.registrarTransferencia()}" />
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <!--================-->   
+
+
 
         <p:dialog header="ACTUALIZAR DATOS" widgetVar="dlgModDocumento" resizable="false" modal="false">
             <h:form id="FormDialogModDocumento">
@@ -258,7 +293,7 @@
             </h:form>
         </p:dialog>
 
-        
+
         <h:form>
             <p:confirmDialog global="true">
                 <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes"/>
