@@ -6,32 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import servicios.EncriptarS;
 
-public class TransparenciaImpl extends Conexion implements IGenerica<Transparencia> {
+public class TransparenciaImpl extends Conexion {
 
-    @Override
-    public void registrar(Transparencia modelo) throws Exception {
-
-    }
-
-    @Override
-    public void editar(Transparencia modelo) throws Exception {
-
-    }
-
-    @Override
-    public void eliminar(Transparencia modelo) throws Exception {
-
-    }
-
-    @Override
-    public List<Transparencia> listar() throws Exception {
-        return null;
-    }
-
-    public List<Transparencia> listar(Transparencia modelo) throws Exception {
+    public List<Transparencia> listarTransferencia(Transparencia modelo) throws Exception {
         List<Transparencia> lista = null;
         try {
             String sql = "SELECT persona.APEPATPER, persona.APEMATPER, persona.NOMPER, persona.DNIPER, "
@@ -50,11 +28,10 @@ public class TransparenciaImpl extends Conexion implements IGenerica<Transparenc
                     + "        ON trans.IDARE_EMI = emisor.IDARE "
                     + "    INNER JOIN General.AREA receptor "
                     + "        ON trans.IDARE_REC = receptor.IDARE "
-                    + "WHERE persona.DNIPER = ? AND doc.KEYDOC = ? AND doc.CODDOC = ?";
+                    + "WHERE doc.KEYDOC = ? AND doc.CODDOC = ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-            ps.setString(1, modelo.getDni());
-            ps.setString(2, EncriptarS.encriptarDocumento(modelo.getKey()));
-            ps.setString(3, modelo.getCoddoc());
+            ps.setString(1, modelo.getKey());
+            ps.setString(2, modelo.getCoddoc());
             ResultSet rs = ps.executeQuery();
             Transparencia transparencia;
             Documento documento;
@@ -113,29 +90,25 @@ public class TransparenciaImpl extends Conexion implements IGenerica<Transparenc
         return lista;
     }
 
-    @Override
-    public List<String> buscar(String campo, List<Transparencia> listaModelo) throws Exception {
-        return null;
+    public List<Tupa> listarTupa() throws Exception {
+        TupaImpl daoTupa = new TupaImpl();
+        List<Tupa> lista = new ArrayList<>();
+        lista = daoTupa.listar();
+        return lista;
     }
 
-    @Override
-    public Transparencia obtenerCodigo(List<Transparencia> listaModelo, Transparencia modelo) throws Exception {
-        return null;
+    public List<Tupa> buscarTupa(String campo, List<Tupa> listaTupa) throws Exception {
+        List<Tupa> lista = new ArrayList<>();
+        try {
+            for (Tupa tupa : listaTupa) {
+                if (tupa.getNOMTUP().toUpperCase().contains(campo)
+                        || tupa.getARETUP().toUpperCase().contains(campo)) {
+                    lista.add(tupa);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lista;
     }
-
-    @Override
-    public boolean existe(List<Transparencia> listaModelo, Transparencia modelo) throws Exception {
-        return false;
-    }
-
-    @Override
-    public void generarReporte(Map parameters) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void generarReporteIndividual(Map parameters) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

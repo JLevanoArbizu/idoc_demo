@@ -104,6 +104,7 @@ public class TupaImpl extends Conexion implements IGenerica<Tupa> {
             }
             return listaTupa;
         } catch (SQLException e) {
+            e.printStackTrace();
             throw e;
         } finally {
             this.desconectar();

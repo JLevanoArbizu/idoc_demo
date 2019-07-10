@@ -13,10 +13,13 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
+import modelo.Tupa;
 
 @Named(value = "transparenciaC")
 @SessionScoped
 public class TransparenciaC implements Serializable {
+
     Transparencia transparencia;
     List<Transparencia> listaTransparencia;
     TransparenciaImpl daoTransparencia;
@@ -25,36 +28,68 @@ public class TransparenciaC implements Serializable {
     Empresa empresa;
     Documento documento;
 
-    public TransparenciaC(){
+    List<Tupa> listaTupa, listaTupaTemp;
+
+    String opcion, query;
+
+    public TransparenciaC() {
         transparencia = new Transparencia();
         listaTransparencia = new ArrayList<>();
         daoTransparencia = new TransparenciaImpl();
         persona = new Persona();
         empresa = new Empresa();
         documento = new Documento();
+        listaTupa = new ArrayList<>();
+        listaTupaTemp = new ArrayList<>();
     }
 
-    public void clear(){
+    public void clear() {
         persona.clear();
         empresa.clear();
         documento.clear();
     }
 
-    public void listar() throws Exception{
+    @PostConstruct
+    public void init(){
+        try {
+            listarTupa();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void listarTupa() throws Exception {
+        try {
+            listaTupa = daoTransparencia.listarTupa();
+            listaTupaTemp = listaTupa;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void buscarTupa() throws Exception {
+        try {
+            listaTupaTemp = daoTransparencia.buscarTupa(query.toUpperCase(), listaTupa);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void listarTransparencia() throws Exception {
         try {
             clear();
-            listaTransparencia = daoTransparencia.listar(transparencia);
-            if (listaTransparencia.size()>0){
+            listaTransparencia = daoTransparencia.listarTransferencia(transparencia);
+            if (listaTransparencia.size() > 0) {
                 persona = listaTransparencia.get(0).getPersona();
                 empresa = listaTransparencia.get(0).getEmpresa();
                 documento = listaTransparencia.get(0).getDocumento();
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Consulta Exitosa.", null));
-            }else{
+            } else {
                 FacesContext.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Consulta Fallida.", null));
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Consulta Fallida.", null));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -98,4 +133,37 @@ public class TransparenciaC implements Serializable {
     public void setListaTransparencia(List<Transparencia> listaTransparencia) {
         this.listaTransparencia = listaTransparencia;
     }
+
+    public String getOpcion() {
+        return opcion;
+    }
+
+    public void setOpcion(String opcion) {
+        this.opcion = opcion;
+    }
+
+    public List<Tupa> getListaTupa() {
+        return listaTupa;
+    }
+
+    public void setListaTupa(List<Tupa> listaTupa) {
+        this.listaTupa = listaTupa;
+    }
+
+    public List<Tupa> getListaTupaTemp() {
+        return listaTupaTemp;
+    }
+
+    public void setListaTupaTemp(List<Tupa> listaTupaTemp) {
+        this.listaTupaTemp = listaTupaTemp;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
 }
