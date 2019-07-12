@@ -29,8 +29,8 @@
 
 
                 <p:panelGrid columns="2">
-                    <p:outputLabel value="Razon social: "/>
-                    <p:inputText value="#{empresaC.empresa.RAZSOCEMP}" placeholder="Razon social"  maxlength="10" />
+                    <p:outputLabel value="Razón social: "/>
+                    <p:inputText value="#{empresaC.empresa.RAZSOCEMP}" placeholder="Razón social"  maxlength="10" />
                     <p:outputLabel value="Dirección "/>
                     <p:inputText value="#{empresaC.empresa.DIREMP}" placeholder="Dirección"  maxlength="500"/>
                     <p:outputLabel value="RUC: "/>
@@ -64,13 +64,13 @@
                          paginator="true"
                          rows="15"
                          rowsPerPageTemplate="5,10,15">
-                <p:column headerText="Razon Social">
+                <p:column headerText="Razón Social">
                     <p:outputLabel value="#{empresa.RAZSOCEMP}"/>
                 </p:column>
-                <p:column headerText="Ruc">
+                <p:column headerText="RUC">
                     <p:outputLabel value="#{empresa.RUCEMP}"/>
                 </p:column>
-                <p:column headerText="Dirección">
+                <p:column headerText="Dirección de la empresa">
                     <p:outputLabel value="#{empresa.DIREMP}"/>
                 </p:column>
                 <!--                    <p:column headerText="Ubicación">

@@ -56,11 +56,23 @@
                         <i class="material-icons">import_contacts</i>
                     </div>
                     <div class="ui-g-8">
-                        <span class="colorbox-name">Tupa</span>
+                        <span class="colorbox-name">Procedimientos Tupa</span>
                         <span class="colorbox-count">#{tupaC.lstTupa.size()}</span>
                     </div>
                 </div>
             </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-4">
+                <div class="ui-g card colorbox colorbox-1">
+                    <div class="ui-g-4">
+                        <i class="material-icons">description</i>
+                    </div>
+                    <div class="ui-g-8">
+                        <span class="colorbox-name">Documentos</span>
+                        <span class="colorbox-count">#{documentoC.lstdocumento.size()}</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="ui-g-12 ui-md-6 ui-lg-4">
                 <div class="ui-g card colorbox colorbox-2">
                     <div class="ui-g-4">
@@ -73,33 +85,13 @@
                 </div>
             </div>
 
-            <div class="ui-g-12 ui-md-6 ui-lg-4">
-                <div class="ui-g card colorbox colorbox-1">
-                    <div class="ui-g-4">
-                        <i class="material-icons">description</i>
-                    </div>
-                    <div class="ui-g-8">
-                        <span class="colorbox-name">documentos</span>
-                        <span class="colorbox-count">#{documentoC.lstdocumento.size()}</span>
-                    </div>
-                </div>
-            </div>
+
 
 
 
             <div class="ui-g-12 ui-md-12">
                 <div class="card">
-                        <p:pieChart model="#{personaC.pie}" style="width: 100%; height: 300px;" />
-                </div>
-            </div>
-            <div class="ui-g-12 ui-md-12">
-                <div class="card">
-                    <p:chart type="bar" model="#{actaC.bar}" styleClass="jqplot-target"/>
-                </div>
-            </div>
-            <div class="ui-g-12 ui-md-12">
-                <div class="card">
-                    <p:chart type="bar" model="#{trabajadorC.combinedModel}" style="height:300px" />
+                    <p:pieChart model="#{personaC.pie}" style="width: 100%; height: 300px;" />
                 </div>
             </div>
         </div>

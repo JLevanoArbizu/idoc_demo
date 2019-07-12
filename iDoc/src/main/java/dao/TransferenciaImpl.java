@@ -1,6 +1,7 @@
 package dao;
 
 
+import static dao.Conexion.conectar;
 import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +23,7 @@ public class TransferenciaImpl extends Conexion implements IGenerica<Transferenc
     public void registrar(Transferencia trans) throws Exception {
         try {
             this.conectar();
-            String sql = "INSERT INTO TraDoc.TRANSFERENCIA (FECSALTRAN,FECRECTRAN,OBSTRAN,IDDOC,IDARE_EMI,IDARE_REC) VALUES(CONVERT(DATE,?,103),CONVERT(DATE,?,103),?,?,?,?)";
+            String sql = "INSERT INTO TraDoc.TRANSFERENCIA (FECSALTRAN,FECRECTRAN,OBSTRAN,IDDOC,IDARE_EMI,IDARE_REC) VALUES(CONVERT(DATE,?,105),CONVERT(DATE,?,105),?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, trans.getFECSALTRAN());
             ps.setString(2, trans.getFECRECTRAN());
@@ -162,5 +163,3 @@ public class TransferenciaImpl extends Conexion implements IGenerica<Transferenc
         }
         FacesContext.getCurrentInstance().responseComplete();}
 }
-
-

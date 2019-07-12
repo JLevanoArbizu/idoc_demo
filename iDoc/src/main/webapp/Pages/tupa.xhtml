@@ -14,16 +14,16 @@
 
         <h:form id="FormTupa"> 
             <p:panelGrid columns="4">
-                <p:outputLabel value="Numero de Tupa:"/>
-                <p:inputText value="#{tupaC.tupa.NUMTUP}" placeholder="Numero de tupa" maxlength="50"/>
-                <p:outputLabel value="Nombre Tupa:"/>
-                <p:inputText value="#{tupaC.tupa.NOMTUP}" placeholder="Nombre tupa" maxlength="50"/>
-                <p:outputLabel value="Precio tupa:"/>
-                <p:inputText value="#{tupaC.tupa.PRETUP}" placeholder="Precio tupa" maxlength="50"/>
-                <p:outputLabel value="plazo tupa"/>
-                <p:inputText value="#{tupaC.tupa.PLATUP}" placeholder="Plazo tupa" />
-                <p:outputLabel value="area tupa:"/>
-                <p:inputText value="#{tupaC.tupa.ARETUP}" placeholder="area tupa" maxlength="50"/>
+                <p:outputLabel value="Número del Tupa:"/>
+                <p:inputText value="#{tupaC.tupa.NUMTUP}" placeholder="Número del Tupa" maxlength="50"/>
+                <p:outputLabel value="Nombre del Tupa:"/>
+                <p:inputText value="#{tupaC.tupa.NOMTUP}" placeholder="Nombre del Tupa" maxlength="50"/>
+                <p:outputLabel value="Precio del Tupa:"/>
+                <p:inputText value="#{tupaC.tupa.PRETUP}" placeholder="Precio del Tupa" maxlength="50"/>
+                <p:outputLabel value="Plazo del Tupa"/>
+                <p:inputText value="#{tupaC.tupa.PLATUP}" placeholder="Plazo del Tupa" />
+                <p:outputLabel value="Área responsable del Trámite:"/>
+                <p:inputText value="#{tupaC.tupa.ARETUP}" placeholder="Área responsable del Trámite" maxlength="50"/>
                 <p:commandButton value="Registrar" actionListener="#{tupaC.registrarTupa()}" update="FormTupa FormTblTupa:tblTupa"/>
 
 
@@ -50,22 +50,22 @@
                          rowsPerPageTemplate="5,10,15,50"
                          filteredValue="#{tupaC.lstTupa2}" >
 
-                <p:column headerText="" style="width: 45px">
-                    <p:outputLabel value="#{tupa.IDTUP}"/>
-                </p:column>
-                <p:column headerText="Numero del tupa" filterBy="#{tupa.NUMTUP}" filterMatchMode="contains"  style="width: 80PX">
+<!--                <p:column headerText="" style="width: 45px">
+                    <p:outputLabel value="{tupa.IDTUP}"/>
+                </p:column>-->
+                <p:column headerText="Número del Tupa" filterBy="#{tupa.NUMTUP}" filterMatchMode="contains"  style="width: 80PX">
                     <p:outputLabel value="#{'N° '}#{tupa.NUMTUP}"/>
                 </p:column>
-                <p:column headerText="Nombre del tupa" filterBy="#{tupa.NOMTUP}" filterMatchMode="contains" style="width: 300px">
+                <p:column headerText="Nombre del Tupa" filterBy="#{tupa.NOMTUP}" filterMatchMode="contains" style="width: 300px">
                     <p:outputLabel value="#{tupa.NOMTUP}"/>
                 </p:column>
-                <p:column headerText="Área responsable del tramite" style="width: 300px">
+                <p:column headerText="Área responsable del Trámite" style="width: 300px">
                     <p:outputLabel value="#{tupa.ARETUP}"/>
                 </p:column>
-                <p:column headerText="Plazo del tupa" style="width: 100px">
+                <p:column headerText="Plazo del Tupa" style="width: 100px">
                     <p:outputLabel value="#{tupa.PLATUP} #{' dias'}"/>
                 </p:column>
-                <p:column headerText="Precio del tupa" style="width: 100px">
+                <p:column headerText="Precio del Tupa" style="width: 100px">
                     <p:outputLabel value="#{'S/ '}#{tupa.PRETUP}" />
                 </p:column>
 
