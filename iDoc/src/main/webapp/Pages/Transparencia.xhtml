@@ -60,18 +60,20 @@
     <h:body class="main-body">
 
         <p:growl><p:autoUpdate/></p:growl>
-        <h:form>  
-            <p:growl id="messages"/>
-            <p:menubar>
-                <p:menuitem value="Transferencia" actionListener="#{transparenciaC.setOpcion('1')}" ajax="false" />
-                <p:menuitem value="TUPA" actionListener="#{transparenciaC.setOpcion('2')}" ajax="false" />
-
-                <f:facet name="options">
-                    <p:commandButton action="Login" value="Volver" immediate="true" 
-                                     ajax="false" icon="ui-icon-home" />
-                </f:facet>
-            </p:menubar>
-        </h:form>
+        <div class="card card-w-title">
+            <h3>Transparencia Ciudadana</h3>
+            <h:form>  
+                <p:growl id="messages"/>
+                <p:menubar>
+                    <p:menuitem value="Trámite" actionListener="#{transparenciaC.setOpcion('1')}" ajax="false" />
+                    <p:menuitem value="TUPA" actionListener="#{transparenciaC.setOpcion('2')}" ajax="false" />
+                    <f:facet name="options">
+                        <p:commandButton action="Login" value="Volver" immediate="true" 
+                                         ajax="false" icon="ui-icon-home" />
+                    </f:facet>
+                </p:menubar>
+            </h:form>
+        </div>
 
         <h:panelGroup layout="block" id="frmTransferencia" 
                       rendered="#{transparenciaC.opcion == '1' ? true : false}">
@@ -82,22 +84,25 @@
                     <div class="ui-g">
                         <div class="ui-g-12">
                             <div class="ui-g-6">
-                                <h:panelGroup styleClass="md-inputfield">
-                                    <p:inputText value="#{transparenciaC.transparencia.coddoc}" required="true"
-                                                 maxlength="10"
-                                                 requiredMessage="Ingrese el Número del Documento"/>
-                                    <p:outputLabel value="Número del Documento" for="@previous"/>
-                                </h:panelGroup>
+                                <div class="ui-g-4 ui-m-4">
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText value="#{transparenciaC.transparencia.coddoc}" required="true"
+                                                     maxlength="10" 
+                                                     onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;" requiredMessage="Ingrese el Número del Documento"/>
+                                        <p:outputLabel value="Número del Documento" for="@previous"/>
+                                    </h:panelGroup>
+                                </div>
+                                <div class="ui-g-1 ui-m-1">
+                                    <h:panelGroup styleClass="md-inputfield">
+                                        <p:inputText value="#{transparenciaC.transparencia.key}" required="true" 
+                                                     validatorMessage="Sólo Letra" maxlength="1" onkeyup="this.value = this.value.toUpperCase()"
+                                                     requiredMessage="Ingrese su Código por favor.">
+                                            <p:keyFilter regEx='/[\a-z ]/i'/>
+                                        </p:inputText>
+                                        <p:outputLabel value="Código" for="@previous"/>
+                                    </h:panelGroup>
+                                </div>
                             </div>
-                            <div class="ui-g-6">
-                                <h:panelGroup styleClass="md-inputfield">
-                                    <p:password value="#{transparenciaC.transparencia.key}" required="true" maxlength="1"
-                                                requiredMessage="Ingrese su Código por favor."/>
-                                    <p:outputLabel value="Código" for="@previous"/>
-                                </h:panelGroup>
-                            </div>
-                        </div>
-                        <div class="ui-g-12">
                             <div class="ui-g-6">
                                 <h:panelGroup styleClass="mdl-button">
                                     <p:commandButton actionListener="#{transparenciaC.listarTransparencia()}" value="Consultar"
@@ -110,15 +115,16 @@
                 <h:form id="frmDatosSolicitante">
                     <p:tabView>
                         <p:tab title="Persona">
-                            <h:panelGrid columns="2" cellpadding="5" >
+                            <h:panelGrid columns="2">
                                 <p:outputLabel value="Apellidos y Nombres"/>
                                 <p:outputLabel value="#{transparenciaC.persona.COMPLETO}"/>
                                 <p:outputLabel value="DNI"/>
                                 <p:outputLabel value="#{transparenciaC.persona.DNIPER}"/>
                             </h:panelGrid>
                         </p:tab>
-                        <p:tab title="Empresa">
-                            <h:panelGrid columns="2" cellpadding="5" >
+                        <p:tab title="Empresa" 
+                               rendered="#{transparenciaC.empresa.RAZSOCEMP == 'SIN EMPRESA' ? false : true}">
+                            <h:panelGrid columns="2">
                                 <p:outputLabel value="Razón Social"/>
                                 <p:outputLabel value="#{transparenciaC.empresa.RAZSOCEMP}"/>
                                 <p:outputLabel value="RUC"/>
@@ -126,7 +132,7 @@
                             </h:panelGrid>
                         </p:tab>
                         <p:tab title="Documento">
-                            <h:panelGrid columns="2" cellpadding="5" >
+                            <h:panelGrid columns="2">
                                 <p:outputLabel value="Fecha"/>
                                 <p:outputLabel value="#{transparenciaC.documento.FECDOC}"/>
                                 <p:outputLabel value="Asunto"/>
@@ -153,22 +159,22 @@
                                 value="#{listaTransparencia.emisor.NOMARE}" />
                         </p:column>
 
+                        <p:column headerText="Fecha de Salida">
+                            <h:outputLabel
+                                value="#{listaTransparencia.transferencia.FECSALTRAN}"/>
+                        </p:column>
+                        
                         <p:column headerText="Área Receptora">
                             <h:outputLabel
                                 value="#{listaTransparencia.receptor.NOMARE}"/>
                         </p:column>
 
-                        <p:column headerText="Fecha Recepción de la Transferencia">
+                        <p:column headerText="Fecha de Recepción">
                             <h:outputLabel
                                 value="#{listaTransparencia.transferencia.FECRECTRAN}"/>
                         </p:column>
 
-                        <p:column headerText="Fecha Salida de la Transferencia">
-                            <h:outputLabel
-                                value="#{listaTransparencia.transferencia.FECSALTRAN}"/>
-                        </p:column>
-
-                        <p:column headerText="Observación de la Transferencia">
+                        <p:column headerText="Observación Trámite">
                             <h:outputLabel
                                 value="#{listaTransparencia.transferencia.OBSTRAN}"/>
                         </p:column>
@@ -194,32 +200,25 @@
                         </h:form>
                     </div>
                 </div>
-
-                <h:form id="rpTupa">                    
-                    <p:repeat value="#{transparenciaC.listaTupaTemp}" var="listaTupa">
-                        <h:panelGrid columns="2">
-
-                            <p:outputPanel>
-                                <h:panelGrid columns="2">
-                                    <h:outputText value="Nombre:" />
-                                    <h:outputText value="#{listaTupa.NOMTUP}" style="font-weight: bold"/>
-
-                                    <h:outputText value="Área:" />
-                                    <h:outputText value="#{listaTupa.ARETUP}" style="font-weight: bold"/>
-
-                                    <h:outputText value="Plazo:" />
-                                    <h:outputText value="#{listaTupa.PLATUP}" style="font-weight: bold"/>
-
-                                    <h:outputText value="Precio" />
-                                    <h:outputText value="#{listaTupa.PRETUP}" style="font-weight: bold"/>
-                                </h:panelGrid>
-                            </p:outputPanel>
-                        </h:panelGrid>
-                        <hr />
-                    </p:repeat>
-
-                </h:form>
             </div>
+
+            <h:form id="rpTupa">                    
+                <p:repeat value="#{transparenciaC.listaTupaTemp}" var="listaTupa">
+                    <p:panelGrid columns="2" layout="grid">
+                        <h:outputText value="Nombre:" />
+                        <h:outputText value="#{listaTupa.NOMTUP}" style="font-weight: bold"/>
+                        <h:outputText value="Área:" />
+                        <h:outputText value="#{listaTupa.ARETUP}" style="font-weight: bold"/>
+
+                        <h:outputText value="Plazo:" />
+                        <h:outputText value="#{listaTupa.PLATUP} dia(s)" style="font-weight: bold"/>
+
+                        <h:outputText value="Precio" />
+                        <h:outputText value="S/. #{listaTupa.PRETUP}" style="font-weight: bold"/>
+                    </p:panelGrid>
+                </p:repeat>
+
+            </h:form>
         </h:panelGroup>
 
         <div class="footer">
