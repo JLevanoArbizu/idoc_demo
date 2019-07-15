@@ -300,6 +300,8 @@ public class ActaC extends UbigeoC implements Serializable {
         try {
             Map<String, Object> parameters = new HashMap(); // Libro de parametros
             parameters.put("IDACTA", IDACTA); //Insertamos un parametro
+            parameters.put("IDACTA", IDACTA); //Insertamos un parametro
+            parameters.put("IDACTA", IDACTA); //Insertamos un parametro
             daoActa.generarReporteIndividual(parameters); //Pido exportar Reporte con los parametros
         } catch (Exception e) {
             e.printStackTrace();
@@ -310,6 +312,8 @@ public class ActaC extends UbigeoC implements Serializable {
         try {
             Map<String, Object> parameters = new HashMap(); // Libro de parametros
             parameters.put("IDACTA", IDACTA); //Insertamos un parametro
+            parameters.put("IDACTA", IDACTA); //Insertamos un parametro
+            parameters.put("IDACTA", IDACTA); //Insertamos un parametro
             daoActa.generarReporteMatrimonio(parameters); //Pido exportar Reporte con los parametros
         } catch (Exception e) {
             e.printStackTrace();
@@ -319,6 +323,7 @@ public class ActaC extends UbigeoC implements Serializable {
     public void generarReporteD(String IDACTA) throws Exception {
         try {
             Map<String, Object> parameters = new HashMap(); // Libro de parametros
+            parameters.put("IDACTA", IDACTA); //Insertamos un parametro
             parameters.put("IDACTA", IDACTA); //Insertamos un parametro
             daoActa.generarReporteDefuncion(parameters); //Pido exportar Reporte con los parametros
         } catch (Exception e) {
