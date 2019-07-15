@@ -10,9 +10,8 @@
     <ui:param name="tituloPagina" value="DOCUMENTO"/>
 
     <ui:define name="contenidoPagina">
-
         <h:head>
-            <title>Ingresar Documento</title>
+            <title>Registrar Documento</title>
             <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
         </h:head>
         <f:event type="preRenderView" listener="#{documentoC.documento.setIDLOG(trabajadorC.loginT.getIDLOG())}"/>
@@ -22,15 +21,12 @@
         </p:growl>
 
         <!--REGISTRAR DOCUMENTO-->
-        <center style="color: #0059bc">
-        <h4> Registro de Trámites </h4>
-        </center>
+
+        <h5> Registro de Trámites </h5>
+
 
         <h:form id="FormDocumento">
             <p:panelGrid columns="4">
-
-                <p:outputLabel value="Codigo del Documento:"/>
-                <h:inputText value="#{documentoC.documento.CODDOC}" />
 
 
                 <p:outputLabel value="Numero de Libro:"/>
@@ -197,8 +193,17 @@
                 <p:panelGrid columns="4">
                     <p:outputLabel value="Fecha entrada"/>
                     <p:inputMask value="#{transferenciaC.transferencia.FECRECTRAN}" mask="99/99/9999"/>
+                    <p:outputLabel value="area Emitida"/>
+                    <p:selectOneMenu value="#{transferenciaC.transferencia.IDARE_EMI}">
+                        <f:selectItems value="#{areaC.listaArea}" var="txtarea1" itemLabel=" #{txtarea1.NOMARE}" itemValue="#{txtarea1.IDARE_PADR}"/>
+                    </p:selectOneMenu>
                     <p:outputLabel value="Fecha salida"/>
                     <p:inputMask value="#{transferenciaC.transferencia.FECSALTRAN}" mask="99/99/9999"/>
+                    <p:outputLabel value="area Recibida"/>
+                    <p:selectOneMenu value="#{transferenciaC.transferencia.IDARE_REC}">
+                        <f:selectItem itemLabel="SELECCIONE LA EMPRESA" itemValue="#{null}"/>
+                        <f:selectItems value="#{areaC.listaArea}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" itemValue="#{txtarea.IDARE}"/>
+                    </p:selectOneMenu>
                     <p:outputLabel value="Observación"/>
                     <p:inputText value="#{transferenciaC.transferencia.OBSTRAN}" />
 
@@ -206,19 +211,6 @@
                     <p:selectOneMenu value="#{transferenciaC.transferencia.IDDOC}">
                         <f:selectItems value="#{documentoC.lstdocumento}" var="txtdocu" itemLabel="#{txtdocu.ASUDOC}" itemValue="#{txtdocu.IDDOC}"/>
                     </p:selectOneMenu>
-                    
-                    <p:outputLabel value="area Emitida"/>
-                    <p:selectOneMenu value="#{transferenciaC.transferencia.IDARE_EMI}">
-                        <f:selectItems value="#{areaC.listaArea}" var="txtarea1" itemLabel=" #{txtarea1.NOMARE}" itemValue="#{txtarea1.IDARE_PADR}"/>
-                    </p:selectOneMenu>
-
-
-                    <p:outputLabel value="area Recibida"/>
-                    <p:selectOneMenu value="#{transferenciaC.transferencia.IDARE_REC}">
-                        <f:selectItem itemLabel="SELECCIONE LA EMPRESA" itemValue="#{null}"/>
-                        <f:selectItems value="#{areaC.listaArea}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" itemValue="#{txtarea.IDARE}"/>
-                    </p:selectOneMenu>
-
 
                     <p:commandButton value="REGISTRAR" actionListener="#{transferenciaC.registrarTransferencia()}" />
                 </p:panelGrid>
@@ -232,9 +224,6 @@
         <p:dialog header="ACTUALIZAR DATOS" widgetVar="dlgModDocumento" resizable="false" modal="false">
             <h:form id="FormDialogModDocumento">
                 <p:panelGrid columns="4">
-
-                    <p:outputLabel value="Codigo del Documento:"/>
-                    <h:inputText value="#{documentoC.selectedDocumento.CODDOC}" />
 
                     <p:outputLabel value="Numero de folio:"/>
                     <h:inputText value="#{documentoC.selectedDocumento.NUMFOLDOC}" />

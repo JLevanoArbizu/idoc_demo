@@ -21,34 +21,27 @@
         <p:growl life="1500">
             <p:autoUpdate/>
         </p:growl>
-        <h1>
-            
-        </h1>
+         
+        <h style="color: #0059bc"> Registro de Empresas </h>
+
         <h:form id="FormEmpresa">
             <p:panelGrid columns="2">
-
-
-                <p:panelGrid columns="2">
-                    <p:outputLabel value="Razón social: "/>
-                    <p:inputText value="#{empresaC.empresa.RAZSOCEMP}" placeholder="Razón social"  maxlength="10" />
-                    <p:outputLabel value="Dirección "/>
-                    <p:inputText value="#{empresaC.empresa.DIREMP}" placeholder="Dirección"  maxlength="500"/>
-                    <p:outputLabel value="RUC: "/>
+                <p:outputLabel value="Razón social: " style="max-height: 30px" />
+                    <p:inputText value="#{empresaC.empresa.RAZSOCEMP}" placeholder="Razón social"  maxlength="100" />
+                    <p:outputLabel value="Dirección " style="width: 80px" />
+                    <p:inputText value="#{empresaC.empresa.DIREMP}" placeholder="Dirección"  maxlength="100"/>
+                    <p:outputLabel value="RUC: " style="width: 80px"  />
                     <p:inputText value="#{empresaC.empresa.RUCEMP}" placeholder="RUC" maxlength="11">
                         <p:keyFilter regEx="/[0-9]/"/>
                     </p:inputText>
-                    <!--                        <p:outputLabel value="Distrito:"/>
-                                            <p:autoComplete emptyMessage="Sin resultados" 
-                                                            maxResults="6"
-                                        HT=#                value="HT{empresaC.empresa.CODUBI}"      
-                                                            completeMethod="HT{empresaC.completeTextUbi}"/>-->
+                   
                     <p:commandButton value="REGISTRAR" actionListener="#{empresaC.registrarEmpresa()}" 
                                      update="FormEmpresa FormTblEmpresa:tblEmpresa"/>
 
                     <p:commandButton rendered="#{listaArea.ESTARE}"
                                      class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
                                      title="Guardar" actionListener="#{empresaCC.generarReporte(listaArea)}"/>
-                </p:panelGrid>
+             
 
 
             </p:panelGrid>

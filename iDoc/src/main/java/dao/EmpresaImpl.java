@@ -78,7 +78,7 @@ public class EmpresaImpl extends Conexion implements IGenerica<Empresa> {
         ResultSet rs;
         try {
             this.conectar();
-            String sql = "SELECT * FROM TraDoc.EMPRESA WHERE ESTEMP LIKE 'A' and IDEMP != '1'";
+            String sql = "SELECT * FROM TraDoc.EMPRESA WHERE ESTEMP LIKE 'A' and IDEMP != '1' ORDER BY IDEMP DESC";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             listadoEmpresa = new ArrayList();
