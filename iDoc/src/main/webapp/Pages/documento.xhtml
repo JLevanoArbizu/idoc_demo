@@ -21,12 +21,10 @@
             <p:autoUpdate/>
         </p:growl>
 
-        <h1>
-
-        </h1>
         <!--REGISTRAR DOCUMENTO-->
-
-
+        <center style="color: #0059bc">
+        <h4> Registro de Trámites </h4>
+        </center>
 
         <h:form id="FormDocumento">
             <p:panelGrid columns="4">
@@ -112,8 +110,8 @@
                          rowsPerPageTemplate="5,10,15">
 
 
-                <p:column headerText="#N " style="width: 70px" >
-                    <h:outputText value="#{'# '} #{documento.IDDOC}"/>
+                <p:column headerText="N " style="width: 70px" >
+                    <h:outputText value="#{documento.IDDOC}"/>
                 </p:column>
 
                 <p:column style="width:60px">

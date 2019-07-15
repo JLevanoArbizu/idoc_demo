@@ -97,7 +97,7 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
         ResultSet rs;
         try {
             this.conectar();
-            String sql = "SELECT * FROM VW_DOCUMENTO WHERE ESTDOC = 'ACTIVO' ";
+            String sql = "SELECT * FROM VW_DOCUMENTO WHERE  ESTDOC != 'INACTIVO' ORDER BY IDDOC DESC ";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             listaDocumento = new ArrayList();

@@ -87,7 +87,7 @@ public class TupaImpl extends Conexion implements IGenerica<Tupa> {
         try {
             this.conectar();
 //          String sql = "SELECT IDTUP,NOMTUP,PRETUP,FORMAT(FECTUP,'dd/MM/yyyy','en-gb') AS FECTUP,ARETUP FROM TUPA ";
-            String sql = "SELECT *  FROM TraDoc.TUPA ";
+            String sql = "SELECT *  FROM TraDoc.TUPA where IDTUP != 1";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             listaTupa = new ArrayList();

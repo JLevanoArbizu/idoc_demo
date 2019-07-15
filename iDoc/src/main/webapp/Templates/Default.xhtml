@@ -128,6 +128,22 @@
                                     <span>Dashboard</span>
                                 </p:commandLink>
                                 </li>
+
+
+                                <li role="menuitem">
+                                <p:commandLink action="documento" ajax="true" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
+                                                                                          ? true : false}">
+                                    <i class="material-icons">description</i>
+                                    <span>  Trámite</span>
+                                </p:commandLink>
+                                </li>
+                                <li role="menuitem">
+                                <p:commandLink action="Transferencia" ajax="true" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
+                                                                                              ? true : false}">
+                                    <i class="material-icons">compare_arrows</i>
+                                    <span>Trazabilidad</span>
+                                </p:commandLink>
+                                </li>
                                 <li role="menuitem">
                                 <p:commandLink action="Persona" ajax="true">
                                     <i class="material-icons">group</i>
@@ -185,20 +201,6 @@
                                                                                         ? true : false}">
                                     <i class="material-icons">account_balance</i>
                                     <span>Empresa</span>
-                                </p:commandLink>
-                                </li>
-                                <li role="menuitem">
-                                <p:commandLink action="Transferencia" ajax="true" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
-                                                                                              ? true : false}">
-                                    <i class="material-icons">compare_arrows</i>
-                                    <span>Transferencia</span>
-                                </p:commandLink>
-                                </li>
-                                <li role="menuitem">
-                                <p:commandLink action="documento" ajax="true" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
-                                                                                          ? true : false}">
-                                    <i class="material-icons">description</i>
-                                    <span>Documento</span>
                                 </p:commandLink>
                                 </li>
                             </ul>
