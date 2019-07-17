@@ -53,16 +53,13 @@ public class EmpresaC implements Serializable {
 
     public void editarEmpresa() throws Exception {
         EmpresaImpl dao;
-        AutoCompleteS svc;
         try {
             dao = new EmpresaImpl();
-//            svc = new AutoCompleteS();
-//            selectedEmpresa.setCODUBI(svc.leerUbi(selectedEmpresa.getUBIGEO()));
             dao.editar(selectedEmpresa);
             listarEmpresa();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
         } catch (Exception e) {
-//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar", null));
+           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar"+e, null));
             throw e;
         }
     }

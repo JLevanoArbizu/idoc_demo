@@ -59,6 +59,7 @@ public class TupaImpl extends Conexion implements IGenerica<Tupa> {
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
+            
         } finally {
             this.desconectar();
         }
@@ -69,10 +70,11 @@ public class TupaImpl extends Conexion implements IGenerica<Tupa> {
 
         try {
             this.conectar();
-            String sql = "UPDATE TraDoc.TUPA SET ESTTUP='I' WHERE IDTUP LIKE ?";
+            String sql = "UPDATE TraDoc.TUPA SET ESTTUP='I' WHERE NUMTUP LIKE ?";
             PreparedStatement ps = this.conectar().prepareCall(sql);
-            ps.setString(1, tupa.getIDTUP());
+            ps.setString(1, tupa.getNUMTUP());
             ps.executeUpdate();
+            ps.close();
         } catch (SQLException e) {
             throw e;
         } finally {
@@ -87,7 +89,7 @@ public class TupaImpl extends Conexion implements IGenerica<Tupa> {
         try {
             this.conectar();
 //          String sql = "SELECT IDTUP,NOMTUP,PRETUP,FORMAT(FECTUP,'dd/MM/yyyy','en-gb') AS FECTUP,ARETUP FROM TUPA ";
-            String sql = "SELECT *  FROM TraDoc.TUPA where IDTUP != 1";
+            String sql = "SELECT *  FROM TraDoc.TUPA where IDTUP != 1 AND ESTTUP != 'I' ";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             listaTupa = new ArrayList();

@@ -10,8 +10,8 @@
     <ui:param name="tituloPagina" value="Transferencia"/>
 
     <ui:define name="contenidoPagina">
-
-   <h5 style="color: #0059bc">Registrar Tranferencia</h5>
+        
+        <center><h5 style="color: #193a59" >REGISTRAR TRANSFERENCIA</h5></center>
    
         <h:form id="FormTransferencia"> 
 
@@ -47,10 +47,10 @@
                 <p:commandButton value="REGISTRAR" actionListener="#{transferenciaC.registrarTransferencia()}" update="FormTransferencia FormTblTransferencia:tblTransferencia"/>
             </p:panelGrid>
         </h:form>
-        <h4>
+        <h6>
             Para editar y/o eliminar click derecho
 
-        </h4>
+        </h6>
         <!--        lista -->
 
         <h:form id="FormTblTransferencia">

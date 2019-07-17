@@ -8,6 +8,7 @@ public class Tupa {
     private double PRETUP;
     private String PLATUP;
     private String ARETUP;
+    private String ESTTUP;
 
     public String getIDTUP() {
         return IDTUP;
@@ -56,5 +57,13 @@ public class Tupa {
 
     public void setARETUP(String ARETUP) {
         this.ARETUP = ARETUP;
+    }
+
+    public String getESTTUP() {
+        return ESTTUP;
+    }
+
+    public void setESTTUP(String ESTTUP) {
+        this.ESTTUP = ESTTUP;
     }
 }

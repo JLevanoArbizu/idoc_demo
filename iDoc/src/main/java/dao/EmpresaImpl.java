@@ -41,13 +41,12 @@ public class EmpresaImpl extends Conexion implements IGenerica<Empresa> {
     public void editar(Empresa empresa) throws Exception {
         try {
             this.conectar();
-            String sql = "UPDATE TraDoc.EMPRESA SET RAZSOCEMP=?, RUCEMP=?, DIREMP=?, WHERE IDEMP LIKE ?";
+            String sql = "UPDATE TraDoc.EMPRESA SET RAZSOCEMP=?, RUCEMP=?, DIREMP=? WHERE IDEMP LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
 
             ps.setString(1, empresa.getRAZSOCEMP());
             ps.setString(2, empresa.getRUCEMP());
             ps.setString(3, empresa.getDIREMP());
-//            ps.setString(4, empresa.getCODUBI());
             ps.setString(4, empresa.getIDEMP());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -96,6 +95,7 @@ public class EmpresaImpl extends Conexion implements IGenerica<Empresa> {
             }
             return listadoEmpresa;
         } catch (SQLException e) {
+            e.printStackTrace();
             throw e;
         } finally {
             this.desconectar();

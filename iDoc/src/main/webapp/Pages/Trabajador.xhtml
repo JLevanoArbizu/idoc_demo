@@ -11,8 +11,11 @@
 
     <ui:define name="contenidoPagina"> 
         <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
+        <center>
+            <h5 style="color: #193a59" >REGISTRAR TRABAJADOR</h5>
+        </center>
         <div class="card card-w-title ui-fluid">
-            <h1>Registrar Trabajador</h1>
+
             <h:form id="frmRegistrarTrabajador">
                 <p:growl life="1000"/>
                 <ui:include src="../Templates/Trabajador/Registrar.xhtml"/>

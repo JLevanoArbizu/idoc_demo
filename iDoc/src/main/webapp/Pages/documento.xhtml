@@ -21,17 +21,27 @@
         </p:growl>
 
         <!--REGISTRAR DOCUMENTO-->
-
-        <h5> Registro de Trámites </h5>
-
+        <center><h5 style="color: #193a59" >REGISTRAR DOCUMENTOS</h5></center>
 
         <h:form id="FormDocumento">
             <p:panelGrid columns="4">
 
 
-                <p:outputLabel value="Numero de Libro:"/>
-                <h:inputText value="#{documentoC.documento.NUMLIBDOC}"  />
-
+                <h:panelGroup styleClass="md-inputfield">
+                    <p:inputText value="#{personaC.persona.APEPATPER}"
+                                 requiredMessage="Apellido Paterno Requerido."
+                                 required="true" maxlength="50" id="apePatPer"
+                                 style="text-transform: uppercase">
+                        <p:keyFilter regEx='/[\a-z ]/i'/>
+                    </p:inputText>
+                    <p:outputLabel value="Apellido Paterno" />
+                </h:panelGroup>
+                <h:panelGroup styleClass="md-inputfield">
+                    <p:inputText value="#{documentoC.documento.NUMLIBDOC}" style="text-transform: uppercase"> 
+                        <p:keyFilter regEx='/[\a-z ]/i'/>
+                    </p:inputText>
+                    <p:outputLabel value="Numero de Libro:" />
+                </h:panelGroup>
                 <p:outputLabel value="Numero de folio:"/>
                 <h:inputText value="#{documentoC.documento.NUMFOLDOC}"/>
 
