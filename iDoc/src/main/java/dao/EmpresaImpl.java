@@ -28,7 +28,6 @@ public class EmpresaImpl extends Conexion implements IGenerica<Empresa> {
             ps.setString(1, empresa.getRAZSOCEMP());
             ps.setString(2, empresa.getRUCEMP());
             ps.setString(3, empresa.getDIREMP());
-//            ps.setString(4, empresa.getCODUBI());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;

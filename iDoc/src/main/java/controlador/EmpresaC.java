@@ -40,8 +40,6 @@ public class EmpresaC implements Serializable {
         AutoCompleteS svc;
         try {
             dao = new EmpresaImpl();
-//            svc = new AutoCompleteS();
-//            empresa.setCODUBI(svc.leerUbi(empresa.getCODUBI()));
             dao.registrar(empresa);
             listarEmpresa();
             limpiarEmpresa();

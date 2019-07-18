@@ -29,6 +29,7 @@ public class Conexion {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+                System.out.println("dessssconectado");
         }
         return est;
     }
