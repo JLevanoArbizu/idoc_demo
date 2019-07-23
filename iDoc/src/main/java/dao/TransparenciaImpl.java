@@ -13,10 +13,12 @@ public class TransparenciaImpl extends Conexion {
         List<Transparencia> lista = null;
         try {
             String sql = "SELECT persona.APEPATPER, persona.APEMATPER, persona.NOMPER, persona.DNIPER, "
-                    + "       doc.FECDOC, doc.ASUDOC, doc.OBSDOC, doc.KEYDOC, "
+                    + "       CONVERT(VARCHAR, doc.FECDOC, 106) as fecDoc, doc.ASUDOC, doc.OBSDOC, doc.KEYDOC, "
                     + "       emisor.NOMARE, receptor.NOMARE, "
                     + "       empresa.RAZSOCEMP, empresa.RUCEMP, "
-                    + "       trans.FECRECTRAN, trans.FECSALTRAN, trans.ESTTRA, trans.OBSTRAN "
+                    + "     CONVERT(VARCHAR, trans.FECRECTRAN, 106) as fechaRec, "
+                    + "     CONVERT(VARCHAR, trans.FECSALTRAN, 106) as fechaSal,"
+                    + "trans.ESTTRA, trans.OBSTRAN "
                     + "       FROM TraDoc.DOCUMENTO doc "
                     + "    INNER JOIN TraDoc.EMPRESA empresa "
                     + "        ON doc.IDEMP = empresa.IDEMP "
@@ -55,7 +57,7 @@ public class TransparenciaImpl extends Conexion {
                 persona.setDNIPER(rs.getString(4));
                 persona.setCOMPLETO(persona.getAPEPATPER() + " " + persona.getAPEMATPER() + ", " + persona.getNOMPER());
 
-                documento.setFECDOC(String.valueOf(rs.getDate(5)));
+                documento.setFECDOC(rs.getString(5));
                 documento.setASUDOC(rs.getString(6));
                 documento.setOBSDOC(rs.getString(7));
                 documento.setKEYDOC(rs.getString(8));
@@ -66,8 +68,8 @@ public class TransparenciaImpl extends Conexion {
                 empresa.setRAZSOCEMP(rs.getString(11));
                 empresa.setRUCEMP(rs.getString(12));
 
-                transferencia.setFECRECTRAN(String.valueOf(rs.getDate(13)));
-                transferencia.setFECSALTRAN(String.valueOf(rs.getDate(14)));
+                transferencia.setFECRECTRAN(rs.getString(13));
+                transferencia.setFECSALTRAN(rs.getString(14));
 
                 transferencia.setOBSTRAN(rs.getString(16));
 
