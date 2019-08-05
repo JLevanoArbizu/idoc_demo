@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import modelo.Solicitud;
 
-public class SolicitudImpl extends Conexion implements IGenerica<Solicitud> {
+public class SolicitudImpl extends Conexion implements ICrud<Solicitud> {
 
     @Override
     public void registrar(Solicitud modelo) throws Exception {
@@ -61,27 +61,12 @@ public class SolicitudImpl extends Conexion implements IGenerica<Solicitud> {
     }
 
     @Override
-    public List<String> buscar(String campo, List<Solicitud> listaModelo) throws Exception {
+    public List<Solicitud> listar(Solicitud modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Solicitud obtenerCodigo(List<Solicitud> listaModelo, Solicitud modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean existe(List<Solicitud> listaModelo, Solicitud modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void generarReporte(Map parameters) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void generarReporteIndividual(Map parameters) throws Exception {
+    public Solicitud obtenerModelo(List<Solicitud> listaModelo, Solicitud modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

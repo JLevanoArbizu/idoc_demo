@@ -17,8 +17,9 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.apache.commons.lang3.text.WordUtils;
+import org.primefaces.model.StreamedContent;
 
-public class ActaImpl extends Conexion implements IGenerica<Acta> {
+public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
 
     @Override
     public void registrar(Acta modelo) throws Exception {
@@ -164,13 +165,9 @@ public class ActaImpl extends Conexion implements IGenerica<Acta> {
         return lista;
     }
 
-    @Override
-    public List<String> buscar(String campo, List<Acta> listaModelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
-    public Acta obtenerCodigo(List<Acta> listaModelo, Acta modelo) throws Exception {
+    public Acta obtenerModelo(List<Acta> listaModelo, Acta modelo) throws Exception {
         modelo.setFECREGACTA(modelo.getFECREGACTA());
         for (Acta documento1 : listaModelo) {
             if (modelo.getFECREGACTA().equals(documento1.getFECREGACTA())
@@ -200,13 +197,9 @@ public class ActaImpl extends Conexion implements IGenerica<Acta> {
         return false;
     }
 
-    @Override
-    public void generarReporte(Map parameters) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
-    public void generarReporteIndividual(Map parameters) throws Exception {
+    public void generarReporteIndividual(Acta modelo) throws Exception {
         conectar();
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Acta/ActaN.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
@@ -244,5 +237,26 @@ public class ActaImpl extends Conexion implements IGenerica<Acta> {
         }
         FacesContext.getCurrentInstance().responseComplete();
     }
+
+    @Override
+    public List<Acta> listar(Acta modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void generarReporteGeneral(Acta modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StreamedContent generarReporteIndividualPrev(Acta modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StreamedContent generarReporteGeneralPrev(Acta modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 }

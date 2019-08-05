@@ -2,10 +2,9 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.util.List;
-import java.util.Map;
 import modelo.Actor;
 
-public class ActorImpl extends Conexion implements IGenerica<Actor> {
+public class ActorImpl extends Conexion implements ICrud<Actor> {
 
     @Override
     public void registrar(Actor modelo) throws Exception {
@@ -42,12 +41,12 @@ public class ActorImpl extends Conexion implements IGenerica<Actor> {
     }
 
     @Override
-    public List<String> buscar(String campo, List<Actor> listaModelo) throws Exception {
+    public List<Actor> listar(Actor modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Actor obtenerCodigo(List<Actor> listaModelo, Actor modelo) throws Exception {
+    public Actor obtenerModelo(List<Actor> listaModelo, Actor modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -56,15 +55,6 @@ public class ActorImpl extends Conexion implements IGenerica<Actor> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void generarReporte(Map parameters) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void generarReporteIndividual(Map parameters) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 
 

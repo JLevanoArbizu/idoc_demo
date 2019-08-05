@@ -16,8 +16,9 @@ import modelo.Empresa;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import org.primefaces.model.StreamedContent;
 
-public class EmpresaImpl extends Conexion implements IGenerica<Empresa> {
+public class EmpresaImpl extends Conexion implements ICrud<Empresa>, IReporte<Empresa> {
 
     @Override
     public void registrar(Empresa empresa) throws Exception {
@@ -102,22 +103,12 @@ public class EmpresaImpl extends Conexion implements IGenerica<Empresa> {
     }
 
     @Override
-    public List<String> buscar(String campo, List<Empresa> listaModelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Empresa obtenerCodigo(List<Empresa> listaModelo, Empresa modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public boolean existe(List<Empresa> listaModelo, Empresa modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void generarReporte(Map parameters) throws Exception {
+    public void generarReporteIndividual(Empresa modelo) throws Exception {
         conectar();
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Empresa\\Empresa.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
@@ -131,7 +122,27 @@ public class EmpresaImpl extends Conexion implements IGenerica<Empresa> {
     }
 
     @Override
-    public void generarReporteIndividual(Map parameters) throws Exception {
+    public List<Empresa> listar(Empresa modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Empresa obtenerModelo(List<Empresa> listaModelo, Empresa modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void generarReporteGeneral(Empresa modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StreamedContent generarReporteIndividualPrev(Empresa modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StreamedContent generarReporteGeneralPrev(Empresa modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

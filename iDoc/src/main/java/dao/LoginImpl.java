@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import modelo.Login;
@@ -13,7 +12,7 @@ import modelo.Persona;
 import modelo.Trabajador;
 import servicios.EncriptarS;
 
-public class LoginImpl extends Conexion implements IGenerica<Login> {
+public class LoginImpl extends Conexion implements ICrud<Login> {
 
     @Override
     public void registrar(Login modelo) throws Exception {
@@ -118,16 +117,6 @@ public class LoginImpl extends Conexion implements IGenerica<Login> {
     }
 
     @Override
-    public List<String> buscar(String campo, List<Login> listaModelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Login obtenerCodigo(List<Login> listaModelo, Login modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public boolean existe(List<Login> listaModelo, Login modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -172,12 +161,12 @@ public class LoginImpl extends Conexion implements IGenerica<Login> {
     }
 
     @Override
-    public void generarReporte(Map parameters) throws Exception {
+    public List<Login> listar(Login modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void generarReporteIndividual(Map parameters) throws Exception {
+    public Login obtenerModelo(List<Login> listaModelo, Login modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

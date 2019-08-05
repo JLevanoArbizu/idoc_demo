@@ -41,37 +41,7 @@ public class Persona {
             return false;
         }
         final Persona other = (Persona) obj;
-        if (!Objects.equals(this.IDPER, other.IDPER)) {
-            return false;
-        }
-        if (!Objects.equals(this.APEPATPER, other.APEPATPER)) {
-            return false;
-        }
-        if (!Objects.equals(this.APEMATPER, other.APEMATPER)) {
-            return false;
-        }
-        if (!Objects.equals(this.NOMPER, other.NOMPER)) {
-            return false;
-        }
         if (!Objects.equals(this.DNIPER, other.DNIPER)) {
-            return false;
-        }
-        if (!Objects.equals(this.CODUBI, other.CODUBI)) {
-            return false;
-        }
-        if (!Objects.equals(this.DIRPER, other.DIRPER)) {
-            return false;
-        }
-        if (!Objects.equals(this.NACPER, other.NACPER)) {
-            return false;
-        }
-        if (!Objects.equals(this.GENPER, other.GENPER)) {
-            return false;
-        }
-        if (!Objects.equals(this.ESTPER, other.ESTPER)) {
-            return false;
-        }
-        if (!Objects.equals(this.COMPLETO, other.COMPLETO)) {
             return false;
         }
         return true;

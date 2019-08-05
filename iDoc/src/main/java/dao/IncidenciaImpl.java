@@ -15,8 +15,8 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
-public class IncidenciaImpl extends Conexion implements IGenerica<Incidencia> {
-
+public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IReporte<Incidencia> {
+    
     @Override
     public void registrar(Incidencia modelo) throws Exception {
         try {
@@ -36,7 +36,7 @@ public class IncidenciaImpl extends Conexion implements IGenerica<Incidencia> {
             this.desconectar();
         }
     }
-
+    
     @Override
     public void editar(Incidencia modelo) throws Exception {
         try {
@@ -57,7 +57,7 @@ public class IncidenciaImpl extends Conexion implements IGenerica<Incidencia> {
             this.desconectar();
         }
     }
-
+    
     @Override
     public void eliminar(Incidencia modelo) throws Exception {
         try {
@@ -74,7 +74,7 @@ public class IncidenciaImpl extends Conexion implements IGenerica<Incidencia> {
             this.desconectar();
         }
     }
-
+    
     @Override
     public List<Incidencia> listar() throws Exception {
         List<Incidencia> lista = null;
@@ -100,39 +100,27 @@ public class IncidenciaImpl extends Conexion implements IGenerica<Incidencia> {
         }
         return lista;
     }
-
+    
     @Override
-    public List<String> buscar(String campo, List<Incidencia> listaModelo) throws Exception {
-        List<String> lista = new ArrayList<>();
-        campo = campo.toUpperCase();
-        for (Incidencia next : listaModelo) {
-            if (next.getIDDOC().startsWith(campo)) {
-                lista.add(next.getIDDOC());
-            }
-        }
-        return lista;
-    }
-
-    @Override
-    public Incidencia obtenerCodigo(List<Incidencia> listaModelo, Incidencia modelo) throws Exception {
+    public Incidencia obtenerModelo(List<Incidencia> listaModelo, Incidencia modelo) throws Exception {
         for (Incidencia next : listaModelo) {
             if (next.getIDDOC().equals(modelo.getIDDOC())) {
                 modelo.setIDINC(next.getIDINC());
                 return modelo;
-
+                
             }
-
+            
         }
         return null;
     }
-
+    
     @Override
     public boolean existe(List<Incidencia> listaModelo, Incidencia modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
-    public void generarReporte(Map parameters) throws Exception {
+    public void generarReporteIndividual(Incidencia modelo) throws Exception {
         conectar();
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Incidencia/Incidencia.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
@@ -144,10 +132,10 @@ public class IncidenciaImpl extends Conexion implements IGenerica<Incidencia> {
         }
         FacesContext.getCurrentInstance().responseComplete();
     }
-
+    
     @Override
-    public void generarReporteIndividual(Map parameters) throws Exception {
+    public List<Incidencia> listar(Incidencia modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
 }

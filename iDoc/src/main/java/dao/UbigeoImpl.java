@@ -5,9 +5,9 @@ import modelo.Ubigeo;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import org.primefaces.model.StreamedContent;
 
-public class UbigeoImpl extends Conexion implements IGenerica<Ubigeo> {
+public class UbigeoImpl extends Conexion implements ICrud<Ubigeo> {
 
     @Override
     public void registrar(Ubigeo modelo) throws Exception {
@@ -50,21 +50,7 @@ public class UbigeoImpl extends Conexion implements IGenerica<Ubigeo> {
     }
 
     @Override
-    public List<String> buscar(String campo, List<Ubigeo> listaModelo) throws Exception {
-        //Evita hacer una consulta para buscar campos que coincidan
-        List<String> lista = new ArrayList<>();
-        campo = campo.toUpperCase();
-        for (Ubigeo next : listaModelo) {
-            if (next.getDISTUBI().startsWith(campo)) {
-                lista.add(next.getDISTUBI());
-
-            }
-        }
-        return lista;
-    }
-
-    @Override
-    public Ubigeo obtenerCodigo(List<Ubigeo> listaModelo, Ubigeo modelo) throws Exception {
+    public Ubigeo obtenerModelo(List<Ubigeo> listaModelo, Ubigeo modelo) throws Exception {
         //Evita hacer una colsulta para obtener el código
         for (Ubigeo ubigeo1 : listaModelo) {
             if (ubigeo1.getDISTUBI().equals(modelo.getDISTUBI())) {
@@ -81,14 +67,8 @@ public class UbigeoImpl extends Conexion implements IGenerica<Ubigeo> {
     }
 
     @Override
-    public void generarReporte(Map parameters) throws Exception {
+    public List<Ubigeo> listar(Ubigeo modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public void generarReporteIndividual(Map parameters) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 
 }

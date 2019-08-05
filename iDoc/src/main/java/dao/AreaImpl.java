@@ -15,8 +15,9 @@ import modelo.Area;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import org.primefaces.model.StreamedContent;
 
-public class AreaImpl extends Conexion implements IGenerica<Area> {
+public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
 
     @Override
     public void registrar(Area modelo) throws Exception {
@@ -117,23 +118,7 @@ public class AreaImpl extends Conexion implements IGenerica<Area> {
     }
 
     @Override
-    public List<String> buscar(String campo, List<Area> listaModelo) throws Exception {
-        List<String> lista = new ArrayList<>();
-        campo = campo.toUpperCase();
-        String campoTemp = null;
-        for (Area next : listaModelo) {
-            if (!next.getNOMARE().equals(campoTemp)) {
-                if (next.getNOMARE().startsWith(campo)) {
-                    lista.add(next.getNOMARE());
-                    campoTemp = next.getNOMARE();
-                }
-            }
-        }
-        return lista;
-    }
-
-    @Override
-    public Area obtenerCodigo(List<Area> listaModelo, Area modelo) throws Exception {
+    public Area obtenerModelo(List<Area> listaModelo, Area modelo) throws Exception {
         for (Area area1 : listaModelo) {
             if (area1.getNOMARE().equals(modelo.getNOMARE())) {
                 modelo.setIDARE_PADR(area1.getIDARE());
@@ -149,7 +134,7 @@ public class AreaImpl extends Conexion implements IGenerica<Area> {
     }
 
     @Override
-    public void generarReporte(Map parameters) throws Exception {
+    public void generarReporteIndividual(Area modelo) throws Exception {
         conectar();
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Area/Area.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
@@ -163,9 +148,23 @@ public class AreaImpl extends Conexion implements IGenerica<Area> {
     }
 
     @Override
-    public void generarReporteIndividual(Map parameters) throws Exception {
+    public List<Area> listar(Area modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void generarReporteGeneral(Area modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StreamedContent generarReporteIndividualPrev(Area modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StreamedContent generarReporteGeneralPrev(Area modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
-

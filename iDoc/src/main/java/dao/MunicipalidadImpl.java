@@ -8,7 +8,7 @@ import java.util.Map;
 import modelo.Municipalidad;
 import org.apache.commons.lang3.text.WordUtils;
 
-public class MunicipalidadImpl extends Conexion implements IGenerica<Municipalidad> {
+public class MunicipalidadImpl extends Conexion implements ICrud<Municipalidad> {
 
     @Override
     public void registrar(Municipalidad modelo) throws Exception {
@@ -98,19 +98,7 @@ public class MunicipalidadImpl extends Conexion implements IGenerica<Municipalid
     }
 
     @Override
-    public List<String> buscar(String campo, List<Municipalidad> listaModelo) throws Exception {
-        List<String> lista = new ArrayList<>();
-        campo = campo.toUpperCase();
-        for (Municipalidad next : listaModelo) {
-            if (next.getNOMMUN().startsWith(campo)) {
-                lista.add(next.getNOMMUN());
-            }
-        }
-        return lista;
-    }
-
-    @Override
-    public Municipalidad obtenerCodigo(List<Municipalidad> listaModelo, Municipalidad modelo) throws Exception {
+    public Municipalidad obtenerModelo(List<Municipalidad> listaModelo, Municipalidad modelo) throws Exception {
         for (Municipalidad next : listaModelo) {
             if (next.getNOMMUN().equals(modelo.getNOMMUN())) {
                 modelo.setIDMUN(next.getIDMUN());
@@ -126,15 +114,8 @@ public class MunicipalidadImpl extends Conexion implements IGenerica<Municipalid
     }
 
     @Override
-    public void generarReporte(Map parameters) throws Exception {
+    public List<Municipalidad> listar(Municipalidad modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public void generarReporteIndividual(Map parameters) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
- 
 
 }

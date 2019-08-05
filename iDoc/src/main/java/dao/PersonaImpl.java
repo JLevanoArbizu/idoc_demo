@@ -17,7 +17,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.lang3.text.WordUtils;
 
-public class PersonaImpl extends Conexion implements IGenerica<Persona> {
+public class PersonaImpl extends Conexion implements ICrud<Persona> {
 
     @Override
     public void registrar(Persona modelo) throws Exception {
@@ -110,19 +110,7 @@ public class PersonaImpl extends Conexion implements IGenerica<Persona> {
     }
 
     @Override
-    public List<String> buscar(String campo, List<Persona> listaModelo) throws Exception {
-        List<String> lista = new ArrayList<>();
-        campo = campo.toUpperCase();
-        for (Persona persona1 : listaModelo) {
-            if (persona1.getCOMPLETO().contains(campo) && persona1.getESTPER().equals("A")) {
-                lista.add(persona1.getCOMPLETO());
-            }
-        }
-        return lista;
-    }
-
-    @Override
-    public Persona obtenerCodigo(List<Persona> listaModelo, Persona modelo) throws Exception {
+    public Persona obtenerModelo(List<Persona> listaModelo, Persona modelo) throws Exception {
         for (Persona persona1 : listaModelo) {
             if (modelo.getCOMPLETO().equals(persona1.getCOMPLETO())) {
                 modelo.setIDPER(persona1.getIDPER());
@@ -170,6 +158,16 @@ public class PersonaImpl extends Conexion implements IGenerica<Persona> {
             stream.flush();
         }
         FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    @Override
+    public List<Persona> listar(Persona modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Persona obtenerModelo(List<Persona> listaModelo, Persona modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

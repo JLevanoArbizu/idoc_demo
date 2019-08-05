@@ -5,9 +5,7 @@ import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +13,9 @@ import modelo.IncidenciaTipo;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import org.primefaces.model.StreamedContent;
 
-public class IncidenciaTipoImpl extends Conexion implements IGenerica<IncidenciaTipo> {
+public class IncidenciaTipoImpl extends Conexion implements ICrud<IncidenciaTipo>, IReporte<IncidenciaTipo> {
 
     @Override
     public void registrar(IncidenciaTipo modelo) throws Exception {
@@ -102,21 +101,7 @@ public class IncidenciaTipoImpl extends Conexion implements IGenerica<Incidencia
     }
 
     @Override
-    public List<String> buscar(String campo, List<IncidenciaTipo> listaModelo) throws Exception {
-        List<String> lista = new ArrayList<>();
-        campo = campo.toUpperCase();
-        for (Iterator<IncidenciaTipo> iterator = listaModelo.iterator(); iterator.hasNext();) {
-            IncidenciaTipo next = iterator.next();
-            if (next.getNOMINCTIP().startsWith(campo)) {
-                lista.add(next.getNOMINCTIP());
-            }
-
-        }
-        return lista;
-    }
-
-    @Override
-    public IncidenciaTipo obtenerCodigo(List<IncidenciaTipo> listaModelo, IncidenciaTipo modelo) throws Exception {
+    public IncidenciaTipo obtenerModelo(List<IncidenciaTipo> listaModelo, IncidenciaTipo modelo) throws Exception {
         for (IncidenciaTipo next : listaModelo) {
             if (next.getNOMINCTIP().equals(modelo.getNOMINCTIP())) {
                 modelo.setIDINCTIP(next.getIDINCTIP());
@@ -132,7 +117,7 @@ public class IncidenciaTipoImpl extends Conexion implements IGenerica<Incidencia
     }
 
     @Override
-    public void generarReporte(Map parameters) throws Exception {
+    public void generarReporteIndividual(IncidenciaTipo modelo) throws Exception {
         conectar();
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/TipoDeIncidencia/TipoDeIncidencia.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
@@ -146,7 +131,22 @@ public class IncidenciaTipoImpl extends Conexion implements IGenerica<Incidencia
     }
 
     @Override
-    public void generarReporteIndividual(Map parameters) throws Exception {
+    public List<IncidenciaTipo> listar(IncidenciaTipo modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void generarReporteGeneral(IncidenciaTipo modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StreamedContent generarReporteIndividualPrev(IncidenciaTipo modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StreamedContent generarReporteGeneralPrev(IncidenciaTipo modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

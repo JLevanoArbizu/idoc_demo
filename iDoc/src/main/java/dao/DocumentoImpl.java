@@ -14,10 +14,11 @@ import modelo.Documento;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import org.primefaces.model.StreamedContent;
 import servicios.EncriptarS;
 
-public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
-
+public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReporte<Documento> {
+    
     @Override
     public void registrar(Documento documento) throws Exception {
         try {
@@ -42,17 +43,17 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
         } finally {
             this.desconectar();
         }
-
+        
     }
-
+    
     @Override
     public void editar(Documento documento) throws Exception {
-
+        
         try {
             this.conectar();
             String sql = "UPDATE TraDoc.DOCUMENTO SET CODDOC=?, NUMLIBDOC = ?, NUMFOLDOC=?, FECDOC=? , ASUDOC = ? , OBSDOC = ? , IDTUP = ? , IDEMP = ? , IDPER = ? , KEYDOC = ? WHERE IDDOC LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-
+            
             ps.setString(1, documento.getCODDOC());
             ps.setString(2, documento.getNUMLIBDOC());
             ps.setString(3, documento.getNUMFOLDOC());
@@ -74,10 +75,10 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
             this.desconectar();
         }
     }
-
+    
     @Override
     public void eliminar(Documento documento) throws Exception {
-
+        
         try {
             this.conectar();
             String sql = "UPDATE TraDoc.DOCUMENTO SET ESTDOC='I' WHERE IDDOC LIKE ?";
@@ -90,7 +91,7 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
             this.desconectar();
         }
     }
-
+    
     @Override
     public List<Documento> listar() throws Exception {
         List<Documento> listaDocumento;
@@ -127,29 +128,14 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
             this.desconectar();
         }
     }
-
-    @Override
-    public List<String> buscar(String campo, List<Documento> listaModelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Documento obtenerCodigo(List<Documento> listaModelo, Documento modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public boolean existe(List<Documento> listaModelo, Documento modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
-    public void generarReporte(Map parameters) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void generarReporteIndividual(Map parameters) throws Exception {
+    public void generarReporteIndividual(Documento modelo) throws Exception {
         conectar();
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Documento/Documento.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
@@ -161,5 +147,30 @@ public class DocumentoImpl extends Conexion implements IGenerica<Documento> {
         }
         FacesContext.getCurrentInstance().responseComplete();
     }
+    
+    @Override
+    public List<Documento> listar(Documento modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public Documento obtenerModelo(List<Documento> listaModelo, Documento modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
+    @Override
+    public void generarReporteGeneral(Documento modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StreamedContent generarReporteIndividualPrev(Documento modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StreamedContent generarReporteGeneralPrev(Documento modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

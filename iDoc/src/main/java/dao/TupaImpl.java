@@ -21,9 +21,10 @@ import modelo.Tupa;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import org.primefaces.model.StreamedContent;
 
-public class TupaImpl extends Conexion implements IGenerica<Tupa> {
-
+public class TupaImpl extends Conexion implements ICrud<Tupa>, IReporte<Tupa> {
+    
     @Override
     public void registrar(Tupa tupa) throws Exception {
         try {
@@ -42,7 +43,7 @@ public class TupaImpl extends Conexion implements IGenerica<Tupa> {
             this.desconectar();
         }
     }
-
+    
     @Override
     public void editar(Tupa tupa) throws Exception {
         try {
@@ -55,7 +56,7 @@ public class TupaImpl extends Conexion implements IGenerica<Tupa> {
             ps.setString(4, tupa.getPLATUP());
             ps.setString(5, tupa.getARETUP());
             ps.setString(6, tupa.getIDTUP());
-
+            
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
@@ -64,10 +65,10 @@ public class TupaImpl extends Conexion implements IGenerica<Tupa> {
             this.desconectar();
         }
     }
-
+    
     @Override
     public void eliminar(Tupa tupa) throws Exception {
-
+        
         try {
             this.conectar();
             String sql = "UPDATE TraDoc.TUPA SET ESTTUP='I' WHERE NUMTUP LIKE ?";
@@ -81,7 +82,7 @@ public class TupaImpl extends Conexion implements IGenerica<Tupa> {
             this.desconectar();
         }
     }
-
+    
     @Override
     public List<Tupa> listar() throws Exception {
         List<Tupa> listaTupa;
@@ -112,24 +113,14 @@ public class TupaImpl extends Conexion implements IGenerica<Tupa> {
             this.desconectar();
         }
     }
-
-    @Override
-    public List<String> buscar(String campo, List<Tupa> listaModelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Tupa obtenerCodigo(List<Tupa> listaModelo, Tupa modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public boolean existe(List<Tupa> listaModelo, Tupa modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
-    public void generarReporte(Map parameters) throws Exception {
+    public void generarReporteIndividual(Tupa modelo) throws Exception {
         conectar();
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Tupa/Tupa.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
@@ -141,8 +132,29 @@ public class TupaImpl extends Conexion implements IGenerica<Tupa> {
         }
         FacesContext.getCurrentInstance().responseComplete();
     }
+    
+    @Override
+    public List<Tupa> listar(Tupa modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public Tupa obtenerModelo(List<Tupa> listaModelo, Tupa modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     @Override
-    public void generarReporteIndividual(Map parameters) throws Exception {
+    public void generarReporteGeneral(Tupa modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StreamedContent generarReporteIndividualPrev(Tupa modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StreamedContent generarReporteGeneralPrev(Tupa modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

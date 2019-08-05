@@ -21,22 +21,9 @@ public class Conexion {
         return conexion;
     }
 
-    public static boolean estado() throws Exception {
-        boolean est = false;
-        try {
-            if (!conexion.isClosed()) {
-                est = true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-                System.out.println("dessssconectado");
-        }
-        return est;
-    }
-
     public static void desconectar() throws SQLException {
         try {
-            if (estado()) {
+            if (conexion.isClosed() == false) {
                 conexion.close();
             }
         } catch (Exception e) {

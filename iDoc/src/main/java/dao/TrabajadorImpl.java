@@ -20,7 +20,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
-public class TrabajadorImpl extends Conexion implements IGenerica<Trabajador> {
+public class TrabajadorImpl extends Conexion implements ICrud<Trabajador> {
 
     @Override
     public void registrar(Trabajador modelo) throws Exception {
@@ -107,22 +107,6 @@ public class TrabajadorImpl extends Conexion implements IGenerica<Trabajador> {
     }
 
     @Override
-    public List<String> buscar(String campo, List<Trabajador> listaModelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Trabajador obtenerCodigo(List<Trabajador> listaModelo, Trabajador modelo) throws Exception {
-        for (Trabajador trabajador : listaModelo) {
-            if (trabajador.getFECINITRAB_T().equals(modelo.getFECINITRAB_T())
-                    && trabajador.getPersona().getIDPER().equals(modelo.getPersona().getIDPER())) {
-                return trabajador;
-            }
-        }
-        return null;
-    }
-
-    @Override
     public boolean existe(List<Trabajador> listaModelo, Trabajador modelo) throws Exception {
         for (Trabajador trabajador : listaModelo) {
             if (modelo.getPersona().getCOMPLETO().equals(trabajador.getPersona().getCOMPLETO())
@@ -136,7 +120,7 @@ public class TrabajadorImpl extends Conexion implements IGenerica<Trabajador> {
     }
 
     @Override
-    public void generarReporte(Map parameters) throws Exception {
+    public void generarReporteIndividual(Trabajador modelo) throws Exception {
         conectar();
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Trabajador/Trabajador.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
@@ -165,5 +149,15 @@ public class TrabajadorImpl extends Conexion implements IGenerica<Trabajador> {
             stream.close();
         }
         FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    @Override
+    public List<Trabajador> listar(Trabajador modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Trabajador obtenerModelo(List<Trabajador> listaModelo, Trabajador modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

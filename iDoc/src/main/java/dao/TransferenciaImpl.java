@@ -1,6 +1,5 @@
 package dao;
 
-
 import static dao.Conexion.conectar;
 import java.io.File;
 import java.sql.PreparedStatement;
@@ -17,8 +16,8 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
-public class TransferenciaImpl extends Conexion implements IGenerica<Transferencia> {
-
+public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>, IReporte<Transferencia> {
+    
     @Override
     public void registrar(Transferencia trans) throws Exception {
         try {
@@ -39,10 +38,10 @@ public class TransferenciaImpl extends Conexion implements IGenerica<Transferenc
             this.desconectar();
         }
     }
-
+    
     @Override
     public void editar(Transferencia trans) throws Exception {
-
+        
         try {
             this.conectar();
             String sql = "UPDATE TraDoc.TRANSFERENCIA SET  FECSALTRAN=?, FECRECTRAN=?, OBSTRAN=?, IDDOC=?, IDARE_EMI=?, IDARE_REC=? WHERE IDTRAN LIKE ?";
@@ -61,7 +60,7 @@ public class TransferenciaImpl extends Conexion implements IGenerica<Transferenc
             this.desconectar();
         }
     }
-
+    
     @Override
     public void eliminar(Transferencia trans) throws Exception {
         try {
@@ -76,13 +75,13 @@ public class TransferenciaImpl extends Conexion implements IGenerica<Transferenc
             this.desconectar();
         }
     }
-
+    
     @Override
     public List<Transferencia> listar() throws Exception {
         List<Transferencia> listaTransferencia;
         try {
             String sql = "SELECT * FROM VW_TRANSFERENCIA WHERE ESTTRA != 'I' ORDER BY IDTRAN DESC";
-
+            
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             listaTransferencia = new ArrayList();
             Transferencia trans;
@@ -105,38 +104,16 @@ public class TransferenciaImpl extends Conexion implements IGenerica<Transferenc
             this.desconectar();
         }
         return null;
-
+        
     }
-
-    @Override
-    public List<String> buscar(String campo, List<Transferencia> listaModelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Transferencia obtenerCodigo(List<Transferencia> listaModelo, Transferencia modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public boolean existe(List<Transferencia> listaModelo, Transferencia modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
-    public void generarReporte(Map parameters) throws Exception {
-        conectar();
-        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Transferencia/Transferencia.jasper"));
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
-        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        response.addHeader("Content-disposition", "attachment; filename=Transferencia.pdf");
-        try (ServletOutputStream stream = response.getOutputStream()) {
-            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
-            stream.flush();
-        }
-        FacesContext.getCurrentInstance().responseComplete();
-    }
-     public void generarReporteTRANS(Map parameters) throws Exception {
+    public void generarReporteIndividual(Transferencia modelo) throws Exception {
         conectar();
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Transferencia/Transferencia.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
@@ -149,6 +126,18 @@ public class TransferenciaImpl extends Conexion implements IGenerica<Transferenc
         FacesContext.getCurrentInstance().responseComplete();
     }
 
+    public void generarReporteTRANS(Map parameters) throws Exception {
+        conectar();
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Transferencia/Transferencia.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=Transferencia.pdf");
+        try (ServletOutputStream stream = response.getOutputStream()) {
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            stream.flush();
+        }
+        FacesContext.getCurrentInstance().responseComplete();
+    }
     
     @Override
     public void generarReporteIndividual(Map parameters) throws Exception {
@@ -161,5 +150,16 @@ public class TransferenciaImpl extends Conexion implements IGenerica<Transferenc
             JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
             stream.flush();
         }
-        FacesContext.getCurrentInstance().responseComplete();}
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+    
+    @Override
+    public List<Transferencia> listar(Transferencia modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public Transferencia obtenerModelo(List<Transferencia> listaModelo, Transferencia modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
