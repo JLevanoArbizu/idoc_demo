@@ -4,23 +4,24 @@ import java.util.Objects;
 
 public class Area {
 
-    String IDARE, NOMARE, IDMUN, NOMMUN, IDARE_PADR, NOMARE_PADR, ESTARE;
+    private int IDARE;
+    private String NOMARE, ESTARE;
+    private Municipalidad municipalidad = new Municipalidad();
+    private Area areaPadre = new Area();
 
-    @Override
-    public String toString() {
-        return "Area{" + "IDARE=" + IDARE + ", NOMARE=" + NOMARE + ", IDMUN=" + IDMUN + ", NOMMUN=" + NOMMUN + ", IDARE_PADR=" + IDARE_PADR + ", NOMARE_PADR=" + NOMARE_PADR + ", ESTARE=" + ESTARE + '}';
+    public void clear() {
+        this.IDARE = 0;
+        this.NOMARE = null;
+        this.ESTARE = null;
+        this.municipalidad.clear();
+        this.areaPadre.clear();
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 23 * hash + Objects.hashCode(this.IDARE);
-        hash = 23 * hash + Objects.hashCode(this.NOMARE);
-        hash = 23 * hash + Objects.hashCode(this.IDMUN);
-        hash = 23 * hash + Objects.hashCode(this.NOMMUN);
-        hash = 23 * hash + Objects.hashCode(this.IDARE_PADR);
-        hash = 23 * hash + Objects.hashCode(this.NOMARE_PADR);
-        hash = 23 * hash + Objects.hashCode(this.ESTARE);
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.NOMARE);
+        hash = 97 * hash + Objects.hashCode(this.areaPadre);
         return hash;
     }
 
@@ -36,35 +37,20 @@ public class Area {
             return false;
         }
         final Area other = (Area) obj;
-        if (!Objects.equals(this.IDARE, other.IDARE)) {
-            return false;
-        }
         if (!Objects.equals(this.NOMARE, other.NOMARE)) {
             return false;
         }
-        if (!Objects.equals(this.IDMUN, other.IDMUN)) {
-            return false;
-        }
-        if (!Objects.equals(this.NOMMUN, other.NOMMUN)) {
-            return false;
-        }
-        if (!Objects.equals(this.IDARE_PADR, other.IDARE_PADR)) {
-            return false;
-        }
-        if (!Objects.equals(this.NOMARE_PADR, other.NOMARE_PADR)) {
-            return false;
-        }
-        if (!Objects.equals(this.ESTARE, other.ESTARE)) {
+        if (!Objects.equals(this.areaPadre, other.areaPadre)) {
             return false;
         }
         return true;
     }
 
-    public String getIDARE() {
+    public int getIDARE() {
         return IDARE;
     }
 
-    public void setIDARE(String IDARE) {
+    public void setIDARE(int IDARE) {
         this.IDARE = IDARE;
     }
 
@@ -76,38 +62,6 @@ public class Area {
         this.NOMARE = NOMARE;
     }
 
-    public String getIDMUN() {
-        return IDMUN;
-    }
-
-    public void setIDMUN(String IDMUN) {
-        this.IDMUN = IDMUN;
-    }
-
-    public String getNOMMUN() {
-        return NOMMUN;
-    }
-
-    public void setNOMMUN(String NOMMUN) {
-        this.NOMMUN = NOMMUN;
-    }
-
-    public String getIDARE_PADR() {
-        return IDARE_PADR;
-    }
-
-    public void setIDARE_PADR(String IDARE_PADR) {
-        this.IDARE_PADR = IDARE_PADR;
-    }
-
-    public String getNOMARE_PADR() {
-        return NOMARE_PADR;
-    }
-
-    public void setNOMARE_PADR(String NOMARE_PADR) {
-        this.NOMARE_PADR = NOMARE_PADR;
-    }
-
     public String getESTARE() {
         return ESTARE;
     }
@@ -116,14 +70,20 @@ public class Area {
         this.ESTARE = ESTARE;
     }
 
-
-
-    
-    public void clear() {
-        this.IDARE = null;
-        this.NOMARE = null;
-        this.IDMUN = null;
-        this.IDARE_PADR = null;
-        this.ESTARE = null;
+    public Municipalidad getMunicipalidad() {
+        return municipalidad;
     }
+
+    public void setMunicipalidad(Municipalidad municipalidad) {
+        this.municipalidad = municipalidad;
+    }
+
+    public Area getAreaPadre() {
+        return areaPadre;
+    }
+
+    public void setAreaPadre(Area areaPadre) {
+        this.areaPadre = areaPadre;
+    }
+
 }

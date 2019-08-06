@@ -2,30 +2,30 @@ package modelo;
 
 import java.util.Objects;
 
-
 public class Persona {
 
-    String IDPER, APEPATPER, APEMATPER, NOMPER, DNIPER, CODUBI, DIRPER, NACPER, GENPER, ESTPER, COMPLETO;
+    private int IDPER;
+    private String APEPATPER, APEMATPER, NOMPER,
+            DNIPER, DIRPER, NACPER, GENPER, ESTPER;
+    private Ubigeo ubigeo = new Ubigeo();
 
-    @Override
-    public String toString() {
-        return "Persona{" + "IDPER=" + IDPER + ", APEPATPER=" + APEPATPER + ", APEMATPER=" + APEMATPER + ", NOMPER=" + NOMPER + ", DNIPER=" + DNIPER + ", CODUBI=" + CODUBI + ", DIRPER=" + DIRPER + ", NACPER=" + NACPER + ", GENPER=" + GENPER + ", ESTPER=" + ESTPER + ", COMPLETO=" + COMPLETO + '}';
+    public void clear() {
+        this.IDPER = 0;
+        this.APEPATPER = null;
+        this.APEMATPER = null;
+        this.NOMPER = null;
+        this.DNIPER = null;
+        this.DIRPER = null;
+        this.NACPER = null;
+        this.GENPER = null;
+        this.ESTPER = null;
+        this.ubigeo.clear();
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 31 * hash + Objects.hashCode(this.IDPER);
-        hash = 31 * hash + Objects.hashCode(this.APEPATPER);
-        hash = 31 * hash + Objects.hashCode(this.APEMATPER);
-        hash = 31 * hash + Objects.hashCode(this.NOMPER);
-        hash = 31 * hash + Objects.hashCode(this.DNIPER);
-        hash = 31 * hash + Objects.hashCode(this.CODUBI);
-        hash = 31 * hash + Objects.hashCode(this.DIRPER);
-        hash = 31 * hash + Objects.hashCode(this.NACPER);
-        hash = 31 * hash + Objects.hashCode(this.GENPER);
-        hash = 31 * hash + Objects.hashCode(this.ESTPER);
-        hash = 31 * hash + Objects.hashCode(this.COMPLETO);
+        hash = 53 * hash + Objects.hashCode(this.DNIPER);
         return hash;
     }
 
@@ -47,19 +47,19 @@ public class Persona {
         return true;
     }
 
-    public String getCOMPLETO() {
-        return COMPLETO;
+    public Ubigeo getUbigeo() {
+        return ubigeo;
     }
 
-    public void setCOMPLETO(String COMPLETO) {
-        this.COMPLETO = COMPLETO;
+    public void setUbigeo(Ubigeo ubigeo) {
+        this.ubigeo = ubigeo;
     }
 
-    public String getIDPER() {
+    public int getIDPER() {
         return IDPER;
     }
 
-    public void setIDPER(String IDPER) {
+    public void setIDPER(int IDPER) {
         this.IDPER = IDPER;
     }
 
@@ -95,14 +95,6 @@ public class Persona {
         this.DNIPER = DNIPER;
     }
 
-    public String getCODUBI() {
-        return CODUBI;
-    }
-
-    public void setCODUBI(String CODUBI) {
-        this.CODUBI = CODUBI;
-    }
-
     public String getDIRPER() {
         return DIRPER;
     }
@@ -135,16 +127,4 @@ public class Persona {
         this.ESTPER = ESTPER;
     }
 
-    public void clear() {
-        this.IDPER = null;
-        this.APEPATPER = null;
-        this.APEMATPER = null;
-        this.NOMPER = null;
-        this.DNIPER = null;
-        this.CODUBI = null;
-        this.DIRPER = null;
-        this.NACPER = null;
-        this.GENPER = null;
-        this.ESTPER = null;
-    }
 }

@@ -1,24 +1,63 @@
 package modelo;
 
+import java.util.Objects;
 
 public class Municipalidad {
 
-    String IDMUN, CODUBI, DIRMUN, NOMMUN, ESTMUN, TLFMUN;
+    private int IDMUN;
+    private String DIRMUN, NOMMUN, ESTMUN = "A", TLFMUN;
+    private Ubigeo ubigeo = new Ubigeo();
 
-    public String getIDMUN() {
+    public void clear() {
+        this.IDMUN = 0;
+        this.DIRMUN = null;
+        this.NOMMUN = null;
+        this.ESTMUN = "A";
+        this.TLFMUN = null;
+        this.ubigeo.clear();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + Objects.hashCode(this.ubigeo);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Municipalidad other = (Municipalidad) obj;
+        if (!Objects.equals(this.ubigeo, other.ubigeo)) {
+            return false;
+        }
+        return true;
+    }
+
+    
+
+    public Ubigeo getUbigeo() {
+        return ubigeo;
+    }
+
+    public void setUbigeo(Ubigeo ubigeo) {
+        this.ubigeo = ubigeo;
+    }
+
+    public int getIDMUN() {
         return IDMUN;
     }
 
-    public void setIDMUN(String IDMUN) {
+    public void setIDMUN(int IDMUN) {
         this.IDMUN = IDMUN;
-    }
-
-    public String getCODUBI() {
-        return CODUBI;
-    }
-
-    public void setCODUBI(String CODUBI) {
-        this.CODUBI = CODUBI;
     }
 
     public String getDIRMUN() {
@@ -53,12 +92,4 @@ public class Municipalidad {
         this.TLFMUN = TLFMUN;
     }
 
-    public void clear() {
-        this.IDMUN = null;
-        this.CODUBI = null;
-        this.DIRMUN = null;
-        this.NOMMUN = null;
-        this.ESTMUN = null;
-        this.TLFMUN = null;
-    }
 }

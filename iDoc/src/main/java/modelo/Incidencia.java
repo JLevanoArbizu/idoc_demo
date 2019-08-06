@@ -1,67 +1,67 @@
 package modelo;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.Objects;
 
 public class Incidencia {
+    
+    private int IDINC;
+    private String MOTINC, ESTINC = "A";
+    private Date FECINC;
+    private Acta acta = new Acta();
+    private IncidenciaTipo tipoIncidencia = new IncidenciaTipo();
 
-    String IDINC, IDDOC, IDINCTIP, MOTINC, ESTINC, NOMINCTIP;
-    Date FECINC;
-    java.util.Date fechaTemporal;
-
-    public String getNOMINCTIP() {
-        return NOMINCTIP;
+    public void clear() {
+        this.IDINC = 0;
+        this.MOTINC = null;
+        this.ESTINC = null;
+        this.acta.clear();
+        this.tipoIncidencia.clear();
     }
 
-    public void setNOMINCTIP(String NOMINCTIP) {
-        this.NOMINCTIP = NOMINCTIP;
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 23 * hash + Objects.hashCode(this.MOTINC);
+        hash = 23 * hash + Objects.hashCode(this.ESTINC);
+        hash = 23 * hash + Objects.hashCode(this.FECINC);
+        hash = 23 * hash + Objects.hashCode(this.tipoIncidencia);
+        return hash;
     }
 
-    public String getESTINC() {
-        return ESTINC;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Incidencia other = (Incidencia) obj;
+        if (!Objects.equals(this.MOTINC, other.MOTINC)) {
+            return false;
+        }
+        if (!Objects.equals(this.ESTINC, other.ESTINC)) {
+            return false;
+        }
+        if (!Objects.equals(this.FECINC, other.FECINC)) {
+            return false;
+        }
+        if (!Objects.equals(this.tipoIncidencia, other.tipoIncidencia)) {
+            return false;
+        }
+        return true;
     }
 
-    public void setESTINC(String ESTINC) {
-        this.ESTINC = ESTINC;
-    }
-
-    public java.util.Date getFechaTemporal() {
-        return fechaTemporal;
-    }
-
-    public void setFechaTemporal(java.util.Date fechaTemporal) {
-        this.fechaTemporal = fechaTemporal;
-    }
-
-    public String getIDINC() {
+    public int getIDINC() {
         return IDINC;
     }
 
-    public void setIDINC(String IDINC) {
+    public void setIDINC(int IDINC) {
         this.IDINC = IDINC;
-    }
-
-    public String getIDDOC() {
-        return IDDOC;
-    }
-
-    public void setIDDOC(String IDDOC) {
-        this.IDDOC = IDDOC;
-    }
-
-    public String getIDINCTIP() {
-        return IDINCTIP;
-    }
-
-    public void setIDINCTIP(String IDINCTIP) {
-        this.IDINCTIP = IDINCTIP;
-    }
-
-    public Date getFECINC() {
-        return FECINC;
-    }
-
-    public void setFECINC(Date FECINC) {
-        this.FECINC = FECINC;
     }
 
     public String getMOTINC() {
@@ -72,13 +72,37 @@ public class Incidencia {
         this.MOTINC = MOTINC;
     }
 
-    public void clear() {
-        this.IDINC = null;
-        this.IDDOC = null;
-        this.IDINCTIP = null;
-        this.fechaTemporal = null;
-        this.FECINC = null;
-        this.MOTINC = null;
-        this.ESTINC = null;
+    public String getESTINC() {
+        return ESTINC;
     }
+
+    public void setESTINC(String ESTINC) {
+        this.ESTINC = ESTINC;
+    }
+
+    public Date getFECINC() {
+        return FECINC;
+    }
+
+    public void setFECINC(Date FECINC) {
+        this.FECINC = FECINC;
+    }
+
+    public Acta getActa() {
+        return acta;
+    }
+
+    public void setActa(Acta acta) {
+        this.acta = acta;
+    }
+
+    public IncidenciaTipo getTipoIncidencia() {
+        return tipoIncidencia;
+    }
+
+    public void setTipoIncidencia(IncidenciaTipo tipoIncidencia) {
+        this.tipoIncidencia = tipoIncidencia;
+    }
+    
+    
 }

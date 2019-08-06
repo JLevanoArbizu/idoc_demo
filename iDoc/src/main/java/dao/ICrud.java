@@ -1,6 +1,6 @@
 package dao;
 
-import java.util.List;
+import java.util.HashSet;
 
 public interface ICrud<T> {
 
@@ -10,12 +10,10 @@ public interface ICrud<T> {
 
     void eliminar(T modelo) throws Exception;
 
-    List<T> listar() throws Exception;
+    HashSet<T> listar() throws Exception;
 
-    List<T> listar(T modelo) throws Exception;
+    HashSet<T> listar(T modelo) throws Exception;
 
-    T obtenerModelo(List<T> listaModelo, T modelo) throws Exception;
-
-    boolean existe(List<T> listaModelo, T modelo) throws Exception;
+    T obtenerModelo(T modelo) throws Exception;
 
 }

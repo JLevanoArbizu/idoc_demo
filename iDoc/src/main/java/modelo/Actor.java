@@ -3,27 +3,23 @@ package modelo;
 import java.util.Objects;
 
 public class Actor {
-    String IDACT, IDACTA, IDPER, TIPACT;
-    
-    public void clear(){
-        this.IDACT = null;
-        this.IDACTA = null;
-        this.IDPER = null;
-        this.TIPACT = null;
-    }
 
-    @Override
-    public String toString() {
-        return "Actor{" + "IDACT=" + IDACT + ", IDDOC=" + IDACTA + ", IDPER=" + IDPER + ", TIPACT=" + TIPACT + '}';
+    private int IDACT;
+    private String TIPACT;
+    private Acta acta = new Acta();
+    private Persona actor = new Persona();
+
+    public void clear() {
+        this.IDACT = 0;
+        this.TIPACT = null;
+        this.acta.clear();
+        this.actor.clear();
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 41 * hash + Objects.hashCode(this.IDACT);
-        hash = 41 * hash + Objects.hashCode(this.IDACTA);
-        hash = 41 * hash + Objects.hashCode(this.IDPER);
-        hash = 41 * hash + Objects.hashCode(this.TIPACT);
+        hash = 59 * hash + Objects.hashCode(this.actor);
         return hash;
     }
 
@@ -39,43 +35,18 @@ public class Actor {
             return false;
         }
         final Actor other = (Actor) obj;
-        if (!Objects.equals(this.IDACT, other.IDACT)) {
-            return false;
-        }
-        if (!Objects.equals(this.IDACTA, other.IDACTA)) {
-            return false;
-        }
-        if (!Objects.equals(this.IDPER, other.IDPER)) {
-            return false;
-        }
-        if (!Objects.equals(this.TIPACT, other.TIPACT)) {
+        if (!Objects.equals(this.actor, other.actor)) {
             return false;
         }
         return true;
     }
 
-    public String getIDACT() {
+    public int getIDACT() {
         return IDACT;
     }
 
-    public void setIDACT(String IDACT) {
+    public void setIDACT(int IDACT) {
         this.IDACT = IDACT;
-    }
-
-    public String getIDACTA() {
-        return IDACTA;
-    }
-
-    public void setIDACTA(String IDACTA) {
-        this.IDACTA = IDACTA;
-    }
-
-    public String getIDPER() {
-        return IDPER;
-    }
-
-    public void setIDPER(String IDPER) {
-        this.IDPER = IDPER;
     }
 
     public String getTIPACT() {
@@ -84,5 +55,21 @@ public class Actor {
 
     public void setTIPACT(String TIPACT) {
         this.TIPACT = TIPACT;
+    }
+
+    public Acta getActa() {
+        return acta;
+    }
+
+    public void setActa(Acta acta) {
+        this.acta = acta;
+    }
+
+    public Persona getActor() {
+        return actor;
+    }
+
+    public void setActor(Persona actor) {
+        this.actor = actor;
     }
 }

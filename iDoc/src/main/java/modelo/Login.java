@@ -1,46 +1,60 @@
 package modelo;
 
+import java.util.Objects;
+
 public class Login {
     
-    Trabajador trabajador;
-    String IDLOG,IDTRAB, USRLOG, PSSWLOG, ESTLOG, TIPLOG;
+    private int IDLOG;
+    private String USRLOG, PSSWLOG, ESTLOG = "A", TIPLOG;
+    private Trabajador trabajador = new Trabajador();
 
     public void clear() {
-        this.trabajador = null;
-        this.IDLOG = null;
+        this.IDLOG = 0;
         this.USRLOG = null;
         this.PSSWLOG = null;
-        this.ESTLOG = null;
+        this.ESTLOG = "A";
         this.TIPLOG = null;
-        this.IDTRAB = null;
+        this.trabajador.clear();
     }
 
     @Override
-    public String toString() {
-        return "Login{" + "trabajador=" + trabajador + ", IDLOG=" + IDLOG + ", USRLOG=" + USRLOG + ", PSSWLOG=" + PSSWLOG + ", ESTLOG=" + ESTLOG + ", TIPLOG=" + TIPLOG + '}';
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + Objects.hashCode(this.USRLOG);
+        hash = 17 * hash + Objects.hashCode(this.PSSWLOG);
+        hash = 17 * hash + Objects.hashCode(this.ESTLOG);
+        return hash;
     }
 
-    public String getIDTRAB() {
-        return IDTRAB;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Login other = (Login) obj;
+        if (!Objects.equals(this.USRLOG, other.USRLOG)) {
+            return false;
+        }
+        if (!Objects.equals(this.PSSWLOG, other.PSSWLOG)) {
+            return false;
+        }
+        if (!Objects.equals(this.ESTLOG, other.ESTLOG)) {
+            return false;
+        }
+        return true;
     }
 
-    public void setIDTRAB(String IDTRAB) {
-        this.IDTRAB = IDTRAB;
-    }
-
-    public Trabajador getTrabajador() {
-        return trabajador;
-    }
-
-    public void setTrabajador(Trabajador trabajador) {
-        this.trabajador = trabajador;
-    }
-
-    public String getIDLOG() {
+    public int getIDLOG() {
         return IDLOG;
     }
 
-    public void setIDLOG(String IDLOG) {
+    public void setIDLOG(int IDLOG) {
         this.IDLOG = IDLOG;
     }
 
@@ -75,4 +89,14 @@ public class Login {
     public void setTIPLOG(String TIPLOG) {
         this.TIPLOG = TIPLOG;
     }
+
+    public Trabajador getTrabajador() {
+        return trabajador;
+    }
+
+    public void setTrabajador(Trabajador trabajador) {
+        this.trabajador = trabajador;
+    }
+
+    
 }

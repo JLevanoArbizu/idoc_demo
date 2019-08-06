@@ -1,45 +1,17 @@
 package modelo;
 
-import java.sql.Date;
-import java.util.Objects;
-
-
+// No requiere el usuario, por el momento
 public class Solicitud {
-    Login login;
-    Acta acta;
-    String ESTSOL, CODSOL;
 
-    public void clear(){
-        this.login = null;
-        this.acta = null;
+    private Login login = new Login();
+    private Acta acta = new Acta();
+    private String ESTSOL = "A", CODSOL;
+
+    public void clear() {
+        this.login.clear();
+        this.acta.clear();
         this.ESTSOL = null;
         this.CODSOL = null;
-    }
-
-    @Override
-    public String toString() {
-        return "Solicitud{" +
-                "login=" + login +
-                ", acta=" + acta +
-                ", ESTSOL='" + ESTSOL + '\'' +
-                ", CODSOL='" + CODSOL + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Solicitud solicitud = (Solicitud) o;
-        return Objects.equals(login, solicitud.login) &&
-                Objects.equals(acta, solicitud.acta) &&
-                Objects.equals(ESTSOL, solicitud.ESTSOL) &&
-                Objects.equals(CODSOL, solicitud.CODSOL);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(login, acta, ESTSOL, CODSOL);
     }
 
     public Login getLogin() {
@@ -49,7 +21,6 @@ public class Solicitud {
     public void setLogin(Login login) {
         this.login = login;
     }
-
 
     public Acta getActa() {
         return acta;
@@ -74,4 +45,5 @@ public class Solicitud {
     public void setCODSOL(String CODSOL) {
         this.CODSOL = CODSOL;
     }
+
 }

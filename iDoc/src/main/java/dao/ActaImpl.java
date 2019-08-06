@@ -5,6 +5,7 @@ import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
@@ -29,13 +30,13 @@ public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
                     + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setInt(1, 1);
-            ps.setInt(2, Integer.valueOf(modelo.getIDLOG()));
-            ps.setInt(3, Integer.valueOf(modelo.getIDPER()));
+            ps.setInt(2, modelo.getLogin().getIDLOG());
+            ps.setInt(3, modelo.getTitular().getIDPER());
             ps.setString(4, modelo.getNUMLIBACTA());
             ps.setString(5, modelo.getNUMFOLACTA());
             ps.setObject(6, modelo.getFECREGACTA(), java.sql.Types.DATE);
             ps.setString(7, WordUtils.capitalize(modelo.getOBSACTA()));
-            ps.setString(8, modelo.getCODUBI());
+            ps.setString(8, modelo.getUbigeo().getCODUBI());
             ps.setString(9, WordUtils.capitalize(modelo.getDIRACT()));
             ps.setObject(10, modelo.getFECACT(), java.sql.Types.DATE);
             ps.setString(11, modelo.getTIPACTA());
@@ -80,7 +81,7 @@ public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
     }
 
     @Override
-    public List<Acta> listar() throws Exception {
+    public HashSet<Acta> listar() throws Exception {
         List<Acta> lista = null;
         try {
             String sql = "SELECT "
@@ -167,7 +168,7 @@ public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
 
 
     @Override
-    public Acta obtenerModelo(List<Acta> listaModelo, Acta modelo) throws Exception {
+    public Acta obtenerModelo(Acta modelo) throws Exception {
         modelo.setFECREGACTA(modelo.getFECREGACTA());
         for (Acta documento1 : listaModelo) {
             if (modelo.getFECREGACTA().equals(documento1.getFECREGACTA())

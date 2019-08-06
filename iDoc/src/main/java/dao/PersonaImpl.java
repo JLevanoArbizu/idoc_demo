@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -16,8 +15,9 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.lang3.text.WordUtils;
+import org.primefaces.model.StreamedContent;
 
-public class PersonaImpl extends Conexion implements ICrud<Persona> {
+public class PersonaImpl extends Conexion implements ICrud<Persona>, IReporte<Persona> {
 
     @Override
     public void registrar(Persona modelo) throws Exception {
@@ -111,13 +111,7 @@ public class PersonaImpl extends Conexion implements ICrud<Persona> {
 
     @Override
     public Persona obtenerModelo(List<Persona> listaModelo, Persona modelo) throws Exception {
-        for (Persona persona1 : listaModelo) {
-            if (modelo.getCOMPLETO().equals(persona1.getCOMPLETO())) {
-                modelo.setIDPER(persona1.getIDPER());
-                return modelo;
-            }
-        }
-        return null;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -133,7 +127,7 @@ public class PersonaImpl extends Conexion implements ICrud<Persona> {
     }
 
     @Override
-    public void generarReporte(Map parameters) throws Exception {
+    public void generarReporteGeneral(Persona modelo) throws Exception {
         conectar();
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes\\Ciudadano\\Ciudadano.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
@@ -147,7 +141,7 @@ public class PersonaImpl extends Conexion implements ICrud<Persona> {
     }
 
     @Override
-    public void generarReporteIndividual(Map parameters) throws Exception {
+    public void generarReporteIndividual(Persona modelo) throws Exception {
         conectar();
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Ciudadano/CiudadanoIndividual.jasper"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
@@ -166,7 +160,12 @@ public class PersonaImpl extends Conexion implements ICrud<Persona> {
     }
 
     @Override
-    public Persona obtenerModelo(List<Persona> listaModelo, Persona modelo) throws Exception {
+    public StreamedContent generarReporteIndividualPrev(Persona modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StreamedContent generarReporteGeneralPrev(Persona modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
