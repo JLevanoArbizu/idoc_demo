@@ -1,7 +1,7 @@
 package dao;
 
 import java.sql.PreparedStatement;
-import java.util.List;
+import java.util.HashSet;
 import modelo.Actor;
 
 public class ActorImpl extends Conexion implements ICrud<Actor> {
@@ -12,8 +12,8 @@ public class ActorImpl extends Conexion implements ICrud<Actor> {
             String sql = "INSERT INTO REGCIV.ACTOR (IDACTA, IDPER, TIPACT) VALUES "
                     + "(?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-            ps.setInt(1, Integer.valueOf(modelo.getIDACTA()));
-            ps.setInt(2, Integer.valueOf(modelo.getIDPER()));
+            ps.setInt(1, modelo.getActa().getIDACTA());
+            ps.setInt(2, modelo.getActor().getIDPER());
             ps.setString(3, modelo.getTIPACT());
             ps.executeUpdate();
             ps.clearParameters();
@@ -33,29 +33,20 @@ public class ActorImpl extends Conexion implements ICrud<Actor> {
     @Override
     public void eliminar(Actor modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    }    
 
     @Override
-    public List<Actor> listar() throws Exception {
+    public HashSet<Actor> listar() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Actor> listar(Actor modelo) throws Exception {
+    public HashSet<Actor> listar(Actor modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Actor obtenerModelo(List<Actor> listaModelo, Actor modelo) throws Exception {
+    public Actor obtenerModelo(Actor modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public boolean existe(List<Actor> listaModelo, Actor modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-
-
-
 }

@@ -2,20 +2,19 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.HashSet;
 import modelo.Municipalidad;
+import modelo.Ubigeo;
 import org.apache.commons.lang3.text.WordUtils;
 
 public class MunicipalidadImpl extends Conexion implements ICrud<Municipalidad> {
-
+    
     @Override
     public void registrar(Municipalidad modelo) throws Exception {
         try {
             String sql = "INSERT INTO GENERAL.MUNICIPALIDAD (CODUBI, DIRMUN, NOMMUN, ESTMUN, TLFMUN) VALUES (?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-            ps.setString(1, modelo.getCODUBI());
+            ps.setString(1, modelo.getUbigeo().getCODUBI());
             ps.setString(2, WordUtils.capitalize(modelo.getDIRMUN()));
             ps.setString(3, WordUtils.capitalize(modelo.getNOMMUN()));
             ps.setString(4, "A");
@@ -29,19 +28,19 @@ public class MunicipalidadImpl extends Conexion implements ICrud<Municipalidad> 
             this.desconectar();
         }
     }
-
+    
     @Override
     public void editar(Municipalidad modelo) throws Exception {
         try {
             String sql = "UPDATE GENERAL.MUNICIPALIDAD SET CODUBI=?, DIRMUN=?, NOMMUN=?, ESTMUN=?, TLFMUN=? "
                     + "WHERE IDMUN=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-            ps.setString(1, modelo.getCODUBI());
+            ps.setString(1, modelo.getUbigeo().getCODUBI());
             ps.setString(2, modelo.getDIRMUN());
             ps.setString(3, modelo.getNOMMUN());
             ps.setString(4, String.valueOf(modelo.getESTMUN().charAt(0)));
             ps.setString(5, modelo.getTLFMUN());
-            ps.setInt(6, Integer.valueOf(modelo.getIDMUN()));
+            ps.setInt(6, modelo.getIDMUN());
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
@@ -51,7 +50,7 @@ public class MunicipalidadImpl extends Conexion implements ICrud<Municipalidad> 
             this.desconectar();
         }
     }
-
+    
     @Override
     public void eliminar(Municipalidad modelo) throws Exception {
         try {
@@ -59,7 +58,7 @@ public class MunicipalidadImpl extends Conexion implements ICrud<Municipalidad> 
                     + "WHERE IDMUN=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, "I");
-            ps.setInt(2, Integer.valueOf(modelo.getIDMUN()));
+            ps.setInt(2, modelo.getIDMUN());
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
@@ -69,23 +68,25 @@ public class MunicipalidadImpl extends Conexion implements ICrud<Municipalidad> 
             this.desconectar();
         }
     }
-
+    
     @Override
-    public List<Municipalidad> listar() throws Exception {
-        List<Municipalidad> lista = null;
+    public HashSet<Municipalidad> listar() throws Exception {
+        HashSet<Municipalidad> lista = new HashSet<>();
         try {
-            String sql = "SELECT * FROM GENERAL.MUNICIPALIDAD ORDER BY IDMUN DESC";
+            String sql = "SELECT IDMUN, CODUBI, DIRMUN, NOMMUN, TLFMUN, ESTMUN FROM GENERAL.MUNICIPALIDAD";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
-            Municipalidad municipalidad;
-            lista = new ArrayList<>();
             while (rs.next()) {
-                municipalidad = new Municipalidad();
-                municipalidad.setIDMUN(String.valueOf(rs.getInt("IDMUN")));
-                municipalidad.setCODUBI(rs.getString("CODUBI"));
-                municipalidad.setDIRMUN(rs.getString("DIRMUN"));
-                municipalidad.setNOMMUN(rs.getString("NOMMUN"));
-                municipalidad.setTLFMUN(rs.getString("TLFMUN"));
-                municipalidad.setESTMUN(rs.getString("ESTMUN"));
+                Municipalidad municipalidad = new Municipalidad();
+                Ubigeo ubigeo = new Ubigeo();
+                
+                municipalidad.setIDMUN(rs.getInt(1));
+                ubigeo.setCODUBI(rs.getString(2));
+                municipalidad.setDIRMUN(rs.getString(3));
+                municipalidad.setNOMMUN(rs.getString(4));
+                municipalidad.setTLFMUN(rs.getString(5));
+                municipalidad.setESTMUN(rs.getString(6));
+                
+                municipalidad.setUbigeo(ubigeo);
                 lista.add(municipalidad);
             }
             rs.close();
@@ -96,26 +97,15 @@ public class MunicipalidadImpl extends Conexion implements ICrud<Municipalidad> 
         }
         return lista;
     }
-
+    
     @Override
-    public Municipalidad obtenerModelo(List<Municipalidad> listaModelo, Municipalidad modelo) throws Exception {
-        for (Municipalidad next : listaModelo) {
-            if (next.getNOMMUN().equals(modelo.getNOMMUN())) {
-                modelo.setIDMUN(next.getIDMUN());
-                return modelo;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public boolean existe(List<Municipalidad> listaModelo, Municipalidad modelo) throws Exception {
+    public Municipalidad obtenerModelo(Municipalidad modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
-    public List<Municipalidad> listar(Municipalidad modelo) throws Exception {
+    public HashSet<Municipalidad> listar(Municipalidad modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
 }

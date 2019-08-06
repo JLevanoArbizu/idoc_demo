@@ -1,18 +1,9 @@
 package dao;
 
-import static dao.Conexion.conectar;
-import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
+import java.util.HashSet;
 import modelo.IncidenciaTipo;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 import org.primefaces.model.StreamedContent;
 
 public class IncidenciaTipoImpl extends Conexion implements ICrud<IncidenciaTipo>, IReporte<IncidenciaTipo> {
@@ -45,7 +36,7 @@ public class IncidenciaTipoImpl extends Conexion implements ICrud<IncidenciaTipo
             ps.setString(2, modelo.getTIPINCTIP());
             ps.setString(3, modelo.getLEYINCTIP());
             ps.setString(4, modelo.getESTINCTIP());
-            ps.setInt(5, Integer.valueOf(modelo.getIDINCTIP()));
+            ps.setInt(5, modelo.getIDINCTIP());
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
@@ -62,7 +53,7 @@ public class IncidenciaTipoImpl extends Conexion implements ICrud<IncidenciaTipo
             String sql = "UPDATE REGCIV.INCIDENCIA_TIPO SET ESTINCTIP=? WHERE IDINCTIP=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, "I");
-            ps.setInt(2, Integer.valueOf(modelo.getIDINCTIP()));
+            ps.setInt(2, modelo.getIDINCTIP());
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
@@ -74,22 +65,21 @@ public class IncidenciaTipoImpl extends Conexion implements ICrud<IncidenciaTipo
     }
 
     @Override
-    public List<IncidenciaTipo> listar() throws Exception {
-        List<IncidenciaTipo> lista = null;
+    public HashSet<IncidenciaTipo> listar() throws Exception {
+        HashSet<IncidenciaTipo> lista = new HashSet<>();
         try {
-            String sql = "SELECT * FROM REGCIV.INCIDENCIA_TIPO ORDER BY IDINCTIP DESC";
+            String sql = "SELECT IDINCTIP, NOMINCTIP, TIPINCTIP, LEYINCTIP, ESTINCTIP FROM REGCIV.INCIDENCIA_TIPO";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             IncidenciaTipo incidenciatipo;
-            lista = new ArrayList<>();
             while (rs.next()) {
                 incidenciatipo = new IncidenciaTipo();
-                incidenciatipo.setIDINCTIP(String.valueOf(rs.getInt("IDINCTIP")));
-                incidenciatipo.setNOMINCTIP(rs.getString("NOMINCTIP"));
-                incidenciatipo.setTIPINCTIP(String.valueOf(rs.getString("TIPINCTIP").charAt(0)));
-                incidenciatipo.setLEYINCTIP(rs.getString("LEYINCTIP"));
-                incidenciatipo.setESTINCTIP(String.valueOf(rs.getString("ESTINCTIP").charAt(0)));
-                lista.add(incidenciatipo);
+                incidenciatipo.setIDINCTIP(rs.getInt(1));
+                incidenciatipo.setNOMINCTIP(rs.getString(2));
+                incidenciatipo.setTIPINCTIP(rs.getString(3));
+                incidenciatipo.setLEYINCTIP(rs.getString(4));
+                incidenciatipo.setESTINCTIP(rs.getString(5));
 
+                lista.add(incidenciatipo);
             }
             rs.close();
         } catch (Exception e) {
@@ -101,38 +91,17 @@ public class IncidenciaTipoImpl extends Conexion implements ICrud<IncidenciaTipo
     }
 
     @Override
-    public IncidenciaTipo obtenerModelo(List<IncidenciaTipo> listaModelo, IncidenciaTipo modelo) throws Exception {
-        for (IncidenciaTipo next : listaModelo) {
-            if (next.getNOMINCTIP().equals(modelo.getNOMINCTIP())) {
-                modelo.setIDINCTIP(next.getIDINCTIP());
-                return modelo;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public boolean existe(List<IncidenciaTipo> listaModelo, IncidenciaTipo modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void generarReporteIndividual(IncidenciaTipo modelo) throws Exception {
-        conectar();
-        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/TipoDeIncidencia/TipoDeIncidencia.jasper"));
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
-        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        response.addHeader("Content-disposition", "attachment; filename=TipoDeIncidencia.pdf");
-        try (ServletOutputStream stream = response.getOutputStream()) {
-            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
-            stream.flush();
-        }
-        FacesContext.getCurrentInstance().responseComplete();
-    }
-
-    @Override
-    public List<IncidenciaTipo> listar(IncidenciaTipo modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        conectar();
+//        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/TipoDeIncidencia/TipoDeIncidencia.jasper"));
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+//        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+//        response.addHeader("Content-disposition", "attachment; filename=TipoDeIncidencia.pdf");
+//        try (ServletOutputStream stream = response.getOutputStream()) {
+//            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+//            stream.flush();
+//        }
+//        FacesContext.getCurrentInstance().responseComplete();
     }
 
     @Override
@@ -147,6 +116,16 @@ public class IncidenciaTipoImpl extends Conexion implements ICrud<IncidenciaTipo
 
     @Override
     public StreamedContent generarReporteGeneralPrev(IncidenciaTipo modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HashSet<IncidenciaTipo> listar(IncidenciaTipo modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public IncidenciaTipo obtenerModelo(IncidenciaTipo modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

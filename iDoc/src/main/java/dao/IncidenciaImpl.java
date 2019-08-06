@@ -1,30 +1,24 @@
 package dao;
 
-import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
+import java.util.HashSet;
+import modelo.Acta;
 
 import modelo.Incidencia;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
+import modelo.IncidenciaTipo;
+import org.primefaces.model.StreamedContent;
 
 public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IReporte<Incidencia> {
-    
+
     @Override
     public void registrar(Incidencia modelo) throws Exception {
         try {
             String sql = "INSERT INTO REGCIV.INCIDENCIA (IDACTA, IDINCTIP, FECINC, MOTINC, ESTINC) VALUES (?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-            ps.setString(1, modelo.getIDDOC());
-            ps.setString(2, modelo.getIDINCTIP());
-            ps.setDate(3, modelo.getFECINC());
+            ps.setInt(1, modelo.getActa().getIDACTA());
+            ps.setInt(2, modelo.getTipoIncidencia().getIDINCTIP());
+            ps.setDate(3, new java.sql.Date(modelo.getFECINC().getTime()));
             ps.setString(4, modelo.getMOTINC());
             ps.setString(5, "A");
             ps.executeUpdate();
@@ -36,18 +30,18 @@ public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IRepo
             this.desconectar();
         }
     }
-    
+
     @Override
     public void editar(Incidencia modelo) throws Exception {
         try {
             String sql = "UPDATE REGCIV.INCIDENCIA SET IDACTA =?, IDINCTIP =?, FECINC=?, MOTINC=?, ESTINC=? WHERE IDINC=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-            ps.setString(1, modelo.getIDDOC());
-            ps.setString(2, modelo.getIDINCTIP());
-            ps.setDate(3, modelo.getFECINC());
+            ps.setInt(1, modelo.getActa().getIDACTA());
+            ps.setInt(2, modelo.getTipoIncidencia().getIDINCTIP());
+            ps.setDate(3, new java.sql.Date(modelo.getFECINC().getTime()));
             ps.setString(4, modelo.getMOTINC());
             ps.setString(5, modelo.getESTINC());
-            ps.setInt(6, Integer.valueOf(modelo.getIDINC()));
+            ps.setInt(6, modelo.getIDINC());
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
@@ -57,14 +51,14 @@ public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IRepo
             this.desconectar();
         }
     }
-    
+
     @Override
     public void eliminar(Incidencia modelo) throws Exception {
         try {
             String sql = "UPDATE REGCIV.INCIDENCIA SET ESTINC=? WHERE IDINC=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, "I");
-            ps.setInt(2, Integer.valueOf(modelo.getIDINC()));
+            ps.setInt(2, modelo.getIDINC());
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
@@ -74,23 +68,26 @@ public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IRepo
             this.desconectar();
         }
     }
-    
+
     @Override
-    public List<Incidencia> listar() throws Exception {
-        List<Incidencia> lista = null;
+    public HashSet<Incidencia> listar() throws Exception {
+        HashSet<Incidencia> lista = new HashSet<>();
         try {
-            String sql = "SELECT IDINC,IDACTA,IDINCTIP,MOTINC, FECINC, ESTINC FROM REGCIV.INCIDENCIA ORDER BY IDINC DESC";
+            String sql = "SELECT IDINC,IDACTA,IDINCTIP,MOTINC, FECINC, ESTINC FROM REGCIV.INCIDENCIA";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
-            Incidencia incidencia;
-            lista = new ArrayList<>();
             while (rs.next()) {
-                incidencia = new Incidencia();
-                incidencia.setIDINC(String.valueOf(rs.getInt(1)));
-                incidencia.setIDDOC(String.valueOf(rs.getInt(2)));
-                incidencia.setIDINCTIP(String.valueOf(rs.getInt(3)));
+                Incidencia incidencia = new Incidencia();
+                Acta acta = new Acta();
+                IncidenciaTipo tipoIncidencia = new IncidenciaTipo();
+                incidencia.setIDINC(rs.getInt(1));
+                acta.setIDACTA(rs.getInt(2));
+                tipoIncidencia.setIDINCTIP(rs.getInt(3));
                 incidencia.setMOTINC(rs.getString(4));
-                incidencia.setFechaTemporal(rs.getDate(5));
+                incidencia.setFECINC(rs.getDate(5));
                 incidencia.setESTINC(rs.getString(6));
+                
+                incidencia.setActa(acta);
+                incidencia.setTipoIncidencia(tipoIncidencia);
                 lista.add(incidencia);
             }
         } catch (Exception e) {
@@ -100,42 +97,43 @@ public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IRepo
         }
         return lista;
     }
-    
-    @Override
-    public Incidencia obtenerModelo(List<Incidencia> listaModelo, Incidencia modelo) throws Exception {
-        for (Incidencia next : listaModelo) {
-            if (next.getIDDOC().equals(modelo.getIDDOC())) {
-                modelo.setIDINC(next.getIDINC());
-                return modelo;
-                
-            }
-            
-        }
-        return null;
-    }
-    
-    @Override
-    public boolean existe(List<Incidencia> listaModelo, Incidencia modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+
     @Override
     public void generarReporteIndividual(Incidencia modelo) throws Exception {
-        conectar();
-        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Incidencia/Incidencia.jasper"));
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
-        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        response.addHeader("Content-disposition", "attachment; filename=ListaDeIncidencias.pdf");
-        try (ServletOutputStream stream = response.getOutputStream()) {
-            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
-            stream.flush();
-        }
-        FacesContext.getCurrentInstance().responseComplete();
+//        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Incidencia/Incidencia.jasper"));
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+//        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+//        response.addHeader("Content-disposition", "attachment; filename=ListaDeIncidencias.pdf");
+//        try (ServletOutputStream stream = response.getOutputStream()) {
+//            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+//            stream.flush();
+//        }
+//        FacesContext.getCurrentInstance().responseComplete();
     }
-    
+
     @Override
-    public List<Incidencia> listar(Incidencia modelo) throws Exception {
+    public HashSet<Incidencia> listar(Incidencia modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    @Override
+    public Incidencia obtenerModelo(Incidencia modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void generarReporteGeneral(Incidencia modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StreamedContent generarReporteIndividualPrev(Incidencia modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StreamedContent generarReporteGeneralPrev(Incidencia modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

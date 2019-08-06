@@ -42,8 +42,6 @@ public class Municipalidad {
         return true;
     }
 
-    
-
     public Ubigeo getUbigeo() {
         return ubigeo;
     }

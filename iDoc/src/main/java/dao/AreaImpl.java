@@ -1,20 +1,11 @@
 package dao;
 
-import static dao.Conexion.conectar;
-import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
+import java.util.HashSet;
 
 import modelo.Area;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
+import modelo.Municipalidad;
 import org.primefaces.model.StreamedContent;
 
 public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
@@ -26,10 +17,10 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getNOMARE());
             ps.setInt(2, 6);
-            if (modelo.getIDARE_PADR() == null) {
+            if (modelo.getAreaPadre().getIDARE() == 0) {
                 ps.setNull(3, java.sql.Types.NULL);
             } else {
-                ps.setInt(3, Integer.valueOf(modelo.getIDARE_PADR()));
+                ps.setInt(3, modelo.getAreaPadre().getIDARE());
             }
             ps.setString(4, "A");
             ps.executeUpdate();
@@ -50,13 +41,13 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getNOMARE());
             ps.setInt(2, 6);
-            if (modelo.getIDARE_PADR() == null) {
+            if (modelo.getAreaPadre().getIDARE() == 0) {
                 ps.setNull(3, java.sql.Types.NULL);
             } else {
-                ps.setInt(3, Integer.valueOf(modelo.getIDARE_PADR()));
+                ps.setInt(3, modelo.getAreaPadre().getIDARE());
             }
             ps.setString(4, String.valueOf(modelo.getESTARE().charAt(0)));
-            ps.setInt(5, Integer.valueOf(modelo.getIDARE()));
+            ps.setInt(5, modelo.getIDARE());
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
@@ -73,7 +64,7 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
             String sql = "UPDATE GENERAL.AREA SET ESTARE=? WHERE IDARE=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, "I");
-            ps.setInt(2, Integer.valueOf(modelo.getIDARE()));
+            ps.setInt(2, modelo.getIDARE());
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
@@ -85,8 +76,8 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
     }
 
     @Override
-    public List<Area> listar() throws Exception {
-        List<Area> lista = null;
+    public HashSet<Area> listar() throws Exception {
+        HashSet<Area> lista = new HashSet<>();
         try {
             String sql = "SELECT area.IDARE, area.IDARE_PADR, area.IDMUN, area.NOMARE, area.ESTARE, subarea.NOMARE, muni.NOMMUN "
                     + "FROM General.AREA area "
@@ -95,17 +86,21 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
                     + "WHERE area.IDARE_PADR IS NULL OR subarea.IDARE IS NOT NULL "
                     + "ORDER BY area.IDARE";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
-            Area area;
-            lista = new ArrayList<>();
+
             while (rs.next()) {
-                area = new Area();
-                area.setIDARE(String.valueOf(rs.getInt(1)));
-                area.setIDARE_PADR(String.valueOf(rs.getInt(2)));
-                area.setIDMUN(String.valueOf(rs.getInt(3)));
+                Area area = new Area(), areaPadre = new Area();
+                Municipalidad municipalidad = new Municipalidad();
+
+                area.setIDARE(rs.getInt(1));
+                areaPadre.setIDARE(rs.getInt(2));
+                municipalidad.setIDMUN(rs.getInt(3));
                 area.setNOMARE(rs.getString(4));
                 area.setESTARE(rs.getString(5).equals("A") ? "Activo" : "Inactivo");
-                area.setNOMARE_PADR(rs.getString(6));
-                area.setNOMMUN(rs.getString(7));
+                areaPadre.setNOMARE(rs.getString(6));
+                municipalidad.setNOMMUN(rs.getString(7));
+
+                area.setAreaPadre(areaPadre);
+                area.setMunicipalidad(municipalidad);
                 lista.add(area);
             }
             rs.close();
@@ -118,38 +113,17 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
     }
 
     @Override
-    public Area obtenerModelo(List<Area> listaModelo, Area modelo) throws Exception {
-        for (Area area1 : listaModelo) {
-            if (area1.getNOMARE().equals(modelo.getNOMARE())) {
-                modelo.setIDARE_PADR(area1.getIDARE());
-                return modelo;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public boolean existe(List<Area> listaModelo, Area modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void generarReporteIndividual(Area modelo) throws Exception {
-        conectar();
-        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Area/Area.jasper"));
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
-        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        response.addHeader("Content-disposition", "attachment; filename=Area.pdf");
-        try (ServletOutputStream stream = response.getOutputStream()) {
-            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
-            stream.flush();
-        }
-        FacesContext.getCurrentInstance().responseComplete();
-    }
-
-    @Override
-    public List<Area> listar(Area modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        conectar();
+//        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Area/Area.jasper"));
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+//        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+//        response.addHeader("Content-disposition", "attachment; filename=Area.pdf");
+//        try (ServletOutputStream stream = response.getOutputStream()) {
+//            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+//            stream.flush();
+//        }
+//        FacesContext.getCurrentInstance().responseComplete();
     }
 
     @Override
@@ -164,6 +138,16 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
 
     @Override
     public StreamedContent generarReporteGeneralPrev(Area modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Area obtenerModelo(Area modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HashSet<Area> listar(Area modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
