@@ -4,7 +4,9 @@ import dao.TrabajadorImpl;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import modelo.Trabajador;
 
@@ -13,14 +15,14 @@ import modelo.Trabajador;
 public class TrabajadorC implements Serializable {
 
     Trabajador trabajador, trabajadorSeleccionado;
-    HashSet<Trabajador> listaTrabajador, listaTrabajadorFiltrado;
+    List<Trabajador> listaTrabajador, listaTrabajadorFiltrado;
     TrabajadorImpl daoTrabajador;
 
     public TrabajadorC() throws Exception {
         trabajador = new Trabajador();
         trabajadorSeleccionado = new Trabajador();
-        listaTrabajador = new HashSet<>();
-        listaTrabajadorFiltrado = new HashSet<>();
+        listaTrabajador = new ArrayList<>();
+        listaTrabajadorFiltrado = new ArrayList<>();
         daoTrabajador = new TrabajadorImpl();
     }
 
@@ -78,20 +80,22 @@ public class TrabajadorC implements Serializable {
         this.trabajadorSeleccionado = trabajadorSeleccionado;
     }
 
-    public HashSet<Trabajador> getListaTrabajador() {
+    public List<Trabajador> getListaTrabajador() {
         return listaTrabajador;
     }
 
-    public void setListaTrabajador(HashSet<Trabajador> listaTrabajador) {
+    public void setListaTrabajador(List<Trabajador> listaTrabajador) {
         this.listaTrabajador = listaTrabajador;
     }
 
-    public HashSet<Trabajador> getListaTrabajadorFiltrado() {
+    public List<Trabajador> getListaTrabajadorFiltrado() {
         return listaTrabajadorFiltrado;
     }
 
-    public void setListaTrabajadorFiltrado(HashSet<Trabajador> listaTrabajadorFiltrado) {
+    public void setListaTrabajadorFiltrado(List<Trabajador> listaTrabajadorFiltrado) {
         this.listaTrabajadorFiltrado = listaTrabajadorFiltrado;
     }
+
+   
 
 }

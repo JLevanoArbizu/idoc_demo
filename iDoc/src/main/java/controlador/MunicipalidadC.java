@@ -4,7 +4,9 @@ import dao.MunicipalidadImpl;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import modelo.Municipalidad;
 
@@ -13,14 +15,14 @@ import modelo.Municipalidad;
 public class MunicipalidadC implements Serializable {
 
     Municipalidad municipalidad, municipalidadSeleccionada;
-    HashSet<Municipalidad> lista, listaFiltrada;
+    List<Municipalidad> lista, listaFiltrada;
     MunicipalidadImpl daoMunicipalidad;
 
     public MunicipalidadC() {
         municipalidad = new Municipalidad();
         municipalidadSeleccionada = new Municipalidad();
-        lista = new HashSet<>();
-        listaFiltrada = new HashSet<>();
+        lista = new ArrayList<>();
+        listaFiltrada = new ArrayList<>();
         daoMunicipalidad = new MunicipalidadImpl();
     }
 
@@ -86,20 +88,22 @@ public class MunicipalidadC implements Serializable {
         this.municipalidadSeleccionada = municipalidadSeleccionada;
     }
 
-    public HashSet<Municipalidad> getLista() {
+    public List<Municipalidad> getLista() {
         return lista;
     }
 
-    public void setLista(HashSet<Municipalidad> lista) {
+    public void setLista(List<Municipalidad> lista) {
         this.lista = lista;
     }
 
-    public HashSet<Municipalidad> getListaFiltrada() {
+    public List<Municipalidad> getListaFiltrada() {
         return listaFiltrada;
     }
 
-    public void setListaFiltrada(HashSet<Municipalidad> listaFiltrada) {
+    public void setListaFiltrada(List<Municipalidad> listaFiltrada) {
         this.listaFiltrada = listaFiltrada;
     }
+
+    
 
 }

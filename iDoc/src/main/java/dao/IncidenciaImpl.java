@@ -2,7 +2,8 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import modelo.Acta;
 
 import modelo.Incidencia;
@@ -70,8 +71,8 @@ public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IRepo
     }
 
     @Override
-    public HashSet<Incidencia> listar() throws Exception {
-        HashSet<Incidencia> lista = new HashSet<>();
+    public List<Incidencia> listar() throws Exception {
+        List<Incidencia> lista = new ArrayList<>();
         try {
             String sql = "SELECT IDINC,IDACTA,IDINCTIP,MOTINC, FECINC, ESTINC FROM REGCIV.INCIDENCIA";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
@@ -112,7 +113,7 @@ public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IRepo
     }
 
     @Override
-    public HashSet<Incidencia> listar(Incidencia modelo) throws Exception {
+    public List<Incidencia> listar(Incidencia modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

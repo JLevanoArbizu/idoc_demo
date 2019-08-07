@@ -2,7 +2,8 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import modelo.IncidenciaTipo;
 import org.primefaces.model.StreamedContent;
 
@@ -65,8 +66,8 @@ public class IncidenciaTipoImpl extends Conexion implements ICrud<IncidenciaTipo
     }
 
     @Override
-    public HashSet<IncidenciaTipo> listar() throws Exception {
-        HashSet<IncidenciaTipo> lista = new HashSet<>();
+    public List<IncidenciaTipo> listar() throws Exception {
+        List<IncidenciaTipo> lista = new ArrayList<>();
         try {
             String sql = "SELECT IDINCTIP, NOMINCTIP, TIPINCTIP, LEYINCTIP, ESTINCTIP FROM REGCIV.INCIDENCIA_TIPO";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
@@ -120,7 +121,7 @@ public class IncidenciaTipoImpl extends Conexion implements ICrud<IncidenciaTipo
     }
 
     @Override
-    public HashSet<IncidenciaTipo> listar(IncidenciaTipo modelo) throws Exception {
+    public List<IncidenciaTipo> listar(IncidenciaTipo modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

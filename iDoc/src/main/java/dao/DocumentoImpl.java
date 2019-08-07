@@ -1,19 +1,11 @@
 package dao;
 
-import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 import modelo.Documento;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 import org.primefaces.model.StreamedContent;
 import servicios.EncriptarS;
 
@@ -22,7 +14,6 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
     @Override
     public void registrar(Documento documento) throws Exception {
         try {
-            this.conectar();
             String sql = "INSERT INTO TraDoc.DOCUMENTO (CODDOC,NUMLIBDOC,NUMFOLDOC,TIPDOC,FECDOC,ASUDOC,OBSDOC,IDTUP,IDLOG,IDEMP,IDPER,KEYDOC) VALUES(?,?,?,?,CONVERT(DATE,?,103),?,?,?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, EncriptarS.encriptarDocumento(documento.getCODDOC()));
@@ -50,7 +41,6 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
     public void editar(Documento documento) throws Exception {
         
         try {
-            this.conectar();
             String sql = "UPDATE TraDoc.DOCUMENTO SET CODDOC=?, NUMLIBDOC = ?, NUMFOLDOC=?, FECDOC=? , ASUDOC = ? , OBSDOC = ? , IDTUP = ? , IDEMP = ? , IDPER = ? , KEYDOC = ? WHERE IDDOC LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             
@@ -80,7 +70,6 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
     public void eliminar(Documento documento) throws Exception {
         
         try {
-            this.conectar();
             String sql = "UPDATE TraDoc.DOCUMENTO SET ESTDOC='I' WHERE IDDOC LIKE ?";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             ps.setString(1, documento.getIDDOC());
@@ -94,14 +83,12 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
     
     @Override
     public List<Documento> listar() throws Exception {
-        List<Documento> listaDocumento;
+        List<Documento> listaDocumento = new ArrayList<>();
         ResultSet rs;
         try {
-            this.conectar();
             String sql = "SELECT * FROM VW_DOCUMENTO WHERE  ESTDOC != 'I' ORDER BY IDDOC DESC ";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
-            listaDocumento = new ArrayList();
             Documento documento;
             while (rs.next()) {
                 documento = new Documento();
@@ -129,34 +116,21 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
         }
     }
     
-    @Override
-    public boolean existe(List<Documento> listaModelo, Documento modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     @Override
     public void generarReporteIndividual(Documento modelo) throws Exception {
-        conectar();
-        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Documento/Documento.jasper"));
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
-        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        response.addHeader("Content-disposition", "attachment; filename=Documento.pdf");
-        try (ServletOutputStream stream = response.getOutputStream()) {
-            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
-            stream.flush();
-        }
-        FacesContext.getCurrentInstance().responseComplete();
+//        conectar();
+//        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Documento/Documento.jasper"));
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+//        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+//        response.addHeader("Content-disposition", "attachment; filename=Documento.pdf");
+//        try (ServletOutputStream stream = response.getOutputStream()) {
+//            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+//            stream.flush();
+//        }
+//        FacesContext.getCurrentInstance().responseComplete();
     }
     
-    @Override
-    public List<Documento> listar(Documento modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    @Override
-    public Documento obtenerModelo(List<Documento> listaModelo, Documento modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void generarReporteGeneral(Documento modelo) throws Exception {
@@ -170,6 +144,16 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
 
     @Override
     public StreamedContent generarReporteGeneralPrev(Documento modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Documento obtenerModelo(Documento modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Documento> listar(Documento modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -2,7 +2,9 @@ package controlador;
 
 import dao.IncidenciaImpl;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -13,14 +15,14 @@ import modelo.Incidencia;
 public class IncidenciaC implements Serializable {
 
     Incidencia incidencia, incidenciaSeleccionado;
-    HashSet<Incidencia> lista, listaFiltrado;
+    List<Incidencia> lista, listaFiltrado;
     IncidenciaImpl daoIncidencia;
 
     public IncidenciaC() {
         incidencia = new Incidencia();
         incidenciaSeleccionado = new Incidencia();
-        lista = new HashSet<>();
-        listaFiltrado = new HashSet<>();
+        lista = new ArrayList<>();
+        listaFiltrado = new ArrayList<>();
         daoIncidencia = new IncidenciaImpl();
     }
 
@@ -86,20 +88,22 @@ public class IncidenciaC implements Serializable {
         this.incidenciaSeleccionado = incidenciaSeleccionado;
     }
 
-    public HashSet<Incidencia> getLista() {
+    public List<Incidencia> getLista() {
         return lista;
     }
 
-    public void setLista(HashSet<Incidencia> lista) {
+    public void setLista(List<Incidencia> lista) {
         this.lista = lista;
     }
 
-    public HashSet<Incidencia> getListaFiltrado() {
+    public List<Incidencia> getListaFiltrado() {
         return listaFiltrado;
     }
 
-    public void setListaFiltrado(HashSet<Incidencia> listaFiltrado) {
+    public void setListaFiltrado(List<Incidencia> listaFiltrado) {
         this.listaFiltrado = listaFiltrado;
     }
+
+    
 
 }

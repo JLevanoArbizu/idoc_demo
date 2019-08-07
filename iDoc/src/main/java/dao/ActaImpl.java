@@ -2,7 +2,8 @@ package dao;
 
 
 import java.sql.PreparedStatement;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import modelo.Acta;
 import org.apache.commons.lang3.text.WordUtils;
@@ -69,8 +70,8 @@ public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
     }
 
     @Override
-    public HashSet<Acta> listar() throws Exception {
-        HashSet<Acta> lista = new HashSet<>();
+    public List<Acta> listar() throws Exception {
+        List<Acta> lista = new ArrayList<>();
         // Listar solo cabeceras
         return lista;
     }
@@ -105,7 +106,7 @@ public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
     }
 
     @Override
-    public HashSet<Acta> listar(Acta modelo) throws Exception {
+    public List<Acta> listar(Acta modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

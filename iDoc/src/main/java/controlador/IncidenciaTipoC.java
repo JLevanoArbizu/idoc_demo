@@ -2,7 +2,9 @@ package controlador;
 
 import dao.IncidenciaTipoImpl;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -13,14 +15,14 @@ import modelo.IncidenciaTipo;
 public class IncidenciaTipoC implements Serializable {
 
     IncidenciaTipo tipoIncidencia, tipoIncidenciaSeleccionado;
-    HashSet<IncidenciaTipo> lista, listaFiltrado;
+    List<IncidenciaTipo> lista, listaFiltrado;
     IncidenciaTipoImpl daoIncidenciaTipo;
 
     public IncidenciaTipoC() {
         tipoIncidencia = new IncidenciaTipo();
         tipoIncidenciaSeleccionado = new IncidenciaTipo();
-        lista = new HashSet<>();
-        listaFiltrado = new HashSet<>();
+        lista = new ArrayList<>();
+        listaFiltrado = new ArrayList<>();
         daoIncidenciaTipo = new IncidenciaTipoImpl();
     }
 
@@ -86,20 +88,22 @@ public class IncidenciaTipoC implements Serializable {
         this.tipoIncidenciaSeleccionado = tipoIncidenciaSeleccionado;
     }
 
-    public HashSet<IncidenciaTipo> getLista() {
+    public List<IncidenciaTipo> getLista() {
         return lista;
     }
 
-    public void setLista(HashSet<IncidenciaTipo> lista) {
+    public void setLista(List<IncidenciaTipo> lista) {
         this.lista = lista;
     }
 
-    public HashSet<IncidenciaTipo> getListaFiltrado() {
+    public List<IncidenciaTipo> getListaFiltrado() {
         return listaFiltrado;
     }
 
-    public void setListaFiltrado(HashSet<IncidenciaTipo> listaFiltrado) {
+    public void setListaFiltrado(List<IncidenciaTipo> listaFiltrado) {
         this.listaFiltrado = listaFiltrado;
     }
+
+   
 
 }

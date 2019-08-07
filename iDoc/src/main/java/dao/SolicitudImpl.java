@@ -1,7 +1,7 @@
 package dao;
 
 import java.sql.PreparedStatement;
-import java.util.HashSet;
+import java.util.List;
 import modelo.Solicitud;
 
 public class SolicitudImpl extends Conexion implements ICrud<Solicitud> {
@@ -46,12 +46,12 @@ public class SolicitudImpl extends Conexion implements ICrud<Solicitud> {
     }
 
     @Override
-    public HashSet<Solicitud> listar() throws Exception {
+    public List<Solicitud> listar() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public HashSet<Solicitud> listar(Solicitud modelo) throws Exception {
+    public List<Solicitud> listar(Solicitud modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

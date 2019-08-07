@@ -2,7 +2,8 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import modelo.Municipalidad;
 import modelo.Ubigeo;
 import org.apache.commons.lang3.text.WordUtils;
@@ -70,8 +71,8 @@ public class MunicipalidadImpl extends Conexion implements ICrud<Municipalidad> 
     }
     
     @Override
-    public HashSet<Municipalidad> listar() throws Exception {
-        HashSet<Municipalidad> lista = new HashSet<>();
+    public List<Municipalidad> listar() throws Exception {
+        List<Municipalidad> lista = new ArrayList<>();
         try {
             String sql = "SELECT IDMUN, CODUBI, DIRMUN, NOMMUN, TLFMUN, ESTMUN FROM GENERAL.MUNICIPALIDAD";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
@@ -104,7 +105,7 @@ public class MunicipalidadImpl extends Conexion implements ICrud<Municipalidad> 
     }
     
     @Override
-    public HashSet<Municipalidad> listar(Municipalidad modelo) throws Exception {
+    public List<Municipalidad> listar(Municipalidad modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -4,7 +4,8 @@ import dao.PersonaImpl;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import modelo.Persona;
 
@@ -13,14 +14,13 @@ import modelo.Persona;
 public class PersonaC implements Serializable {
 
     Persona persona, personaSeleccionada;
-    HashSet<Persona> lista, listaFiltrada;
+    List<Persona> lista, listaFiltrada;
     PersonaImpl daoPersona;
 
     public PersonaC() {
         persona = new Persona();
         personaSeleccionada = new Persona();
-        lista = new HashSet<>();
-        listaFiltrada = new HashSet<>();
+        lista = new ArrayList<>();
         daoPersona = new PersonaImpl();
     }
 
@@ -46,7 +46,10 @@ public class PersonaC implements Serializable {
                 daoPersona.registrar(persona);
                 listar();
                 persona.clear();
+            } else {
+                System.out.println("Ya existe");
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,19 +89,19 @@ public class PersonaC implements Serializable {
         this.personaSeleccionada = personaSeleccionada;
     }
 
-    public HashSet<Persona> getLista() {
+    public List<Persona> getLista() {
         return lista;
     }
 
-    public void setLista(HashSet<Persona> lista) {
+    public void setLista(List<Persona> lista) {
         this.lista = lista;
     }
 
-    public HashSet<Persona> getListaFiltrada() {
+    public List<Persona> getListaFiltrada() {
         return listaFiltrada;
     }
 
-    public void setListaFiltrada(HashSet<Persona> listaFiltrada) {
+    public void setListaFiltrada(List<Persona> listaFiltrada) {
         this.listaFiltrada = listaFiltrada;
     }
 

@@ -55,7 +55,6 @@ public class TransparenciaImpl extends Conexion {
                 persona.setAPEMATPER(rs.getString(2));
                 persona.setNOMPER(rs.getString(3));
                 persona.setDNIPER(rs.getString(4));
-                persona.setCOMPLETO(persona.getAPEPATPER() + " " + persona.getAPEMATPER() + ", " + persona.getNOMPER());
 
                 documento.setFECDOC(rs.getString(5));
                 documento.setASUDOC(rs.getString(6));

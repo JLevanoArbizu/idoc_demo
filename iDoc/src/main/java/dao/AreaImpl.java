@@ -2,7 +2,8 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import modelo.Area;
 import modelo.Municipalidad;
@@ -76,8 +77,8 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
     }
 
     @Override
-    public HashSet<Area> listar() throws Exception {
-        HashSet<Area> lista = new HashSet<>();
+    public List<Area> listar() throws Exception {
+        List<Area> lista = new ArrayList<>();
         try {
             String sql = "SELECT area.IDARE, area.IDARE_PADR, area.IDMUN, area.NOMARE, area.ESTARE, subarea.NOMARE, muni.NOMMUN "
                     + "FROM General.AREA area "
@@ -147,7 +148,7 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
     }
 
     @Override
-    public HashSet<Area> listar(Area modelo) throws Exception {
+    public List<Area> listar(Area modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -3,7 +3,8 @@ package dao;
 import modelo.Ubigeo;
 
 import java.sql.ResultSet;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UbigeoImpl extends Conexion implements ICrud<Ubigeo> {
 
@@ -23,10 +24,10 @@ public class UbigeoImpl extends Conexion implements ICrud<Ubigeo> {
     }
 
     @Override
-    public HashSet<Ubigeo> listar() throws Exception {
-        HashSet<Ubigeo> listaTemporal = new HashSet<>();
+    public List<Ubigeo> listar() throws Exception {
+        List<Ubigeo> listaTemporal = new ArrayList<>();
         try {
-            String sql = "SELECT ubigeo.CODUBI, ubigeo.DEPUBI, ubigeo.PROVUBI, ubigeo.DISTUBI FROM GENERAL.UBIGEO ubigeo"
+            String sql = "SELECT ubigeo.CODUBI, ubigeo.DEPUBI, ubigeo.PROVUBI, ubigeo.DISTUBI FROM GENERAL.UBIGEO ubigeo "
                     + "WHERE ubigeo.PROVUBI = 'CAÑETE'";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             while (rs.next()) {
@@ -53,7 +54,7 @@ public class UbigeoImpl extends Conexion implements ICrud<Ubigeo> {
     }
 
     @Override
-    public HashSet<Ubigeo> listar(Ubigeo modelo) throws Exception {
+    public List<Ubigeo> listar(Ubigeo modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

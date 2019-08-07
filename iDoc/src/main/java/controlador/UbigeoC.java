@@ -2,7 +2,8 @@ package controlador;
 
 import dao.UbigeoImpl;
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -14,11 +15,11 @@ import modelo.Ubigeo;
 @SessionScoped
 public class UbigeoC implements Serializable {
 
-    HashSet<Ubigeo> listaUbigeo;
+    List<Ubigeo> listaUbigeo;
     UbigeoImpl daoUbigeo;
 
     public UbigeoC() {
-        listaUbigeo = new HashSet<>();
+        listaUbigeo = new ArrayList<>();
         daoUbigeo = new UbigeoImpl();
     }
 
@@ -38,11 +39,11 @@ public class UbigeoC implements Serializable {
         }
     }
 
-    public HashSet<Ubigeo> getListaUbigeo() {
+    public List<Ubigeo> getListaUbigeo() {
         return listaUbigeo;
     }
 
-    public void setListaUbigeo(HashSet<Ubigeo> listaUbigeo) {
+    public void setListaUbigeo(List<Ubigeo> listaUbigeo) {
         this.listaUbigeo = listaUbigeo;
     }
 

@@ -9,7 +9,7 @@ import javax.inject.Named;
 import modelo.Login;
 import modelo.Trabajador;
 
-@Named(value = "LoginC")
+@Named(value = "loginC")
 @SessionScoped
 
 public class LoginC implements Serializable {

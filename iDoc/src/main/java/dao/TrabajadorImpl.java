@@ -2,7 +2,8 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import modelo.Area;
 import modelo.Persona;
@@ -63,8 +64,8 @@ public class TrabajadorImpl extends Conexion implements ICrud<Trabajador>, IRepo
     }
 
     @Override
-    public HashSet<Trabajador> listar() throws Exception {
-        HashSet<Trabajador> listaTrabajador = new HashSet<>();
+    public List<Trabajador> listar() throws Exception {
+        List<Trabajador> listaTrabajador = new ArrayList<>();
         try {
             String sql = "SELECT IDTRAB, IDPER, IDARE, FECINITRAB, FECFINTRAB, ESTTRAB FROM General.TRABAJADOR ";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
@@ -143,7 +144,7 @@ public class TrabajadorImpl extends Conexion implements ICrud<Trabajador>, IRepo
     }
 
     @Override
-    public HashSet<Trabajador> listar(Trabajador modelo) throws Exception {
+    public List<Trabajador> listar(Trabajador modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

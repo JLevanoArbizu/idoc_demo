@@ -95,7 +95,7 @@
                             <div class="profile">
                                 <div class="profile-image"></div>
                                 <a id="profile-options" href="#">
-                                    <span class="profile-name">#{trabajadorC.loginT.trabajador.persona.NOMPER}</span>
+                                    <span class="profile-name">#{loginC.loginSesion.trabajador.persona.NOMPER}</span>
                                     <i class="material-icons">keyboard_arrow_down</i>
                                 </a>
                             </div>
@@ -115,7 +115,7 @@
                                 </li>
                                 <li role="menuitem">
                                 <p:commandLink action="Login" styleClass="ripplelink" ajax="true"
-                                               actionListener="#{trabajadorC.cerrarSesion()}">
+                                               actionListener="#{loginC.cerrarSesion()}">
                                     <i class="material-icons">power_settings_new</i>
                                     <span>Salir</span>
                                 </p:commandLink>
@@ -130,14 +130,16 @@
                                 </li>
 
                                 <li role="menuitem">
-                                <p:commandLink action="documento" ajax="true" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
+                                <p:commandLink action="documento" ajax="true" 
+                                               rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'T'
                                                                                           ? true : false}">
                                     <i class="material-icons">description</i>
                                     <span>  Trámite</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Transferencia" ajax="true" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
+                                <p:commandLink action="Transferencia" ajax="true" 
+                                               rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'T'
                                                                                               ? true : false}">
                                     <i class="material-icons">compare_arrows</i>
                                     <span>Trazabilidad</span>
@@ -151,8 +153,8 @@
                                 </li>
                                 <li role="menuitem">
                                 <p:commandLink action="Area" 
-                                               rendered="#{trabajadorC.loginT.TIPLOG.charAt(0) == 'S' 
-                                                           and trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
+                                               rendered="#{loginC.loginSesion.TIPLOG.charAt(0) == 'S' 
+                                                           and loginC.loginSesion.TIPLOG.charAt(1) == 'T'
                                                            ? true : false}" ajax="true">
                                     <i class="material-icons">dashboard</i>
                                     <span>Área</span>
@@ -160,43 +162,48 @@
                                 </li>
                                 <li role="menuitem">
                                 <p:commandLink action="Trabajador" 
-                                               rendered="#{trabajadorC.loginT.TIPLOG.charAt(0) == 'S' ? true : false}" 
+                                               rendered="#{loginC.loginSesion.TIPLOG.charAt(0) == 'S' ? true : false}" 
                                                ajax="true">
                                     <i class="material-icons">work</i>
                                     <span>Trabajadores</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Acta" ajax="true" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'R'
+                                <p:commandLink action="Acta" ajax="true" 
+                                               rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'R'
                                                                                      ? true : false}">
                                     <i class="material-icons">collections_bookmark</i>
                                     <span>Actas</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Incidencia" ajax="true" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'R'
+                                <p:commandLink action="Incidencia" ajax="true" 
+                                               rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'R'
                                                                                            ? true : false}">
                                     <i class="material-icons">error</i>
                                     <span>Incidencias</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="IncidenciaTipo" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'R'
+                                <p:commandLink action="IncidenciaTipo" 
+                                               rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'R'
                                                                                    ? true : false}" ajax="true">
                                     <i class="material-icons">dashboard</i>
                                     <span>Tipos de Incidencia</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="tupa" ajax="true" rendered="#{trabajadorC.loginT.TIPLOG.charAt(0) == 'S' 
-                                                                                     and trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
+                                <p:commandLink action="tupa" ajax="true" 
+                                               rendered="#{loginC.loginSesion.TIPLOG.charAt(0) == 'S' 
+                                                                                     and loginC.loginSesion.TIPLOG.charAt(1) == 'T'
                                                                                      ? true : false}">
                                     <i class="material-icons">import_contacts</i>
                                     <span>Tupa</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="empresa" ajax="true" rendered="#{trabajadorC.loginT.TIPLOG.charAt(1) == 'T'
+                                <p:commandLink action="empresa" ajax="true" 
+                                               rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'T'
                                                                                         ? true : false}">
                                     <i class="material-icons">account_balance</i>
                                     <span>Empresa</span>
@@ -217,7 +224,7 @@
             <div class="layout-main">
                 <h:form>
                     <p:idleMonitor timeout="60000">
-                        <p:ajax event="idle" listener="#{trabajadorC.cerrarSesion()}" />
+                        <p:ajax event="idle" listener="#{loginC.cerrarSesion()}" />
                     </p:idleMonitor>
                 </h:form>
                 <ui:insert name="contenidoPagina"/>

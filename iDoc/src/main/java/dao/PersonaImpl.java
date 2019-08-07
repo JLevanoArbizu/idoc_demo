@@ -4,7 +4,8 @@ import modelo.Persona;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import modelo.Ubigeo;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -65,8 +66,8 @@ public class PersonaImpl extends Conexion implements ICrud<Persona>, IReporte<Pe
     }
 
     @Override
-    public HashSet<Persona> listar() throws Exception {
-        HashSet<Persona> lista = new HashSet<>();
+    public List<Persona> listar() throws Exception {
+        List<Persona> lista = new ArrayList<>();
         try {
             String sql = "SELECT IDPER, APEPATPER, APEMATPER, NOMPER, DNIPER, CODUBI, "
                     + "DIRPER, NACPER, GENPER, ESTPER FROM General.PERSONA";
@@ -130,7 +131,7 @@ public class PersonaImpl extends Conexion implements ICrud<Persona>, IReporte<Pe
     }
 
     @Override
-    public HashSet<Persona> listar(Persona modelo) throws Exception {
+    public List<Persona> listar(Persona modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

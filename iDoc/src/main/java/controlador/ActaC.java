@@ -5,7 +5,8 @@ import dao.ActorImpl;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import modelo.Acta;
 import modelo.Actor;
@@ -17,7 +18,7 @@ public class ActaC implements Serializable {
     Actor detalle, detalleSeleccionado;
     Acta cabecera;
 
-    HashSet<Actor> listaDetalle, listaDetalleFiltrado;
+    List<Actor> listaDetalle, listaDetalleFiltrado;
 
     ActaImpl daoActa;
     ActorImpl daoDetalle;
@@ -26,8 +27,8 @@ public class ActaC implements Serializable {
         detalle = new Actor();
         detalleSeleccionado = new Actor();
         cabecera = new Acta();
-        listaDetalle = new HashSet<>();
-        listaDetalleFiltrado = new HashSet<>();
+        listaDetalle = new ArrayList<>();
+        listaDetalleFiltrado = new ArrayList<>();
         daoActa = new ActaImpl();
         daoDetalle = new ActorImpl();
     }

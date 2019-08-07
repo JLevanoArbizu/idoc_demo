@@ -4,8 +4,8 @@ import dao.AreaImpl;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import modelo.Area;
 
@@ -14,14 +14,14 @@ import modelo.Area;
 public class AreaC implements Serializable {
 
     Area area, areaSeleccionada;
-    HashSet<Area> lista, listaFiltrado;
+    List<Area> lista, listaFiltrado;
     AreaImpl daoArea;
 
     public AreaC() {
         area = new Area();
         areaSeleccionada = new Area();
-        lista = new HashSet<>();
-        listaFiltrado = new LinkedHashSet<>();
+        lista = new ArrayList<>();
+        listaFiltrado = new ArrayList<>();
         daoArea = new AreaImpl();
     }
 
@@ -88,20 +88,21 @@ public class AreaC implements Serializable {
         this.areaSeleccionada = areaSeleccionada;
     }
 
-    public HashSet<Area> getLista() {
+    public List<Area> getLista() {
         return lista;
     }
 
-    public void setLista(HashSet<Area> lista) {
+    public void setLista(List<Area> lista) {
         this.lista = lista;
     }
 
-    public HashSet<Area> getListaFiltrado() {
+    public List<Area> getListaFiltrado() {
         return listaFiltrado;
     }
 
-    public void setListaFiltrado(HashSet<Area> listaFiltrado) {
+    public void setListaFiltrado(List<Area> listaFiltrado) {
         this.listaFiltrado = listaFiltrado;
     }
+
 
 }

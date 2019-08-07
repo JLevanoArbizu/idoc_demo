@@ -7,7 +7,7 @@ public class Area {
     private int IDARE;
     private String NOMARE, ESTARE;
     private Municipalidad municipalidad = new Municipalidad();
-    private Area areaPadre = new Area();
+    private Area areaPadre;
 
     public void clear() {
         this.IDARE = 0;

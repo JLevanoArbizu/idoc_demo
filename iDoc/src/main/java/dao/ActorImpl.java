@@ -1,7 +1,7 @@
 package dao;
 
 import java.sql.PreparedStatement;
-import java.util.HashSet;
+import java.util.List;
 import modelo.Actor;
 
 public class ActorImpl extends Conexion implements ICrud<Actor> {
@@ -36,12 +36,12 @@ public class ActorImpl extends Conexion implements ICrud<Actor> {
     }
 
     @Override
-    public HashSet<Actor> listar() throws Exception {
+    public List<Actor> listar() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public HashSet<Actor> listar(Actor modelo) throws Exception {
+    public List<Actor> listar(Actor modelo) throws Exception {
         //Listar aquí
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

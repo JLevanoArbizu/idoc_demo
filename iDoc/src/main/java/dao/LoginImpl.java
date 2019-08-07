@@ -2,7 +2,7 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.HashSet;
+import java.util.List;
 import modelo.Login;
 import modelo.Persona;
 import modelo.Trabajador;
@@ -83,7 +83,7 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
     }
 
     @Override
-    public HashSet<Login> listar() throws Exception {
+    public List<Login> listar() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -121,7 +121,7 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
     }
 
     @Override
-    public HashSet<Login> listar(Login modelo) throws Exception {
+    public List<Login> listar(Login modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

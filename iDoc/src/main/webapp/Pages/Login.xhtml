@@ -60,7 +60,7 @@
         </style>
     </h:head>
     <h:body class="login-body">
-        <f:event type="preRenderView" listener="#{trabajadorC.volverHome()}"/>
+        <f:event type="preRenderView" listener="#{loginC.volverHome()}"/>
         <div class="card login-panel ui-fluid">
             <div class="ui-g">
                 <h:form id="frmIngresar">      
@@ -69,7 +69,7 @@
                     <div class="ui-g-12">
                         <h:panelGroup styleClass="md-inputfield">
                             <p:inputText requiredMessage="Ingrese usuario"
-                                         value="#{trabajadorC.loginT.USRLOG}" required="true"/>
+                                         value="#{loginC.loginSesion.USRLOG}" required="true"/>
                             <p:outputLabel value="Usuario" for="@previous"/>
 
                         </h:panelGroup>
@@ -77,13 +77,13 @@
                     <div class="ui-g-12">
                         <h:panelGroup styleClass="md-inputfield">                            
                             <p:password requiredMessage="Ingrese contraseña"
-                                        value="#{trabajadorC.loginT.PSSWLOG}" required="true"/>
+                                        value="#{loginC.loginSesion.PSSWLOG}" required="true"/>
                             <p:outputLabel value="Contraseña" for="@previous"/>
                         </h:panelGroup>
                     </div>
 
                     <div class="ui-g-12">
-                        <p:commandButton actionListener="#{trabajadorC.iniciarSesion()}"
+                        <p:commandButton actionListener="#{loginC.iniciarSesion()}"
                                          id="btnIngresar" icon="ui-icon-locked"
                                          styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only amber-btn"
                                          value="Acceder" update="frmIngresar"/>
