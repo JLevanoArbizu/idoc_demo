@@ -1,109 +1,102 @@
 package controlador;
 
 import dao.LoginImpl;
+import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import modelo.Login;
+import modelo.Trabajador;
 
 @Named(value = "LoginC")
 @SessionScoped
 
 public class LoginC implements Serializable {
-
-    Login Login = new Login();
-    private Login selectedLogin;
-    private List<Login> lstLogin;
-
-    @PostConstruct
-    public void init() {
+    
+    Login loginSesion, login;
+    LoginImpl daoLogin;
+    
+    public LoginC() {
+        loginSesion = new Login();
+        login = new Login();
+        daoLogin = new LoginImpl();
+    }
+    
+    public void registrar(Trabajador trabajador) throws Exception {
         try {
-            listarLogin();
+            login.setTrabajador(trabajador);
+            login.setTIPLOG(login.getTIPLOG() + loginSesion.getTIPLOG().charAt(1));
+            daoLogin.registrar(login);
+            login.clear();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void editarOtro(Trabajador trabajador) throws Exception {
+        try {
+            login.setTrabajador(trabajador);
+            daoLogin.editar(login);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void editarMio() throws Exception {
+        try {
+            daoLogin.editarMio(loginSesion);
+            cerrarSesion();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void limpiarLogin() throws Exception {
-        Login = new Login();
-    }
-
-    public void registrarLogin() throws Exception {
-        LoginImpl dao;
+    // Sesiones
+    public void iniciarSesion() throws Exception {
         try {
-            dao = new LoginImpl();
-            dao.registrar(Login);
-            listarLogin();
-            limpiarLogin();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado Correctamente", null));
-            listarLogin();
+            loginSesion = daoLogin.obtenerModelo(loginSesion);
+            if (loginSesion.getIDLOG() != 0 && "A".equals(loginSesion.getESTLOG())) {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc/faces/Pages/Home.xhtml");
+            }
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Registrar" + e, null));
+            e.printStackTrace();
         }
     }
-
-    public void editarTupa() throws Exception {
-        LoginImpl dao;
-        try {
-            dao = new LoginImpl();
-            dao.editar(selectedLogin);
-            listarLogin();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
-        } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar" + e, null));
+    
+    public void seguridadSesion() throws IOException {
+        if (loginSesion.getIDLOG() == 0) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc/faces/Pages/Login.xhtml");
         }
     }
-
-    public void eliminarLogin() throws Exception {
-        LoginImpl dao;
-        try {
-            dao = new LoginImpl();
-            dao.eliminar(selectedLogin);
-            listarLogin();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado Correctamente", null));
-        } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar" + e, null));
+    
+    public void volverHome() throws IOException {
+        if (loginSesion.getIDLOG() != 0) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc/faces/Pages/Home.xhtml");
         }
     }
+    
+    public void cerrarSesion() throws IOException {
+        loginSesion.clear();
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc");
+    }
 
-    public void listarLogin() throws Exception {
-        LoginImpl dao;
-        try {
-            dao = new LoginImpl();
-            lstLogin = dao.listar();
-        } catch (Exception e) {
-            throw e;
+    public Login getLoginSesion() {
+        return loginSesion;
+    }
 
-        }
+    public void setLoginSesion(Login loginSesion) {
+        this.loginSesion = loginSesion;
     }
 
     public Login getLogin() {
-        return Login;
+        return login;
     }
 
-    public void setLogin(Login Login) {
-        this.Login = Login;
+    public void setLogin(Login login) {
+        this.login = login;
     }
-
-    public Login getSelectedLogin() {
-        return selectedLogin;
-    }
-
-    public void setSelectedLogin(Login selectedLogin) {
-        this.selectedLogin = selectedLogin;
-    }
-
-
-    public List<Login> getLstLogin() {
-        return lstLogin;
-    }
-
-    public void setLstLogin(List<Login> lstLogin) {
-        this.lstLogin = lstLogin;
-    }
-
+    
+    
 }

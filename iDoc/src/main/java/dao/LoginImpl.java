@@ -33,6 +33,7 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
     @Override
     public void editar(Login modelo) throws Exception {
         try {
+            //Acordarme hacer join con trabajador para editar mediante el
             String sql = "UPDATE GENERAL.LOGIN SET USRLOG=?, PSSWLOG=? WHERE IDLOG=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getUSRLOG());
@@ -48,7 +49,7 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
         }
     }
 
-    public void editar2(Login modelo) throws Exception {
+    public void editarMio(Login modelo) throws Exception {
         try {
             String sql = "UPDATE GENERAL.LOGIN SET PSSWLOG=? WHERE USRLOG=? AND ESTLOG='A'";
             PreparedStatement ps = this.conectar().prepareStatement(sql);

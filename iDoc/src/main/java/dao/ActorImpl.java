@@ -33,7 +33,7 @@ public class ActorImpl extends Conexion implements ICrud<Actor> {
     @Override
     public void eliminar(Actor modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }    
+    }
 
     @Override
     public HashSet<Actor> listar() throws Exception {
@@ -42,6 +42,7 @@ public class ActorImpl extends Conexion implements ICrud<Actor> {
 
     @Override
     public HashSet<Actor> listar(Actor modelo) throws Exception {
+        //Listar aquí
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
