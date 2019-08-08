@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import modelo.Area;
-import modelo.AreaPadre;
 import modelo.Municipalidad;
 import org.primefaces.model.StreamedContent;
 

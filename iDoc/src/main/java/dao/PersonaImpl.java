@@ -69,9 +69,22 @@ public class PersonaImpl extends Conexion implements ICrud<Persona>, IReporte<Pe
     public List<Persona> listar() throws Exception {
         List<Persona> lista = new ArrayList<>();
         try {
-            // jon con ubigeo
-            String sql = "SELECT IDPER, APEPATPER, APEMATPER, NOMPER, DNIPER, CODUBI, "
-                    + "DIRPER, NACPER, GENPER, ESTPER FROM General.PERSONA";
+            String sql = "SELECT persona.IDPER,\n"
+                    + "       persona.APEPATPER,\n"
+                    + "       persona.APEMATPER,\n"
+                    + "       persona.NOMPER,\n"
+                    + "       persona.DNIPER,\n"
+                    + "       UBIGEO.CODUBI,\n"
+                    + "       persona.DIRPER,\n"
+                    + "       persona.NACPER,\n"
+                    + "       persona.GENPER,\n"
+                    + "       persona.ESTPER,\n"
+                    + "	   ubigeo.DEPUBI,\n"
+                    + "	   ubigeo.PROVUBI,\n"
+                    + "	   ubigeo.DISTUBI\n"
+                    + "FROM General.PERSONA persona\n"
+                    + "INNER JOIN GENERAL.UBIGEO ubigeo\n"
+                    + "ON persona.CODUBI = ubigeo.CODUBI";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
 
             while (rs.next()) {
@@ -87,6 +100,10 @@ public class PersonaImpl extends Conexion implements ICrud<Persona>, IReporte<Pe
                 persona.setNACPER(rs.getString(8));
                 persona.setGENPER(rs.getString(9));
                 persona.setESTPER(rs.getString(10));
+
+                ubigeo.setDEPUBI(rs.getString(11));
+                ubigeo.setPROVUBI(rs.getString(12));
+                ubigeo.setDISTUBI(rs.getString(13));
 
                 persona.setUbigeo(ubigeo);
                 lista.add(persona);

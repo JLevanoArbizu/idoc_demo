@@ -16,36 +16,32 @@
 
         <p:fragment rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'R'? true : false}">
             <div class="ui-g dashboard">
-                <div class="ui-g-12 ui-md-6 ui-lg-4">
-                    <div class="ui-g card colorbox colorbox-1">
-                        <div class="ui-g-4">
-                            <i class="material-icons">child_friendly</i>
-                        </div>
-                        <div class="ui-g-8">
-                            <span class="colorbox-name">Actas de Nacimiento</span>
-                        </div>
+                <ui:repeat value="#{dashboardC.listaCantidadesActa}" var="cantidadActas">
+                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                        <h:form>
+                            <p:outputPanel class="ui-g card colorbox colorbox-#{cantidadActas.acta.TIPACTA}">
+
+                                <div class="ui-g-4">
+
+                                    <i class="material-icons">
+                                        #{cantidadActas.acta.TIPACTA eq '1' ?
+                                          'child_friendly':
+                                          cantidadActas.acta.TIPACTA eq '2' ? 
+                                          'favorite_border': 'airline_seat_flat'}
+                                    </i>
+                                </div>
+                                <div class="ui-g-8">
+                                    <span class="colorbox-name">#{cantidadActas.acta.TIPACTA eq '1' ?
+                                                                  'Partidas de Nacimiento':
+                                                                  cantidadActas.acta.TIPACTA eq '2' ? 
+                                                                  'Actas de Matrimonio': 'Actas de Defunción'}
+                                    </span>
+                                    <span class="colorbox-count">#{cantidadActas.cantidad}</span>
+                                </div>
+                            </p:outputPanel>
+                        </h:form>
                     </div>
-                </div>
-                <div class="ui-g-12 ui-md-6 ui-lg-4">
-                    <div class="ui-g card colorbox colorbox-2">
-                        <div class="ui-g-4">
-                            <i class="material-icons">favorite_border</i>
-                        </div>
-                        <div class="ui-g-8">
-                            <span class="colorbox-name">Actas de Matrimonio</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="ui-g-12 ui-md-6 ui-lg-4">
-                    <div class="ui-g card colorbox colorbox-3">
-                        <div class="ui-g-4">
-                            <i class="material-icons">airline_seat_flat</i>
-                        </div>
-                        <div class="ui-g-8">
-                            <span class="colorbox-name">Actas de Defunción</span>
-                        </div>
-                    </div>
-                </div>
+                </ui:repeat>
             </div>
         </p:fragment>
 
@@ -89,6 +85,7 @@
 
         <div class="ui-g-12 ui-md-12">
             <div class="card">
+                Aquí los charts xd
             </div>
         </div>
     </ui:define>

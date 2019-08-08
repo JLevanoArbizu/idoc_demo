@@ -147,8 +147,13 @@
                           filterBy="#{listaPersona.DNIPER}">
                     <h:outputText value="#{listaPersona.DNIPER eq null ? 'No registrado' : listaPersona.DNIPER}"/>
                 </p:column>
-                <p:column headerText="Distrito">
-                    <h:outputText value="#{listaPersona.ubigeo.CODUBI}"/>
+                <p:column headerText="Ubicación" filterBy="#{listaPersona.ubigeo.DEPUBI}, 
+                                  #{listaPersona.ubigeo.PROVUBI}, 
+                                  #{listaPersona.ubigeo.DISTUBI}"
+                                  filterMatchMode="contains">
+                    <h:outputText value="#{listaPersona.ubigeo.DEPUBI}, 
+                                  #{listaPersona.ubigeo.PROVUBI}, 
+                                  #{listaPersona.ubigeo.DISTUBI}"/>
                 </p:column>
                 <p:column headerText="Dirección" >
                     <h:outputText value="#{listaPersona.DIRPER}" />

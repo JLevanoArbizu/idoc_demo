@@ -3,6 +3,7 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
+import modelo.Area;
 import modelo.Login;
 import modelo.Persona;
 import modelo.Trabajador;
@@ -53,8 +54,8 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
         try {
             String sql = "UPDATE GENERAL.LOGIN SET PSSWLOG=? WHERE USRLOG=? AND ESTLOG='A'";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-            ps.setString(1, modelo.getTrabajador().getPersona().getDNIPER());
-            ps.setString(2, EncriptarS.encriptarPssw(modelo.getTrabajador().getPersona().getDNIPER()));
+            ps.setString(1, EncriptarS.encriptarPssw(modelo.getPSSWLOG()));
+            ps.setString(2, modelo.getUSRLOG());
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
@@ -90,30 +91,49 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
     @Override
     public Login obtenerModelo(Login modelo) throws Exception {
         try {
-            //Listar tmbn area para el registro de trabajadores
-            //Listar persona dni para resetear contraseña
-            String sql = "SELECT GENERAL.LOGIN.IDLOG, GENERAL.LOGIN.IDTRAB, GENERAL.LOGIN.TIPLOG, per.NOMPER FROM GENERAL.LOGIN "
-                    + "INNER JOIN GENERAL.TRABAJADOR trab "
-                    + "ON GENERAL.LOGIN.IDTRAB = trab.IDTRAB "
-                    + "INNER JOIN GENERAL.PERSONA per "
-                    + "ON trab.IDPER = per.IDPER "
-                    + "WHERE GENERAL.LOGIN.USRLOG='" + modelo.getUSRLOG() + "' "
-                    + "AND GENERAL.LOGIN.PSSWLOG='" + EncriptarS.encriptarPssw(modelo.getPSSWLOG()) + "' "
-                    + "AND GENERAL.LOGIN.ESTLOG = 'A'";
-            ResultSet rs = this.conectar().createStatement().executeQuery(sql);
+            String sql = "SELECT login.IDLOG,\n"
+                    + "login.IDTRAB,\n"
+                    + "login.TIPLOG,\n"
+                    + "persona.NOMPER,\n"
+                    + "persona.DNIPER,\n"
+                    + "area.IDARE,\n"
+                    + "area.NOMARE\n"
+                    + "FROM GENERAL.LOGIN login\n"
+                    + "    INNER JOIN GENERAL.TRABAJADOR trab\n"
+                    + "        ON login.IDTRAB = trab.IDTRAB\n"
+                    + "	INNER JOIN GENERAL.AREA area\n"
+                    + "	ON trab.IDARE = area.IDARE\n"
+                    + "    INNER JOIN GENERAL.PERSONA persona\n"
+                    + "        ON trab.IDPER = persona.IDPER\n"
+                    + "WHERE \n"
+                    + "login.USRLOG = ? "
+                    + "AND login.PSSWLOG = ? "
+                    + "AND  login.ESTLOG = 'A'";
+            PreparedStatement ps = this.conectar().prepareStatement(sql);
+            ps.setString(1, modelo.getUSRLOG());
+            ps.setString(2, EncriptarS.encriptarPssw(modelo.getPSSWLOG()));
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Trabajador t = new Trabajador();
-                Persona p = new Persona();
+                Trabajador trabajador = new Trabajador();
+                Area area = new Area();
+                Persona persona = new Persona();
 
                 modelo.setIDLOG(rs.getInt(1));
-                t.setIDTRAB(rs.getInt(2));
+                trabajador.setIDTRAB(rs.getInt(2));
                 modelo.setTIPLOG(rs.getString(3));
-                p.setNOMPER(rs.getString(4));
+                persona.setNOMPER(rs.getString(4));
+                persona.setDNIPER(rs.getString(5));
+                area.setIDARE(rs.getInt(6));
+                area.setNOMARE(rs.getString(7));
 
-                t.setPersona(p);
-                modelo.setTrabajador(t);
+                trabajador.setArea(area);
+                trabajador.setPersona(persona);
+                modelo.setTrabajador(trabajador);
             }
+            rs.clearWarnings();
             rs.close();
+            ps.clearParameters();
+            ps.close();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
