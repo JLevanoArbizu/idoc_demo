@@ -2,26 +2,24 @@ package modelo;
 
 import java.util.Objects;
 
-public class Area {
+public class AreaPadre {
 
     private int IDARE;
     private String NOMARE, ESTARE;
     private Municipalidad municipalidad = new Municipalidad();
-    public AreaPadre areaPadre = new AreaPadre();
 
     public void clear() {
         this.IDARE = 0;
         this.NOMARE = null;
         this.ESTARE = null;
         this.municipalidad.clear();
-        this.areaPadre.clear();
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.NOMARE);
-        hash = 97 * hash + Objects.hashCode(this.areaPadre);
+        hash = 79 * hash + Objects.hashCode(this.NOMARE);
+        hash = 79 * hash + Objects.hashCode(this.municipalidad);
         return hash;
     }
 
@@ -36,22 +34,14 @@ public class Area {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Area other = (Area) obj;
+        final AreaPadre other = (AreaPadre) obj;
         if (!Objects.equals(this.NOMARE, other.NOMARE)) {
             return false;
         }
-        if (!Objects.equals(this.areaPadre, other.areaPadre)) {
+        if (!Objects.equals(this.municipalidad, other.municipalidad)) {
             return false;
         }
         return true;
-    }
-
-    public AreaPadre getAreaPadre() {
-        return areaPadre;
-    }
-
-    public void setAreaPadre(AreaPadre areaPadre) {
-        this.areaPadre = areaPadre;
     }
 
     public int getIDARE() {

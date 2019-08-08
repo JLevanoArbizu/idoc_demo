@@ -8,6 +8,7 @@ import java.util.List;
 import modelo.Area;
 import modelo.Persona;
 import modelo.Trabajador;
+import modelo.Ubigeo;
 
 import org.primefaces.model.StreamedContent;
 
@@ -67,22 +68,41 @@ public class TrabajadorImpl extends Conexion implements ICrud<Trabajador>, IRepo
     public List<Trabajador> listar() throws Exception {
         List<Trabajador> listaTrabajador = new ArrayList<>();
         try {
-            String sql = "SELECT IDTRAB, IDPER, IDARE, FECINITRAB, FECFINTRAB, ESTTRAB FROM General.TRABAJADOR ";
+            String sql = "SELECT trabajador.IDTRAB, trabajador.IDPER, trabajador.IDARE, trabajador.FECINITRAB, \n"
+                    + "trabajador.FECFINTRAB, trabajador.ESTTRAB,\n"
+                    + "persona.APEPATPER, persona.APEMATPER, persona.NOMPER, persona.DNIPER, persona.GENPER, persona.DIRPER,\n"
+                    + "area.NOMARE, ubigeo.DEPUBI, ubigeo.PROVUBI, ubigeo.DISTUBI\n"
+                    + "FROM General.TRABAJADOR trabajador\n"
+                    + "INNER JOIN General.PERSONA persona\n"
+                    + "ON persona.IDPER = trabajador.IDPER\n"
+                    + "INNER JOIN General.UBIGEO ubigeo\n"
+                    + "ON ubigeo.CODUBI = persona.CODUBI\n"
+                    + "INNER JOIN General.AREA area\n"
+                    + "ON area.IDARE = trabajador.IDARE";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
-            Trabajador trabajador;
-            Persona persona;
-            Area area;
             while (rs.next()) {
-                trabajador = new Trabajador();
-                persona = new Persona();
-                area = new Area();
+                Trabajador trabajador = new Trabajador();
+                Ubigeo ubigeo = new Ubigeo();
+                Persona persona = new Persona();
+                Area area = new Area();
                 trabajador.setIDTRAB(rs.getInt(1));
                 persona.setIDPER(rs.getInt(2));
                 area.setIDARE(rs.getInt(3));
                 trabajador.setFECINITRAB(rs.getDate(4));
                 trabajador.setFECFINTRAB(rs.getDate(5));
                 trabajador.setESTTRAB(rs.getString(6));
+                persona.setAPEPATPER(rs.getString(7));
+                persona.setAPEMATPER(rs.getString(8));
+                persona.setNOMPER(rs.getString(9));
+                persona.setDNIPER(rs.getString(10));
+                persona.setGENPER(rs.getString(11));
+                persona.setDIRPER(rs.getString(12));
+                area.setNOMARE(rs.getString(13));
+                ubigeo.setDEPUBI(rs.getString(14));
+                ubigeo.setPROVUBI(rs.getString(15));
+                ubigeo.setDISTUBI(rs.getString(16));
                 trabajador.setArea(area);
+                persona.setUbigeo(ubigeo);
                 trabajador.setPersona(persona);
                 listaTrabajador.add(trabajador);
 
@@ -95,7 +115,6 @@ public class TrabajadorImpl extends Conexion implements ICrud<Trabajador>, IRepo
         }
         return listaTrabajador;
     }
-
 
     @Override
     public void generarReporteIndividual(Trabajador modelo) throws Exception {
@@ -131,7 +150,6 @@ public class TrabajadorImpl extends Conexion implements ICrud<Trabajador>, IRepo
     public Trabajador obtenerModelo(Trabajador modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 
     @Override
     public StreamedContent generarReporteIndividualPrev(Trabajador modelo) throws Exception {

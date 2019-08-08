@@ -7,9 +7,9 @@ public class Trabajador {
 
     private int IDTRAB;
     private String ESTTRAB = "A";
-    private Date FECINITRAB, FECFINTRAB;
+    private Date FECINITRAB = new Date(), FECFINTRAB = new Date();
     private Persona persona = new Persona();
-    private Area area = new Area();
+    Area area = new Area();
 
     public void clear() {
         this.IDTRAB = 0;
@@ -94,7 +94,5 @@ public class Trabajador {
     public void setArea(Area area) {
         this.area = area;
     }
-    
-    
 
 }

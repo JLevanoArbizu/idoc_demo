@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import modelo.Persona;
 
 @Named(value = "personaC")
@@ -47,7 +49,10 @@ public class PersonaC implements Serializable {
                 listar();
                 persona.clear();
             } else {
-                System.out.println("Ya existe");
+                FacesContext.getCurrentInstance().addMessage(
+                        null,
+                            new FacesMessage("La persona a la que intentó registrar ya lo está")
+                );
             }
 
         } catch (Exception e) {

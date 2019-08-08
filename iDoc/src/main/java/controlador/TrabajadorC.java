@@ -5,9 +5,10 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import modelo.Trabajador;
 
 @Named(value = "trabajadorC")
@@ -47,17 +48,31 @@ public class TrabajadorC implements Serializable {
         try {
             if (listaTrabajador.contains(trabajador) == false) {
                 daoTrabajador.registrar(trabajador);
-                listar();
                 trabajador.clear();
+                listar();
+            } else {
+                FacesContext.getCurrentInstance().addMessage(
+                        null,
+                        new FacesMessage("El trabajador al que intentó registrar ya lo esá")
+                );
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-    public void editar() throws Exception{
+
+    public void editar() throws Exception {
         try {
             daoTrabajador.editar(trabajadorSeleccionado);
+            listar();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void eliminar() throws Exception {
+        try {
+            daoTrabajador.eliminar(trabajadorSeleccionado);
             listar();
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,7 +110,5 @@ public class TrabajadorC implements Serializable {
     public void setListaTrabajadorFiltrado(List<Trabajador> listaTrabajadorFiltrado) {
         this.listaTrabajadorFiltrado = listaTrabajadorFiltrado;
     }
-
-   
 
 }

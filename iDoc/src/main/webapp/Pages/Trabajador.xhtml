@@ -10,7 +10,7 @@
     <ui:param name="tituloPagina" value="Trabajador"/>
 
     <ui:define name="contenidoPagina"> 
-        <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
+        <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
         <center>
             <h5 style="color: #193a59" >REGISTRAR TRABAJADOR</h5>
         </center>
@@ -18,11 +18,45 @@
 
             <h:form id="frmRegistrarTrabajador">
                 <p:growl life="1000"/>
-                <ui:include src="../Templates/Trabajador/Registrar.xhtml"/>
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:selectOneMenu value="#{trabajadorC.trabajador.persona.IDPER}" 
+                                                 filter="true" filterMatchMode="contains">
+                                    <f:selectItems value="#{personaC.lista}" var="persona"
+                                                   itemValue="#{persona.IDPER}" 
+                                                   itemLabel="#{persona.APEPATPER} #{persona.APEMATPER}, #{persona.NOMPER}"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Trabajador"/>
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g-6">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:calendar value="#{trabajadorC.trabajador.FECINITRAB}" 
+                                            readonlyInput="true" required="true" pattern="dd/MMM/yyyy"
+                                            requiredMessage="Ingrese la fecha de inicio laboral."/>
+                                <p:outputLabel value="Fecha Inicio"/>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="mdl-button">
+                            <p:outputLabel value="Tipo de Acceso"/>
+                            <p:selectOneRadio value="#{loginC.login.TIPLOG}" id="inptTipLog"
+                                              requiredMessage="Seleccione el tipo de Acceso."
+                                              unselectable="false" required="true">
+                                <f:selectItem itemLabel="Superadministrador" itemValue="S"/>
+                                <f:selectItem itemLabel="Administrador" itemValue="A" />
+                                <f:selectItem itemLabel="Usuario" itemValue="U" />
+                            </p:selectOneRadio>
+                        </h:panelGroup>
+                    </div>
+                </div>
                 <p:commandButton id="btnRegistrarTrabajador"
                                  actionListener="#{trabajadorC.registrar()}" value="Guardar"
                                  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
-                                 update=":frmRegistrarTrabajador :frmListarTrabajador"/>
+                                 update="frmRegistrarTrabajador :frmListarTrabajador"/>
                 <p:commandButton title="Agregar Ciudadano"
                                  class="mdl-button mdl-js-button  mdl-js-ripple-effect
                                  mdl-button--colored"
@@ -43,7 +77,113 @@
                 </p:blockUI>
             </h:form>
         </div>
-        <ui:include src="../Templates/Trabajador/Listar.xhtml"/>
+        <h:form id="frmListarTrabajador">
+            <p:growl life="1000"/>
+            <p:dataTable id="dtTblTrabajador" widgetVar="wdtTblTrabajador" 
+                         value="#{trabajadorC.listaTrabajador}" var="listaTrabajador"
+                         rows="10" emptyMessage="No se encontrarón datos."
+                         filterBy="#{trabajadorC.listaTrabajadorFiltrado}"
+                         rowKey="#{listaTrabajador.IDTRAB}"
+                         selectionMode="single" selection="#{trabajadorC.trabajadorSeleccionado}"
+                         paginator="true" scrollable="false" scrollHeight="500" reflow="true"
+                         rowsPerPageTemplate="5,10,15,20">
+
+                <f:facet name="header">
+                    Trabajadores
+                </f:facet>
+                <p:column headerText="Apellidos y Nombres" filterBy="#{listaTrabajador.persona.APEPATPER} #{listaTrabajador.persona.APEMATPER}, #{listaTrabajador.persona.NOMPER}" 
+                          filterMatchMode="contains">
+                    <h:outputText value="#{listaTrabajador.persona.APEPATPER} #{listaTrabajador.persona.APEMATPER}, #{listaTrabajador.persona.NOMPER}"/>
+                </p:column>
+                <p:column headerText="DNI" filterBy="#{listaTrabajador.persona.DNIPER}" filterMatchMode="contains">
+                    <h:outputText value="#{listaTrabajador.persona.DNIPER}"/>
+                </p:column>
+                <p:column headerText="Ubicación">
+                    <h:outputText value="#{listaTrabajador.persona.ubigeo.DEPUBI}, 
+                                  #{listaTrabajador.persona.ubigeo.PROVUBI}, 
+                                  #{listaTrabajador.persona.ubigeo.DISTUBI}"/>
+                </p:column>
+                <p:column headerText="Dirección">
+                    <h:outputText value="#{listaTrabajador.persona.DIRPER}"/>
+                </p:column>
+                <p:column headerText="Sexo">
+                    <h:outputText value="#{listaTrabajador.persona.GENPER eq 'M' ? 'Masculino' : 'Femenino'}"/>
+                </p:column>
+                <p:column headerText="Fecha Inicio">
+                    <h:outputText value="#{listaTrabajador.FECINITRAB}">
+                        <f:convertDateTime pattern="dd/MMM/yyyy"  />
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Fecha Fin">
+                    <h:outputText value="#{listaTrabajador.FECFINTRAB}">
+                        <f:convertDateTime pattern="dd/MMM/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+                <p:blockUI block="dtTblTrabajador" trigger="dtTblTrabajador">
+                    Actualizando
+                </p:blockUI>
+            </p:dataTable>
+
+            <p:contextMenu for="dtTblTrabajador">
+                <p:menuitem update=":dlgDatosTrabajador" icon="ui-icon-pencil"
+                            value="Modificar"
+                            oncomplete="PF('wdlgDatosTrabajador').show();"/>
+                <p:menuitem value="Eliminar" update=":dlgDatosTrabajador"
+                            icon="ui-icon-circle-close" actionListener="#{trabajadorC.eliminar()}"/>
+            </p:contextMenu>
+
+        </h:form>
+        <p:dialog id="dlgDatosTrabajador" widgetVar="wdlgDatosTrabajador" blockScroll="true" modal="true"
+                  header="Datos del Trabajador" closeOnEscape="true">
+            <div class="ui-fluid">
+                <h:form id="frmEditarTrabajador">
+                    <div class="ui-g">
+                        <div class="ui-g-12">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:calendar value="#{trabajadorC.trabajadorSeleccionado.FECINITRAB}" 
+                                            readonlyInput="true" required="true" disabled="true"
+                                            widgetVar="calFecIni"
+                                            navigator="false" pattern="dd/MMM/yyyy"/>
+                                <p:outputLabel value="Fecha Inicio" for="@previous"/>
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g-12">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:calendar value="#{trabajadorC.trabajadorSeleccionado.FECFINTRAB}" 
+                                            mindate="calFecIni.today()"
+                                            readonlyInput="true" required="true"
+                                            navigator="false" pattern="dd/MMM/yyyy" >
+                                </p:calendar>
+                                <p:outputLabel value="Fecha Fin" for="@previous"/>
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g-12">
+                            <div class="ui-g-6">
+                                <p:commandButton value="Modificar" actionListener="#{trabajadorC.editar()}"
+                                                 oncomplete="if(!args.validationFailed)PF('wdlgDatosTrabajador').hide();"
+                                                 update=":frmListarTrabajador :frmRegistrarTrabajador">
+                                    <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
+                                    <p:tooltip trackMouse="true"/>
+                                </p:commandButton>
+                                <p:confirmDialog global="true" closeOnEscape="true">
+                                    <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
+                            </div>
+                            <div class="ui-g-6">
+                                <h:panelGroup styleClass="mdl-button">
+                                    <p:commandButton value="Cancelar" immediate="true"
+                                                     oncomplete="PF('wdlgDatosTrabajador').hide();"/>
+                                </h:panelGroup>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </h:form>
+            </div>
+        </p:dialog>
 
     </ui:define>
 </ui:composition>

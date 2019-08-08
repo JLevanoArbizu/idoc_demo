@@ -60,7 +60,8 @@
                         </div>
                         <div class="ui-g-8">
                             <h:panelGroup styleClass="md-inputfield">
-                                <p:selectOneMenu value="#{personaC.persona.ubigeo.CODUBI}">
+                                <p:selectOneMenu value="#{personaC.persona.ubigeo.CODUBI}" 
+                                                 filter="true" filterMatchMode="contains">
                                     <f:selectItems value="#{ubigeoC.listaUbigeo}" var="ubigeo"
                                                    itemValue="#{ubigeo.CODUBI}" 
                                                    itemLabel="#{ubigeo.DEPUBI}, #{ubigeo.PROVUBI} ,#{ubigeo.DISTUBI}"/>
@@ -127,35 +128,34 @@
                           sortBy="#{listaPersona.APEPATPER}"                       
                           filterMatchMode="contains"
                           filterBy="#{listaPersona.APEPATPER}">
-                    <h:outputLabel
-                        value="#{listaPersona.APEPATPER}"/>
+                    <h:outputText value="#{listaPersona.APEPATPER}"/>
                 </p:column>
                 <p:column headerText="Apellido Materno"
                           sortBy="#{listaPersona.APEMATPER}"                       
                           filterMatchMode="contains"
                           filterBy="#{listaPersona.APEMATPER}" >
-                    <h:outputLabel value="#{listaPersona.APEMATPER}"/>
+                    <h:outputText value="#{listaPersona.APEMATPER}"/>
                 </p:column>            
                 <p:column headerText="Nombres" 
                           sortBy="#{listaPersona.NOMPER}"                       
                           filterMatchMode="contains">
-                    <h:outputLabel value="#{listaPersona.NOMPER}"/>
+                    <h:outputText value="#{listaPersona.NOMPER}"/>
                 </p:column>
                 <p:column headerText="DNI"
                           sortBy="#{listaPersona.DNIPER}"                       
                           filterMatchMode="contains"
                           filterBy="#{listaPersona.DNIPER}">
-                    <h:outputLabel value="#{listaPersona.DNIPER}"/>
+                    <h:outputText value="#{listaPersona.DNIPER}"/>
                 </p:column>
                 <p:column headerText="Distrito">
-                    <h:outputLabel value="#{listaPersona.ubigeo.CODUBI}"/>
+                    <h:outputText value="#{listaPersona.ubigeo.CODUBI}"/>
                 </p:column>
                 <p:column headerText="Dirección" >
-                    <h:outputLabel value="#{listaPersona.DIRPER}" />
+                    <h:outputText value="#{listaPersona.DIRPER}" />
                 </p:column>
                 <p:column headerText="Sexo"  
                           sortBy="#{listaPersona.GENPER}">
-                    <h:outputLabel value="#{listaPersona.GENPER}"/>
+                    <h:outputText value="#{listaPersona.GENPER}"/>
                 </p:column>
 
                 <p:blockUI block="dtTblPersona" trigger="dtTblPersona">
@@ -163,7 +163,10 @@
                 </p:blockUI>
             </p:dataTable>
             <p:contextMenu for="dtTblPersona">
-                <p:menuitem value="Modificar" oncomplete="PF('wdlgDatosPersona').show();" update=":frmEditarPersona"/>
+                <p:menuitem value="Modificar" icon="ui-icon-pencil"
+                            oncomplete="PF('wdlgDatosPersona').show();" update=":frmEditarPersona"/>
+                <p:menuitem value="Eliminar" actionListener="#{personaC.eliminar()}" update=":frmEditarPersona"
+                            icon="ui-icon-circle-close"/>
             </p:contextMenu>
         </h:form>
         <p:dialog id="dlgDatosPersona" widgetVar="wdlgDatosPersona" 
@@ -215,7 +218,8 @@
                             </div>
                             <div class="ui-g-8">
                                 <h:panelGroup styleClass="md-inputfield">
-                                    <p:selectOneMenu value="#{personaC.personaSeleccionada.ubigeo.CODUBI}">
+                                    <p:selectOneMenu value="#{personaC.personaSeleccionada.ubigeo.CODUBI}"
+                                                     filter="true" filterMatchMode="contains">
                                         <f:selectItems value="#{ubigeoC.listaUbigeo}" var="ubigeo"
                                                        itemValue="#{ubigeo.CODUBI}" 
                                                        itemLabel="#{ubigeo.DEPUBI}, #{ubigeo.PROVUBI} ,#{ubigeo.DISTUBI}"/>
@@ -244,14 +248,6 @@
                         </div>
                     </div>
                     <h:panelGroup styleClass="mdl-button">
-                        <p:selectOneRadio value="#{personaC.personaSeleccionada.ESTPER}" 
-                                          requiredMessage="Seleccione Estado de la Persona."
-                                          unselectable="false" required="true">
-                            <f:selectItem itemLabel="Activo" itemValue="A"/>
-                            <f:selectItem itemLabel="Inactivo" itemValue="I" />
-                        </p:selectOneRadio>
-                    </h:panelGroup>
-                    <h:panelGroup styleClass="mdl-button">
                         <p:commandButton value="Modificar" actionListener="#{personaC.editar()}"
                                          oncomplete="if(!args.validationFailed)PF('wdlgDatosPersona').hide();"
                                          update=":frmListarPersona :frmRegistrarPersona">
@@ -259,7 +255,7 @@
                         </p:commandButton>
                     </h:panelGroup>
 
-                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:confirmDialog global="true">
                         <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                         <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                     </p:confirmDialog>

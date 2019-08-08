@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import modelo.Area;
+import modelo.AreaPadre;
 import modelo.Municipalidad;
 import org.primefaces.model.StreamedContent;
 
@@ -37,7 +38,6 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
     @Override
     public void editar(Area modelo) throws Exception {
         try {
-            System.out.println(modelo.toString());
             String sql = "UPDATE GENERAL.AREA SET NOMARE=?, IDMUN=?, IDARE_PADR=?, ESTARE=? WHERE IDARE=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getNOMARE());
@@ -89,18 +89,17 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
 
             while (rs.next()) {
-                Area area = new Area(), areaPadre = new Area();
+                Area area = new Area();
                 Municipalidad municipalidad = new Municipalidad();
 
                 area.setIDARE(rs.getInt(1));
-                areaPadre.setIDARE(rs.getInt(2));
+                area.areaPadre.setIDARE(rs.getInt(2));
                 municipalidad.setIDMUN(rs.getInt(3));
                 area.setNOMARE(rs.getString(4));
-                area.setESTARE(rs.getString(5).equals("A") ? "Activo" : "Inactivo");
-                areaPadre.setNOMARE(rs.getString(6));
+                area.setESTARE(rs.getString(5));
+                area.areaPadre.setNOMARE(rs.getString(6));
                 municipalidad.setNOMMUN(rs.getString(7));
 
-                area.setAreaPadre(areaPadre);
                 area.setMunicipalidad(municipalidad);
                 lista.add(area);
             }
