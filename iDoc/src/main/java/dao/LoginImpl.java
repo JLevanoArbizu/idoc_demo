@@ -90,6 +90,8 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
     @Override
     public Login obtenerModelo(Login modelo) throws Exception {
         try {
+            //Listar tmbn area para el registro de trabajadores
+            //Listar persona dni para resetear contraseña
             String sql = "SELECT GENERAL.LOGIN.IDLOG, GENERAL.LOGIN.IDTRAB, GENERAL.LOGIN.TIPLOG, per.NOMPER FROM GENERAL.LOGIN "
                     + "INNER JOIN GENERAL.TRABAJADOR trab "
                     + "ON GENERAL.LOGIN.IDTRAB = trab.IDTRAB "

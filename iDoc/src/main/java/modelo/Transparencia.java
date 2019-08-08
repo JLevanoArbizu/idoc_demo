@@ -10,20 +10,6 @@ public class Transparencia {
     Area emisor, receptor;
     String key, dni, coddoc;
 
-    @Override
-    public String toString() {
-        return "Transparencia{" +
-                "documento=" + documento +
-                ", transferencia=" + transferencia +
-                ", empresa=" + empresa +
-                ", persona=" + persona +
-                ", emisor=" + emisor +
-                ", receptor=" + receptor +
-                ", key='" + key + '\'' +
-                ", dni='" + dni + '\'' +
-                ", idtra='" + coddoc + '\'' +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {

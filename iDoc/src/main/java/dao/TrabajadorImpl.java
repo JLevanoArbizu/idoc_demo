@@ -19,8 +19,7 @@ public class TrabajadorImpl extends Conexion implements ICrud<Trabajador>, IRepo
         try {
             String sql = "INSERT INTO GENERAL.TRABAJADOR (IDARE, IDPER, ESTTRAB, FECINITRAB) VALUES (?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-//            ps.setInt(1, Integer.valueOf(modelo.getArea().getIDARE()));
-            ps.setInt(1, 2);
+            ps.setInt(1, modelo.getArea().getIDARE());
             ps.setInt(2, modelo.getPersona().getIDPER());
             ps.setString(3, "A");
             ps.setDate(4, new java.sql.Date(modelo.getFECINITRAB().getTime()));

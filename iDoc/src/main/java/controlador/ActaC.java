@@ -43,7 +43,7 @@ public class ActaC implements Serializable {
 
     public void listar() throws Exception {
         try {
-            listaDetalle = daoDetalle.listar();
+//            listaDetalle = daoDetalle.listar();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,6 +55,46 @@ public class ActaC implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Actor getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(Actor detalle) {
+        this.detalle = detalle;
+    }
+
+    public Actor getDetalleSeleccionado() {
+        return detalleSeleccionado;
+    }
+
+    public void setDetalleSeleccionado(Actor detalleSeleccionado) {
+        this.detalleSeleccionado = detalleSeleccionado;
+    }
+
+    public Acta getCabecera() {
+        return cabecera;
+    }
+
+    public void setCabecera(Acta cabecera) {
+        this.cabecera = cabecera;
+    }
+
+    public List<Actor> getListaDetalle() {
+        return listaDetalle;
+    }
+
+    public void setListaDetalle(List<Actor> listaDetalle) {
+        this.listaDetalle = listaDetalle;
+    }
+
+    public List<Actor> getListaDetalleFiltrado() {
+        return listaDetalleFiltrado;
+    }
+
+    public void setListaDetalleFiltrado(List<Actor> listaDetalleFiltrado) {
+        this.listaDetalleFiltrado = listaDetalleFiltrado;
     }
 
 }

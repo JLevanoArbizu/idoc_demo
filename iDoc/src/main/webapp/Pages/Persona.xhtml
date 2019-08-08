@@ -145,7 +145,7 @@
                           sortBy="#{listaPersona.DNIPER}"                       
                           filterMatchMode="contains"
                           filterBy="#{listaPersona.DNIPER}">
-                    <h:outputText value="#{listaPersona.DNIPER}"/>
+                    <h:outputText value="#{listaPersona.DNIPER eq null ? 'No registrado' : listaPersona.DNIPER}"/>
                 </p:column>
                 <p:column headerText="Distrito">
                     <h:outputText value="#{listaPersona.ubigeo.CODUBI}"/>
@@ -155,7 +155,7 @@
                 </p:column>
                 <p:column headerText="Sexo"  
                           sortBy="#{listaPersona.GENPER}">
-                    <h:outputText value="#{listaPersona.GENPER}"/>
+                    <h:outputText value="#{listaPersona.GENPER eq 'M' ? 'Masculino' : 'Femenino'}"/>
                 </p:column>
 
                 <p:blockUI block="dtTblPersona" trigger="dtTblPersona">
@@ -165,7 +165,7 @@
             <p:contextMenu for="dtTblPersona">
                 <p:menuitem value="Modificar" icon="ui-icon-pencil"
                             oncomplete="PF('wdlgDatosPersona').show();" update=":frmEditarPersona"/>
-                <p:menuitem value="Eliminar" actionListener="#{personaC.eliminar()}" update=":frmEditarPersona"
+                <p:menuitem value="Eliminar" actionListener="#{personaC.eliminar()}" update="frmListarPersona"
                             icon="ui-icon-circle-close"/>
             </p:contextMenu>
         </h:form>

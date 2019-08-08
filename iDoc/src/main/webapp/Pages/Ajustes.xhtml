@@ -8,7 +8,7 @@
 
     <ui:param name="tituloPagina" value="Ajustes"/>
     <ui:define name="contenidoPagina">
-        <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
+        <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
         <div class="card card-w-title">
             <h1>Cambiar Contraseña</h1>
             <h:form id="frmEditarLogin">
@@ -16,7 +16,7 @@
                 <div class="ui-g">
                     <div class="ui-g-12">
                         <h:panelGroup styleClass="md-inputfield">
-                            <p:password value="#{trabajadorC.loginT.PSSWLOG}" required="true" id="inptNewPssw" inline="true"
+                            <p:password value="#{loginC.loginSesion.PSSWLOG}" required="true" id="inptNewPssw" inline="true"
                                         feedback="true" validatorMessage="No coinciden."
                                         weakLabel="Mala" goodLabel="Buena" strongLabel="Muy Buena" promptLabel="Ingrese Contraseña."
                                         match="repetido"
@@ -26,7 +26,7 @@
                     </div>
                     <div class="ui-g-12">
                         <h:panelGroup styleClass="md-inputfield">
-                            <p:password id="repetido" value="#{trabajadorC.loginT.PSSWLOG}" required="true"
+                            <p:password id="repetido" value="#{loginC.loginSesion.PSSWLOG}" required="true"
                                         requiredMessage="Vuelva a ingresar la contraseña"/>
                             <p:outputLabel value="Repetir nueva Contraseña" for="@previous"/>
                         </h:panelGroup>
@@ -34,7 +34,7 @@
                     <div class="ui-g-12">
                         <h:panelGroup styleClass="mdl-button">
                             <p:commandButton id="btnEditarLogin"
-                                             actionListener="#{trabajadorC.editarLogin()}"
+                                             actionListener="#{loginC.editarMio()}"
                                              value="Editar" update="frmEditarLogin"/>
                         </h:panelGroup>
                     </div>

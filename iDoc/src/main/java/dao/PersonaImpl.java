@@ -69,6 +69,7 @@ public class PersonaImpl extends Conexion implements ICrud<Persona>, IReporte<Pe
     public List<Persona> listar() throws Exception {
         List<Persona> lista = new ArrayList<>();
         try {
+            // jon con ubigeo
             String sql = "SELECT IDPER, APEPATPER, APEMATPER, NOMPER, DNIPER, CODUBI, "
                     + "DIRPER, NACPER, GENPER, ESTPER FROM General.PERSONA";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);

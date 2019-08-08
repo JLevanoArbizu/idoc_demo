@@ -1,8 +1,8 @@
 package modelo;
 
-
 public class Transferencia {
-    
+
+    //Cambiar a tipo de dato de la db
     private String IDTRAN;
     private String FECRECTRAN;
     private String FECSALTRAN;
@@ -75,6 +75,5 @@ public class Transferencia {
     public void setESTTRA(String ESTTRA) {
         this.ESTTRA = ESTTRA;
     }
-    
-    
+
 }

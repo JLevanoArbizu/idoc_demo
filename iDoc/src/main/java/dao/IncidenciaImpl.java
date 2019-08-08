@@ -72,31 +72,7 @@ public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IRepo
 
     @Override
     public List<Incidencia> listar() throws Exception {
-        List<Incidencia> lista = new ArrayList<>();
-        try {
-            String sql = "SELECT IDINC,IDACTA,IDINCTIP,MOTINC, FECINC, ESTINC FROM REGCIV.INCIDENCIA";
-            ResultSet rs = this.conectar().createStatement().executeQuery(sql);
-            while (rs.next()) {
-                Incidencia incidencia = new Incidencia();
-                Acta acta = new Acta();
-                IncidenciaTipo tipoIncidencia = new IncidenciaTipo();
-                incidencia.setIDINC(rs.getInt(1));
-                acta.setIDACTA(rs.getInt(2));
-                tipoIncidencia.setIDINCTIP(rs.getInt(3));
-                incidencia.setMOTINC(rs.getString(4));
-                incidencia.setFECINC(rs.getDate(5));
-                incidencia.setESTINC(rs.getString(6));
-                
-                incidencia.setActa(acta);
-                incidencia.setTipoIncidencia(tipoIncidencia);
-                lista.add(incidencia);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            this.desconectar();
-        }
-        return lista;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -114,7 +90,38 @@ public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IRepo
 
     @Override
     public List<Incidencia> listar(Incidencia modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Incidencia> lista = new ArrayList<>();
+        try {
+            String sql = "SELECT IDINC,IDACTA,IDINCTIP,MOTINC, FECINC, ESTINC FROM REGCIV.INCIDENCIA "
+                    + "WHERE IDACTA=?";
+            PreparedStatement ps = this.conectar().prepareStatement(sql);
+            ps.setInt(1, modelo.getActa().getIDACTA());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Incidencia incidencia = new Incidencia();
+                Acta acta = new Acta();
+                IncidenciaTipo tipoIncidencia = new IncidenciaTipo();
+                incidencia.setIDINC(rs.getInt(1));
+                acta.setIDACTA(rs.getInt(2));
+                tipoIncidencia.setIDINCTIP(rs.getInt(3));
+                incidencia.setMOTINC(rs.getString(4));
+                incidencia.setFECINC(rs.getDate(5));
+                incidencia.setESTINC(rs.getString(6));
+
+                incidencia.setActa(acta);
+                incidencia.setTipoIncidencia(tipoIncidencia);
+                lista.add(incidencia);
+            }
+            rs.clearWarnings();
+            rs.close();
+            ps.clearParameters();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.desconectar();
+        }
+        return lista;
     }
 
     @Override

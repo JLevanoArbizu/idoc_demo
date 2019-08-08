@@ -10,7 +10,7 @@
     <ui:param name="tituloPagina" value="Municipalidad"/>
 
     <ui:define name="contenidoPagina">
-                <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
+                <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
 
         <h:form id="frmRegistrarMunicipalidad">
             <ui:include src="../Templates/Municipalidad/Registrar.xhtml"/>

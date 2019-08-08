@@ -9,16 +9,17 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import modelo.Login;
 import modelo.Trabajador;
 
 @Named(value = "trabajadorC")
 @SessionScoped
 public class TrabajadorC implements Serializable {
-
+    
     Trabajador trabajador, trabajadorSeleccionado;
     List<Trabajador> listaTrabajador, listaTrabajadorFiltrado;
     TrabajadorImpl daoTrabajador;
-
+    
     public TrabajadorC() throws Exception {
         trabajador = new Trabajador();
         trabajadorSeleccionado = new Trabajador();
@@ -26,7 +27,7 @@ public class TrabajadorC implements Serializable {
         listaTrabajadorFiltrado = new ArrayList<>();
         daoTrabajador = new TrabajadorImpl();
     }
-
+    
     @PostConstruct
     public void init() {
         try {
@@ -35,7 +36,7 @@ public class TrabajadorC implements Serializable {
             e.printStackTrace();
         }
     }
-
+    
     public void listar() throws Exception {
         try {
             listaTrabajador = daoTrabajador.listar();
@@ -43,9 +44,10 @@ public class TrabajadorC implements Serializable {
             e.printStackTrace();
         }
     }
-
-    public void registrar() throws Exception {
+    
+    public void registrar(Login loginSesion) throws Exception {
         try {
+            trabajador.setArea(loginSesion.getTrabajador().getArea());
             if (listaTrabajador.contains(trabajador) == false) {
                 daoTrabajador.registrar(trabajador);
                 trabajador.clear();
@@ -60,7 +62,7 @@ public class TrabajadorC implements Serializable {
             e.printStackTrace();
         }
     }
-
+    
     public void editar() throws Exception {
         try {
             daoTrabajador.editar(trabajadorSeleccionado);
@@ -69,7 +71,7 @@ public class TrabajadorC implements Serializable {
             e.printStackTrace();
         }
     }
-
+    
     public void eliminar() throws Exception {
         try {
             daoTrabajador.eliminar(trabajadorSeleccionado);
@@ -78,37 +80,37 @@ public class TrabajadorC implements Serializable {
             e.printStackTrace();
         }
     }
-
+    
     public Trabajador getTrabajador() {
         return trabajador;
     }
-
+    
     public void setTrabajador(Trabajador trabajador) {
         this.trabajador = trabajador;
     }
-
+    
     public Trabajador getTrabajadorSeleccionado() {
         return trabajadorSeleccionado;
     }
-
+    
     public void setTrabajadorSeleccionado(Trabajador trabajadorSeleccionado) {
         this.trabajadorSeleccionado = trabajadorSeleccionado;
     }
-
+    
     public List<Trabajador> getListaTrabajador() {
         return listaTrabajador;
     }
-
+    
     public void setListaTrabajador(List<Trabajador> listaTrabajador) {
         this.listaTrabajador = listaTrabajador;
     }
-
+    
     public List<Trabajador> getListaTrabajadorFiltrado() {
         return listaTrabajadorFiltrado;
     }
-
+    
     public void setListaTrabajadorFiltrado(List<Trabajador> listaTrabajadorFiltrado) {
         this.listaTrabajadorFiltrado = listaTrabajadorFiltrado;
     }
-
+    
 }
