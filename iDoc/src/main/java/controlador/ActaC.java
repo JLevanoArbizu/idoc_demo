@@ -38,12 +38,13 @@ public class ActaC implements Serializable {
         try {
             listar();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public void listar() throws Exception {
         try {
-//            listaDetalle = daoDetalle.listar();
+            listaDetalle = daoDetalle.listar();
         } catch (Exception e) {
             e.printStackTrace();
         }

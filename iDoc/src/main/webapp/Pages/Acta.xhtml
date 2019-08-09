@@ -12,8 +12,35 @@
     <ui:define name="contenidoPagina">
         <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
         <f:event type="preRenderView" listener="#{actaC.cabecera.login.setIDLOG(loginC.loginSesion.IDLOG)}"/>
-        <h:form>
 
+        <h:form id="frmActa">
+            <p:dataTable id="tblActa" widgetVar="wvTblActa"
+                         value="#{actaC.listaDetalle}" var="detalle"
+                         selectionMode="single" selection="#{actaC.detalleSeleccionado}"
+                         rowKey="#{detalle.IDACT}"
+                         rows="10" emptyMessage="No se encontrarón datos."
+                         paginator="true" scrollable="false" scrollHeight="500"
+                         rowsPerPageTemplate="5,10,15,20">
+                <p:column headerText="Acta" groupRow="true">
+                    <h:outputText value="#{detalle.acta.IDACTA}"/>
+                </p:column>
+                <p:column headerText="Titular">
+                    <h:outputText value="#{detalle.acta.titular.APEPATPER} 
+                                  #{detalle.acta.titular.APEMATPER}, 
+                                  #{detalle.acta.titular.NOMPER}" />
+                </p:column>
+                <p:column headerText="DNI">
+                    <h:outputText value="#{detalle.acta.titular.DNIPER}" />
+                </p:column>
+                <p:column headerText="Actor">
+                    <h:outputText value="#{detalle.actor.DNIPER}"/>
+                </p:column>
+            </p:dataTable>
+            <p:contextMenu for="tblActa">
+                <p:menuitem value="Ver" actionListener="#{incidenciaC.listar(actaC.detalleSeleccionado.acta)}"
+                            update="tblActa :frmIncidencia:frmListarIncidencia:dtTblIncidencia" 
+                            oncomplete="PF('wvIncidencia').show();"/>
+            </p:contextMenu>
         </h:form>
 
         <!--Ver las incidencias de un documento seleccionado, editar las que tiene o agregar nuevas-->
@@ -31,11 +58,9 @@
                         <f:facet name="header">
                             <p:commandButton value="Agregar Incidencia" oncomplete="PF('wvRegistrarIncidencia').show();"
                                              update="dIncidencia"/>
+                            <p:commandButton value="Actualizar" immediate="true" update="dIncidencia"/>
                         </f:facet>
 
-                        <p:column headerText="Documento">
-                            <h:outputText value="#{listaIncidencia.acta.IDACTA}" />
-                        </p:column>
                         <p:column headerText="Tipo">
                             <h:outputText value="#{listaIncidencia.tipoIncidencia.IDINCTIP}"/>
                         </p:column>
