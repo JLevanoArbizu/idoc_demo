@@ -7,15 +7,14 @@ public class Incidencia {
     
     private int IDINC;
     private String MOTINC, ESTINC = "A";
-    private Date FECINC;
+    private Date FECINC = new Date(119, 3, 1);
     private Acta acta = new Acta();
     private IncidenciaTipo tipoIncidencia = new IncidenciaTipo();
 
     public void clear() {
-        this.IDINC = 0;
+//        this.IDINC = 0;
         this.MOTINC = null;
         this.ESTINC = null;
-        this.acta.clear();
         this.tipoIncidencia.clear();
     }
 

@@ -93,8 +93,19 @@ public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IRepo
         List<Incidencia> lista = new ArrayList<>();
         System.out.println(modelo.getActa().getIDACTA());
         try {
-            String sql = "SELECT IDINC,IDACTA,IDINCTIP,MOTINC, FECINC, ESTINC FROM REGCIV.INCIDENCIA "
-                    + "WHERE IDACTA=?";
+            String sql = "SELECT incidencia.IDINC, "
+                    + "incidencia.IDACTA, "
+                    + "incidencia.IDINCTIP, "
+                    + "incidencia.MOTINC, "
+                    + "incidencia.FECINC, "
+                    + "incidencia.ESTINC, "
+                    + "tipo.NOMINCTIP, "
+                    + "tipo.LEYINCTIP, "
+                    + "tipo.TIPINCTIP "
+                    + "FROM REGCIV.INCIDENCIA incidencia "
+                    + "INNER JOIN REGCIV.INCIDENCIA_TIPO tipo "
+                    + "ON incidencia.IDINCTIP = tipo.IDINCTIP "
+                    + "WHERE incidencia.IDACTA=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setInt(1, modelo.getActa().getIDACTA());
             ResultSet rs = ps.executeQuery();
@@ -102,13 +113,16 @@ public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IRepo
                 Incidencia incidencia = new Incidencia();
                 Acta acta = new Acta();
                 IncidenciaTipo tipoIncidencia = new IncidenciaTipo();
-                
+
                 incidencia.setIDINC(rs.getInt(1));
                 acta.setIDACTA(rs.getInt(2));
                 tipoIncidencia.setIDINCTIP(rs.getInt(3));
                 incidencia.setMOTINC(rs.getString(4));
                 incidencia.setFECINC(rs.getDate(5));
                 incidencia.setESTINC(rs.getString(6));
+                tipoIncidencia.setNOMINCTIP(rs.getString(7));
+                tipoIncidencia.setLEYINCTIP(rs.getString(8));
+                tipoIncidencia.setTIPINCTIP(rs.getString(9));
 
                 incidencia.setActa(acta);
                 incidencia.setTipoIncidencia(tipoIncidencia);

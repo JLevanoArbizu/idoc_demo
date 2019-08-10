@@ -13,162 +13,275 @@
         <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
         <f:event type="preRenderView" listener="#{actaC.cabecera.login.setIDLOG(loginC.loginSesion.IDLOG)}"/>
 
+        <h:form id="frmRegistrarActa">
+            Aquí irá un formulario para registrar la cabecera xd
+            <p:dataTable id="tblActores"
+                         value="#{actaC.listaDetalleR}" var="actores"
+                         selection="#{actaC.listaDetalleSeleccionado}"
+                         filteredValue="#{actaC.listaDetalleFiltrado}"
+                         rowKey="#{actores.actor.IDPER}"
+                         rows="10" paginator="true" sortBy="#{actores.actor.APEPATPER}" sortOrder="descending"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15,20,30">
+                <f:facet name="header">
+                    Selecciona los Actores
+                </f:facet>
+
+                <p:ajax event="filter" update="tblActores"/>
+                <p:ajax event="rowSelect" update="tblActores"/>
+                <p:ajax event="rowSelectCheckbox" update="tblActores"/>
+                <p:ajax event="rowUnselectCheckbox" update="tblActores"/>
+
+                <p:column selectionMode="multiple" style="width:50px;text-align:center;"/>
+
+                <p:column headerText="Apellidos y Nombres" filterBy="#{actores.actor.APEPATPER} 
+                          #{actores.actor.APEMATPER}, 
+                          #{actores.actor.NOMPER}"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{actores.actor.APEPATPER} 
+                                  #{actores.actor.APEMATPER}, 
+                                  #{actores.actor.NOMPER}"/>
+                </p:column>
+                <p:column headerText="DNI" filterBy="#{actores.actor.DNIPER}"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{actores.actor.DNIPER}"/>
+                </p:column>
+                <p:column headerText="Tipo">
+                    <p:selectOneMenu value="#{actores.TIPACT}">
+                        <f:selectItem itemLabel="Declarante" itemValue="D"/>
+                        <f:selectItem itemLabel="Celebrante" itemValue="C"/>
+                        <f:selectItem itemLabel="Médico" itemValue="M"/>
+                        <f:selectItem itemLabel="Esposa" itemValue="E"/>
+                        <f:selectItem itemLabel="Padre" itemValue="P"/>
+                        <f:selectItem itemLabel="Madre" itemValue="M"/>
+                    </p:selectOneMenu>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:separator/>
         <h:form id="frmActa">
             <p:dataTable id="tblActa" widgetVar="wvTblActa"
                          value="#{actaC.listaDetalle}" var="detalle"
                          selectionMode="single" selection="#{actaC.detalleSeleccionado}"
-                         rowKey="#{detalle.IDACT}"
+                         rowKey="#{detalle.IDACT}" sortBy="#{detalle.acta.TIPACTA}"
+                         filteredValue="#{actaC.listaDetalleFiltrado}"
                          rows="10" emptyMessage="No se encontrarón datos."
                          paginator="true" scrollable="false" scrollHeight="500"
                          rowsPerPageTemplate="5,10,15,20">
-                <p:column headerText="Acta" groupRow="true">
-                    <h:outputText value="#{detalle.acta.IDACTA}"/>
-                </p:column>
-                <p:column headerText="Titular">
+                <f:facet name="header">
+                    Actas Registradas
+                </f:facet>
+                <p:columnGroup type="header">
+                    <p:row>
+                        <p:column colspan="7" headerText="Acta" />
+                        <p:column colspan="1" headerText="Titular" />
+                        <p:column colspan="1" headerText="Actor" />
+                    </p:row>
+                    <p:row>
+                        <p:column headerText="Titular" filterMatchMode="contains"
+                                  filterBy="#{detalle.acta.titular.APEPATPER} 
+                                  #{detalle.acta.titular.APEMATPER}, 
+                                  #{detalle.acta.titular.NOMPER}"/>
+                        <p:column headerText="ID" style="width:16px;text-align:center"/>
+                        <p:column headerText="Fecha Registro"/>
+                        <p:column headerText="Fecha Acto"/>
+                        <p:column headerText="Tipo" />
+                        <p:column headerText="Libro"/>
+                        <p:column headerText="Folio" />
+
+
+                        <p:column headerText="Precio" />
+                        <p:column headerText="Cantidad" />
+                    </p:row>
+                </p:columnGroup>
+
+                <p:column groupRow="true">
                     <h:outputText value="#{detalle.acta.titular.APEPATPER} 
                                   #{detalle.acta.titular.APEMATPER}, 
                                   #{detalle.acta.titular.NOMPER}" />
                 </p:column>
-                <p:column headerText="DNI">
+                <p:column groupRow="true">
+                    <h:outputText value="#{detalle.acta.IDACTA}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{detalle.acta.FECREGACTA}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{detalle.acta.FECACT}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{detalle.acta.TIPACTA eq '1' ? 'Nacimiento' : 
+                                           detalle.acta.TIPACTA eq '2' ? 'Matrimonio' :
+                                           'Defunción'}" />
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{detalle.acta.NUMLIBACTA}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{detalle.acta.NUMFOLACTA}"/>
+                </p:column>
+
+
+
+                <p:column>
                     <h:outputText value="#{detalle.acta.titular.DNIPER}" />
                 </p:column>
-                <p:column headerText="Actor">
+                <p:column>
+                    <h:outputText value="#{detalle.actor.APEPATPER} 
+                                  #{detalle.actor.APEMATPER}, 
+                                  #{detalle.actor.NOMPER}"/>
+                </p:column>
+                <p:column headerText="DNI Actor">
                     <h:outputText value="#{detalle.actor.DNIPER}"/>
+                </p:column>
+                <p:column headerText="Tipo Actor">
+                    <h:outputText value="#{detalle.TIPACT}"/>
                 </p:column>
             </p:dataTable>
             <p:contextMenu for="tblActa">
-                <p:menuitem value="Ver" actionListener="#{incidenciaC.listar(actaC.detalleSeleccionado.acta)}"
-                            update="tblActa :frmIncidencia:frmListarIncidencia:dtTblIncidencia" 
+                <p:menuitem value="Incidencias" actionListener="#{incidenciaC.listar(actaC.detalleSeleccionado.acta)}"
+                            update=":frmIncidencia" icon="ui-icon-search"
                             oncomplete="PF('wvIncidencia').show();"/>
             </p:contextMenu>
         </h:form>
 
         <!--Ver las incidencias de un documento seleccionado, editar las que tiene o agregar nuevas-->
-        <p:dialog widgetVar="wvIncidencia" header="Incidencia" id="dIncidencia">
+        <p:dialog widgetVar="wvIncidencia" header="Incidencia" id="dIncidencia" 
+                  closeOnEscape="true" modal="true">
+            <h:form id="frmRegistrarIncidencia">
+                <p:growl life="1000"/>
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:selectOneMenu value="#{incidenciaC.incidencia.tipoIncidencia.IDINCTIP}"
+                                                 filter="true" filterMatchMode="contains">
+                                    <f:selectItems value="#{incidenciatipoC.lista}" var="tipoIncidencia"
+                                                   itemLabel="#{tipoIncidencia.NOMINCTIP}"
+                                                   itemValue="#{tipoIncidencia.IDINCTIP}"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Tipo de Incidencia" for="@previous"/>
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g-6">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:calendar value="#{incidenciaC.incidencia.FECINC}" 
+                                            readonlyInput="true" required="true" requiredMessage="Fecha requerida"
+                                            pattern="dd/MMM/yyyy" />
+                                <p:outputLabel value="Fecha" for="@previous"/>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputTextarea value="#{incidenciaC.incidencia.MOTINC}" 
+                                             requiredMessage="Motivo Requerido."
+                                             required="true" 
+                                             onblur="this.value = this.value.toUpperCase()"
+                                             maxlength="500" autoResize="true">
+                                <p:keyFilter regEx='/[\a-z ]/i'/>
+                            </p:inputTextarea>
+                            <p:outputLabel value="Motivo" for="@previous"/>
+
+                        </h:panelGroup>
+                    </div>
+                </div>
+                <p:commandButton actionListener="#{incidenciaC.registrar()}" value="Guardar"
+                                 update="frmRegistrarIncidencia :frmIncidencia"/>
+                <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('wvIncidencia').hide();"/>
+            </h:form>
+            <p:separator/>
             <h:form id="frmIncidencia">
-                <h:form id="frmListarIncidencia">
-                    <p:dataTable id="dtTblIncidencia"
-                                 value="#{incidenciaC.lista}" var="listaIncidencia"
-                                 rowKey="#{listaIncidencia.IDINC}" selection="#{incidenciaC.incidenciaSeleccionado}"
-                                 selectionMode="single" filteredValue="#{incidenciaC.listaFiltrado}"
-                                 rows="10" emptyMessage="No se encontrarón datos."
-                                 paginator="true" scrollable="false" scrollHeight="500"
-                                 rowsPerPageTemplate="5,10,15,20">
+                <p:dataTable id="dtTblIncidencia"
+                             value="#{incidenciaC.lista}" var="listaIncidencia"
+                             rowKey="#{listaIncidencia.IDINC}" selection="#{incidenciaC.incidenciaSeleccionado}"
+                             selectionMode="single"
+                             rows="3" emptyMessage="No se encontrarón datos."
+                             paginator="true" scrollable="true" scrollHeight="500"
+                             rowsPerPageTemplate="3,5,10,15,20">
+                    <f:facet name="header">
+                        Lista de Incidencias
+                    </f:facet>
 
-                        <f:facet name="header">
-                            <p:commandButton value="Agregar Incidencia" oncomplete="PF('wvRegistrarIncidencia').show();"
-                                             update="dIncidencia"/>
-                            <p:commandButton value="Actualizar" immediate="true" update="dIncidencia"/>
-                        </f:facet>
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{listaIncidencia.tipoIncidencia.NOMINCTIP}"/>
+                    </p:column>
+                    <p:column headerText="Tipo" style="width:5%;text-align:center">
+                        <h:outputText value="#{listaIncidencia.tipoIncidencia.TIPINCTIP eq 'N' ? 'Notarial' : 'Judicial'}"/>
+                    </p:column>
+                    <p:column headerText="Fecha" style="width:10%;text-align:center">
+                        <h:outputText value="#{listaIncidencia.FECINC}">
+                            <f:convertDateTime pattern="dd/MMM/yyyy"  />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Motivo">
+                        <h:outputText value="#{listaIncidencia.MOTINC}"/>
+                    </p:column>
+                </p:dataTable>
 
-                        <p:column headerText="Tipo">
-                            <h:outputText value="#{listaIncidencia.tipoIncidencia.IDINCTIP}"/>
-                        </p:column>
-                        <p:column headerText="Fecha">
-                            <h:outputText value="#{listaIncidencia.FECINC}">
-                                <f:convertDateTime pattern="dd/MMM/yyyy"  />
-                            </h:outputText>
-                        </p:column>
-                        <p:column headerText="Motivo">
-                            <h:outputText value="#{listaIncidencia.MOTINC}"/>
-                        </p:column>
-                    </p:dataTable>
-
-                    <p:contextMenu for="dtTblIncidencia">
-                        <p:menuitem update="dIncidencia" icon="ui-icon-pencil"
-                                    value="Modificar"
-                                    oncomplete="PF('wdlgDatosIncidencia').show();"/>
-                        <p:menuitem value="Eliminar" actionListener="#{incidenciaC.eliminar()}" 
-                                    update="dIncidencia"
-                                    icon="ui-icon-circle-close"/>
-                    </p:contextMenu>
-                </h:form>
-
-                <p:dialog id="dlgDatosIncidencia" widgetVar="wdlgDatosIncidencia" 
-                          header="Datos de Incidencia" closeOnEscape="true">
-                    <h:form id="frmEditarIncidencia">
-                        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" 
-                                     layout="grid">
-                            <p:outputLabel value="Documento"/>
-
-                            <p:outputLabel value="Tipo de Incidencia"/>
-                            <p:selectOneMenu value="#{incidenciaC.incidenciaSeleccionado.tipoIncidencia.IDINCTIP}">
-                                <f:selectItems value="#{incidenciatipoC.lista}" var="tipoIncidencia"
-                                               itemLabel="#{tipoIncidencia.NOMINCTIP}"
-                                               itemValue="#{tipoIncidencia.IDINCTIP}"/>
-                            </p:selectOneMenu>
-
-                            <p:outputLabel value="Fecha"/>
-                            <p:calendar id="popup" value="#{incidenciaC.incidenciaSeleccionado.FECINC}" 
-                                        readonlyInput="true" required="true" requiredMessage="Fecha requerida"
-                                        navigator="false" pattern="dd/MMM/yyyy" />
-
-                            <p:outputLabel value="Motivo"/>
-                            <p:inputText value="#{incidenciaC.incidenciaSeleccionado.MOTINC}"  style="width: 50vh" 
-                                         requiredMessage="Motivo Requerido."
-                                         required="true" 
-                                         onblur="this.value = this.value.toUpperCase()">
-                                <p:keyFilter regEx='/[\a-z ]/i'/>
-                            </p:inputText>
-                        </p:panelGrid>     
-                        <p:selectOneRadio value="#{incidenciaC.incidenciaSeleccionado.ESTINC}" 
-                                          requiredMessage="Seleccione Estado de la Incidencia."
-                                          style="width: 50vh"
-                                          unselectable="false" required="true">
-                            <f:selectItem itemLabel="Activo" itemValue="A"/>
-                            <f:selectItem itemLabel="Inactivo" itemValue="I"/>
-                        </p:selectOneRadio>
-                        <p:commandButton value="Modificar" actionListener="#{incidenciaC.editar()}"
-                                         oncomplete="if(!args.validationFailed)PF('wdlgDatosIncidencia').hide();"
-                                         update="dIncidencia">
-                            <p:confirm header="Confirmacion" message="¿Quiere Modificar?" icon="ui-icon-alert" />
-                        </p:commandButton>
-
-                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                        </p:confirmDialog>
-
-                        <p:commandButton value="Cancelar" immediate="true" 
-                                         oncomplete="PF('wdlgDatosIncidencia').hide();"/>
-                    </h:form>
-
-                </p:dialog>
-
-                <p:dialog header="Registrar Incidencia" widgetVar="wvRegistrarIncidencia">
-                    <h:form id="frmRegistrarIncidencia">
-                        <p:growl life="1000"/>
-                        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" 
-                                     layout="grid">
-                            <p:outputLabel value="Documento"/>
-
-                            <p:outputLabel value="Tipo de Incidencia"/>
-                            <p:selectOneMenu value="#{incidenciaC.incidencia.tipoIncidencia.IDINCTIP}">
-                                <f:selectItems value="#{incidenciatipoC.lista}" var="tipoIncidencia"
-                                               itemLabel="#{tipoIncidencia.NOMINCTIP}"
-                                               itemValue="#{tipoIncidencia.IDINCTIP}"/>
-                            </p:selectOneMenu>
-
-                            <p:outputLabel value="Fecha"/>
-                            <p:calendar id="popup" value="#{incidenciaC.incidencia.FECINC}" 
-                                        readonlyInput="true" required="true" requiredMessage="Fecha requerida"
-                                        navigator="false" pattern="dd/MMM/yyyy" />
-
-                            <p:outputLabel value="Motivo"/>
-                            <p:inputText value="#{incidenciaC.incidencia.MOTINC}"  style="width: 50vh" 
-                                         requiredMessage="Motivo Requerido."
-                                         required="true" 
-                                         onblur="this.value = this.value.toUpperCase()">
-                                <p:keyFilter regEx='/[\a-z ]/i'/>
-                            </p:inputText>
-                        </p:panelGrid>
-                        <p:commandButton actionListener="#{incidenciaC.registrar()}" value="Guardar"
-                                         update="dIncidencia"
-                                         oncomplete="if(!args.validationFailed)PF('wvRegistrarIncidencia').hide();"/>
-                    </h:form>
-                </p:dialog>
+                <p:contextMenu for="dtTblIncidencia">
+                    <p:menuitem update=":frmEditarIncidencia" icon="ui-icon-pencil"
+                                value="Modificar"
+                                oncomplete="PF('wdlgDatosIncidencia').show();"/>
+                    <p:menuitem value="Eliminar" actionListener="#{incidenciaC.eliminar()}" 
+                                update=":frmEditarIncidencia"
+                                icon="ui-icon-circle-close"/>
+                </p:contextMenu>
             </h:form>
         </p:dialog>
+
+        <p:dialog id="dlgDatosIncidencia" widgetVar="wdlgDatosIncidencia" 
+                  header="Datos de Incidencia" closeOnEscape="true">
+            <h:form id="frmEditarIncidencia">
+                <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" 
+                             layout="grid">
+                    <p:outputLabel value="Documento"/>
+
+                    <p:outputLabel value="Tipo de Incidencia"/>
+                    <p:selectOneMenu value="#{incidenciaC.incidenciaSeleccionado.tipoIncidencia.IDINCTIP}"
+                                     filter="true" filterMatchMode="contains">
+                        <f:selectItems value="#{incidenciatipoC.lista}" var="tipoIncidencia"
+                                       itemLabel="#{tipoIncidencia.NOMINCTIP}"
+                                       itemValue="#{tipoIncidencia.IDINCTIP}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Fecha"/>
+                    <p:calendar id="popup" value="#{incidenciaC.incidenciaSeleccionado.FECINC}" 
+                                readonlyInput="true" required="true" requiredMessage="Fecha requerida"
+                                navigator="false" pattern="dd/MMM/yyyy" />
+
+                    <p:outputLabel value="Motivo"/>
+                    <p:inputText value="#{incidenciaC.incidenciaSeleccionado.MOTINC}"  style="width: 50vh" 
+                                 requiredMessage="Motivo Requerido."
+                                 required="true" 
+                                 onblur="this.value = this.value.toUpperCase()">
+                        <p:keyFilter regEx='/[\a-z ]/i'/>
+                    </p:inputText>
+                </p:panelGrid>     
+                <p:selectOneRadio value="#{incidenciaC.incidenciaSeleccionado.ESTINC}" 
+                                  requiredMessage="Seleccione Estado de la Incidencia."
+                                  style="width: 50vh"
+                                  unselectable="false" required="true">
+                    <f:selectItem itemLabel="Activo" itemValue="A"/>
+                    <f:selectItem itemLabel="Inactivo" itemValue="I"/>
+                </p:selectOneRadio>
+                <p:commandButton value="Modificar" actionListener="#{incidenciaC.editar()}"
+                                 oncomplete="if(!args.validationFailed)PF('wdlgDatosIncidencia').hide();"
+                                 update=":frmIncidencia">
+                    <p:confirm header="Confirmacion" message="¿Quiere Modificar?" icon="ui-icon-alert" />
+                </p:commandButton>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+
+                <p:commandButton value="Cancelar" immediate="true" 
+                                 oncomplete="PF('wdlgDatosIncidencia').hide();"/>
+            </h:form>
+
+        </p:dialog>
+
     </ui:define>
 </ui:composition>
 

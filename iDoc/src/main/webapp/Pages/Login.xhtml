@@ -52,7 +52,7 @@
         <h:outputScript library="js" name="touchswipe.js" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
         <!--***-->        
-        <title>Login</title>
+        <title>Login - iDoc</title>
         <style type="text/css">
             .main-content {
                 padding: 0;
@@ -64,14 +64,14 @@
         <div class="card login-panel ui-fluid">
             <div class="ui-g">
                 <h:form id="frmIngresar">      
-                    <p:growl life="50000"/>
+                    <p:growl life="1000"/>
 
                     <div class="ui-g-12">
                         <h:panelGroup styleClass="md-inputfield">
                             <p:inputText requiredMessage="Ingrese usuario"
                                          value="#{loginC.loginSesion.USRLOG}" required="true"/>
                             <p:outputLabel value="Usuario" for="@previous"/>
-
+                            <p:focus/>
                         </h:panelGroup>
                     </div>
                     <div class="ui-g-12">

@@ -19,7 +19,7 @@ public class ActaC implements Serializable {
     Acta cabecera;
 
     List<Actor> listaDetalle, listaDetalleFiltrado;
-
+    List<Actor> listaDetalleR, listaDetalleSeleccionado;
     ActaImpl daoActa;
     ActorImpl daoDetalle;
 
@@ -28,7 +28,8 @@ public class ActaC implements Serializable {
         detalleSeleccionado = new Actor();
         cabecera = new Acta();
         listaDetalle = new ArrayList<>();
-        listaDetalleFiltrado = new ArrayList<>();
+        listaDetalleSeleccionado = new ArrayList<>();
+        listaDetalleR = new ArrayList<>();
         daoActa = new ActaImpl();
         daoDetalle = new ActorImpl();
     }
@@ -45,6 +46,7 @@ public class ActaC implements Serializable {
     public void listar() throws Exception {
         try {
             listaDetalle = daoDetalle.listar();
+            listaDetalleR = daoDetalle.listar(null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -52,7 +54,10 @@ public class ActaC implements Serializable {
 
     public void registrar() throws Exception {
         try {
-            //Analizando
+            System.out.println(cabecera.getDIRACT());
+            for (Actor actor : listaDetalleSeleccionado) {
+                System.out.println("Seleccionado:" + actor.getActor().getIDPER() + "Tipo:" + actor.getTIPACT());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,6 +101,22 @@ public class ActaC implements Serializable {
 
     public void setListaDetalleFiltrado(List<Actor> listaDetalleFiltrado) {
         this.listaDetalleFiltrado = listaDetalleFiltrado;
+    }
+
+    public List<Actor> getListaDetalleSeleccionado() {
+        return listaDetalleSeleccionado;
+    }
+
+    public void setListaDetalleSeleccionado(List<Actor> listaDetalleSeleccionado) {
+        this.listaDetalleSeleccionado = listaDetalleSeleccionado;
+    }
+
+    public List<Actor> getListaDetalleR() {
+        return listaDetalleR;
+    }
+
+    public void setListaDetalleR(List<Actor> listaDetalleR) {
+        this.listaDetalleR = listaDetalleR;
     }
 
 }

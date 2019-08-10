@@ -123,26 +123,38 @@ div.row.formulario > div.col.selectmenu {
 ------------------------------------------*/
 @media only screen and (min-width: 993px) { /* large only , large and up*/
     .ui-dialog{/*Tamano Estandar*/
-        width: 80% !important;
+        width: 90% !important;
+        display: none;
+        position: absolute !important;
     }
     .ui-dialog.migrar{/*Tamano Personalizado*/
-        width: 80% !important;
+        width: 90% !important;
+        display: none;
+        position: absolute !important;
     }
 }
 @media only screen and (min-width: 600px) and (max-width: 992px) { /* medio only*/
     .ui-dialog{/*Tamano Estandar*/
-        width: 80% !important;
+        width: 90% !important;
+        display: none;
+        position: absolute !important;
     }
     .ui-dialog.migrar{/*Tamano Personalizado*/
-        width: 80% !important;
+        width: 90% !important;
+        display: none;
+        position: absolute !important;
     }
 }
 @media only screen and (max-width: 600px) { /* small only , small and down */
     .ui-dialog{/*Tamano Estandar*/
-        width: 80% !important;
+        width: 90% !important;
+        display: none;
+        position: absolute !important;
     }
     .ui-dialog.migrar{/*Tamano Personalizado*/
-        width: 80% !important;
+        width: 90% !important;
+        display: none;
+        position: absolute !important;
     }
 }
 

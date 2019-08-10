@@ -12,8 +12,6 @@
     <ui:define name="contenidoPagina">
         <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
 
-
-
         <p:fragment rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'R'? true : false}">
             <div class="ui-g dashboard">
                 <ui:repeat value="#{dashboardC.listaCantidadesActa}" var="cantidadActas">

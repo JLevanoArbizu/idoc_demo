@@ -10,7 +10,7 @@
     <ui:define name="contenidoPagina">
         <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
         <div class="card card-w-title">
-            <h1>Cambiar Contraseña</h1>
+            <h1>Aquí puedes cambiar tu Contraseña #{loginC.loginSesion.trabajador.persona.NOMPER}</h1>
             <h:form id="frmEditarLogin">
                 <p:growl life="10000"/>
                 <div class="ui-g">

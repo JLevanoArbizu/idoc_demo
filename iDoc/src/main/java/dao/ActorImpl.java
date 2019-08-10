@@ -12,7 +12,7 @@ import modelo.Trabajador;
 import modelo.Ubigeo;
 
 public class ActorImpl extends Conexion implements ICrud<Actor> {
-    
+
     @Override
     public void registrar(Actor modelo) throws Exception {
         try {
@@ -31,17 +31,17 @@ public class ActorImpl extends Conexion implements ICrud<Actor> {
             this.desconectar();
         }
     }
-    
+
     @Override
     public void editar(Actor modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public void eliminar(Actor modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public List<Actor> listar() throws Exception {
         List<Actor> listaActor = new ArrayList<>();
@@ -51,6 +51,8 @@ public class ActorImpl extends Conexion implements ICrud<Actor> {
                     + "acta.TIPACTA AS ACTA_TIP, "
                     + "acta.FECREGACTA AS ACTA_FECREG, "
                     + "acta.FECACT AS ACTA_FECACT, "
+                    + "acta.NUMLIBACTA AS ACTA_LIB, "
+                    + "acta.NUMFOLACTA AS ACTA_FOL, "
                     + "acta.OBSACTA AS ACTA_OBS, "
                     + "acta.ESTACTA AS ACTA_EST, "
                     + "acta.DIRACT AS ACTA_DIRACTA, "
@@ -77,7 +79,6 @@ public class ActorImpl extends Conexion implements ICrud<Actor> {
                     + "actor.TIPACT AS ACTOR_TIPACT, "
                     + "actor.IDACT AS ACTOR_IDACT "
                     + "FROM RegCiv.ACTOR actor  "
-                    
                     + "INNER JOIN General.PERSONA personaActor \n"
                     + "ON actor.IDPER = personaActor.IDPER \n"
                     + "\n"
@@ -108,41 +109,43 @@ public class ActorImpl extends Conexion implements ICrud<Actor> {
                 Trabajador trabajador = new Trabajador();
                 Persona titular = new Persona();
                 Persona personaActor = new Persona();
-                
+
                 acta.setIDACTA(rs.getInt(1));
                 acta.setTIPACTA(rs.getString(2));
                 acta.setFECREGACTA(rs.getDate(3));
                 acta.setFECACT(rs.getDate(4));
-                acta.setOBSACTA(rs.getString(5));
-                acta.setESTACTA(rs.getString(6));
-                acta.setDIRACT(rs.getString(7));
-                
-                ubigeo.setCODUBI(rs.getString(8));
-                ubigeo.setDEPUBI(rs.getString(9));
-                ubigeo.setPROVUBI(rs.getString(10));
-                ubigeo.setDISTUBI(rs.getString(11));
-                
-                registrador.setIDPER(rs.getInt(12));
-                registrador.setAPEPATPER(rs.getString(13));
-                registrador.setAPEMATPER(rs.getString(14));
-                registrador.setNOMPER(rs.getString(15));
-                registrador.setDNIPER(rs.getString(16));
-                
-                titular.setIDPER(rs.getInt(17));
-                titular.setAPEPATPER(rs.getString(18));
-                titular.setAPEMATPER(rs.getString(19));
-                titular.setNOMPER(rs.getString(20));
-                titular.setDNIPER(rs.getString(21));
-                titular.setGENPER(rs.getString(22));
-                
-                personaActor.setIDPER(rs.getInt(23));
-                personaActor.setAPEPATPER(rs.getString(24));
-                personaActor.setAPEMATPER(rs.getString(25));
-                personaActor.setNOMPER(rs.getString(26));
-                personaActor.setDNIPER(rs.getString(27));
-                actor.setTIPACT(rs.getString(28));
-                actor.setIDACT(rs.getInt(29));
-                
+                acta.setNUMLIBACTA(rs.getString(5));
+                acta.setNUMFOLACTA(rs.getString(6));
+                acta.setOBSACTA(rs.getString(7));
+                acta.setESTACTA(rs.getString(8));
+                acta.setDIRACT(rs.getString(9));
+
+                ubigeo.setCODUBI(rs.getString(10));
+                ubigeo.setDEPUBI(rs.getString(11));
+                ubigeo.setPROVUBI(rs.getString(12));
+                ubigeo.setDISTUBI(rs.getString(13));
+
+                registrador.setIDPER(rs.getInt(14));
+                registrador.setAPEPATPER(rs.getString(15));
+                registrador.setAPEMATPER(rs.getString(16));
+                registrador.setNOMPER(rs.getString(17));
+                registrador.setDNIPER(rs.getString(18));
+
+                titular.setIDPER(rs.getInt(19));
+                titular.setAPEPATPER(rs.getString(20));
+                titular.setAPEMATPER(rs.getString(21));
+                titular.setNOMPER(rs.getString(22));
+                titular.setDNIPER(rs.getString(23));
+                titular.setGENPER(rs.getString(24));
+
+                personaActor.setIDPER(rs.getInt(25));
+                personaActor.setAPEPATPER(rs.getString(26));
+                personaActor.setAPEMATPER(rs.getString(27));
+                personaActor.setNOMPER(rs.getString(28));
+                personaActor.setDNIPER(rs.getString(29));
+                actor.setTIPACT(rs.getString(30));
+                actor.setIDACT(rs.getInt(31));
+
                 trabajador.setPersona(registrador);
                 login.setTrabajador(trabajador);
                 acta.setLogin(login);
@@ -161,12 +164,62 @@ public class ActorImpl extends Conexion implements ICrud<Actor> {
         }
         return listaActor;
     }
-    
+
     @Override
     public List<Actor> listar(Actor modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Actor> listaActor = new ArrayList<>();
+        try {
+            String sql = "SELECT persona.IDPER,\n"
+                    + "       persona.APEPATPER,\n"
+                    + "       persona.APEMATPER,\n"
+                    + "       persona.NOMPER,\n"
+                    + "       persona.DNIPER,\n"
+                    + "       UBIGEO.CODUBI,\n"
+                    + "       persona.DIRPER,\n"
+                    + "       persona.NACPER,\n"
+                    + "       persona.GENPER,\n"
+                    + "       persona.ESTPER,\n"
+                    + "	   ubigeo.DEPUBI,\n"
+                    + "	   ubigeo.PROVUBI,\n"
+                    + "	   ubigeo.DISTUBI\n"
+                    + "FROM General.PERSONA persona\n"
+                    + "INNER JOIN GENERAL.UBIGEO ubigeo\n"
+                    + "ON persona.CODUBI = ubigeo.CODUBI\n"
+                    + "WHERE persona.ESTPER='A'";
+            ResultSet rs = this.conectar().createStatement().executeQuery(sql);
+
+            while (rs.next()) {
+                Persona persona = new Persona();
+                Ubigeo ubigeo = new Ubigeo();
+                Actor actor = new Actor();
+                persona.setIDPER(rs.getInt(1));
+                persona.setAPEPATPER(rs.getString(2));
+                persona.setAPEMATPER(rs.getString(3));
+                persona.setNOMPER(rs.getString(4));
+                persona.setDNIPER(rs.getString(5));
+                ubigeo.setCODUBI(rs.getString(6));
+                persona.setDIRPER(rs.getString(7));
+                persona.setNACPER(rs.getString(8));
+                persona.setGENPER(rs.getString(9));
+                persona.setESTPER(rs.getString(10));
+
+                ubigeo.setDEPUBI(rs.getString(11));
+                ubigeo.setPROVUBI(rs.getString(12));
+                ubigeo.setDISTUBI(rs.getString(13));
+
+                persona.setUbigeo(ubigeo);
+                actor.setActor(persona);
+                listaActor.add(actor);
+            }
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.desconectar();
+        }
+        return listaActor;
     }
-    
+
     @Override
     public Actor obtenerModelo(Actor modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
