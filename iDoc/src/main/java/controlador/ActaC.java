@@ -16,9 +16,10 @@ import modelo.Actor;
 public class ActaC implements Serializable {
 
     Actor detalle, detalleSeleccionado;
-    Acta cabecera;
+    Acta cabecera, cabeceraSeleccionado;
 
     List<Actor> listaDetalle, listaDetalleFiltrado;
+    List<Acta> listaCabecera, listaCabeceraFiltrado;
     List<Actor> listaDetalleR, listaDetalleSeleccionado;
     ActaImpl daoActa;
     ActorImpl daoDetalle;
@@ -26,10 +27,12 @@ public class ActaC implements Serializable {
     public ActaC() {
         detalle = new Actor();
         detalleSeleccionado = new Actor();
+        cabeceraSeleccionado = new Acta();
         cabecera = new Acta();
         listaDetalle = new ArrayList<>();
         listaDetalleSeleccionado = new ArrayList<>();
         listaDetalleR = new ArrayList<>();
+        listaCabecera = new ArrayList<>();
         daoActa = new ActaImpl();
         daoDetalle = new ActorImpl();
     }
@@ -45,8 +48,9 @@ public class ActaC implements Serializable {
 
     public void listar() throws Exception {
         try {
-            listaDetalle = daoDetalle.listar();
+//            listaDetalle = daoDetalle.listar();
             listaDetalleR = daoDetalle.listar(null);
+            listaCabecera = daoActa.listar();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -118,5 +122,30 @@ public class ActaC implements Serializable {
     public void setListaDetalleR(List<Actor> listaDetalleR) {
         this.listaDetalleR = listaDetalleR;
     }
+
+    public List<Acta> getListaCabecera() {
+        return listaCabecera;
+    }
+
+    public void setListaCabecera(List<Acta> listaCabecera) {
+        this.listaCabecera = listaCabecera;
+    }
+
+    public Acta getCabeceraSeleccionado() {
+        return cabeceraSeleccionado;
+    }
+
+    public void setCabeceraSeleccionado(Acta cabeceraSeleccionado) {
+        this.cabeceraSeleccionado = cabeceraSeleccionado;
+    }
+
+    public List<Acta> getListaCabeceraFiltrado() {
+        return listaCabeceraFiltrado;
+    }
+
+    public void setListaCabeceraFiltrado(List<Acta> listaCabeceraFiltrado) {
+        this.listaCabeceraFiltrado = listaCabeceraFiltrado;
+    }
+    
 
 }

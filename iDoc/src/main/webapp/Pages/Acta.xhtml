@@ -19,8 +19,8 @@
                          value="#{actaC.listaDetalleR}" var="actores"
                          selection="#{actaC.listaDetalleSeleccionado}"
                          filteredValue="#{actaC.listaDetalleFiltrado}"
-                         rowKey="#{actores.actor.IDPER}"
-                         rows="10" paginator="true" sortBy="#{actores.actor.APEPATPER}" sortOrder="descending"
+                         rowKey="#{actores.actor.IDPER}" reflow="true"
+                         rows="5" paginator="true" sortBy="#{actores.actor.APEPATPER}" sortOrder="descending"
                          paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15,20,30">
                 <f:facet name="header">
@@ -59,90 +59,75 @@
             </p:dataTable>
         </h:form>
         <p:separator/>
+
         <h:form id="frmActa">
             <p:dataTable id="tblActa" widgetVar="wvTblActa"
-                         value="#{actaC.listaDetalle}" var="detalle"
-                         selectionMode="single" selection="#{actaC.detalleSeleccionado}"
-                         rowKey="#{detalle.IDACT}" sortBy="#{detalle.acta.TIPACTA}"
-                         filteredValue="#{actaC.listaDetalleFiltrado}"
-                         rows="10" emptyMessage="No se encontrarón datos."
+                         value="#{actaC.listaCabecera}" var="cabecera"
+                         sortBy="#{cabecera.titular.APEPATPER}"
+                         filteredValue="#{actaC.listaCabeceraFiltrado}"
+                         rows="5" emptyMessage="No se encontrarón datos." reflow="true"
                          paginator="true" scrollable="false" scrollHeight="500"
                          rowsPerPageTemplate="5,10,15,20">
                 <f:facet name="header">
                     Actas Registradas
                 </f:facet>
-                <p:columnGroup type="header">
-                    <p:row>
-                        <p:column colspan="7" headerText="Acta" />
-                        <p:column colspan="1" headerText="Titular" />
-                        <p:column colspan="1" headerText="Actor" />
-                    </p:row>
-                    <p:row>
-                        <p:column headerText="Titular" filterMatchMode="contains"
-                                  filterBy="#{detalle.acta.titular.APEPATPER} 
-                                  #{detalle.acta.titular.APEMATPER}, 
-                                  #{detalle.acta.titular.NOMPER}"/>
-                        <p:column headerText="ID" style="width:16px;text-align:center"/>
-                        <p:column headerText="Fecha Registro"/>
-                        <p:column headerText="Fecha Acto"/>
-                        <p:column headerText="Tipo" />
-                        <p:column headerText="Libro"/>
-                        <p:column headerText="Folio" />
 
-
-                        <p:column headerText="Precio" />
-                        <p:column headerText="Cantidad" />
-                    </p:row>
-                </p:columnGroup>
-
-                <p:column groupRow="true">
-                    <h:outputText value="#{detalle.acta.titular.APEPATPER} 
-                                  #{detalle.acta.titular.APEMATPER}, 
-                                  #{detalle.acta.titular.NOMPER}" />
-                </p:column>
-                <p:column groupRow="true">
-                    <h:outputText value="#{detalle.acta.IDACTA}"/>
-                </p:column>
-                <p:column>
-                    <h:outputText value="#{detalle.acta.FECREGACTA}"/>
-                </p:column>
-                <p:column>
-                    <h:outputText value="#{detalle.acta.FECACT}"/>
-                </p:column>
-                <p:column>
-                    <h:outputText value="#{detalle.acta.TIPACTA eq '1' ? 'Nacimiento' : 
-                                           detalle.acta.TIPACTA eq '2' ? 'Matrimonio' :
-                                           'Defunción'}" />
-                </p:column>
-                <p:column>
-                    <h:outputText value="#{detalle.acta.NUMLIBACTA}"/>
-                </p:column>
-                <p:column>
-                    <h:outputText value="#{detalle.acta.NUMFOLACTA}"/>
+                <p:column groupRow="true" headerText="Apellidos y Nombres" 
+                          filterMatchMode="contains" style="width:20em;text-align:center"
+                          filterBy="#{cabecera.titular.APEPATPER} 
+                          #{cabecera.titular.APEMATPER}, 
+                          #{cabecera.titular.NOMPER}">
+                    <p:panel id="pnlTitular" styleClass="panel aumentar"
+                             header="DNI: #{cabecera.titular.DNIPER}">
+                        <h:outputText value="#{cabecera.titular.APEPATPER} 
+                                      #{cabecera.titular.APEMATPER}, 
+                                      #{cabecera.titular.NOMPER}" />
+                        <p:contextMenu for="pnlTitular">
+                            <p:menuitem value="Incidencias"
+                                        update=":frmIncidencia" icon="ui-icon-search"
+                                        oncomplete="PF('wvIncidencia').show();">
+                                <f:setPropertyActionListener value="#{cabecera}" target="#{incidenciaC.actaBuscar}"/>
+                                <f:actionListener binding="#{incidenciaC.listar()}"/>
+                            </p:menuitem>
+                        </p:contextMenu>
+                    </p:panel>
                 </p:column>
 
+                <p:column headerText="Tipo" style="width:10em;text-align:center">
+                    <p:panel id="pnlTipoActa" styleClass="panel aumentar-sinSombra"
+                             footer="#{cabecera.TIPACTA eq '1' ? 'Nacimiento' : 
+                                       cabecera.TIPACTA eq '2' ? 'Matrimonio' :
+                                       'Defunción'}">
+                        <i class="material-icons">
+                            #{cabecera.TIPACTA eq '1' ?
+                              'child_friendly':
+                              cabecera.TIPACTA eq '2' ? 
+                              'favorite_border': 'airline_seat_flat'}
+                        </i>
+                        <p:tooltip for="pnlTipoActa" position="left">
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Registro"/>
+                                <h:outputText value="#{cabecera.FECREGACTA}">
+                                    <f:convertDateTime pattern="dd/MMM/yyyy"/>
+                                </h:outputText>
+                                <p:outputLabel value="Acto"/>
+                                <h:outputText value="#{cabecera.FECACT}">
+                                    <f:convertDateTime pattern="dd/MMM/yyyy"/>
+                                </h:outputText>
+                            </h:panelGrid>
+                        </p:tooltip>
+                        <p:contextMenu for="pnlTipoActa">
+                            <p:menuitem icon="ui-icon-search" update="tblActa"
+                                        value="Ver"/>
+                            <p:menuitem icon="ui-icon-pencil" update="tblActa"
+                                        value="Modificar"/>
+                            <p:menuitem icon="ui-icon-circle-close" update="tblActa"
+                                        value="Eliminar"/>
+                        </p:contextMenu>
+                    </p:panel>
 
-
-                <p:column>
-                    <h:outputText value="#{detalle.acta.titular.DNIPER}" />
                 </p:column>
-                <p:column>
-                    <h:outputText value="#{detalle.actor.APEPATPER} 
-                                  #{detalle.actor.APEMATPER}, 
-                                  #{detalle.actor.NOMPER}"/>
-                </p:column>
-                <p:column headerText="DNI Actor">
-                    <h:outputText value="#{detalle.actor.DNIPER}"/>
-                </p:column>
-                <p:column headerText="Tipo Actor">
-                    <h:outputText value="#{detalle.TIPACT}"/>
-                </p:column>
-            </p:dataTable>
-            <p:contextMenu for="tblActa">
-                <p:menuitem value="Incidencias" actionListener="#{incidenciaC.listar(actaC.detalleSeleccionado.acta)}"
-                            update=":frmIncidencia" icon="ui-icon-search"
-                            oncomplete="PF('wvIncidencia').show();"/>
-            </p:contextMenu>
+            </p:dataTable>            
         </h:form>
 
         <!--Ver las incidencias de un documento seleccionado, editar las que tiene o agregar nuevas-->

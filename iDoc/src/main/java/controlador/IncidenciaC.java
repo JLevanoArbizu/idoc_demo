@@ -18,6 +18,7 @@ public class IncidenciaC implements Serializable {
     Incidencia incidencia, incidenciaSeleccionado;
     List<Incidencia> lista, listaFiltrado;
     IncidenciaImpl daoIncidencia;
+    Acta actaBuscar;
 
     public IncidenciaC() {
         incidencia = new Incidencia();
@@ -25,19 +26,12 @@ public class IncidenciaC implements Serializable {
         lista = new ArrayList<>();
         listaFiltrado = new ArrayList<>();
         daoIncidencia = new IncidenciaImpl();
-    }
-
-    public void listar(Acta acta) throws Exception {
-        try {
-            incidencia.setActa(acta);
-            lista = daoIncidencia.listar(incidencia);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        actaBuscar = new Acta();
     }
 
     public void listar() throws Exception {
         try {
+            incidencia.setActa(actaBuscar);
             lista = daoIncidencia.listar(incidencia);
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,6 +85,14 @@ public class IncidenciaC implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Acta getActaBuscar() {
+        return actaBuscar;
+    }
+
+    public void setActaBuscar(Acta actaBuscar) {
+        this.actaBuscar = actaBuscar;
     }
 
     public Incidencia getIncidencia() {

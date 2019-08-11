@@ -1,11 +1,12 @@
 package dao;
 
-
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 import modelo.Acta;
+import modelo.Persona;
 import org.apache.commons.lang3.text.WordUtils;
 import org.primefaces.model.StreamedContent;
 
@@ -72,7 +73,49 @@ public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
     @Override
     public List<Acta> listar() throws Exception {
         List<Acta> lista = new ArrayList<>();
-        // Listar solo cabeceras
+        try {
+            String sql = "SELECT\n"
+                    + "titular.IDPER,\n"
+                    + "titular.APEPATPER,\n"
+                    + "titular.APEMATPER,\n"
+                    + "titular.NOMPER,\n"
+                    + "titular.DNIPER,\n"
+                    + "\n"
+                    + "acta.IDACTA,\n"
+                    + "acta.FECREGACTA,\n"
+                    + "acta.FECACT,\n"
+                    + "acta.TIPACTA\n"
+                    + "FROM RegCiv.ACTA acta\n"
+                    + "INNER JOIN General.PERSONA titular\n"
+                    + "ON acta.IDPER = titular.IDPER\n"
+                    + "WHERE acta.ESTACTA = 'A' "
+                    + "ORDER BY acta.TIPACTA";
+            ResultSet rs = this.conectar().createStatement().executeQuery(sql);
+            while (rs.next()) {
+                Acta acta = new Acta();
+                Persona titular = new Persona();
+
+                titular.setIDPER(rs.getInt(1));
+                titular.setAPEPATPER(rs.getString(2));
+                titular.setAPEMATPER(rs.getString(3));
+                titular.setNOMPER(rs.getString(4));
+                titular.setDNIPER(rs.getString(5));
+
+                acta.setIDACTA(rs.getInt(6));
+                acta.setFECREGACTA(rs.getDate(7));
+                acta.setFECACT(rs.getDate(8));
+                acta.setTIPACTA(rs.getString(9));
+
+                acta.setTitular(titular);
+                lista.add(acta);
+            }
+            rs.clearWarnings();
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.desconectar();
+        }
         return lista;
     }
 

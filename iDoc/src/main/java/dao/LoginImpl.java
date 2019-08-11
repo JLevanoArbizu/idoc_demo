@@ -95,6 +95,8 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
                     + "login.IDTRAB,\n"
                     + "login.TIPLOG,\n"
                     + "persona.NOMPER,\n"
+                    + "persona.APEPATPER,\n"
+                    + "persona.APEMATPER,\n"
                     + "persona.DNIPER,\n"
                     + "area.IDARE,\n"
                     + "area.NOMARE\n"
@@ -122,9 +124,11 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
                 trabajador.setIDTRAB(rs.getInt(2));
                 modelo.setTIPLOG(rs.getString(3));
                 persona.setNOMPER(rs.getString(4));
-                persona.setDNIPER(rs.getString(5));
-                area.setIDARE(rs.getInt(6));
-                area.setNOMARE(rs.getString(7));
+                persona.setAPEPATPER(rs.getString(5));
+                persona.setAPEMATPER(rs.getString(6));
+                persona.setDNIPER(rs.getString(7));
+                area.setIDARE(rs.getInt(8));
+                area.setNOMARE(rs.getString(9));
 
                 trabajador.setArea(area);
                 trabajador.setPersona(persona);

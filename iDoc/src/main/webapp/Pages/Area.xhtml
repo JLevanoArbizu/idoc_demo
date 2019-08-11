@@ -21,7 +21,7 @@
                 <p:outputLabel value="Nombre Area Perteneciente"/>
                 <p:selectOneMenu value="#{areaC.area.areaPadre.IDARE}"
                                  filter="true" filterMatchMode="contains">
-                    <f:selectItem itemValue="#{0}" itemLabel="Sin Área"/>
+                    <f:selectItem itemValue="#{0}" itemLabel="No pertenece a ningún Área"/>
                     <f:selectItems value="#{areaC.lista}" var="area" 
                                    itemValue="#{area.IDARE}" itemLabel="#{area.NOMARE}"/>
                 </p:selectOneMenu>

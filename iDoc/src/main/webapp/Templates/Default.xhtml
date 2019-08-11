@@ -92,67 +92,80 @@
                 <div class="layout-menu layout-menu-slim">
                     <div class="nano has-scrollbar">
                         <div class="nano-content menu-scroll-content">
-                            <div class="profile">
+                            <div class="profile amber">
                                 <div class="profile-image"></div>
                                 <a id="profile-options" href="#">
-                                    <span class="profile-name">#{loginC.loginSesion.trabajador.persona.NOMPER}</span>
+                                    <h:outputText id="persona" styleClass="profile-name" 
+                                                  value="#{loginC.loginSesion.trabajador.persona.NOMPER}"/>
+
+                                    <p:tooltip for="persona" position="bottom">
+                                        <h:panelGrid columns="2">
+                                            <p:outputLabel value="Apellidos"/>
+                                            <h:outputText value="#{loginC.loginSesion.trabajador.persona.APEPATPER} 
+                                                          #{loginC.loginSesion.trabajador.persona.APEMATPER}"/>
+                                            <p:outputLabel value="DNI"/>
+                                            <h:outputText value="#{loginC.loginSesion.trabajador.persona.DNIPER}"/>
+                                            <p:outputLabel value="Área"/>
+                                            <h:outputText value="#{loginC.loginSesion.trabajador.area.NOMARE}"/>
+                                        </h:panelGrid>
+                                    </p:tooltip>
                                     <i class="material-icons">keyboard_arrow_down</i>
                                 </a>
                             </div>
 
                             <ul id="profile-menu" class="ultima-menu">
                                 <li role="menuitem">
-                                <p:commandLink action="Ajustes" styleClass="ripplelink" ajax="true">
+                                <p:commandLink action="Ajustes" styleClass="ripplelink aumentar-sinSombra" ajax="true">
                                     <i class="material-icons">settings</i>
                                     <span>Ajustes</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Manual" styleClass="ripplelink" ajax="true">
+                                <p:commandLink action="Manual" styleClass="ripplelink aumentar-sinSombra" ajax="true">
                                     <i class="material-icons">settings</i>
                                     <span>Manual</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Login" styleClass="ripplelink" ajax="true"
+                                <p:commandLink action="Login" styleClass="ripplelink aumentar-sinSombra" ajax="true"
                                                actionListener="#{loginC.cerrarSesion()}">
                                     <i class="material-icons">power_settings_new</i>
                                     <span>Salir</span>
                                 </p:commandLink>
                                 </li>
                             </ul>
-                            <ul id="menuform:submenu" class="ultima-menu clearfix">
+                            <ul id="menuform:submenu" class="ultima-menu nano">
                                 <li role="menuitem">
-                                <p:commandLink action="Home" ajax="true">
+                                <p:commandLink action="Home" ajax="true" styleClass="aumentar-sinSombra" >
                                     <i class="material-icons">dashboard</i>
                                     <span>Dashboard</span>
                                 </p:commandLink>
                                 </li>
 
                                 <li role="menuitem">
-                                <p:commandLink action="documento" ajax="true" 
+                                <p:commandLink action="documento" ajax="true" styleClass="aumentar-sinSombra"
                                                rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'T'
-                                                                                          ? true : false}">
+                                                           ? true : false}">
                                     <i class="material-icons">description</i>
                                     <span>  Trámite</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Transferencia" ajax="true" 
+                                <p:commandLink action="Transferencia" ajax="true" styleClass="aumentar-sinSombra"
                                                rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'T'
-                                                                                              ? true : false}">
+                                                           ? true : false}">
                                     <i class="material-icons">compare_arrows</i>
                                     <span>Trazabilidad</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Persona" ajax="true">
+                                <p:commandLink action="Persona" ajax="true" styleClass="aumentar-sinSombra" >
                                     <i class="material-icons">group</i>
                                     <span>Ciudadanos</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Area" 
+                                <p:commandLink action="Area" styleClass="aumentar-sinSombra"
                                                rendered="#{loginC.loginSesion.TIPLOG.charAt(0) == 'S' 
                                                            and loginC.loginSesion.TIPLOG.charAt(1) == 'T'
                                                            ? true : false}" ajax="true">
@@ -161,7 +174,7 @@
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Trabajador" 
+                                <p:commandLink action="Trabajador" styleClass="aumentar-sinSombra"
                                                rendered="#{loginC.loginSesion.TIPLOG.charAt(0) == 'S' ? true : false}" 
                                                ajax="true">
                                     <i class="material-icons">work</i>
@@ -169,36 +182,42 @@
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="Acta" ajax="true" 
+                                <p:commandLink action="Acta" ajax="true" styleClass="aumentar-sinSombra"
                                                rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'R'
-                                                                                     ? true : false}">
+                                                           ? true : false}">
                                     <i class="material-icons">collections_bookmark</i>
                                     <span>Actas</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="IncidenciaTipo" 
+                                <p:commandLink action="IncidenciaTipo" styleClass="aumentar-sinSombra"
                                                rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'R'
-                                                                                   ? true : false}" ajax="true">
+                                                           ? true : false}" ajax="true">
                                     <i class="material-icons">dashboard</i>
                                     <span>Tipos de Incidencia</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="tupa" ajax="true" 
+                                <p:commandLink action="tupa" ajax="true" styleClass="aumentar-sinSombra"
                                                rendered="#{loginC.loginSesion.TIPLOG.charAt(0) == 'S' 
-                                                                                     and loginC.loginSesion.TIPLOG.charAt(1) == 'T'
-                                                                                     ? true : false}">
+                                                           and loginC.loginSesion.TIPLOG.charAt(1) == 'T'
+                                                           ? true : false}">
                                     <i class="material-icons">import_contacts</i>
                                     <span>Tupa</span>
                                 </p:commandLink>
                                 </li>
                                 <li role="menuitem">
-                                <p:commandLink action="empresa" ajax="true" 
+                                <p:commandLink action="empresa" ajax="true" styleClass="aumentar-sinSombra"
                                                rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'T'
-                                                                                        ? true : false}">
+                                                           ? true : false}">
                                     <i class="material-icons">account_balance</i>
                                     <span>Empresa</span>
+                                </p:commandLink>
+                                </li>
+                                <li role="menuitem">
+                                <p:commandLink ajax="true" styleClass="aumentar-sinSombra">
+                                    <i class="material-icons">comment</i>
+                                    <span>Sugerencias</span>
                                 </p:commandLink>
                                 </li>
                             </ul>

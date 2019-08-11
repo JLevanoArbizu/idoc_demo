@@ -29,7 +29,6 @@ public class Acta {
         hash = 59 * hash + Objects.hashCode(this.NUMLIBACTA);
         hash = 59 * hash + Objects.hashCode(this.NUMFOLACTA);
         hash = 59 * hash + Objects.hashCode(this.TIPACTA);
-        hash = 59 * hash + Objects.hashCode(this.municipalidad);
         hash = 59 * hash + Objects.hashCode(this.titular);
         return hash;
     }
@@ -53,9 +52,6 @@ public class Acta {
             return false;
         }
         if (!Objects.equals(this.TIPACTA, other.TIPACTA)) {
-            return false;
-        }
-        if (!Objects.equals(this.municipalidad, other.municipalidad)) {
             return false;
         }
         if (!Objects.equals(this.titular, other.titular)) {
