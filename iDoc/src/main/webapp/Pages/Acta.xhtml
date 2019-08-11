@@ -119,16 +119,44 @@
                         <p:contextMenu for="pnlTipoActa">
                             <p:menuitem icon="ui-icon-search" update="tblActa"
                                         value="Ver"/>
-                            <p:menuitem icon="ui-icon-pencil" update="tblActa"
-                                        value="Modificar"/>
+                            <p:menuitem icon="ui-icon-pencil" update=":frmModActa" 
+                                        oncomplete="PF('wvModActa').show();"
+                                        value="Modificar">
+                                <f:setPropertyActionListener value="#{cabecera}" target="#{actaC.cabeceraSeleccionado}"/>
+                                <f:actionListener binding="#{actaC.listarActa()}"/>
+                            </p:menuitem>
                             <p:menuitem icon="ui-icon-circle-close" update="tblActa"
                                         value="Eliminar"/>
                         </p:contextMenu>
                     </p:panel>
-
                 </p:column>
             </p:dataTable>            
         </h:form>
+        <p:dialog widgetVar="wvModActa" header="Acta" closeOnEscape="true" modal="true">
+            <h:form id="frmModActa">
+                <p:dataTable id="tblModActa" value="#{actaC.listaDetalle}" var="actaDetalle">
+                    <p:column headerText="Titular" groupRow="true">
+                        <h:outputText value="#{actaDetalle.acta.titular.APEPATPER} 
+                                      #{actaDetalle.acta.titular.APEMATPER}, 
+                                      #{actaDetalle.acta.titular.NOMPER}" />
+                    </p:column>
+                    <p:column headerText="DNI" groupRow="true">
+                        <h:outputText value="#{actaDetalle.acta.titular.DNIPER}" />
+                    </p:column>
+                    <p:column headerText="Actor">
+                        <h:outputText value="#{actaDetalle.actor.APEPATPER} 
+                                      #{actaDetalle.actor.APEMATPER}, 
+                                      #{actaDetalle.actor.NOMPER}"/>
+                    </p:column>
+                    <p:column headerText="DNI">
+                        <h:outputText value="#{actaDetalle.actor.DNIPER}"/>
+                    </p:column>
+                    <p:column headerText="Tipo">
+                        <h:outputText value="#{actaDetalle.TIPACT}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
 
         <!--Ver las incidencias de un documento seleccionado, editar las que tiene o agregar nuevas-->
         <p:dialog widgetVar="wvIncidencia" header="Incidencia" id="dIncidencia" 

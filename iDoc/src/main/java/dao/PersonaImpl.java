@@ -84,7 +84,8 @@ public class PersonaImpl extends Conexion implements ICrud<Persona>, IReporte<Pe
                     + "	   ubigeo.DISTUBI\n"
                     + "FROM General.PERSONA persona\n"
                     + "INNER JOIN GENERAL.UBIGEO ubigeo\n"
-                    + "ON persona.CODUBI = ubigeo.CODUBI";
+                    + "ON persona.CODUBI = ubigeo.CODUBI "
+                    + "WHERE persona.ESTPER = 'A'";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
 
             while (rs.next()) {

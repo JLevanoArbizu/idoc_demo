@@ -48,9 +48,16 @@ public class ActaC implements Serializable {
 
     public void listar() throws Exception {
         try {
-//            listaDetalle = daoDetalle.listar();
-            listaDetalleR = daoDetalle.listar(null);
+            listaDetalleR = daoDetalle.listar();
             listaCabecera = daoActa.listar();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void listarActa() throws Exception{
+        try {
+            listaDetalle = daoDetalle.listar(cabeceraSeleccionado);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -146,6 +153,5 @@ public class ActaC implements Serializable {
     public void setListaCabeceraFiltrado(List<Acta> listaCabeceraFiltrado) {
         this.listaCabeceraFiltrado = listaCabeceraFiltrado;
     }
-    
 
 }

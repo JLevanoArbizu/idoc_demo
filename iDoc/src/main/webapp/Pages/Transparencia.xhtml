@@ -210,18 +210,18 @@
 
             <h:form id="rpTupa">                    
                 <p:repeat value="#{transparenciaC.listaTupaTemp}" var="listaTupa">
-                    <p:panelGrid columns="2" layout="grid">
-                        <h:outputText value="Nombre:" />
+                    <p:panel header="#{listaTupa.ARETUP}">
+                    <p:panelGrid columns="2" layout="tabular">
+                        <h:outputText value="Nombre" />
                         <h:outputText value="#{listaTupa.NOMTUP}" style="font-weight: bold"/>
-                        <h:outputText value="Área:" />
-                        <h:outputText value="#{listaTupa.ARETUP}" style="font-weight: bold"/>
 
-                        <h:outputText value="Plazo:" />
+                        <h:outputText value="Plazo" />
                         <h:outputText value="#{listaTupa.PLATUP} dia(s)" style="font-weight: bold"/>
 
                         <h:outputText value="Precio" />
                         <h:outputText value="S/. #{listaTupa.PRETUP}" style="font-weight: bold"/>
                     </p:panelGrid>
+                        </p:panel>
                 </p:repeat>
 
             </h:form>

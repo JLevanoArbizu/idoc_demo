@@ -46,6 +46,61 @@ public class ActorImpl extends Conexion implements ICrud<Actor> {
     public List<Actor> listar() throws Exception {
         List<Actor> listaActor = new ArrayList<>();
         try {
+            String sql = "SELECT persona.IDPER,\n"
+                    + "       persona.APEPATPER,\n"
+                    + "       persona.APEMATPER,\n"
+                    + "       persona.NOMPER,\n"
+                    + "       persona.DNIPER,\n"
+                    + "       UBIGEO.CODUBI,\n"
+                    + "       persona.DIRPER,\n"
+                    + "       persona.NACPER,\n"
+                    + "       persona.GENPER,\n"
+                    + "       persona.ESTPER,\n"
+                    + "	   ubigeo.DEPUBI,\n"
+                    + "	   ubigeo.PROVUBI,\n"
+                    + "	   ubigeo.DISTUBI\n"
+                    + "FROM General.PERSONA persona\n"
+                    + "INNER JOIN GENERAL.UBIGEO ubigeo\n"
+                    + "ON persona.CODUBI = ubigeo.CODUBI\n"
+                    + "WHERE persona.ESTPER='A'";
+            ResultSet rs = this.conectar().createStatement().executeQuery(sql);
+
+            while (rs.next()) {
+                Persona persona = new Persona();
+                Ubigeo ubigeo = new Ubigeo();
+                Actor actor = new Actor();
+                persona.setIDPER(rs.getInt(1));
+                persona.setAPEPATPER(rs.getString(2));
+                persona.setAPEMATPER(rs.getString(3));
+                persona.setNOMPER(rs.getString(4));
+                persona.setDNIPER(rs.getString(5));
+                ubigeo.setCODUBI(rs.getString(6));
+                persona.setDIRPER(rs.getString(7));
+                persona.setNACPER(rs.getString(8));
+                persona.setGENPER(rs.getString(9));
+                persona.setESTPER(rs.getString(10));
+
+                ubigeo.setDEPUBI(rs.getString(11));
+                ubigeo.setPROVUBI(rs.getString(12));
+                ubigeo.setDISTUBI(rs.getString(13));
+
+                persona.setUbigeo(ubigeo);
+                actor.setActor(persona);
+                listaActor.add(actor);
+            }
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.desconectar();
+        }
+        return listaActor;
+
+    }
+
+    public List<Actor> listar(Acta modelo) throws Exception {
+        List<Actor> listaActor = new ArrayList<>();
+        try {
             String sql = "SELECT  "
                     + "acta.IDACTA AS ACTA_ID, "
                     + "acta.TIPACTA AS ACTA_TIP, "
@@ -98,8 +153,11 @@ public class ActorImpl extends Conexion implements ICrud<Actor> {
                     + "ON login.IDTRAB = trabajador.IDTRAB \n"
                     + "\n"
                     + "INNER JOIN General.PERSONA registrador \n"
-                    + "ON trabajador.IDPER = registrador.IDPER";
-            ResultSet rs = this.conectar().prepareStatement(sql).executeQuery();
+                    + "ON trabajador.IDPER = registrador.IDPER "
+                    + "WHERE actor.IDACTA = ?";
+            PreparedStatement ps = this.conectar().prepareStatement(sql);
+            ps.setInt(1, modelo.getIDACTA());
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Acta acta = new Acta();
                 Actor actor = new Actor();
@@ -157,61 +215,8 @@ public class ActorImpl extends Conexion implements ICrud<Actor> {
             }
             rs.clearWarnings();
             rs.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            this.desconectar();
-        }
-        return listaActor;
-    }
-
-    @Override
-    public List<Actor> listar(Actor modelo) throws Exception {
-        List<Actor> listaActor = new ArrayList<>();
-        try {
-            String sql = "SELECT persona.IDPER,\n"
-                    + "       persona.APEPATPER,\n"
-                    + "       persona.APEMATPER,\n"
-                    + "       persona.NOMPER,\n"
-                    + "       persona.DNIPER,\n"
-                    + "       UBIGEO.CODUBI,\n"
-                    + "       persona.DIRPER,\n"
-                    + "       persona.NACPER,\n"
-                    + "       persona.GENPER,\n"
-                    + "       persona.ESTPER,\n"
-                    + "	   ubigeo.DEPUBI,\n"
-                    + "	   ubigeo.PROVUBI,\n"
-                    + "	   ubigeo.DISTUBI\n"
-                    + "FROM General.PERSONA persona\n"
-                    + "INNER JOIN GENERAL.UBIGEO ubigeo\n"
-                    + "ON persona.CODUBI = ubigeo.CODUBI\n"
-                    + "WHERE persona.ESTPER='A'";
-            ResultSet rs = this.conectar().createStatement().executeQuery(sql);
-
-            while (rs.next()) {
-                Persona persona = new Persona();
-                Ubigeo ubigeo = new Ubigeo();
-                Actor actor = new Actor();
-                persona.setIDPER(rs.getInt(1));
-                persona.setAPEPATPER(rs.getString(2));
-                persona.setAPEMATPER(rs.getString(3));
-                persona.setNOMPER(rs.getString(4));
-                persona.setDNIPER(rs.getString(5));
-                ubigeo.setCODUBI(rs.getString(6));
-                persona.setDIRPER(rs.getString(7));
-                persona.setNACPER(rs.getString(8));
-                persona.setGENPER(rs.getString(9));
-                persona.setESTPER(rs.getString(10));
-
-                ubigeo.setDEPUBI(rs.getString(11));
-                ubigeo.setPROVUBI(rs.getString(12));
-                ubigeo.setDISTUBI(rs.getString(13));
-
-                persona.setUbigeo(ubigeo);
-                actor.setActor(persona);
-                listaActor.add(actor);
-            }
-            rs.close();
+            ps.clearParameters();
+            ps.close();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -222,6 +227,11 @@ public class ActorImpl extends Conexion implements ICrud<Actor> {
 
     @Override
     public Actor obtenerModelo(Actor modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Actor> listar(Actor modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
