@@ -14,56 +14,155 @@
         <f:event type="preRenderView" listener="#{actaC.cabecera.login.setIDLOG(loginC.loginSesion.IDLOG)}"/>
 
         <h:form id="frmRegistrarActa">
-            Aquí irá un formulario para registrar la cabecera xd
-            <p:dataTable id="tblActores"
-                         value="#{actaC.listaDetalleR}" var="actores"
-                         selection="#{actaC.listaDetalleSeleccionado}"
-                         filteredValue="#{actaC.listaDetalleFiltrado}"
-                         rowKey="#{actores.actor.IDPER}" reflow="true"
-                         rows="5" paginator="true" sortBy="#{actores.actor.APEPATPER}" sortOrder="descending"
-                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15,20,30">
-                <f:facet name="header">
-                    Selecciona los Actores
-                </f:facet>
+            <div class="card card-w-title ui-fluid">
+                <center><h1 style="color: #193a59" >REGISTRAR ACTA</h1></center>
+                <p:growl life="1000"/>
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <div class="ui-g-4">
+                            <h:panelGroup styleClass="mdl-button">
+                                <p:selectOneRadio value="#{actaC.cabecera.TIPACTA}" unselectable="true" label="Tipo"
+                                                  required="true" requiredMessage="Ingrese el tipo de Acta">
+                                    <f:selectItem itemLabel="Nacimiento" itemValue="1"/>
+                                    <f:selectItem itemLabel="Matrimonio" itemValue="2"/>
+                                    <f:selectItem itemLabel="Defunción" itemValue="3"/>
+                                </p:selectOneRadio>
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g-4">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:selectOneMenu value="#{actaC.cabecera.titular.IDPER}" 
+                                                 filter="true" filterMatchMode="contains">
+                                    <f:selectItems value="#{personaC.lista}" var="titular"
+                                                   itemValue="#{titular.IDPER}" 
+                                                   itemLabel="#{titular.APEPATPER} #{titular.APEMATPER}, #{titular.NOMPER}"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Titular"/>
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g-2">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:spinner value="#{actaC.cabecera.NUMLIBACTA}" min="1"/>
+                                <p:outputLabel value="Libro"/>
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g-2">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:spinner value="#{actaC.cabecera.NUMFOLACTA}" min="1"/>
+                                <p:outputLabel value="Folio"/>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-2">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:calendar value="#{actaC.cabecera.FECACT}" 
+                                            readonlyInput="true" required="true" pattern="dd/MMM/yyyy"
+                                            requiredMessage="Ingrese la fecha del acto."/>
+                                <p:outputLabel value="Fecha Acto"/>
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g-2">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:calendar value="#{actaC.cabecera.FECREGACTA}" 
+                                            readonlyInput="true" required="true" pattern="dd/MMM/yyyy"
+                                            requiredMessage="Ingrese la fecha del registro."/>
+                                <p:outputLabel value="Fecha Registro"/>
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g-4">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:selectOneMenu value="#{actaC.cabecera.ubigeo.CODUBI}" 
+                                                 filter="true" filterMatchMode="contains">
+                                    <f:selectItems value="#{ubigeoC.listaUbigeo}" var="ubigeo"
+                                                   itemValue="#{ubigeo.CODUBI}" 
+                                                   itemLabel="#{ubigeo.DEPUBI}, #{ubigeo.PROVUBI} ,#{ubigeo.DISTUBI}"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Ubicación acto" for="@previous"/>
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g-4">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:inputText value="#{actaC.cabecera.DIRACT}" required="true" requiredMessage="Ingrese el lugar"/>
+                                <p:outputLabel value="Dirección acto"/>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputTextarea value="#{actaC.cabecera.OBSACTA}"/>
+                            <p:outputLabel value="Observación"/>
+                        </h:panelGroup>
+                    </div>
+                    <p:dataTable id="tblActores"
+                                 value="#{actaC.listaDetalleR}" var="actores"
+                                 selection="#{actaC.listaDetalleSeleccionado}"
+                                 filteredValue="#{actaC.listaDetalleFiltrado}"
+                                 rowKey="#{actores.actor.IDPER}" reflow="true"
+                                 rows="5" paginator="true" sortBy="#{actores.actor.APEPATPER}" sortOrder="descending"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15,20,30">
+                        <f:facet name="header">
+                            Selecciona los Actores
+                        </f:facet>
+                        <f:facet name="footer">
+                            <p:commandButton value="Guardar" actionListener="#{actaC.registrar()}" 
+                                             update=":frmRegistrarActa :frmActa" id="btnRegistrarActa"
+                                             styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only secondary"/>
+                            <p:blockUI block="frmRegistrarActa" trigger="btnRegistrarActa">
+                                <div class="preloader-wrapper big active">
+                                    <div class="spinner-layer spinner-blue">
+                                        <div class="circle-clipper left">
+                                            <div class="circle"></div>
+                                        </div><div class="gap-patch">
+                                            <div class="circle"></div>
+                                        </div><div class="circle-clipper right">
+                                            <div class="circle"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:blockUI>
+                        </f:facet>
 
-                <p:ajax event="filter" update="tblActores"/>
-                <p:ajax event="rowSelect" update="tblActores"/>
-                <p:ajax event="rowSelectCheckbox" update="tblActores"/>
-                <p:ajax event="rowUnselectCheckbox" update="tblActores"/>
+                        <p:ajax event="filter" update="tblActores"/>
+                        <p:ajax event="rowSelect" update="tblActores"/>
+                        <p:ajax event="rowSelectCheckbox" update="tblActores"/>
+                        <p:ajax event="rowUnselectCheckbox" update="tblActores"/>
 
-                <p:column selectionMode="multiple" style="width:50px;text-align:center;"/>
+                        <p:column selectionMode="multiple" style="width:50px;text-align:center;"/>
 
-                <p:column headerText="Apellidos y Nombres" filterBy="#{actores.actor.APEPATPER} 
-                          #{actores.actor.APEMATPER}, 
-                          #{actores.actor.NOMPER}"
-                          filterMatchMode="contains">
-                    <h:outputText value="#{actores.actor.APEPATPER} 
+                        <p:column headerText="Apellidos y Nombres" filterBy="#{actores.actor.APEPATPER} 
                                   #{actores.actor.APEMATPER}, 
-                                  #{actores.actor.NOMPER}"/>
-                </p:column>
-                <p:column headerText="DNI" filterBy="#{actores.actor.DNIPER}"
-                          filterMatchMode="contains">
-                    <h:outputText value="#{actores.actor.DNIPER}"/>
-                </p:column>
-                <p:column headerText="Tipo">
-                    <p:selectOneMenu value="#{actores.TIPACT}">
-                        <f:selectItem itemLabel="Declarante" itemValue="D"/>
-                        <f:selectItem itemLabel="Celebrante" itemValue="C"/>
-                        <f:selectItem itemLabel="Médico" itemValue="M"/>
-                        <f:selectItem itemLabel="Esposa" itemValue="E"/>
-                        <f:selectItem itemLabel="Padre" itemValue="P"/>
-                        <f:selectItem itemLabel="Madre" itemValue="M"/>
-                    </p:selectOneMenu>
-                </p:column>
-            </p:dataTable>
+                                  #{actores.actor.NOMPER}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{actores.actor.APEPATPER} 
+                                          #{actores.actor.APEMATPER}, 
+                                          #{actores.actor.NOMPER}"/>
+                        </p:column>
+                        <p:column headerText="DNI" filterBy="#{actores.actor.DNIPER}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{actores.actor.DNIPER}"/>
+                        </p:column>
+                        <p:column headerText="Tipo">
+                            <p:selectOneMenu value="#{actores.TIPACT}">
+                                <f:selectItem itemLabel="Esposa" itemValue="1"/>
+                                <f:selectItem itemLabel="Declarante" itemValue="D"/>
+                                <f:selectItem itemLabel="Celebrante" itemValue="C"/>
+                                <f:selectItem itemLabel="Médico" itemValue="M"/>
+                                <f:selectItem itemLabel="Padre" itemValue="P"/>
+                                <f:selectItem itemLabel="Madre" itemValue="M"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </div>
         </h:form>
         <p:separator/>
 
         <h:form id="frmActa">
             <p:dataTable id="tblActa" widgetVar="wvTblActa"
                          value="#{actaC.listaCabecera}" var="cabecera"
-                         sortBy="#{cabecera.titular.APEPATPER}"
+                         sortBy="#{cabecera.TIPACTA}"
                          filteredValue="#{actaC.listaCabeceraFiltrado}"
                          rows="5" emptyMessage="No se encontrarón datos." reflow="true"
                          paginator="true" scrollable="false" scrollHeight="500"
@@ -73,6 +172,7 @@
                 </f:facet>
 
                 <p:column groupRow="true" headerText="Apellidos y Nombres" 
+                          sortBy="#{cabecera.titular.APEPATPER}"
                           filterMatchMode="contains" style="width:20em;text-align:center"
                           filterBy="#{cabecera.titular.APEPATPER} 
                           #{cabecera.titular.APEMATPER}, 
@@ -117,14 +217,14 @@
                             </h:panelGrid>
                         </p:tooltip>
                         <p:contextMenu for="pnlTipoActa">
-                            <p:menuitem icon="ui-icon-search" update="tblActa"
-                                        value="Ver"/>
-                            <p:menuitem icon="ui-icon-pencil" update=":frmModActa" 
-                                        oncomplete="PF('wvModActa').show();"
-                                        value="Modificar">
+                            <p:menuitem icon="ui-icon-search" update=":frmVerActa" 
+                                        oncomplete="PF('wvVerActa').show();"
+                                        value="Ver">
                                 <f:setPropertyActionListener value="#{cabecera}" target="#{actaC.cabeceraSeleccionado}"/>
                                 <f:actionListener binding="#{actaC.listarActa()}"/>
                             </p:menuitem>
+                            <p:menuitem icon="ui-icon-pencil" update="tblActa"
+                                        value="Modificar"/>
                             <p:menuitem icon="ui-icon-circle-close" update="tblActa"
                                         value="Eliminar"/>
                         </p:contextMenu>
@@ -132,8 +232,8 @@
                 </p:column>
             </p:dataTable>            
         </h:form>
-        <p:dialog widgetVar="wvModActa" header="Acta" closeOnEscape="true" modal="true">
-            <h:form id="frmModActa">
+        <p:dialog widgetVar="wvVerActa" header="Acta" closeOnEscape="true" modal="true">
+            <h:form id="frmVerActa">
                 <p:dataTable id="tblModActa" value="#{actaC.listaDetalle}" var="actaDetalle">
                     <p:column headerText="Titular" groupRow="true">
                         <h:outputText value="#{actaDetalle.acta.titular.APEPATPER} 

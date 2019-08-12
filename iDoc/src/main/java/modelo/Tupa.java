@@ -10,7 +10,7 @@ public class Tupa {
     private String ARETUP;
     private String ESTTUP;
 
-    public String getIDTUP() {
+     public String getIDTUP() {
         return IDTUP;
     }
 

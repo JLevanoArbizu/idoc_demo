@@ -5,8 +5,8 @@ import java.util.Objects;
 public class Ubigeo {
 
     private String CODUBI, DEPUBI, PROVUBI, DISTUBI;
-    
-    public void clear(){
+
+    public void clear() {
         this.CODUBI = null;
         this.DEPUBI = null;
         this.PROVUBI = null;
@@ -45,8 +45,6 @@ public class Ubigeo {
         }
         return true;
     }
-    
-   
 
     public String getCODUBI() {
         return CODUBI;

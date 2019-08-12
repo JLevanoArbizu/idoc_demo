@@ -89,7 +89,7 @@ public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
                     + "INNER JOIN General.PERSONA titular\n"
                     + "ON acta.IDPER = titular.IDPER\n"
                     + "WHERE acta.ESTACTA = 'A' "
-                    + "ORDER BY acta.TIPACTA";
+                    + "ORDER BY acta.IDACTA";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             while (rs.next()) {
                 Acta acta = new Acta();

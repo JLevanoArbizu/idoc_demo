@@ -7,7 +7,7 @@ public class Acta {
 
     private int IDACTA;
     private String NUMLIBACTA, NUMFOLACTA, OBSACTA, DIRACT, TIPACTA, ESTACTA = "A";
-    private Date FECREGACTA, FECACT;
+    private Date FECREGACTA = new Date(), FECACT= new Date();
     private Municipalidad municipalidad = new Municipalidad();
     private Ubigeo ubigeo = new Ubigeo();
     private Login login = new Login();

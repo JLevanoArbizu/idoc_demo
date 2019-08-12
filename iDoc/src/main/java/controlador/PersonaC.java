@@ -47,6 +47,10 @@ public class PersonaC implements Serializable {
             if (lista.contains(persona) == false) {
                 daoPersona.registrar(persona);
                 listar();
+                FacesContext.getCurrentInstance().addMessage(
+                        null,
+                            new FacesMessage("Registro Exitoso")
+                );
                 persona.clear();
             } else {
                 FacesContext.getCurrentInstance().addMessage(

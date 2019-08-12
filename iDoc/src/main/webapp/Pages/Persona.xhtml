@@ -138,7 +138,8 @@
                 </p:column>            
                 <p:column headerText="Nombres" 
                           sortBy="#{listaPersona.NOMPER}"                       
-                          filterMatchMode="contains">
+                          filterMatchMode="contains"
+                          filterBy="#{listaPersona.NOMPER}">
                     <h:outputText value="#{listaPersona.NOMPER}"/>
                 </p:column>
                 <p:column headerText="DNI"

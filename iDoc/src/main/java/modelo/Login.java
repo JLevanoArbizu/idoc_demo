@@ -3,7 +3,7 @@ package modelo;
 import java.util.Objects;
 
 public class Login {
-    
+
     private int IDLOG;
     private String USRLOG, PSSWLOG, ESTLOG = "A", TIPLOG;
     private Trabajador trabajador = new Trabajador();
@@ -98,5 +98,4 @@ public class Login {
         this.trabajador = trabajador;
     }
 
-    
 }

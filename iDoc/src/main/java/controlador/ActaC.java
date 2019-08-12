@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import modelo.Acta;
 import modelo.Actor;
 
@@ -54,8 +56,8 @@ public class ActaC implements Serializable {
             e.printStackTrace();
         }
     }
-    
-    public void listarActa() throws Exception{
+
+    public void listarActa() throws Exception {
         try {
             listaDetalle = daoDetalle.listar(cabeceraSeleccionado);
         } catch (Exception e) {
@@ -65,10 +67,29 @@ public class ActaC implements Serializable {
 
     public void registrar() throws Exception {
         try {
-            System.out.println(cabecera.getDIRACT());
-            for (Actor actor : listaDetalleSeleccionado) {
-                System.out.println("Seleccionado:" + actor.getActor().getIDPER() + "Tipo:" + actor.getTIPACT());
+            if (listaDetalleSeleccionado.size() > 0) {
+                daoActa.registrar(cabecera);
+                listaCabecera = daoActa.listar();
+                cabecera.setIDACTA(listaCabecera.get(listaCabecera.size() - 1).getIDACTA());
+                for (Actor actor : listaDetalleSeleccionado) {
+                    actor.setActa(cabecera);
+                    daoDetalle.registrar(actor);
+                    System.out.println(actor.toString());
+                }
+                listar();
+                listaDetalleSeleccionado.clear();
+                cabecera.clear();
+                FacesContext.getCurrentInstance().addMessage(
+                        null,
+                        new FacesMessage("Registro Exitoso")
+                );
+            } else {
+                FacesContext.getCurrentInstance().addMessage(
+                        null,
+                        new FacesMessage("Seleccione almenos un actor")
+                );
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
