@@ -182,14 +182,6 @@
                         <h:outputText value="#{cabecera.titular.APEPATPER} 
                                       #{cabecera.titular.APEMATPER}, 
                                       #{cabecera.titular.NOMPER}" />
-                        <p:contextMenu for="pnlTitular">
-                            <p:menuitem value="Incidencias"
-                                        update=":frmIncidencia" icon="ui-icon-search"
-                                        oncomplete="PF('wvIncidencia').show();">
-                                <f:setPropertyActionListener value="#{cabecera}" target="#{incidenciaC.actaBuscar}"/>
-                                <f:actionListener binding="#{incidenciaC.listar()}"/>
-                            </p:menuitem>
-                        </p:contextMenu>
                     </p:panel>
                 </p:column>
 
@@ -219,13 +211,19 @@
                         <p:contextMenu for="pnlTipoActa">
                             <p:menuitem icon="ui-icon-search" update=":frmVerActa" 
                                         oncomplete="PF('wvVerActa').show();"
-                                        value="Ver">
+                                        value="Acta">
                                 <f:setPropertyActionListener value="#{cabecera}" target="#{actaC.cabeceraSeleccionado}"/>
                                 <f:actionListener binding="#{actaC.listarActa()}"/>
                             </p:menuitem>
+                            <p:menuitem value="Incidencias"
+                                        update=":frmIncidencia" icon="ui-icon-alert"
+                                        oncomplete="PF('wvIncidencia').show();">
+                                <f:setPropertyActionListener value="#{cabecera}" target="#{incidenciaC.actaBuscar}"/>
+                                <f:actionListener binding="#{incidenciaC.listar()}"/>
+                            </p:menuitem>
                             <p:menuitem icon="ui-icon-pencil" update="tblActa"
                                         value="Modificar"/>
-                            <p:menuitem icon="ui-icon-circle-close" update="tblActa"
+                            <p:menuitem icon="ui-icon-trash" update="tblActa"
                                         value="Eliminar"/>
                         </p:contextMenu>
                     </p:panel>
