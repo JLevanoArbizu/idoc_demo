@@ -175,7 +175,9 @@
                                 </li>
                                 <li role="menuitem">
                                 <p:commandLink action="Trabajador" styleClass="aumentar-sinSombra"
-                                               rendered="#{loginC.loginSesion.TIPLOG.charAt(0) == 'S' ? true : false}" 
+                                               rendered="#{loginC.loginSesion.TIPLOG.charAt(0) == 'S' 
+                                                           or loginC.loginSesion.TIPLOG.charAt(0) == 'A'
+                                                           ? true : false}" 
                                                ajax="true">
                                     <i class="material-icons">work</i>
                                     <span>Trabajadores</span>

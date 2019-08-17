@@ -52,13 +52,28 @@
                             </p:selectOneRadio>
                         </h:panelGroup>
                     </div>
+                    <ui:fragment rendered="#{loginSesion.getTIPLOG().charAt(0) == 'S'}">
+                        <div class="ui-g-12">
+                            <h:panelGroup styleClass="mdl-button">
+                                <p:outputLabel value="Área"/>
+                                <p:selectOneMenu value="#{trabajadorC.trabajador.area.IDARE}"
+                                                 filter="true" filterMatchMode="contains">
+                                    <f:selectItems value="#{areaC.lista}" var="area"
+                                                   itemLabel="#{area.NOMARE}" 
+                                                   itemValue="#{area.IDARE}"/>
+                                </p:selectOneMenu>
+                            </h:panelGroup>
+                        </div>
+                    </ui:fragment>
                 </div>
                 <p:commandButton id="btnRegistrarTrabajador"
-                                 actionListener="#{trabajadorC.registrar(loginC.loginSesion)}" value="Guardar"
+                                 value="Guardar"
                                  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
-                                 update="frmRegistrarTrabajador :frmListarTrabajador"/>
-                <p:commandButton title="Agregar Ciudadano"
-                                 class="mdl-button mdl-js-button  mdl-js-ripple-effect
+                                 update="frmRegistrarTrabajador :frmListarTrabajador">
+                    <f:actionListener binding="#{trabajadorC.registrar(loginC.loginSesion)}"/>
+                    <f:actionListener binding="#{loginC.registrar(trabajadorC.listaTrabajador.get(trabajadorC.listaTrabajador.size()-1))}"/>
+                </p:commandButton>
+                <p:commandButton class="mdl-button mdl-js-button  mdl-js-ripple-effect
                                  mdl-button--colored"
                                  value="Agregar Ciudadano" immediate="true"
                                  oncomplete="PF('dlgRegistrarPersona').show();"/>
