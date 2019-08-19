@@ -26,18 +26,13 @@
                 <p:inputText value="#{tupaC.tupa.PLATUP}" placeholder="Plazo del Tupa" />
                 <p:outputLabel value="Área responsable del Trámite:"/>
                 
-                <p:inputText value="#{tupaC.tupa.ARETUP}" placeholder="Área responsable del Trámite" maxlength="50"/>
+                <p:selectOneMenu value="#{tupaC.tupa.area.IDARE}">
+                    <f:selectItems value="#{areaC.lista}" var="area" itemLabel="#{area.NOMARE}" itemValue="#{area.IDARE}"/>
+                </p:selectOneMenu>
                 <p:commandButton value="Registrar" actionListener="#{tupaC.registrarTupa()}" update="FormTupa FormTblTupa:tblTupa"/>
 
 
             </p:panelGrid>
-        </h:form>
-        <h:form>
-            <h3>
-                <p:commandButton rendered="#{lstTupa}"
-                                 class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
-                                 title="Guardar" actionListener="#{tupaCC.generarReporte(lstTupa)}"/>
-            </h3>
         </h:form>
         <!--lista-->
 
@@ -51,7 +46,7 @@
                          paginator="true"
                          rows="50"
                          rowsPerPageTemplate="5,10,15,50"
-                         filteredValue="#{tupaC.lstTupa2}" >
+                         filteredValue="#{tupaC.lstTupa}" >
 
 
                 <p:column headerText="Número del Tupa" filterBy="#{tupa.NUMTUP}" filterMatchMode="contains"  style="width: 80PX">
@@ -61,7 +56,7 @@
                     <p:outputLabel value="#{tupa.NOMTUP}"/>
                 </p:column>
                 <p:column headerText="Área responsable del Trámite" style="width: 300px">
-                    <p:outputLabel value="#{tupa.ARETUP}"/>
+                    <p:outputLabel value="#{tupa.area.IDARE}"/>
                 </p:column>
                 <p:column headerText="Plazo del Tupa" style="width: 100px">
                     <p:outputLabel value="#{tupa.PLATUP} #{' dias'}"/>
@@ -71,7 +66,6 @@
                 </p:column>
 
             </p:dataTable>
-            <p:commandButton value="EXPORTA LISTA DE TUPA" ajax="false" actionListener="#{tupaC.generarReporte(IDTUP)}"/>
             <p:contextMenu for="tblTupa">
                 <p:menuitem value="EDITAR" oncomplete="PF('dlgModTupa').show()" update="FormDialogModTup"/>
                 <p:menuitem value="ELIMINAR" actionListener="#{tupaC.eliminarTupa()}" update="tblTupa">
@@ -98,7 +92,7 @@
                     <p:outputLabel value="plazo tupa:"/>
                     <p:inputText value="#{tupaC.selectedTupa.PLATUP}" placeholder="Plazo tupa"/>
                     <p:outputLabel value="area tupa:"/>
-                    <p:inputText value="#{tupaC.selectedTupa.ARETUP}" placeholder="area tupa" maxlength="50"/>
+                    <p:inputText value="#{tupaC.selectedTupa.area.IDARE}" placeholder="area tupa" maxlength="50"/>
 
                     <p:commandButton value="MODIFICAR" actionListener="#{tupaC.editarTupa()}" oncomplete="PF('dlgModTupa').hide()" update="FormTblTupa:tblTupa" />
                     <p:commandButton value="CANCELAR" oncomplete="PF('dlgModTupa').hide()"/>

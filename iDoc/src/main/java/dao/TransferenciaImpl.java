@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import modelo.Area;
+import modelo.Documento;
 import modelo.Transferencia;
 import org.primefaces.model.StreamedContent;
 
@@ -17,17 +19,16 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
         try {
             String sql = "INSERT INTO TraDoc.TRANSFERENCIA (FECSALTRAN,FECRECTRAN,OBSTRAN,IDDOC,IDARE_EMI,IDARE_REC) VALUES(CONVERT(DATE,?,105),CONVERT(DATE,?,105),?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-            ps.setString(1, trans.getFECSALTRAN());
-            ps.setString(2, trans.getFECRECTRAN());
+            ps.setDate(1, new java.sql.Date(trans.getFECSALTRAN().getTime()));
+            ps.setDate(2, new java.sql.Date(trans.getFECRECTRAN().getTime()));
             ps.setString(3, trans.getOBSTRAN());
-            ps.setString(4, trans.getIDDOC());
-            ps.setString(5, trans.getIDARE_EMI());
-            ps.setString(6, trans.getIDARE_REC());
+            ps.setInt(4, trans.getDocumento().getIDDOC());
+            ps.setInt(5, trans.getAreaEmisora().getIDARE());
+            ps.setInt(6, trans.getAreaReceptora().getIDARE());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
         } finally {
-            System.out.println();
             this.desconectar();
         }
     }
@@ -38,13 +39,13 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
         try {
             String sql = "UPDATE TraDoc.TRANSFERENCIA SET  FECSALTRAN=?, FECRECTRAN=?, OBSTRAN=?, IDDOC=?, IDARE_EMI=?, IDARE_REC=? WHERE IDTRAN LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-            ps.setString(1, trans.getFECSALTRAN());
-            ps.setString(2, trans.getFECRECTRAN());
+            ps.setDate(1, new java.sql.Date(trans.getFECSALTRAN().getTime()));
+            ps.setDate(2, new java.sql.Date(trans.getFECRECTRAN().getTime()));
             ps.setString(3, trans.getOBSTRAN());
-            ps.setString(4, trans.getIDDOC());
-            ps.setString(5, trans.getIDARE_EMI());
-            ps.setString(6, trans.getIDARE_REC());
-            ps.setString(7, trans.getIDTRAN());
+            ps.setInt(4, trans.getDocumento().getIDDOC());
+            ps.setInt(5, trans.getAreaEmisora().getIDARE());
+            ps.setInt(6, trans.getAreaReceptora().getIDARE());
+            ps.setInt(7, trans.getIDTRAN());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
@@ -58,7 +59,7 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
         try {
             String sql = "UPDATE TraDoc.TRANSFERENCIA SET ESTTRA='I' WHERE IDTRAN LIKE ?";
             PreparedStatement ps = this.conectar().prepareCall(sql);
-            ps.setString(1, trans.getIDTRAN());
+            ps.setInt(1, trans.getIDTRAN());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
@@ -77,23 +78,29 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
             Transferencia trans;
             while (rs.next()) {
                 trans = new Transferencia();
-                trans.setIDTRAN(String.valueOf(rs.getInt("IDTRAN")));
-                trans.setFECRECTRAN(rs.getString("FECRECTRAN"));
-                trans.setFECSALTRAN(rs.getString("FECSALTRAN"));
+                Area areaEmisora = new Area();
+                Area areaReceptora = new Area();
+                Documento documento = new Documento();
+                trans.setIDTRAN(rs.getInt("IDTRAN"));
+                trans.setFECRECTRAN(rs.getDate("FECRECTRAN"));
+                trans.setFECSALTRAN(rs.getDate("FECSALTRAN"));
                 trans.setOBSTRAN(rs.getString("OBSTRAN"));
                 trans.setESTTRA(rs.getString("ESTTRA"));
-                trans.setIDDOC(rs.getString("IDDOC"));
-                trans.setIDARE_EMI(rs.getString("IDARE_EMI"));
-                trans.setIDARE_REC(rs.getString("IDARE_REC"));
+                documento.setIDDOC(rs.getInt("IDDOC"));
+                areaEmisora.setIDARE(rs.getInt("IDARE_EMI"));
+                areaReceptora.setIDARE(rs.getInt("IDARE_REC"));
+                trans.setAreaEmisora(areaEmisora);
+                trans.setAreaReceptora(areaReceptora);
+                trans.setDocumento(documento);
                 listaTransferencia.add(trans);
             }
-            return listaTransferencia;
+            
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             this.desconectar();
         }
-        return null;
+        return listaTransferencia;
         
     }
         

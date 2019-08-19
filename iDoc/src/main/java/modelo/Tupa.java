@@ -2,23 +2,22 @@ package modelo;
 
 public class Tupa {
 
-    private String IDTUP;
+    private int IDTUP;
     private String NUMTUP;
     private String NOMTUP;
     private double PRETUP;
     private String PLATUP;
-    private String ARETUP;
+    private Area area = new Area();
     private String ESTTUP;
 
-     public String getIDTUP() {
+    public int getIDTUP() {
         return IDTUP;
     }
 
-    public void setIDTUP(String IDTUP) {
+    public void setIDTUP(int IDTUP) {
         this.IDTUP = IDTUP;
     }
 
- 
     public String getNUMTUP() {
         return NUMTUP;
     }
@@ -51,12 +50,12 @@ public class Tupa {
         this.PLATUP = PLATUP;
     }
 
-    public String getARETUP() {
-        return ARETUP;
+    public Area getArea() {
+        return area;
     }
 
-    public void setARETUP(String ARETUP) {
-        this.ARETUP = ARETUP;
+    public void setArea(Area area) {
+        this.area = area;
     }
 
     public String getESTTUP() {
@@ -66,4 +65,6 @@ public class Tupa {
     public void setESTTUP(String ESTTUP) {
         this.ESTTUP = ESTTUP;
     }
+    
+     
 }

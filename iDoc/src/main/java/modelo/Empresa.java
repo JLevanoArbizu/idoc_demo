@@ -2,14 +2,14 @@ package modelo;
 
 public class Empresa {
    
-   private String IDEMP;
+   private int IDEMP;
    private String RAZSOCEMP;
    private String RUCEMP;
    private String DIREMP;
    private String ESTEMP;
 
    public void clear(){
-       this.IDEMP = null;
+       this.IDEMP = 0;
        this.RAZSOCEMP = null;
        this.RUCEMP = null;
        this.DIREMP = null;
@@ -19,11 +19,11 @@ public class Empresa {
    
 //   private String UBIGEO;
 
-    public String getIDEMP() {
+    public int getIDEMP() {
         return IDEMP;
     }
 
-    public void setIDEMP(String IDEMP) {
+    public void setIDEMP(int IDEMP) {
         this.IDEMP = IDEMP;
     }
 

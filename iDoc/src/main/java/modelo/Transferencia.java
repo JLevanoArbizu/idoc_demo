@@ -1,39 +1,40 @@
 package modelo;
 
+import java.util.Date;
+
 public class Transferencia {
 
-    //Cambiar a tipo de dato de la db
-    private String IDTRAN;
-    private String FECRECTRAN;
-    private String FECSALTRAN;
+    private int IDTRAN;
+    private Date FECRECTRAN = new Date();
+    private Date FECSALTRAN = new Date();
     private String OBSTRAN;
     private String ESTTRA;
-    private String IDDOC;
-    private String IDARE_EMI;
-    private String IDARE_REC;
+    private Documento documento;
+    private Area areaEmisora = new Area();
+    private Area areaReceptora = new Area();
 
-    public String getIDTRAN() {
+    public int getIDTRAN() {
         return IDTRAN;
     }
 
-    public void setIDTRAN(String IDTRAN) {
+    public void setIDTRAN(int IDTRAN) {
         this.IDTRAN = IDTRAN;
     }
 
-    public String getFECSALTRAN() {
-        return FECSALTRAN;
-    }
-
-    public void setFECSALTRAN(String FECSALTRAN) {
-        this.FECSALTRAN = FECSALTRAN;
-    }
-
-    public String getFECRECTRAN() {
+    public Date getFECRECTRAN() {
         return FECRECTRAN;
     }
 
-    public void setFECRECTRAN(String FECRECTRAN) {
+    public void setFECRECTRAN(Date FECRECTRAN) {
         this.FECRECTRAN = FECRECTRAN;
+    }
+
+    public Date getFECSALTRAN() {
+        return FECSALTRAN;
+    }
+
+    public void setFECSALTRAN(Date FECSALTRAN) {
+        this.FECSALTRAN = FECSALTRAN;
     }
 
     public String getOBSTRAN() {
@@ -44,30 +45,6 @@ public class Transferencia {
         this.OBSTRAN = OBSTRAN;
     }
 
-    public String getIDDOC() {
-        return IDDOC;
-    }
-
-    public void setIDDOC(String IDDOC) {
-        this.IDDOC = IDDOC;
-    }
-
-    public String getIDARE_EMI() {
-        return IDARE_EMI;
-    }
-
-    public void setIDARE_EMI(String IDARE_EMI) {
-        this.IDARE_EMI = IDARE_EMI;
-    }
-
-    public String getIDARE_REC() {
-        return IDARE_REC;
-    }
-
-    public void setIDARE_REC(String IDARE_REC) {
-        this.IDARE_REC = IDARE_REC;
-    }
-
     public String getESTTRA() {
         return ESTTRA;
     }
@@ -76,4 +53,30 @@ public class Transferencia {
         this.ESTTRA = ESTTRA;
     }
 
+    public Documento getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
+    }
+
+    public Area getAreaEmisora() {
+        return areaEmisora;
+    }
+
+    public void setAreaEmisora(Area areaEmisora) {
+        this.areaEmisora = areaEmisora;
+    }
+
+    public Area getAreaReceptora() {
+        return areaReceptora;
+    }
+
+    public void setAreaReceptora(Area areaReceptora) {
+        this.areaReceptora = areaReceptora;
+    }
+
+    
+    
 }

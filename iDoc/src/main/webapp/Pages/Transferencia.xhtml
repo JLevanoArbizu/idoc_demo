@@ -24,23 +24,20 @@
                 <p:inputText value="#{transferenciaC.transferencia.OBSTRAN}" />
 
                 <p:outputLabel value="Documento"/>
-                <p:selectOneMenu value="#{transferenciaC.transferencia.IDDOC}">
-                    <f:selectItem itemLabel="SELECCIONE LA EMPRESA" itemValue="#{null}"/>
+                <p:selectOneMenu value="#{transferenciaC.transferencia.documento.IDDOC}">
                     <f:selectItems value="#{documentoC.lstdocumento}" var="txtdocumento" itemLabel=" #{txtdocumento.ASUDOC}" itemValue="#{txtdocumento.IDDOC}"/>
                 </p:selectOneMenu>
 
 
                 <p:outputLabel value="area Emitida"/>
-                <p:selectOneMenu value="#{transferenciaC.transferencia.IDARE_EMI}">
-                    <f:selectItem itemLabel="SELECCIONE LA EMPRESA" itemValue="#{null}"/>
-                    <f:selectItems value="#{areaC.listaArea}" var="txtarea1" itemLabel=" #{txtarea1.NOMARE}" itemValue="#{txtarea1.IDARE_PADR}"/>
+                <p:selectOneMenu value="#{transferenciaC.transferencia.areaEmisora.IDARE}">
+                    <f:selectItems value="#{areaC.lista}" var="txtarea1" itemLabel=" #{txtarea1.NOMARE}" itemValue="#{txtarea1.IDARE}"/>
                 </p:selectOneMenu>
 
 
                 <p:outputLabel value="area Recibida"/>
-                <p:selectOneMenu value="#{transferenciaC.transferencia.IDARE_REC}">
-                    <f:selectItem itemLabel="SELECCIONE LA EMPRESA" itemValue="#{null}"/>
-                    <f:selectItems value="#{areaC.listaArea}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" itemValue="#{txtarea.IDARE}"/>
+                <p:selectOneMenu value="#{transferenciaC.transferencia.areaReceptora.IDARE}">
+                    <f:selectItems value="#{areaC.lista}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" itemValue="#{txtarea.IDARE}"/>
                 </p:selectOneMenu>
 
 
@@ -68,13 +65,13 @@
                                     <p:outputLabel value="{transferencia.IDTRAN}"/>
                                 </p:column>-->
                 <p:column headerText="Área Emisora:">
-                    <p:outputLabel value="#{transferencia.IDARE_EMI}" />
+                    <p:outputLabel value="#{transferencia.areaEmisora.IDARE}" />
                 </p:column>
                 <p:column headerText="Fecha de salida ">
                     <p:outputLabel value="#{transferencia.FECSALTRAN}"/>
                 </p:column>
                 <p:column headerText="Área Receptora">
-                    <p:outputLabel value="#{transferencia.IDARE_REC}" />
+                    <p:outputLabel value="#{transferencia.areaReceptora.IDARE}" />
                 </p:column>
                 <p:column headerText="Fecha de entrada"  >
                     <p:outputLabel value="#{transferencia.FECRECTRAN}"/>
@@ -86,11 +83,7 @@
                     <p:outputLabel value="#{transferencia.ESTTRA}"/>
                 </p:column>
                 <p:column headerText="Documento">
-                    <p:outputLabel value="#{transferencia.IDDOC}" />
-                </p:column>
-                <p:column>
-                    <p:commandButton value="IMPRIMIR" ajax="false" 
-                                     actionListener="#{transferenciaC.generarReporteTRANS(transferencia.IDTRAN)}" />
+                    <p:outputLabel value="#{transferencia.documento.IDDOC}" />
                 </p:column>
             </p:dataTable>
             <p:contextMenu for="tblTransferencia">
@@ -107,16 +100,16 @@
 
 
                     <p:outputLabel value="Área Emisora:"/>
-                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.IDARE_EMI}" >
-                        <f:selectItems value="#{areaC.listaArea}" var="areae" itemLabel=" #{areae.NOMARE_PADR}" itemValue="#{areae.IDARE_PADR}"/>
+                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.areaEmisora.IDARE}" >
+                        <f:selectItems value="#{areaC.lista}" var="areae" itemLabel=" #{areae.NOMARE}" itemValue="#{areae.IDARE}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Fecha de salida "/>
                     <p:inputText value="#{transferenciaC.selectedTransferncia.FECSALTRAN}" />
 
                     <p:outputLabel value="Área Receptora"/>
-                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.IDARE_REC}">
-                        <f:selectItems value="#{areaC.listaArea}" var="arear" itemLabel=" #{arear.NOMARE}" itemValue="#{arear.IDARE}"/>
+                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.areaReceptora.IDARE}">
+                        <f:selectItems value="#{areaC.lista}" var="arear" itemLabel=" #{arear.NOMARE}" itemValue="#{arear.IDARE}"/>
                     </p:selectOneMenu>
                     
                     <p:outputLabel value="Fecha de entrada"/>
@@ -126,7 +119,7 @@
                     <p:inputText value="#{transferenciaC.selectedTransferncia.OBSTRAN}" />
 
                     <p:outputLabel value="Documento"/>
-                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.IDDOC}">
+                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.documento.IDDOC}">
                         <f:selectItems value="#{documentoC.lstdocumento}" var="documen" itemLabel=" #{documen.ASUDOC}"  itemValue="#{documen.IDDOC}" />
                     </p:selectOneMenu>
 

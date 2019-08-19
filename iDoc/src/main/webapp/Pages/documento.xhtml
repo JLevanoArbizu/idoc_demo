@@ -12,9 +12,9 @@
     <ui:define name="contenidoPagina">
         <h:head>
             <title>Registrar Documento</title>
-            <f:event type="preRenderView" listener="#{trabajadorC.seguridadSesion()}"/>
+            <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
         </h:head>
-        <f:event type="preRenderView" listener="#{documentoC.documento.setIDLOG(trabajadorC.loginT.getIDLOG())}"/>
+        <f:event type="preRenderView" listener="#{documentoC.documento.setLogin(loginC.loginSesion.getIDLOG())}"/>
 
         <p:growl life="1500">
             <p:autoUpdate/>
@@ -48,7 +48,6 @@
 
                 <p:outputLabel value="Tipo de documento:"/>
                 <p:selectOneMenu value="#{documentoC.documento.TIPDOC}">
-                    <f:selectItem itemLabel="Seleccione Tipo" itemValue="#{null}"/>
                     <f:selectItem itemLabel="Documento interno" itemValue="I"/>
                     <f:selectItem itemLabel="Documento externo" itemValue="E"/>
                     <f:selectItem itemLabel="Tupa" itemValue="T"/>
@@ -58,27 +57,24 @@
 
 
                 <p:outputLabel value="Fecha DOCUMENTO"/>
-                <p:inputMask value="#{documentoC.documento.FECDOC}" mask="99/99/9999"/>
+                <p:calendar value="#{documentoC.documento.FECDOC}"/>
 
 
                 <p:outputLabel value="Observacion del documento"/>
                 <p:inputText value="#{documentoC.documento.OBSDOC}"/>
 
                 <p:outputLabel value="Empresa"/>
-                <p:selectOneMenu value="#{documentoC.documento.IDEMP}">
-                    <f:selectItem itemLabel="SELECCIONE LA EMPRESA" itemValue="#{null}"/>
+                <p:selectOneMenu value="#{documentoC.documento.empresa.IDEMP}">
                     <f:selectItems value="#{empresaC.lstEmpresa}" var="txt" itemLabel=" #{txt.RAZSOCEMP}" itemValue="#{txt.IDEMP}"/>
                 </p:selectOneMenu>
 
-                <p:outputLabel value="cliente"/>
-                <p:selectOneMenu value="#{documentoC.documento.IDPER}">
-                    <f:selectItem itemLabel="SELECCIONE LA CLIENTE" itemValue="#{null}"/>
-                    <f:selectItems value="#{personaC.listaPersona}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
+                <p:outputLabel value="Ciudadano"/>
+                <p:selectOneMenu value="#{documentoC.documento.persona.IDPER}">
+                    <f:selectItems value="#{personaC.lista}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
                 </p:selectOneMenu>
 
                 <p:outputLabel value="Tupa" style="width: 100px"/>
-                <p:selectOneMenu value="#{documentoC.documento.IDTUP}">
-                    <f:selectItem itemLabel="SELECCIONE TUPA" itemValue="#{null}" />
+                <p:selectOneMenu value="#{documentoC.documento.tupa.IDTUP}">
                     <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}" />
                 </p:selectOneMenu>
 
@@ -91,12 +87,10 @@
                 <p:inputTextarea value="#{documentoC.documento.ASUDOC}"
                                  rows="3"
                                  cols="100"
-                                 counter="display"
                                  maxlength="300"
                                  counterTemplate="{0} characters remaining."
                                  autoResize="false" />
 
-                <h:outputText id="display" />
             </p:panelGrid>
 
             <p:commandButton value="REGISTRAR" actionListener="#{documentoC.registrarDocumento()}"  update="FormDocumento FormTblDocumento:tblDocumento" />
@@ -140,15 +134,6 @@
                     <h:outputText value="#{documento.TIPDOC eq 'O' ? 'Original' :  ''}"/>
                     <h:outputText value="#{documento.TIPDOC eq 'D' ? 'Documento' :  ''}"/>
                 </p:column>
-                <p:column style="width: 130px" >
-                    <p:commandButton value="Exportar" ajax="false" 
-                                     actionListener="#{documentoC.generarReporteI(documento.IDDOC)}" />
-                </p:column>
-                <!--                <p:column>
-                                    <h:commandLink value="reporte" actionListener="#{documentoC.generarReporteI(documento.IDDOC)}"> 
-                                        
-                                    </h:commandLink>
-                                </p:column>-->
 
                 <p:rowExpansion>
                     <p:panelGrid columns="4">
@@ -169,16 +154,16 @@
                         <h:outputText value="#{documento.ESTDOC}"/>
 
                         <h:outputText value="Tupa"/>
-                        <h:outputText value="#{documento.IDTUP}"/>
+                        <h:outputText value="#{documento.tupa.NOMTUP}"/>
 
                         <h:outputText value="Trabajador"/>
-                        <h:outputText value="#{documento.IDLOG}"/>
+                        <h:outputText value="#{documento.login.IDLOG}"/>
 
                         <h:outputText value="Empresa"/>
-                        <h:outputText value="#{documento.IDEMP}"/>
+                        <h:outputText value="#{documento.empresa.IDEMP}"/>
 
                         <h:outputText value="Persona"/>
-                        <h:outputText value="#{documento.IDPER}"/>
+                        <h:outputText value="#{documento.persona.IDPER}"/>
 
                         <h:outputText value="Key"/>
                         <h:outputText value="#{documento.KEYDOC}"/>
@@ -204,21 +189,20 @@
                     <p:outputLabel value="Fecha entrada"/>
                     <p:inputMask value="#{transferenciaC.transferencia.FECRECTRAN}" mask="99/99/9999"/>
                     <p:outputLabel value="area Emitida"/>
-                    <p:selectOneMenu value="#{transferenciaC.transferencia.IDARE_EMI}">
-                        <f:selectItems value="#{areaC.listaArea}" var="txtarea1" itemLabel=" #{txtarea1.NOMARE}" itemValue="#{txtarea1.IDARE_PADR}"/>
+                    <p:selectOneMenu value="#{transferenciaC.transferencia.areaEmisora.IDARE}">
+                        <f:selectItems value="#{areaC.lista}" var="txtarea1" itemLabel=" #{txtarea1.NOMARE}" itemValue="#{txtarea1.IDARE}"/>
                     </p:selectOneMenu>
                     <p:outputLabel value="Fecha salida"/>
-                    <p:inputMask value="#{transferenciaC.transferencia.FECSALTRAN}" mask="99/99/9999"/>
+                    <p:calendar value="#{transferenciaC.transferencia.FECSALTRAN}"/>
                     <p:outputLabel value="area Recibida"/>
-                    <p:selectOneMenu value="#{transferenciaC.transferencia.IDARE_REC}">
-                        <f:selectItem itemLabel="SELECCIONE LA EMPRESA" itemValue="#{null}"/>
-                        <f:selectItems value="#{areaC.listaArea}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" itemValue="#{txtarea.IDARE}"/>
+                    <p:selectOneMenu value="#{transferenciaC.transferencia.areaReceptora.IDARE}">
+                        <f:selectItems value="#{areaC.lista}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" itemValue="#{txtarea.IDARE}"/>
                     </p:selectOneMenu>
                     <p:outputLabel value="Observación"/>
                     <p:inputText value="#{transferenciaC.transferencia.OBSTRAN}" />
 
                     <p:outputLabel value="Documento"/>
-                    <p:selectOneMenu value="#{transferenciaC.transferencia.IDDOC}">
+                    <p:selectOneMenu value="#{transferenciaC.transferencia.documento.IDDOC}">
                         <f:selectItems value="#{documentoC.lstdocumento}" var="txtdocu" itemLabel="#{txtdocu.ASUDOC}" itemValue="#{txtdocu.IDDOC}"/>
                     </p:selectOneMenu>
 
@@ -250,18 +234,18 @@
                     <p:inputText value="#{documentoC.selectedDocumento.OBSDOC}"/>
 
                     <p:outputLabel value="Tupa"/>
-                    <p:selectOneMenu value="#{documentoC.selectedDocumento.IDTUP}">
+                    <p:selectOneMenu value="#{documentoC.selectedDocumento.tupa.IDTUP}">
                         <f:selectItems value="#{tupaC.lstTupa}" var="tup" itemLabel=" #{tup.NOMTUP}" itemValue="#{tup.IDTUP}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Empresa"/>
-                    <p:selectOneMenu value="#{documentoC.selectedDocumento.IDEMP}">
+                    <p:selectOneMenu value="#{documentoC.selectedDocumento.empresa.IDEMP}">
                         <f:selectItems value="#{empresaC.lstEmpresa}" var="DEMO" itemLabel=" #{DEMO.RAZSOCEMP}" itemValue="#{DEMO.IDEMP}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="cliente"/>
-                    <p:selectOneMenu value="#{documentoC.selectedDocumento.IDPER}">
-                        <f:selectItems value="#{personaC.listaPersona}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
+                    <p:selectOneMenu value="#{documentoC.selectedDocumento.persona.IDPER}">
+                        <f:selectItems value="#{personaC.lista}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
                     </p:selectOneMenu>
 
                 </p:panelGrid>

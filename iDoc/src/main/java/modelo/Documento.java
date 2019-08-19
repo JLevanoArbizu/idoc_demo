@@ -1,40 +1,36 @@
 package modelo;
 
+import java.util.Date;
+
 public class Documento {
 
-    private String IDDOC;
+    private int IDDOC;
     private String CODDOC;
     private String NUMLIBDOC;
     private String NUMFOLDOC;
     private String TIPDOC;
-    private String FECDOC;
+    private Date FECDOC = new Date();
     private String ASUDOC;
     private String OBSDOC;
     private String ESTDOC;
-    private String IDTUP;
-    private String IDLOG;
-    private String IDEMP;
-    private String IDPER;
+    private Tupa tupa = new Tupa();
+    private Login login = new Login();
+    private Empresa empresa = new Empresa();
+    private Persona persona = new Persona();
     private String KEYDOC;
-    
 
-    public void clear(){
-        this.IDDOC = null;
-        this.IDDOC=null;
-                this.CODDOC=null;
-        this.NUMLIBDOC=null;
-                this.NUMFOLDOC=null;
-        this.TIPDOC=null;
-                this.FECDOC=null;
-        this.ASUDOC=null;
-                this.OBSDOC=null;
-        this.ESTDOC=null;
-                this.IDTUP=null;
-        this.IDLOG=null;
-                this.IDEMP=null;
+    public void clear() {
+       
     }
 
-    
+    public int getIDDOC() {
+        return IDDOC;
+    }
+
+    public void setIDDOC(int IDDOC) {
+        this.IDDOC = IDDOC;
+    }
+
     public String getCODDOC() {
         return CODDOC;
     }
@@ -51,44 +47,12 @@ public class Documento {
         this.NUMLIBDOC = NUMLIBDOC;
     }
 
-    public String getOBSDOC() {
-        return OBSDOC;
+    public String getNUMFOLDOC() {
+        return NUMFOLDOC;
     }
 
-    public void setOBSDOC(String OBSDOC) {
-        this.OBSDOC = OBSDOC;
-    }
-
-    public String getIDLOG() {
-        return IDLOG;
-    }
-
-    public void setIDLOG(String IDLOG) {
-        this.IDLOG = IDLOG;
-    }
-
-    public String getIDEMP() {
-        return IDEMP;
-    }
-
-    public void setIDEMP(String IDEMP) {
-        this.IDEMP = IDEMP;
-    }
-
-    public String getKEYDOC() {
-        return KEYDOC;
-    }
-
-    public void setKEYDOC(String KEYDOC) {
-        this.KEYDOC = KEYDOC;
-    }
-
-    public String getIDDOC() {
-        return IDDOC;
-    }
-
-    public void setIDDOC(String IDDOC) {
-        this.IDDOC = IDDOC;
+    public void setNUMFOLDOC(String NUMFOLDOC) {
+        this.NUMFOLDOC = NUMFOLDOC;
     }
 
     public String getTIPDOC() {
@@ -99,11 +63,11 @@ public class Documento {
         this.TIPDOC = TIPDOC;
     }
 
-    public String getFECDOC() {
+    public Date getFECDOC() {
         return FECDOC;
     }
 
-    public void setFECDOC(String FECDOC) {
+    public void setFECDOC(Date FECDOC) {
         this.FECDOC = FECDOC;
     }
 
@@ -115,6 +79,14 @@ public class Documento {
         this.ASUDOC = ASUDOC;
     }
 
+    public String getOBSDOC() {
+        return OBSDOC;
+    }
+
+    public void setOBSDOC(String OBSDOC) {
+        this.OBSDOC = OBSDOC;
+    }
+
     public String getESTDOC() {
         return ESTDOC;
     }
@@ -123,37 +95,46 @@ public class Documento {
         this.ESTDOC = ESTDOC;
     }
 
-    public String getIDPER() {
-        return IDPER;
+    public Tupa getTupa() {
+        return tupa;
     }
 
-    public void setIDPER(String IDPER) {
-        this.IDPER = IDPER;
+    public void setTupa(Tupa tupa) {
+        this.tupa = tupa;
     }
 
-    public String getIDTUP() {
-        return IDTUP;
+    public Login getLogin() {
+        return login;
     }
 
-    public void setIDTUP(String IDTUP) {
-        this.IDTUP = IDTUP;
+    public void setLogin(Login login) {
+        this.login = login;
     }
 
-//    public String getIDTRA() {
-//        return IDTRA;
-//    }
-//
-//    public void setIDTRA(String IDTRA) {
-//        this.IDTRA = IDTRA;
-//    }
-
-    public String getNUMFOLDOC() {
-        return NUMFOLDOC;
+    public Empresa getEmpresa() {
+        return empresa;
     }
 
-    public void setNUMFOLDOC(String NUMFOLDOC) {
-        this.NUMFOLDOC = NUMFOLDOC;
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
+    public String getKEYDOC() {
+        return KEYDOC;
+    }
+
+    public void setKEYDOC(String KEYDOC) {
+        this.KEYDOC = KEYDOC;
+    }
+
+    
 
 }

@@ -56,7 +56,7 @@ public class TransparenciaImpl extends Conexion {
                 persona.setNOMPER(rs.getString(3));
                 persona.setDNIPER(rs.getString(4));
 
-                documento.setFECDOC(rs.getString(5));
+                documento.setFECDOC(rs.getDate(5));
                 documento.setASUDOC(rs.getString(6));
                 documento.setOBSDOC(rs.getString(7));
                 documento.setKEYDOC(rs.getString(8));
@@ -67,8 +67,8 @@ public class TransparenciaImpl extends Conexion {
                 empresa.setRAZSOCEMP(rs.getString(11));
                 empresa.setRUCEMP(rs.getString(12));
 
-                transferencia.setFECRECTRAN(rs.getString(13));
-                transferencia.setFECSALTRAN(rs.getString(14));
+                transferencia.setFECRECTRAN(rs.getDate(13));
+                transferencia.setFECSALTRAN(rs.getDate(14));
 
                 transferencia.setOBSTRAN(rs.getString(16));
 
@@ -103,7 +103,7 @@ public class TransparenciaImpl extends Conexion {
         try {
             for (Tupa tupa : listaTupa) {
                 if (tupa.getNOMTUP().toUpperCase().contains(campo)
-                        || tupa.getARETUP().toUpperCase().contains(campo)) {
+                        || tupa.getArea().getNOMARE().toUpperCase().contains(campo)) {
                     lista.add(tupa);
                 }
             }

@@ -36,7 +36,7 @@ public class EmpresaImpl extends Conexion implements ICrud<Empresa>, IReporte<Em
             ps.setString(1, empresa.getRAZSOCEMP());
             ps.setString(2, empresa.getRUCEMP());
             ps.setString(3, empresa.getDIREMP());
-            ps.setString(4, empresa.getIDEMP());
+            ps.setInt(4, empresa.getIDEMP());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
@@ -50,7 +50,7 @@ public class EmpresaImpl extends Conexion implements ICrud<Empresa>, IReporte<Em
         try {
             String sql = "UPDATE TraDoc.EMPRESA SET ESTEMP = 'I' WHERE IDEMP LIKE ?";
             PreparedStatement ps = this.conectar().prepareCall(sql);
-            ps.setString(1, empresa.getIDEMP());
+            ps.setInt(1, empresa.getIDEMP());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
@@ -70,13 +70,11 @@ public class EmpresaImpl extends Conexion implements ICrud<Empresa>, IReporte<Em
             Empresa empresa;
             while (rs.next()) {
                 empresa = new Empresa();
-                empresa.setIDEMP(rs.getString("IDEMP"));
+                empresa.setIDEMP(rs.getInt("IDEMP"));
                 empresa.setRAZSOCEMP(rs.getString("RAZSOCEMP"));
                 empresa.setRUCEMP(rs.getString("RUCEMP"));
                 empresa.setDIREMP(rs.getString("DIREMP"));
                 empresa.setESTEMP(rs.getString("ESTEMP"));
-//                empresa.setUBIGEO(rs.getString("UBIGEO"));
-//                empresa.setCODUBI(rs.getString("CODUBI"));
                 listadoEmpresa.add(empresa);
             }
 

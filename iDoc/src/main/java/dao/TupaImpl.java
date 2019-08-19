@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.Area;
 
 import modelo.Tupa;
 import org.primefaces.model.StreamedContent;
@@ -21,7 +22,7 @@ public class TupaImpl extends Conexion implements ICrud<Tupa>, IReporte<Tupa> {
             ps.setString(2, tupa.getNOMTUP());
             ps.setDouble(3, tupa.getPRETUP());
             ps.setString(4, tupa.getPLATUP());
-            ps.setString(5, tupa.getARETUP());
+            ps.setString(5, tupa.getArea().getNOMARE());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
@@ -39,8 +40,8 @@ public class TupaImpl extends Conexion implements ICrud<Tupa>, IReporte<Tupa> {
             ps.setString(2, tupa.getNOMTUP());
             ps.setDouble(3, tupa.getPRETUP());
             ps.setString(4, tupa.getPLATUP());
-            ps.setString(5, tupa.getARETUP());
-            ps.setString(6, tupa.getIDTUP());
+            ps.setString(5, tupa.getArea().getNOMARE());
+            ps.setInt(6, tupa.getIDTUP());
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -72,19 +73,20 @@ public class TupaImpl extends Conexion implements ICrud<Tupa>, IReporte<Tupa> {
         List<Tupa> listaTupa = new ArrayList<>();
         ResultSet rs;
         try {
-//          String sql = "SELECT IDTUP,NOMTUP,PRETUP,FORMAT(FECTUP,'dd/MM/yyyy','en-gb') AS FECTUP,ARETUP FROM TUPA ";
             String sql = "SELECT *  FROM TraDoc.TUPA where IDTUP != 1 AND ESTTUP != 'I' ";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             Tupa tupa;
             while (rs.next()) {
                 tupa = new Tupa();
-                tupa.setIDTUP(rs.getString("IDTUP"));
+                Area area = new Area();
+                tupa.setIDTUP(rs.getInt("IDTUP"));
                 tupa.setNUMTUP(rs.getString("NUMTUP"));
                 tupa.setNOMTUP(rs.getString("NOMTUP"));
                 tupa.setPRETUP(rs.getDouble("PRETUP"));
                 tupa.setPLATUP(rs.getString("PLATUP"));
-                tupa.setARETUP(rs.getString("ARETUP"));
+                area.setNOMARE(rs.getString("ARETUP"));
+                tupa.setArea(area);
                 listaTupa.add(tupa);
             }
         } catch (SQLException e) {
