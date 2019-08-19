@@ -72,7 +72,7 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
     public List<Transferencia> listar() throws Exception {
         List<Transferencia> listaTransferencia = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM VW_TRANSFERENCIA WHERE ESTTRA != 'I' ORDER BY IDTRAN DESC";
+            String sql = "SELECT * FROM TRADOC.TRANSFERENCIA WHERE ESTTRA != 'I' ORDER BY IDTRAN DESC";
             
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             Transferencia trans;

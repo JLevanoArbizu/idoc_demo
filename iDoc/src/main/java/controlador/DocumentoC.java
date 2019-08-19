@@ -22,6 +22,7 @@ public class DocumentoC implements Serializable {
 
     public DocumentoC() {
         documento = new Documento();
+        selectedDocumento = new Documento();
         daoDocumento = new DocumentoImpl();
         lista = new ArrayList<>();
     }

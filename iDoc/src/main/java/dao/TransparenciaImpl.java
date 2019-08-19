@@ -13,11 +13,11 @@ public class TransparenciaImpl extends Conexion {
         List<Transparencia> lista = null;
         try {
             String sql = "SELECT persona.APEPATPER, persona.APEMATPER, persona.NOMPER, persona.DNIPER, "
-                    + "       CONVERT(VARCHAR, doc.FECDOC, 106) as fecDoc, doc.ASUDOC, doc.OBSDOC, doc.KEYDOC, "
+                    + "       doc.FECDOC as fecDoc, doc.ASUDOC, doc.OBSDOC, doc.KEYDOC, "
                     + "       emisor.NOMARE, receptor.NOMARE, "
                     + "       empresa.RAZSOCEMP, empresa.RUCEMP, "
-                    + "     CONVERT(VARCHAR, trans.FECRECTRAN, 106) as fechaRec, "
-                    + "     CONVERT(VARCHAR, trans.FECSALTRAN, 106) as fechaSal,"
+                    + "     trans.FECRECTRAN as fechaRec, "
+                    + "     trans.FECSALTRAN as fechaSal,"
                     + "trans.ESTTRA, trans.OBSTRAN "
                     + "       FROM TraDoc.DOCUMENTO doc "
                     + "    INNER JOIN TraDoc.EMPRESA empresa "

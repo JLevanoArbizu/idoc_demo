@@ -24,6 +24,7 @@ public class TransferenciaC implements Serializable {
         transferencia = new Transferencia();
         lstTransferencia = new ArrayList<>();
         dao = new TransferenciaImpl();
+        selectedTransferencia = new Transferencia();
     }
 
     @PostConstruct

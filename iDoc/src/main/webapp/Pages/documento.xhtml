@@ -14,7 +14,7 @@
             <title>Registrar Documento</title>
             <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
         </h:head>
-        <f:event type="preRenderView" listener="#{documentoC.documento.setLogin(loginC.loginSesion.getIDLOG())}"/>
+        <f:event type="preRenderView" listener="#{documentoC.documento.setLogin(loginC.loginSesion)}"/>
 
         <p:growl life="1500">
             <p:autoUpdate/>
@@ -27,21 +27,6 @@
             <p:panelGrid columns="4">
 
 
-                <h:panelGroup styleClass="md-inputfield">
-                    <p:inputText value="#{personaC.persona.APEPATPER}"
-                                 requiredMessage="Apellido Paterno Requerido."
-                                 required="true" maxlength="50" id="apePatPer"
-                                 style="text-transform: uppercase">
-                        <p:keyFilter regEx='/[\a-z ]/i'/>
-                    </p:inputText>
-                    <p:outputLabel value="Apellido Paterno" />
-                </h:panelGroup>
-                <h:panelGroup styleClass="md-inputfield">
-                    <p:inputText value="#{documentoC.documento.NUMLIBDOC}" style="text-transform: uppercase"> 
-                        <p:keyFilter regEx='/[\a-z ]/i'/>
-                    </p:inputText>
-                    <p:outputLabel value="Numero de Libro:" />
-                </h:panelGroup>
                 <p:outputLabel value="Numero de folio:"/>
                 <h:inputText value="#{documentoC.documento.NUMFOLDOC}"/>
 
@@ -77,9 +62,12 @@
                 <p:selectOneMenu value="#{documentoC.documento.tupa.IDTUP}">
                     <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}" />
                 </p:selectOneMenu>
+                <h:panelGroup styleClass="md-inputfield">
+                    <p:inputText value="#{documentoC.documento.NUMLIBDOC}" style="text-transform: uppercase"> 
+                    </p:inputText>
+                    <p:outputLabel value="Numero de Libro:" />
+                </h:panelGroup>
 
-                <p:outputLabel value="KEY" />
-                <p:inputMask value="#{documentoC.documento.KEYDOC}" mask="9999"/>
 
             </p:panelGrid>
             <p:panelGrid columns="1" >

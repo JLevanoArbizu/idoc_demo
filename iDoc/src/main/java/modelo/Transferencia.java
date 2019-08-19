@@ -9,7 +9,7 @@ public class Transferencia {
     private Date FECSALTRAN = new Date();
     private String OBSTRAN;
     private String ESTTRA;
-    private Documento documento;
+    private Documento documento = new Documento();
     private Area areaEmisora = new Area();
     private Area areaReceptora = new Area();
 
