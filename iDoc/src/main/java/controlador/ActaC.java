@@ -12,6 +12,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import modelo.Acta;
 import modelo.Actor;
+import org.primefaces.model.StreamedContent;
 
 @Named(value = "actaC")
 @SessionScoped
@@ -25,6 +26,8 @@ public class ActaC implements Serializable {
     List<Actor> listaDetalleR, listaDetalleSeleccionado;
     ActaImpl daoActa;
     ActorImpl daoDetalle;
+    
+    StreamedContent reporte;
 
     public ActaC() {
         detalle = new Actor();
@@ -90,6 +93,14 @@ public class ActaC implements Serializable {
                 );
             }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void generarReporte() throws Exception{
+        try {
+            reporte = daoActa.generarReporteIndividualPrev(cabeceraSeleccionado);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -173,6 +184,14 @@ public class ActaC implements Serializable {
 
     public void setListaCabeceraFiltrado(List<Acta> listaCabeceraFiltrado) {
         this.listaCabeceraFiltrado = listaCabeceraFiltrado;
+    }
+
+    public StreamedContent getReporte() {
+        return reporte;
+    }
+
+    public void setReporte(StreamedContent reporte) {
+        this.reporte = reporte;
     }
 
 }

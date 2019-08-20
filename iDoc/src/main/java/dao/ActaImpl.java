@@ -1,13 +1,27 @@
 package dao;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.faces.context.FacesContext;
 
 import modelo.Acta;
 import modelo.Persona;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import org.apache.commons.lang3.text.WordUtils;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
@@ -140,7 +154,41 @@ public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
 
     @Override
     public StreamedContent generarReporteIndividualPrev(Acta modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        InputStream inputStream = null;
+
+        Map parameters = new HashMap();
+
+        parameters.put("IDACTA", modelo.getIDACTA());
+
+        try {
+
+            ByteArrayOutputStream salida = new ByteArrayOutputStream();
+            File jasperReport = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Acta/Acta".
+                    concat(modelo.getTIPACTA().equals("1") ? "N" : modelo.getTIPACTA().equals("2") ? "M" : "D"
+                    )
+                    + ".jasper"));
+
+            JasperPrint jPrint = JasperFillManager.fillReport(jasperReport.getPath(), parameters, this.conectar());
+
+            JRExporter exporter = new net.sf.jasperreports.engine.export.JRPdfExporter();
+
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, salida);
+
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jPrint);
+
+            exporter.setParameter(JRPdfExporterParameter.PDF_JAVASCRIPT, "this.print();");
+
+            exporter.exportReport();
+
+            inputStream = new ByteArrayInputStream(salida.toByteArray());
+
+        } catch (JRException e) {
+            e.printStackTrace();
+        } finally {
+            this.desconectar();
+        }
+
+        return new DefaultStreamedContent(inputStream, "application/pdf", "Acta_" + modelo.getTIPACTA() + String.valueOf(modelo.getFECREGACTA()));
     }
 
     @Override

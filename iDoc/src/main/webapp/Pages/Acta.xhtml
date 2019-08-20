@@ -225,10 +225,17 @@
                                         value="Modificar"/>
                             <p:menuitem icon="ui-icon-trash" update="tblActa"
                                         value="Eliminar"/>
+                            <p:menuitem icon="ui-icon-print" value="Reporte" update=":frmReporte">
+                                <f:setPropertyActionListener value="#{cabecera}" target="#{actaC.cabeceraSeleccionado}"/>
+                                <f:actionListener binding="#{actaC.generarReporte()}"/>
+                            </p:menuitem>
                         </p:contextMenu>
                     </p:panel>
                 </p:column>
             </p:dataTable>            
+        </h:form>
+        <h:form id="frmReporte" style="height: 100%;">
+            <p:media value="#{actaC.reporte}" cache="false" player="pdf" height="100%" width="100%"/>
         </h:form>
         <p:dialog widgetVar="wvVerActa" header="Acta" closeOnEscape="true" modal="true">
             <h:form id="frmVerActa">
