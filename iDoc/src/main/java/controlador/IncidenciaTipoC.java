@@ -21,7 +21,6 @@ public class IncidenciaTipoC implements Serializable {
         tipoIncidencia = new IncidenciaTipo();
         tipoIncidenciaSeleccionado = new IncidenciaTipo();
         lista = new ArrayList<>();
-        listaFiltrado = new ArrayList<>();
         daoIncidenciaTipo = new IncidenciaTipoImpl();
     }
 
@@ -30,6 +29,7 @@ public class IncidenciaTipoC implements Serializable {
         try {
             listar();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

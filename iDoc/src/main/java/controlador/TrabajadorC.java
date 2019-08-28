@@ -24,7 +24,6 @@ public class TrabajadorC implements Serializable {
         trabajador = new Trabajador();
         trabajadorSeleccionado = new Trabajador();
         listaTrabajador = new ArrayList<>();
-        listaTrabajadorFiltrado = new ArrayList<>();
         daoTrabajador = new TrabajadorImpl();
     }
 

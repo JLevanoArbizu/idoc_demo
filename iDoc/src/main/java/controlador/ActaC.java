@@ -72,7 +72,11 @@ public class ActaC implements Serializable {
         try {
             if (listaDetalleSeleccionado.size() > 0) {
                 daoActa.registrar(cabecera);
-                listaCabecera = daoActa.listar();
+                try {
+                    listaCabecera = daoActa.listar();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 cabecera.setIDACTA(listaCabecera.get(listaCabecera.size() - 1).getIDACTA());
                 for (Actor actor : listaDetalleSeleccionado) {
                     actor.setActa(cabecera);

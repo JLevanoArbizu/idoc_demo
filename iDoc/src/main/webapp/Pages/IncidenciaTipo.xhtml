@@ -41,7 +41,7 @@
                 </p:inputText>
             </p:panelGrid>
             <p:commandButton value="GUARDAR" actionListener="#{incidenciatipoC.registrar()}"
-                             oncomplete="PF('wvDtTblIncidenciaTipo').filter()"
+                             oncomplete="PF('wvDtTblIncidenciaTipo').filter();"
                              class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
                              update=":frmRegistrarIncidenciaTipo :frmListarIncidenciaTipo" />
         </h:form>
@@ -52,19 +52,23 @@
                          rows="10" emptyMessage="No se encontrarón datos."
                          rowKey="#{listaIncidenciaTipo.IDINCTIP}"
                          selectionMode="single" selection="#{incidenciatipoC.tipoIncidenciaSeleccionado}"
-                         paginator="true" scrollable="true" scrollHeight="500"
-                         rowsPerPageTemplate="5,10,15,20">
+                         filteredValue="#{incidenciatipoC.listaFiltrado}"
+                         paginator="true" scrollable="true" scrollHeight="500">
                 <f:facet name="header">
                     Tipos de Incidencia
                 </f:facet>
 
-                <p:column headerText="Nombre"  style="font-weight: bold">
+                <p:column headerText="Nombre"  style="font-weight: bold"
+                          filterMatchMode="contains"
+                          filterBy="#{listaIncidenciaTipo.NOMINCTIP}">
                     <h:outputText value="#{listaIncidenciaTipo.NOMINCTIP}" style="font-weight: normal" />
                 </p:column>
                 <p:column headerText="Tipo"  style="font-weight: bold">
                     <h:outputText value="#{listaIncidenciaTipo.TIPINCTIP eq 'N' ? 'Notarial' : 'Judicial'}" style="font-weight: normal" />
                 </p:column>
-                <p:column headerText="Ley"  style="font-weight: bold">
+                <p:column headerText="Ley"  style="font-weight: bold"
+                          filterMatchMode="contains"
+                          filterBy="#{listaIncidenciaTipo.LEYINCTIP}">
                     <h:outputText value="#{listaIncidenciaTipo.LEYINCTIP}" style="font-weight: normal" />
                 </p:column>      
             </p:dataTable>
@@ -74,7 +78,7 @@
                             value="Modificar"
                             oncomplete="PF('wdlgDatosIncidenciaTipo').show();"/>
                 <p:menuitem value="Eliminar" update="frmListarIncidenciaTipo" oncomplete="PF('wvDtTblIncidenciaTipo').filter();"
-                            icon="ui-icon-circle-close" actionListener="#{trabajadorC.eliminar()}"/>
+                            icon="ui-icon-circle-close" actionListener="#{incidenciatipoC.eliminar()}"/>
             </p:contextMenu>
         </h:form>
         <p:dialog id="dlgDatosIncidenciaTipo" widgetVar="wdlgDatosIncidenciaTipo" 
