@@ -27,7 +27,7 @@ public class UbigeoImpl extends Conexion implements ICrud<Ubigeo> {
     public List<Ubigeo> listar() throws Exception {
         List<Ubigeo> listaTemporal = new ArrayList<>();
         try {
-            String sql = "SELECT ubigeo.CODUBI, ubigeo.DEPUBI, ubigeo.PROVUBI, ubigeo.DISTUBI FROM GENERAL.UBIGEO ubigeo "
+            String sql = "SELECT ubigeo.CODUBI, ubigeo.DEPUBI, ubigeo.PROVUBI, ubigeo.DISTUBI FROM UBIGEO ubigeo "
                     + "WHERE ubigeo.PROVUBI = 'CAÑETE'";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             while (rs.next()) {

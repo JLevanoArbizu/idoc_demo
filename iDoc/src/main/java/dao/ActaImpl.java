@@ -29,7 +29,7 @@ public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
     @Override
     public void registrar(Acta modelo) throws Exception {
         try {
-            String sql = "INSERT INTO REGCIV.ACTA "
+            String sql = "INSERT INTO ACTA "
                     + "(IDMUN, IDLOG, IDPER, NUMLIBACTA, NUMFOLACTA, FECREGACTA, OBSACTA, CODUBI, DIRACT, FECACT, TIPACTA, ESTACTA) "
                     + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
@@ -68,7 +68,7 @@ public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
     @Override
     public void eliminar(Acta modelo) throws Exception {
         try {
-            String sql = "UPDATE REGCIV.ACTA SET "
+            String sql = "UPDATE ACTA SET "
                     + "ESTACTA=? "
                     + "WHERE IDACTA=? ";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
@@ -99,8 +99,8 @@ public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
                     + "acta.FECREGACTA,\n"
                     + "acta.FECACT,\n"
                     + "acta.TIPACTA\n"
-                    + "FROM RegCiv.ACTA acta\n"
-                    + "INNER JOIN General.PERSONA titular\n"
+                    + "FROM ACTA acta\n"
+                    + "INNER JOIN PERSONA titular\n"
                     + "ON acta.IDPER = titular.IDPER\n"
                     + "WHERE acta.ESTACTA = 'A' "
                     + "ORDER BY acta.IDACTA";

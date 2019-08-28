@@ -16,7 +16,7 @@ public class PersonaImpl extends Conexion implements ICrud<Persona>, IReporte<Pe
     @Override
     public void registrar(Persona modelo) throws Exception {
         try {
-            String sql = "INSERT INTO GENERAL.PERSONA (APEPATPER, APEMATPER, NOMPER, DNIPER, CODUBI, DIRPER, NACPER, GENPER, ESTPER) "
+            String sql = "INSERT INTO PERSONA (APEPATPER, APEMATPER, NOMPER, DNIPER, CODUBI, DIRPER, NACPER, GENPER, ESTPER) "
                     + "VALUES (?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getAPEPATPER().toUpperCase());
@@ -51,7 +51,7 @@ public class PersonaImpl extends Conexion implements ICrud<Persona>, IReporte<Pe
     @Override
     public void eliminar(Persona modelo) throws Exception {
         try {
-            String sql = "UPDATE GENERAL.PERSONA SET ESTPER=? WHERE IDPER=?";
+            String sql = "UPDATE PERSONA SET ESTPER=? WHERE IDPER=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, "I");
             ps.setInt(2, modelo.getIDPER());
@@ -82,8 +82,8 @@ public class PersonaImpl extends Conexion implements ICrud<Persona>, IReporte<Pe
                     + "	   ubigeo.DEPUBI,\n"
                     + "	   ubigeo.PROVUBI,\n"
                     + "	   ubigeo.DISTUBI\n"
-                    + "FROM General.PERSONA persona\n"
-                    + "INNER JOIN GENERAL.UBIGEO ubigeo\n"
+                    + "FROM PERSONA persona\n"
+                    + "INNER JOIN UBIGEO ubigeo\n"
                     + "ON persona.CODUBI = ubigeo.CODUBI "
                     + "WHERE persona.ESTPER = 'A'";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);

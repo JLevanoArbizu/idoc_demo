@@ -9,7 +9,7 @@ public class SolicitudImpl extends Conexion implements ICrud<Solicitud> {
     @Override
     public void registrar(Solicitud modelo) throws Exception {
         try {
-            String sql = "INSERT INTO RegCiv.SOLICITUD (CODSOL, IDLOG, IDACTA, ESTSOL)"
+            String sql = "INSERT INTO SOLICITUD (CODSOL, IDLOG, IDACTA, ESTSOL)"
                     + " VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setInt(1, Integer.valueOf(modelo.getCODSOL()));

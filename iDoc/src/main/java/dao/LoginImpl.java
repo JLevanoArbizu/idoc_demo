@@ -14,7 +14,7 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
     @Override
     public void registrar(Login modelo) throws Exception {
         try {
-            String sql = "INSERT INTO GENERAL.LOGIN (IDTRAB, USRLOG, PSSWLOG, ESTLOG, TIPLOG) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO LOGIN (IDTRAB, USRLOG, PSSWLOG, ESTLOG, TIPLOG) VALUES (?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setInt(1, modelo.getTrabajador().getIDTRAB());
             ps.setString(2, modelo.getTrabajador().getPersona().getDNIPER());
@@ -35,7 +35,7 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
     public void editar(Login modelo) throws Exception {
         try {
             //Acordarme hacer join con trabajador para editar mediante el
-            String sql = "UPDATE GENERAL.LOGIN SET USRLOG=?, PSSWLOG=? WHERE IDLOG=?";
+            String sql = "UPDATE LOGIN SET USRLOG=?, PSSWLOG=? WHERE IDLOG=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getUSRLOG());
             ps.setString(2, EncriptarS.encriptarPssw(modelo.getPSSWLOG()));
@@ -52,7 +52,7 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
 
     public void editarMio(Login modelo) throws Exception {
         try {
-            String sql = "UPDATE GENERAL.LOGIN SET PSSWLOG=? WHERE USRLOG=? AND ESTLOG='A'";
+            String sql = "UPDATE LOGIN SET PSSWLOG=? WHERE USRLOG=? AND ESTLOG='A'";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, EncriptarS.encriptarPssw(modelo.getPSSWLOG()));
             ps.setString(2, modelo.getUSRLOG());
@@ -69,7 +69,7 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
     @Override
     public void eliminar(Login modelo) throws Exception {
         try {
-            String sql = "UPDATE GENERAL.LOGIN SET ESTLOG=? WHERE USRLOG=?";
+            String sql = "UPDATE LOGIN SET ESTLOG=? WHERE USRLOG=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, "I");
             ps.setString(2, modelo.getTrabajador().getPersona().getDNIPER());
@@ -100,12 +100,12 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
                     + "persona.DNIPER,\n"
                     + "area.IDARE,\n"
                     + "area.NOMARE\n"
-                    + "FROM GENERAL.LOGIN login\n"
-                    + "    INNER JOIN GENERAL.TRABAJADOR trab\n"
+                    + "FROM LOGIN login\n"
+                    + "    INNER JOIN TRABAJADOR trab\n"
                     + "        ON login.IDTRAB = trab.IDTRAB\n"
-                    + "	INNER JOIN GENERAL.AREA area\n"
+                    + "	INNER JOIN AREA area\n"
                     + "	ON trab.IDARE = area.IDARE\n"
-                    + "    INNER JOIN GENERAL.PERSONA persona\n"
+                    + "    INNER JOIN PERSONA persona\n"
                     + "        ON trab.IDPER = persona.IDPER\n"
                     + "WHERE \n"
                     + "login.USRLOG = ? "

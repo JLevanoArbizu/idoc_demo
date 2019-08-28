@@ -12,7 +12,7 @@ public class IncidenciaTipoImpl extends Conexion implements ICrud<IncidenciaTipo
     @Override
     public void registrar(IncidenciaTipo modelo) throws Exception {
         try {
-            String sql = "INSERT INTO REGCIV.INCIDENCIA_TIPO (NOMINCTIP,TIPINCTIP,LEYINCTIP,ESTINCTIP) VALUES (?,?,?,?)";
+            String sql = "INSERT INTO INCIDENCIA_TIPO (NOMINCTIP,TIPINCTIP,LEYINCTIP,ESTINCTIP) VALUES (?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getNOMINCTIP());
             ps.setString(2, modelo.getTIPINCTIP());
@@ -31,7 +31,7 @@ public class IncidenciaTipoImpl extends Conexion implements ICrud<IncidenciaTipo
     @Override
     public void editar(IncidenciaTipo modelo) throws Exception {
         try {
-            String sql = "UPDATE REGCIV.INCIDENCIA_TIPO SET NOMINCTIP=?, TIPINCTIP=?,LEYINCTIP=?,ESTINCTIP=? WHERE IDINCTIP=?";
+            String sql = "UPDATE INCIDENCIA_TIPO SET NOMINCTIP=?, TIPINCTIP=?,LEYINCTIP=?,ESTINCTIP=? WHERE IDINCTIP=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getNOMINCTIP());
             ps.setString(2, modelo.getTIPINCTIP());
@@ -51,7 +51,7 @@ public class IncidenciaTipoImpl extends Conexion implements ICrud<IncidenciaTipo
     @Override
     public void eliminar(IncidenciaTipo modelo) throws Exception {
         try {
-            String sql = "UPDATE REGCIV.INCIDENCIA_TIPO SET ESTINCTIP=? WHERE IDINCTIP=?";
+            String sql = "UPDATE INCIDENCIA_TIPO SET ESTINCTIP=? WHERE IDINCTIP=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, "I");
             ps.setInt(2, modelo.getIDINCTIP());
@@ -69,7 +69,7 @@ public class IncidenciaTipoImpl extends Conexion implements ICrud<IncidenciaTipo
     public List<IncidenciaTipo> listar() throws Exception {
         List<IncidenciaTipo> lista = new ArrayList<>();
         try {
-            String sql = "SELECT IDINCTIP, NOMINCTIP, TIPINCTIP, LEYINCTIP, ESTINCTIP FROM REGCIV.INCIDENCIA_TIPO";
+            String sql = "SELECT IDINCTIP, NOMINCTIP, TIPINCTIP, LEYINCTIP, ESTINCTIP FROM INCIDENCIA_TIPO";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             IncidenciaTipo incidenciatipo;
             while (rs.next()) {

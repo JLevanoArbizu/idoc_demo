@@ -16,7 +16,7 @@ public class TupaImpl extends Conexion implements ICrud<Tupa>, IReporte<Tupa> {
     @Override
     public void registrar(Tupa tupa) throws Exception {
         try {
-            String sql = "INSERT INTO TraDoc.TUPA(NUMTUP,NOMTUP,PRETUP,PLATUP,ARETUP) VALUES(?,?,?,?,?)";
+            String sql = "INSERT INTO TUPA(NUMTUP,NOMTUP,PRETUP,PLATUP,ARETUP) VALUES(?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, tupa.getNUMTUP());
             ps.setString(2, tupa.getNOMTUP());
@@ -34,7 +34,7 @@ public class TupaImpl extends Conexion implements ICrud<Tupa>, IReporte<Tupa> {
     @Override
     public void editar(Tupa tupa) throws Exception {
         try {
-            String sql = "UPDATE TraDoc.TUPA SET  NUMTUP=?, NOMTUP=?, PRETUP=?, PLATUP=?, ARETUP=? WHERE IDTUP LIKE ?";
+            String sql = "UPDATE TUPA SET  NUMTUP=?, NOMTUP=?, PRETUP=?, PLATUP=?, ARETUP=? WHERE IDTUP LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, tupa.getNUMTUP());
             ps.setString(2, tupa.getNOMTUP());
@@ -56,7 +56,7 @@ public class TupaImpl extends Conexion implements ICrud<Tupa>, IReporte<Tupa> {
     public void eliminar(Tupa tupa) throws Exception {
 
         try {
-            String sql = "UPDATE TraDoc.TUPA SET ESTTUP='I' WHERE NUMTUP LIKE ?";
+            String sql = "UPDATE TUPA SET ESTTUP='I' WHERE NUMTUP LIKE ?";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             ps.setString(1, tupa.getNUMTUP());
             ps.executeUpdate();
@@ -73,7 +73,7 @@ public class TupaImpl extends Conexion implements ICrud<Tupa>, IReporte<Tupa> {
         List<Tupa> listaTupa = new ArrayList<>();
         ResultSet rs;
         try {
-            String sql = "SELECT *  FROM TraDoc.TUPA where IDTUP != 1 AND ESTTUP != 'I' ";
+            String sql = "SELECT *  FROM TUPA where IDTUP != 1 AND ESTTUP != 'I' ";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             Tupa tupa;

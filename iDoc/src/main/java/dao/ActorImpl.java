@@ -16,7 +16,7 @@ public class ActorImpl extends Conexion implements ICrud<Actor> {
     @Override
     public void registrar(Actor modelo) throws Exception {
         try {
-            String sql = "INSERT INTO REGCIV.ACTOR (IDACTA, IDPER, TIPACT) VALUES "
+            String sql = "INSERT INTO ACTOR (IDACTA, IDPER, TIPACT) VALUES "
                     + "(?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setInt(1, modelo.getActa().getIDACTA());
@@ -59,8 +59,8 @@ public class ActorImpl extends Conexion implements ICrud<Actor> {
                     + "	   ubigeo.DEPUBI,\n"
                     + "	   ubigeo.PROVUBI,\n"
                     + "	   ubigeo.DISTUBI\n"
-                    + "FROM General.PERSONA persona\n"
-                    + "INNER JOIN GENERAL.UBIGEO ubigeo\n"
+                    + "FROM PERSONA persona\n"
+                    + "INNER JOIN UBIGEO ubigeo\n"
                     + "ON persona.CODUBI = ubigeo.CODUBI\n"
                     + "WHERE persona.ESTPER='A'";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
@@ -133,26 +133,26 @@ public class ActorImpl extends Conexion implements ICrud<Actor> {
                     + "personaActor.DNIPER AS ACTOR_DNIPER, "
                     + "actor.TIPACT AS ACTOR_TIPACT, "
                     + "actor.IDACT AS ACTOR_IDACT "
-                    + "FROM RegCiv.ACTOR actor  "
-                    + "INNER JOIN General.PERSONA personaActor \n"
+                    + "FROM ACTOR actor  "
+                    + "INNER JOIN PERSONA personaActor \n"
                     + "ON actor.IDPER = personaActor.IDPER \n"
                     + "\n"
-                    + "INNER JOIN RegCiv.ACTA acta\n"
+                    + "INNER JOIN ACTA acta\n"
                     + "ON actor.IDACTA = acta.IDACTA \n"
                     + "\n"
-                    + "INNER JOIN General.PERSONA titular \n"
+                    + "INNER JOIN PERSONA titular \n"
                     + "ON acta.IDPER = titular.IDPER \n"
                     + "\n"
-                    + "INNER JOIN General.UBIGEO ubigeoActa\n"
+                    + "INNER JOIN UBIGEO ubigeoActa\n"
                     + "ON acta.CODUBI = ubigeoActa.CODUBI\n"
                     + "\n"
-                    + "INNER JOIN General.LOGIN login\n"
+                    + "INNER JOIN LOGIN login\n"
                     + "ON acta.IDLOG = login.IDLOG \n"
                     + "\n"
-                    + "INNER JOIN General.TRABAJADOR trabajador \n"
+                    + "INNER JOIN TRABAJADOR trabajador \n"
                     + "ON login.IDTRAB = trabajador.IDTRAB \n"
                     + "\n"
-                    + "INNER JOIN General.PERSONA registrador \n"
+                    + "INNER JOIN PERSONA registrador \n"
                     + "ON trabajador.IDPER = registrador.IDPER "
                     + "WHERE actor.IDACTA = ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);

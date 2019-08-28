@@ -15,7 +15,7 @@ public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IRepo
     @Override
     public void registrar(Incidencia modelo) throws Exception {
         try {
-            String sql = "INSERT INTO REGCIV.INCIDENCIA (IDACTA, IDINCTIP, FECINC, MOTINC, ESTINC) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO INCIDENCIA (IDACTA, IDINCTIP, FECINC, MOTINC, ESTINC) VALUES (?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setInt(1, modelo.getActa().getIDACTA());
             ps.setInt(2, modelo.getTipoIncidencia().getIDINCTIP());
@@ -35,7 +35,7 @@ public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IRepo
     @Override
     public void editar(Incidencia modelo) throws Exception {
         try {
-            String sql = "UPDATE REGCIV.INCIDENCIA SET IDACTA =?, IDINCTIP =?, FECINC=?, MOTINC=?, ESTINC=? WHERE IDINC=?";
+            String sql = "UPDATE INCIDENCIA SET IDACTA =?, IDINCTIP =?, FECINC=?, MOTINC=?, ESTINC=? WHERE IDINC=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setInt(1, modelo.getActa().getIDACTA());
             ps.setInt(2, modelo.getTipoIncidencia().getIDINCTIP());
@@ -56,7 +56,7 @@ public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IRepo
     @Override
     public void eliminar(Incidencia modelo) throws Exception {
         try {
-            String sql = "UPDATE REGCIV.INCIDENCIA SET ESTINC=? WHERE IDINC=?";
+            String sql = "UPDATE INCIDENCIA SET ESTINC=? WHERE IDINC=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, "I");
             ps.setInt(2, modelo.getIDINC());
@@ -102,8 +102,8 @@ public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IRepo
                     + "tipo.NOMINCTIP, "
                     + "tipo.LEYINCTIP, "
                     + "tipo.TIPINCTIP "
-                    + "FROM REGCIV.INCIDENCIA incidencia "
-                    + "INNER JOIN REGCIV.INCIDENCIA_TIPO tipo "
+                    + "FROM INCIDENCIA incidencia "
+                    + "INNER JOIN INCIDENCIA_TIPO tipo "
                     + "ON incidencia.IDINCTIP = tipo.IDINCTIP "
                     + "WHERE incidencia.IDACTA=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);

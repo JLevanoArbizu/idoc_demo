@@ -18,7 +18,7 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
     @Override
     public void registrar(Documento documento) throws Exception {
         try {
-            String sql = "INSERT INTO TraDoc.DOCUMENTO (CODDOC,NUMLIBDOC,NUMFOLDOC,TIPDOC,FECDOC,ASUDOC,OBSDOC,IDTUP,IDLOG,IDEMP,IDPER,KEYDOC) VALUES(?,?,?,?,CONVERT(DATE,?,103),?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO DOCUMENTO (CODDOC,NUMLIBDOC,NUMFOLDOC,TIPDOC,FECDOC,ASUDOC,OBSDOC,IDTUP,IDLOG,IDEMP,IDPER,KEYDOC) VALUES(?,?,?,?,CONVERT(DATE,?,103),?,?,?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, EncriptarS.encriptarDocumento(documento.getCODDOC()));
             ps.setString(2, documento.getNUMLIBDOC());
@@ -45,7 +45,7 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
     public void editar(Documento documento) throws Exception {
 
         try {
-            String sql = "UPDATE TraDoc.DOCUMENTO SET CODDOC=?, NUMLIBDOC = ?, NUMFOLDOC=?, FECDOC=? , ASUDOC = ? , OBSDOC = ? , IDTUP = ? , IDEMP = ? , IDPER = ? , KEYDOC = ? WHERE IDDOC LIKE ?";
+            String sql = "UPDATE DOCUMENTO SET CODDOC=?, NUMLIBDOC = ?, NUMFOLDOC=?, FECDOC=? , ASUDOC = ? , OBSDOC = ? , IDTUP = ? , IDEMP = ? , IDPER = ? , KEYDOC = ? WHERE IDDOC LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
 
             ps.setString(1, documento.getCODDOC());
@@ -71,7 +71,7 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
     public void eliminar(Documento documento) throws Exception {
 
         try {
-            String sql = "UPDATE TraDoc.DOCUMENTO SET ESTDOC='I' WHERE IDDOC LIKE ?";
+            String sql = "UPDATE DOCUMENTO SET ESTDOC='I' WHERE IDDOC LIKE ?";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             ps.setInt(1, documento.getIDDOC());
             ps.executeUpdate();
@@ -87,7 +87,7 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
         List<Documento> listaDocumento = new ArrayList<>();
         ResultSet rs;
         try {
-            String sql = "SELECT * FROM TRADOC.DOCUMENTO WHERE  ESTDOC != 'I' ORDER BY IDDOC DESC ";
+            String sql = "SELECT * FROM DOCUMENTO WHERE  ESTDOC != 'I' ORDER BY IDDOC DESC ";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             Documento documento;

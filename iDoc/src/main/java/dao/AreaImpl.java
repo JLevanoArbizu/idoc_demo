@@ -14,7 +14,7 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
     @Override
     public void registrar(Area modelo) throws Exception {
         try {
-            String sql = "INSERT INTO GENERAL.AREA (NOMARE, IDMUN, IDARE_PADR, ESTARE) VALUES (?,?,?,?)";
+            String sql = "INSERT INTO AREA (NOMARE, IDMUN, IDARE_PADR, ESTARE) VALUES (?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getNOMARE());
             ps.setInt(2, 6);
@@ -37,7 +37,7 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
     @Override
     public void editar(Area modelo) throws Exception {
         try {
-            String sql = "UPDATE GENERAL.AREA SET NOMARE=?, IDMUN=?, IDARE_PADR=?, ESTARE=? WHERE IDARE=?";
+            String sql = "UPDATE AREA SET NOMARE=?, IDMUN=?, IDARE_PADR=?, ESTARE=? WHERE IDARE=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getNOMARE());
             ps.setInt(2, 6);
@@ -61,7 +61,7 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
     @Override
     public void eliminar(Area modelo) throws Exception {
         try {
-            String sql = "UPDATE GENERAL.AREA SET ESTARE=? WHERE IDARE=?";
+            String sql = "UPDATE AREA SET ESTARE=? WHERE IDARE=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, "I");
             ps.setInt(2, modelo.getIDARE());
@@ -80,9 +80,9 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
         List<Area> lista = new ArrayList<>();
         try {
             String sql = "SELECT area.IDARE, area.IDARE_PADR, area.IDMUN, area.NOMARE, area.ESTARE, subarea.NOMARE, muni.NOMMUN "
-                    + "FROM General.AREA area "
-                    + "LEFT JOIN General.AREA subarea ON area.IDARE = subarea.IDARE_PADR "
-                    + "INNER JOIN General.MUNICIPALIDAD muni ON area.IDMUN = muni.IDMUN "
+                    + "FROM AREA area "
+                    + "LEFT JOIN AREA subarea ON area.IDARE = subarea.IDARE_PADR "
+                    + "INNER JOIN MUNICIPALIDAD muni ON area.IDMUN = muni.IDMUN "
                     + "WHERE area.IDARE_PADR IS NULL OR subarea.IDARE IS NOT NULL "
                     + "ORDER BY area.IDARE";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);

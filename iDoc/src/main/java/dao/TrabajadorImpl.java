@@ -17,7 +17,7 @@ public class TrabajadorImpl extends Conexion implements ICrud<Trabajador>, IRepo
     @Override
     public void registrar(Trabajador modelo) throws Exception {
         try {
-            String sql = "INSERT INTO GENERAL.TRABAJADOR (IDARE, IDPER, ESTTRAB, FECINITRAB) VALUES (?,?,?,?)";
+            String sql = "INSERT INTO TRABAJADOR (IDARE, IDPER, ESTTRAB, FECINITRAB) VALUES (?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setInt(1, modelo.getArea().getIDARE());
             ps.setInt(2, modelo.getPersona().getIDPER());
@@ -37,7 +37,7 @@ public class TrabajadorImpl extends Conexion implements ICrud<Trabajador>, IRepo
     @Override
     public void editar(Trabajador modelo) throws Exception {
         try {
-            String sql = "UPDATE GENERAL.TRABAJADOR SET FECINITRAB=?, FECFINTRAB=?, ESTTRAB=? "
+            String sql = "UPDATE TRABAJADOR SET FECINITRAB=?, FECFINTRAB=?, ESTTRAB=? "
                     + "WHERE IDTRAB=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setDate(1, new java.sql.Date(modelo.getFECINITRAB().getTime()));
@@ -71,12 +71,12 @@ public class TrabajadorImpl extends Conexion implements ICrud<Trabajador>, IRepo
                     + "trabajador.FECFINTRAB, trabajador.ESTTRAB,\n"
                     + "persona.APEPATPER, persona.APEMATPER, persona.NOMPER, persona.DNIPER, persona.GENPER, persona.DIRPER,\n"
                     + "area.NOMARE, ubigeo.DEPUBI, ubigeo.PROVUBI, ubigeo.DISTUBI\n"
-                    + "FROM General.TRABAJADOR trabajador\n"
-                    + "INNER JOIN General.PERSONA persona\n"
+                    + "FROM TRABAJADOR trabajador\n"
+                    + "INNER JOIN PERSONA persona\n"
                     + "ON persona.IDPER = trabajador.IDPER\n"
-                    + "INNER JOIN General.UBIGEO ubigeo\n"
+                    + "INNER JOIN UBIGEO ubigeo\n"
                     + "ON ubigeo.CODUBI = persona.CODUBI\n"
-                    + "INNER JOIN General.AREA area\n"
+                    + "INNER JOIN AREA area\n"
                     + "ON area.IDARE = trabajador.IDARE";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             while (rs.next()) {

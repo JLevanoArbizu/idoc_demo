@@ -14,7 +14,7 @@ public class EmpresaImpl extends Conexion implements ICrud<Empresa>, IReporte<Em
     @Override
     public void registrar(Empresa empresa) throws Exception {
         try {
-            String sql = "INSERT INTO TraDoc.EMPRESA(RAZSOCEMP,RUCEMP,DIREMP) VALUES(?,?,?)";
+            String sql = "INSERT INTO EMPRESA(RAZSOCEMP,RUCEMP,DIREMP) VALUES(?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, empresa.getRAZSOCEMP());
             ps.setString(2, empresa.getRUCEMP());
@@ -30,7 +30,7 @@ public class EmpresaImpl extends Conexion implements ICrud<Empresa>, IReporte<Em
     @Override
     public void editar(Empresa empresa) throws Exception {
         try {
-            String sql = "UPDATE TraDoc.EMPRESA SET RAZSOCEMP=?, RUCEMP=?, DIREMP=? WHERE IDEMP LIKE ?";
+            String sql = "UPDATE EMPRESA SET RAZSOCEMP=?, RUCEMP=?, DIREMP=? WHERE IDEMP LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
 
             ps.setString(1, empresa.getRAZSOCEMP());
@@ -48,7 +48,7 @@ public class EmpresaImpl extends Conexion implements ICrud<Empresa>, IReporte<Em
     @Override
     public void eliminar(Empresa empresa) throws Exception {
         try {
-            String sql = "UPDATE TraDoc.EMPRESA SET ESTEMP = 'I' WHERE IDEMP LIKE ?";
+            String sql = "UPDATE EMPRESA SET ESTEMP = 'I' WHERE IDEMP LIKE ?";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             ps.setInt(1, empresa.getIDEMP());
             ps.executeUpdate();
@@ -64,7 +64,7 @@ public class EmpresaImpl extends Conexion implements ICrud<Empresa>, IReporte<Em
         List<Empresa> listadoEmpresa = new ArrayList<>();
         ResultSet rs;
         try {
-            String sql = "SELECT * FROM TraDoc.EMPRESA WHERE ESTEMP LIKE 'A' and IDEMP != '1' ORDER BY IDEMP DESC";
+            String sql = "SELECT * FROM EMPRESA WHERE ESTEMP LIKE 'A' and IDEMP != '1' ORDER BY IDEMP DESC";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             Empresa empresa;

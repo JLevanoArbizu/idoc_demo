@@ -17,7 +17,7 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
     @Override
     public void registrar(Transferencia trans) throws Exception {
         try {
-            String sql = "INSERT INTO TraDoc.TRANSFERENCIA (FECSALTRAN,FECRECTRAN,OBSTRAN,IDDOC,IDARE_EMI,IDARE_REC) VALUES(CONVERT(DATE,?,105),CONVERT(DATE,?,105),?,?,?,?)";
+            String sql = "INSERT INTO TRANSFERENCIA (FECSALTRAN,FECRECTRAN,OBSTRAN,IDDOC,IDARE_EMI,IDARE_REC) VALUES(CONVERT(DATE,?,105),CONVERT(DATE,?,105),?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setDate(1, new java.sql.Date(trans.getFECSALTRAN().getTime()));
             ps.setDate(2, new java.sql.Date(trans.getFECRECTRAN().getTime()));
@@ -37,7 +37,7 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
     public void editar(Transferencia trans) throws Exception {
         
         try {
-            String sql = "UPDATE TraDoc.TRANSFERENCIA SET  FECSALTRAN=?, FECRECTRAN=?, OBSTRAN=?, IDDOC=?, IDARE_EMI=?, IDARE_REC=? WHERE IDTRAN LIKE ?";
+            String sql = "UPDATE TRANSFERENCIA SET  FECSALTRAN=?, FECRECTRAN=?, OBSTRAN=?, IDDOC=?, IDARE_EMI=?, IDARE_REC=? WHERE IDTRAN LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setDate(1, new java.sql.Date(trans.getFECSALTRAN().getTime()));
             ps.setDate(2, new java.sql.Date(trans.getFECRECTRAN().getTime()));
@@ -57,7 +57,7 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
     @Override
     public void eliminar(Transferencia trans) throws Exception {
         try {
-            String sql = "UPDATE TraDoc.TRANSFERENCIA SET ESTTRA='I' WHERE IDTRAN LIKE ?";
+            String sql = "UPDATE TRANSFERENCIA SET ESTTRA='I' WHERE IDTRAN LIKE ?";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             ps.setInt(1, trans.getIDTRAN());
             ps.executeUpdate();
@@ -72,7 +72,7 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
     public List<Transferencia> listar() throws Exception {
         List<Transferencia> listaTransferencia = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM TRADOC.TRANSFERENCIA WHERE ESTTRA != 'I' ORDER BY IDTRAN DESC";
+            String sql = "SELECT * FROM TRANSFERENCIA WHERE ESTTRA != 'I' ORDER BY IDTRAN DESC";
             
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             Transferencia trans;

@@ -13,7 +13,7 @@ public class MunicipalidadImpl extends Conexion implements ICrud<Municipalidad> 
     @Override
     public void registrar(Municipalidad modelo) throws Exception {
         try {
-            String sql = "INSERT INTO GENERAL.MUNICIPALIDAD (CODUBI, DIRMUN, NOMMUN, ESTMUN, TLFMUN) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO MUNICIPALIDAD (CODUBI, DIRMUN, NOMMUN, ESTMUN, TLFMUN) VALUES (?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getUbigeo().getCODUBI());
             ps.setString(2, WordUtils.capitalize(modelo.getDIRMUN()));
@@ -33,7 +33,7 @@ public class MunicipalidadImpl extends Conexion implements ICrud<Municipalidad> 
     @Override
     public void editar(Municipalidad modelo) throws Exception {
         try {
-            String sql = "UPDATE GENERAL.MUNICIPALIDAD SET CODUBI=?, DIRMUN=?, NOMMUN=?, ESTMUN=?, TLFMUN=? "
+            String sql = "UPDATE MUNICIPALIDAD SET CODUBI=?, DIRMUN=?, NOMMUN=?, ESTMUN=?, TLFMUN=? "
                     + "WHERE IDMUN=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getUbigeo().getCODUBI());
@@ -55,7 +55,7 @@ public class MunicipalidadImpl extends Conexion implements ICrud<Municipalidad> 
     @Override
     public void eliminar(Municipalidad modelo) throws Exception {
         try {
-            String sql = "UPDATE GENERAL.MUNICIPALIDAD SET ESTMUN=? "
+            String sql = "UPDATE MUNICIPALIDAD SET ESTMUN=? "
                     + "WHERE IDMUN=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, "I");
@@ -74,7 +74,7 @@ public class MunicipalidadImpl extends Conexion implements ICrud<Municipalidad> 
     public List<Municipalidad> listar() throws Exception {
         List<Municipalidad> lista = new ArrayList<>();
         try {
-            String sql = "SELECT IDMUN, CODUBI, DIRMUN, NOMMUN, TLFMUN, ESTMUN FROM GENERAL.MUNICIPALIDAD";
+            String sql = "SELECT IDMUN, CODUBI, DIRMUN, NOMMUN, TLFMUN, ESTMUN FROM MUNICIPALIDAD";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             while (rs.next()) {
                 Municipalidad municipalidad = new Municipalidad();
