@@ -94,7 +94,7 @@
                             <p:outputLabel value="Observación"/>
                         </h:panelGroup>
                     </div>
-                    <p:dataTable id="tblActores"
+                    <p:dataTable id="tblActores" widgetVar="wvTblActores"
                                  value="#{actaC.listaDetalleR}" var="actores"
                                  selection="#{actaC.listaDetalleSeleccionado}"
                                  filteredValue="#{actaC.listaDetalleFiltrado}"
@@ -107,6 +107,7 @@
                         </f:facet>
                         <f:facet name="footer">
                             <p:commandButton value="Guardar" actionListener="#{actaC.registrar()}" 
+                                             oncomplete="PF('wvTblActa').filter()"
                                              update=":frmRegistrarActa :frmActa" id="btnRegistrarActa"
                                              styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only secondary"/>
                             <p:blockUI block="frmRegistrarActa" trigger="btnRegistrarActa">
@@ -239,7 +240,7 @@
         </h:form>
         <p:dialog widgetVar="wvVerActa" header="Acta" closeOnEscape="true" modal="true">
             <h:form id="frmVerActa">
-                <p:dataTable id="tblModActa" value="#{actaC.listaDetalle}" var="actaDetalle">
+                <p:dataTable id="tblModActa" value="#{actaC.listaDetalle}" var="actaDetalle" widgetVar="wvTblModActa">
                     <p:column headerText="Titular" groupRow="true">
                         <h:outputText value="#{actaDetalle.acta.titular.APEPATPER} 
                                       #{actaDetalle.acta.titular.APEMATPER}, 
@@ -305,12 +306,13 @@
                     </div>
                 </div>
                 <p:commandButton actionListener="#{incidenciaC.registrar()}" value="Guardar"
+                                 oncomplete="PF('wvDtTblIncidencia').filter()"
                                  update="frmRegistrarIncidencia :frmIncidencia"/>
                 <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('wvIncidencia').hide();"/>
             </h:form>
             <p:separator/>
             <h:form id="frmIncidencia">
-                <p:dataTable id="dtTblIncidencia"
+                <p:dataTable id="dtTblIncidencia" widgetVar="wvDtTblIncidencia"
                              value="#{incidenciaC.lista}" var="listaIncidencia"
                              rowKey="#{listaIncidencia.IDINC}" selection="#{incidenciaC.incidenciaSeleccionado}"
                              selectionMode="single"
@@ -340,8 +342,9 @@
                 <p:contextMenu for="dtTblIncidencia">
                     <p:menuitem update=":frmEditarIncidencia" icon="ui-icon-pencil"
                                 value="Modificar"
-                                oncomplete="PF('wdlgDatosIncidencia').show();"/>
+                                oncomplete="PF('wdlgDatosIncidencia').show();PF('wvDtTblIncidencia').filter();"/>
                     <p:menuitem value="Eliminar" actionListener="#{incidenciaC.eliminar()}" 
+                                oncomplete="PF('wvDtTblIncidencia').filter()"
                                 update=":frmEditarIncidencia"
                                 icon="ui-icon-circle-close"/>
                 </p:contextMenu>
@@ -384,7 +387,7 @@
                     <f:selectItem itemLabel="Inactivo" itemValue="I"/>
                 </p:selectOneRadio>
                 <p:commandButton value="Modificar" actionListener="#{incidenciaC.editar()}"
-                                 oncomplete="if(!args.validationFailed)PF('wdlgDatosIncidencia').hide();"
+                                 oncomplete="if(!args.validationFailed)PF('wdlgDatosIncidencia').hide();PF('wvDtTblIncidencia').filter();"
                                  update=":frmIncidencia">
                     <p:confirm header="Confirmacion" message="¿Quiere Modificar?" icon="ui-icon-alert" />
                 </p:commandButton>

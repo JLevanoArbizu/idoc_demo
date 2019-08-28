@@ -93,6 +93,7 @@
                     <p:commandButton 
                         id="btnRegistrarPersona"
                         value="GUARDAR"
+                        oncomplete="PF('wvDtTblPersona').filter();"
                         actionListener="#{personaC.registrar()}" update=":frmRegistrarPersona :frmListarPersona"/>
                 </h:panelGroup>
                 <p:blockUI block="frmRegistrarPersona" trigger="btnRegistrarPersona">
@@ -112,7 +113,7 @@
         </div>
         <p:separator/>
         <h:form id="frmListarPersona">
-            <p:dataTable id="dtTblPersona"  
+            <p:dataTable id="dtTblPersona" widgetVar="wvDtTblPersona"
                          value="#{personaC.lista}" var="listaPersona" 
                          reflow="true" rowKey="#{listaPersona.IDPER}"
                          selectionMode="single" selection="#{personaC.personaSeleccionada}"
@@ -172,6 +173,7 @@
                 <p:menuitem value="Modificar" icon="ui-icon-pencil"
                             oncomplete="PF('wdlgDatosPersona').show();" update=":frmEditarPersona"/>
                 <p:menuitem value="Eliminar" actionListener="#{personaC.eliminar()}" update="frmListarPersona"
+                            oncomplete="PF('wvDtTblPersona').filter();"
                             icon="ui-icon-circle-close"/>
             </p:contextMenu>
         </h:form>
@@ -255,7 +257,7 @@
                     </div>
                     <h:panelGroup styleClass="mdl-button">
                         <p:commandButton value="Modificar" actionListener="#{personaC.editar()}"
-                                         oncomplete="if(!args.validationFailed)PF('wdlgDatosPersona').hide();"
+                                         oncomplete="if(!args.validationFailed)PF('wdlgDatosPersona').hide();PF('wvDtTblPersona').filter();"
                                          update=":frmListarPersona :frmRegistrarPersona">
                             <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
                         </p:commandButton>

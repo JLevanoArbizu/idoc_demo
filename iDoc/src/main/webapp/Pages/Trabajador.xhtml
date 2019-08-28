@@ -68,6 +68,7 @@
                 </div>
                 <p:commandButton id="btnRegistrarTrabajador"
                                  value="Guardar"
+                                 oncomplete="PF('wdtTblTrabajador').filter()"
                                  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
                                  update="frmRegistrarTrabajador :frmListarTrabajador">
                     <f:actionListener binding="#{trabajadorC.registrar(loginC.loginSesion)}"/>
@@ -172,7 +173,7 @@
                 <h:panelGroup styleClass="mdl-button">
                     <p:commandButton 
                         id="btnRegistrarPersona"
-                        value="GUARDAR"
+                        value="GUARDAR" oncomplete="PF('wdtTblTrabajador').filter()"
                         actionListener="#{personaC.registrar()}" update=":frmRegistrarTrabajador"/>
                 </h:panelGroup>
                 <p:blockUI block="frmRegistrarPersona" trigger="btnRegistrarPersona">
@@ -242,7 +243,7 @@
                 <p:menuitem update=":dlgDatosTrabajador" icon="ui-icon-pencil"
                             value="Modificar"
                             oncomplete="PF('wdlgDatosTrabajador').show();"/>
-                <p:menuitem value="Eliminar" update="frmListarTrabajador"
+                <p:menuitem value="Eliminar" update="frmListarTrabajador" oncomplete="PF('wdtTblTrabajador').filter()"
                             icon="ui-icon-circle-close" actionListener="#{trabajadorC.eliminar()}"/>
                 <p:menuitem value="Contraseña" update="frmListarTrabajador"
                             icon="ui-icon-refresh"/>
@@ -276,7 +277,7 @@
                         <div class="ui-g-12">
                             <div class="ui-g-6">
                                 <p:commandButton value="Modificar" actionListener="#{trabajadorC.editar()}"
-                                                 oncomplete="if(!args.validationFailed)PF('wdlgDatosTrabajador').hide();"
+                                                 oncomplete="if(!args.validationFailed)PF('wdlgDatosTrabajador').hide();PF('wdtTblTrabajador').filter();"
                                                  update=":frmListarTrabajador :frmRegistrarTrabajador">
                                     <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
                                     <p:tooltip trackMouse="true"/>

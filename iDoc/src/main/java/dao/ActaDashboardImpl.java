@@ -18,7 +18,7 @@ public class ActaDashboardImpl extends Conexion implements IDashboard<Dashboard>
     public List<Dashboard> listarCantidades() throws Exception {
         List<Dashboard> lista = new ArrayList<>();
         try {
-            String sql = "SELECT COUNT(acta.IDACTA) AS cantidad, acta.TIPACTA FROM RegCiv.ACTA acta\n"
+            String sql = "SELECT COUNT(acta.IDACTA) AS cantidad, acta.TIPACTA FROM ACTA acta\n"
                     + "WHERE acta.ESTACTA = 'A'\n"
                     + "GROUP BY acta.TIPACTA";
             ResultSet rs = this.conectar().prepareStatement(sql).executeQuery();

@@ -41,12 +41,13 @@
                 </p:inputText>
             </p:panelGrid>
             <p:commandButton value="GUARDAR" actionListener="#{incidenciatipoC.registrar()}"
+                             oncomplete="PF('wvDtTblIncidenciaTipo').filter()"
                              class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
                              update=":frmRegistrarIncidenciaTipo :frmListarIncidenciaTipo" />
         </h:form>
         <p:separator/>
         <h:form id="frmListarIncidenciaTipo">
-            <p:dataTable id="dtTblIncidenciaTipo"  
+            <p:dataTable id="dtTblIncidenciaTipo"  widgetVar="wvDtTblIncidenciaTipo"
                          value="#{incidenciatipoC.lista}" var="listaIncidenciaTipo"
                          rows="10" emptyMessage="No se encontrarón datos."
                          rowKey="#{listaIncidenciaTipo.IDINCTIP}"
@@ -72,7 +73,7 @@
                 <p:menuitem update=":frmEditarIncidenciaTipo" icon="ui-icon-pencil"
                             value="Modificar"
                             oncomplete="PF('wdlgDatosIncidenciaTipo').show();"/>
-                <p:menuitem value="Eliminar" update="frmListarIncidenciaTipo"
+                <p:menuitem value="Eliminar" update="frmListarIncidenciaTipo" oncomplete="PF('wvDtTblIncidenciaTipo').filter();"
                             icon="ui-icon-circle-close" actionListener="#{trabajadorC.eliminar()}"/>
             </p:contextMenu>
         </h:form>
@@ -116,7 +117,7 @@
 
 
                 <p:commandButton value="Modificar" actionListener="#{incidenciatipoC.editar()}"
-                                 oncomplete="if(!args.validationFailed)PF('wdlgDatosIncidenciaTipo').hide();"
+                                 oncomplete="if(!args.validationFailed)PF('wdlgDatosIncidenciaTipo').hide();PF('wvDtTblIncidenciaTipo').filter();"
                                  update=":frmListarIncidenciaTipo :frmRegistrarIncidenciaTipo">
 
                     <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert"/>              

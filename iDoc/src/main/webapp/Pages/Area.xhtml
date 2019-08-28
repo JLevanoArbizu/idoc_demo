@@ -33,11 +33,13 @@
                     <p:keyFilter regEx='/[\a-z ]/i'/>
                 </p:inputText></p:panelGrid>
             <p:commandButton actionListener="#{areaC.registrar()}" 
+                             oncomplete="PF('wvListaArea').filter();"
                              value="GUARDAR" update=":frmRegistrarArea :frmListarArea "/>
         </h:form>
         <p:separator/>
         <h:form id="frmListarArea">
             <p:dataTable id="dtTblArea" var="listaArea" value="#{areaC.lista}"
+                         widgetVar="wvListaArea"
                          reflow="true" rowKey="#{listaArea.IDARE}"
                          selectionMode="single" selection="#{areaC.areaSeleccionada}"
                          rows="10" emptyMessage="No se encontrarón datos."
@@ -63,6 +65,7 @@
                             value="Modificar"
                             oncomplete="PF('wdlgDatosArea').show();"/>
                 <p:menuitem value="Eliminar" actionListener="#{areaC.eliminar()}" update="frmListarArea"
+                            oncomplete="PF('wvListaArea').filter();"
                             icon="ui-icon-circle-close"/>
             </p:contextMenu>
         </h:form>
@@ -88,7 +91,7 @@
                 </p:panelGrid>
 
                 <p:commandButton value="Modificar" actionListener="#{areaC.editar()}"
-                                 oncomplete="PF('wdlgDatosArea').hide();" 
+                                 oncomplete="PF('wdlgDatosArea').hide();PF('wvListaArea').filter();"
                                  update=":frmListarArea :frmRegistrarArea">
                     <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
                 </p:commandButton>

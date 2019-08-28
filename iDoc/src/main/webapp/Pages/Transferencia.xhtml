@@ -41,7 +41,10 @@
                 </p:selectOneMenu>
 
 
-                <p:commandButton value="REGISTRAR" actionListener="#{transferenciaC.registrarTransferencia()}" update="FormTransferencia FormTblTransferencia:tblTransferencia"/>
+                <p:commandButton value="Guardar" 
+                                 oncomplete="PF('wvTblTransferencia').filter();"
+                                 actionListener="#{transferenciaC.registrarTransferencia()}" 
+                                 update="FormTransferencia FormTblTransferencia:tblTransferencia"/>
             </p:panelGrid>
         </h:form>
         <h6>
@@ -51,7 +54,7 @@
         <!--        lista -->
 
         <h:form id="FormTblTransferencia">
-            <p:dataTable id="tblTransferencia"
+            <p:dataTable id="tblTransferencia" widgetVar="wvTblTransferencia"
                          value="#{transferenciaC.lstTransferencia}"
                          var="transferencia"
                          selection="#{transferenciaC.selectedTransferncia}"
@@ -88,7 +91,10 @@
             </p:dataTable>
             <p:contextMenu for="tblTransferencia">
                 <p:menuitem value="EDITAR" oncomplete="PF('dlgModTransferencia').show()" update="FormDialogModTemp"/>
-                <p:menuitem value="ELIMINAR" actionListener="{transferenciaC.eliminarTransferencia()}" update="tblTransferencia">
+                <p:menuitem value="ELIMINAR" 
+                            oncomplete="PF('wvTblTransferencia').filter();"
+                            actionListener="{transferenciaC.eliminarTransferencia()}" 
+                            update="tblTransferencia">
                     <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
                 </p:menuitem>
             </p:contextMenu>
@@ -123,7 +129,9 @@
                         <f:selectItems value="#{documentoC.lstdocumento}" var="documen" itemLabel=" #{documen.ASUDOC}"  itemValue="#{documen.IDDOC}" />
                     </p:selectOneMenu>
 
-                    <p:commandButton value="MODIFICAR" actionListener="#{transferenciaC.editarTransferencia()}" oncomplete="PF('dlgModTransferencia').hide()" update="FormTblTransferencia:tblTransferencia" />
+                    <p:commandButton value="MODIFICAR" actionListener="#{transferenciaC.editarTransferencia()}" 
+                                     oncomplete="PF('dlgModTransferencia').hide();PF('wvTblTransferencia').filter();"
+                                     update="FormTblTransferencia:tblTransferencia" />
                     <p:commandButton value="CANCELAR" oncomplete="PF('dlgModTransferencia').hide()"/>
                 </p:panelGrid>
             </h:form>

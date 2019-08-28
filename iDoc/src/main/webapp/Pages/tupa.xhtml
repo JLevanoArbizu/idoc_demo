@@ -29,7 +29,10 @@
                 <p:selectOneMenu value="#{tupaC.tupa.area.IDARE}">
                     <f:selectItems value="#{areaC.lista}" var="area" itemLabel="#{area.NOMARE}" itemValue="#{area.IDARE}"/>
                 </p:selectOneMenu>
-                <p:commandButton value="Registrar" actionListener="#{tupaC.registrarTupa()}" update="FormTupa FormTblTupa:tblTupa"/>
+                <p:commandButton value="Registrar"
+                                 oncomplete="PF('wvTblTupa').filter();"
+                                 actionListener="#{tupaC.registrarTupa()}" 
+                                 update="FormTupa FormTblTupa:tblTupa"/>
 
 
             </p:panelGrid>
@@ -37,7 +40,7 @@
         <!--lista-->
 
         <h:form id="FormTblTupa">
-            <p:dataTable id="tblTupa"
+            <p:dataTable id="tblTupa" widgetVar="wvTblTupa"
                          value="#{tupaC.lstTupa}"
                          var="tupa"
                          selection="#{tupaC.selectedTupa}"
@@ -67,7 +70,9 @@
 
             </p:dataTable>
             <p:contextMenu for="tblTupa">
-                <p:menuitem value="EDITAR" oncomplete="PF('dlgModTupa').show()" update="FormDialogModTup"/>
+                <p:menuitem value="EDITAR" 
+                            oncomplete="PF('dlgModTupa').show();PF('wvTblTupa').filter();" 
+                            update="FormDialogModTup"/>
                 <p:menuitem value="ELIMINAR" actionListener="#{tupaC.eliminarTupa()}" update="tblTupa">
                     <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
                 </p:menuitem>
@@ -94,7 +99,10 @@
                     <p:outputLabel value="area tupa:"/>
                     <p:inputText value="#{tupaC.selectedTupa.area.IDARE}" placeholder="area tupa" maxlength="50"/>
 
-                    <p:commandButton value="MODIFICAR" actionListener="#{tupaC.editarTupa()}" oncomplete="PF('dlgModTupa').hide()" update="FormTblTupa:tblTupa" />
+                    <p:commandButton value="MODIFICAR" 
+                                     actionListener="#{tupaC.editarTupa()}" 
+                                     oncomplete="PF('dlgModTupa').hide();PF('wvTblTupa').filter();"
+                                     update="FormTblTupa:tblTupa" />
                     <p:commandButton value="CANCELAR" oncomplete="PF('dlgModTupa').hide()"/>
                 </p:panelGrid>
             </h:form>
