@@ -18,8 +18,8 @@ public class Actor {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.actor);
+        int hash = 5;
+        hash = 47 * hash + Objects.hashCode(this.TIPACT);
         return hash;
     }
 
@@ -35,11 +35,9 @@ public class Actor {
             return false;
         }
         final Actor other = (Actor) obj;
-        if (!Objects.equals(this.actor, other.actor)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.TIPACT, other.TIPACT);
     }
+
 
     public int getIDACT() {
         return IDACT;

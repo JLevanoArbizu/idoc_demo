@@ -68,6 +68,10 @@ public class PersonaC implements Serializable {
         try {
             daoPersona.editar(personaSeleccionada);
             listar();
+            FacesContext.getCurrentInstance().addMessage(
+                        null,
+                            new FacesMessage("Modificacion exitosa")
+                );
         } catch (Exception e) {
             e.printStackTrace();
         }

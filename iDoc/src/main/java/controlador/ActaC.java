@@ -26,7 +26,7 @@ public class ActaC implements Serializable {
     List<Actor> listaDetalleR, listaDetalleSeleccionado;
     ActaImpl daoActa;
     ActorImpl daoDetalle;
-    
+
     StreamedContent reporte;
 
     public ActaC() {
@@ -68,41 +68,68 @@ public class ActaC implements Serializable {
         }
     }
 
+    public boolean comprobar() {
+        if (listaDetalleSeleccionado.size() > 0) {
+            List<String> listaTipos = new ArrayList<>();
+            for (Actor actor : listaDetalleSeleccionado) {
+                if (listaTipos.contains(actor.getTIPACT()) == true) {
+                    FacesContext.getCurrentInstance().addMessage(
+                            null,
+                            new FacesMessage("No pueden haber dos Personas con el mismo tipo!")
+                    );
+                    return false;
+                } else {
+                    listaTipos.add(actor.getTIPACT());
+                }
+            }
+            return true;
+        } else {
+            FacesContext.getCurrentInstance().addMessage(
+                    null,
+                    new FacesMessage("Seleccione almenos un actor")
+            );
+            return false;
+        }
+
+    }
+
     public void registrar() throws Exception {
         try {
-            if (listaDetalleSeleccionado.size() > 0) {
-                daoActa.registrar(cabecera);
-                try {
-                    listaCabecera = daoActa.listar();
-                } catch (Exception e) {
-                    e.printStackTrace();
+            if (comprobar() == true) {
+                if (listaCabecera.contains(cabecera) == false) {
+                    daoActa.registrar(cabecera);
+                    try {
+                        listaCabecera = daoActa.listar();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    cabecera.setIDACTA(listaCabecera.get(listaCabecera.size() - 1).getIDACTA());
+                    for (Actor actor : listaDetalleSeleccionado) {
+                        actor.setActa(cabecera);
+                        daoDetalle.registrar(actor);
+                    }
+                    listar();
+                    listaDetalleSeleccionado.clear();
+                    listaDetalleFiltrado.clear();
+                    cabecera.clear();
+                    FacesContext.getCurrentInstance().addMessage(
+                            null,
+                            new FacesMessage("Registro Exitoso")
+                    );
+                }else{
+                    FacesContext.getCurrentInstance().addMessage(
+                            null,
+                            new FacesMessage("Ya existen registros")
+                    );
                 }
-                cabecera.setIDACTA(listaCabecera.get(listaCabecera.size() - 1).getIDACTA());
-                for (Actor actor : listaDetalleSeleccionado) {
-                    actor.setActa(cabecera);
-                    daoDetalle.registrar(actor);
-                    System.out.println(actor.toString());
-                }
-                listar();
-                listaDetalleSeleccionado.clear();
-                cabecera.clear();
-                FacesContext.getCurrentInstance().addMessage(
-                        null,
-                        new FacesMessage("Registro Exitoso")
-                );
-            } else {
-                FacesContext.getCurrentInstance().addMessage(
-                        null,
-                        new FacesMessage("Seleccione almenos un actor")
-                );
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-    public void generarReporte() throws Exception{
+
+    public void generarReporte() throws Exception {
         try {
             reporte = daoActa.generarReporteIndividualPrev(cabeceraSeleccionado);
         } catch (Exception e) {

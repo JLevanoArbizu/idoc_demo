@@ -118,7 +118,9 @@
                          reflow="true" rowKey="#{listaPersona.IDPER}"
                          selectionMode="single" selection="#{personaC.personaSeleccionada}"
                          rows="10" emptyMessage="No se encontrarón datos." 
-                         filteredValue="#{personaC.listaFiltrada}">
+                         filteredValue="#{personaC.listaFiltrada}"
+                         paginator="true" scrollable="false" scrollHeight="500"
+                         rowsPerPageTemplate="5,10,15,20">
 
                 <f:facet name="header">
                     Ciudadanos

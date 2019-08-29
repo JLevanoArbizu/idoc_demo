@@ -53,6 +53,10 @@ public class TrabajadorC implements Serializable {
                 daoTrabajador.registrar(trabajador);
 //                trabajador.clear();
                 listar();
+                FacesContext.getCurrentInstance().addMessage(
+                        null,
+                        new FacesMessage("Registro exitoso, como tu bb ;) ")
+                );
             } else {
                 FacesContext.getCurrentInstance().addMessage(
                         null,

@@ -34,6 +34,14 @@ public class LoginC implements Serializable {
             e.printStackTrace();
         }
     }
+    
+    public void eliminar(Trabajador trabajador) throws Exception{
+        try {
+            daoLogin.eliminar(trabajador);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void editarOtro(Trabajador trabajador) throws Exception {
         try {

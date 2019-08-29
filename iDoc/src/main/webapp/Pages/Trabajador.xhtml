@@ -25,7 +25,7 @@
                                 <p:selectOneMenu value="#{trabajadorC.trabajador.persona.IDPER}" 
                                                  filter="true" filterMatchMode="contains">
                                     <f:selectItems value="#{personaC.lista}" var="persona"
-                                                   itemValue="#{persona.IDPER}" 
+                                                   itemValue="#{persona.IDPER}" itemDisabled="#{persona.DNIPER.trim().length() != 8}"
                                                    itemLabel="#{persona.APEPATPER} #{persona.APEMATPER}, #{persona.NOMPER}"/>
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Trabajador"/>
@@ -68,7 +68,7 @@
                 </div>
                 <p:commandButton id="btnRegistrarTrabajador"
                                  value="Guardar"
-                                 oncomplete="PF('wdtTblTrabajador').filter()"
+                                 oncomplete="PF('wdtTblTrabajador').filter();"
                                  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
                                  update="frmRegistrarTrabajador :frmListarTrabajador">
                     <f:actionListener binding="#{trabajadorC.registrar(loginC.loginSesion)}"/>
@@ -204,6 +204,10 @@
 
                 <f:facet name="header">
                     Trabajadores
+                    <p:commandButton immediate="true" value="Actualizar" 
+                                     oncomplete="PF('wdtTblTrabajador').filter();"
+                                     class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
+                                     update="frmRegistrarTrabajador :frmListarTrabajador"/>
                 </f:facet>
                 <p:column headerText="Apellidos y Nombres" filterBy="#{listaTrabajador.persona.APEPATPER} #{listaTrabajador.persona.APEMATPER}, #{listaTrabajador.persona.NOMPER}" 
                           filterMatchMode="contains">
@@ -244,7 +248,10 @@
                             value="Modificar"
                             oncomplete="PF('wdlgDatosTrabajador').show();"/>
                 <p:menuitem value="Eliminar" update="frmListarTrabajador" oncomplete="PF('wdtTblTrabajador').filter()"
-                            icon="ui-icon-circle-close" actionListener="#{trabajadorC.eliminar()}"/>
+                    icon="ui-icon-circle-close">
+                    <f:actionListener binding="#{trabajadorC.eliminar()}"/>
+                    <f:actionListener binding="#{loginC.eliminar(trabajadorC.trabajadorSeleccionado)}"/>
+                </p:menuitem>
                 <p:menuitem value="Contraseña" update="frmListarTrabajador"
                             icon="ui-icon-refresh"/>
             </p:contextMenu>

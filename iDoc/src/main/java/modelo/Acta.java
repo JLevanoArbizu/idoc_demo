@@ -25,11 +25,10 @@ public class Acta {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 59 * hash + Objects.hashCode(this.NUMLIBACTA);
-        hash = 59 * hash + Objects.hashCode(this.NUMFOLACTA);
-        hash = 59 * hash + Objects.hashCode(this.TIPACTA);
-        hash = 59 * hash + Objects.hashCode(this.titular);
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.NUMLIBACTA);
+        hash = 73 * hash + Objects.hashCode(this.NUMFOLACTA);
+        hash = 73 * hash + Objects.hashCode(this.titular);
         return hash;
     }
 
@@ -51,14 +50,9 @@ public class Acta {
         if (!Objects.equals(this.NUMFOLACTA, other.NUMFOLACTA)) {
             return false;
         }
-        if (!Objects.equals(this.TIPACTA, other.TIPACTA)) {
-            return false;
-        }
-        if (!Objects.equals(this.titular, other.titular)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.titular, other.titular);
     }
+
 
     public int getIDACTA() {
         return IDACTA;

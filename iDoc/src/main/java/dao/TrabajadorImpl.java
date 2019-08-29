@@ -53,6 +53,7 @@ public class TrabajadorImpl extends Conexion implements ICrud<Trabajador>, IRepo
             ps.clearParameters();
             ps.close();
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             this.desconectar();
         }
@@ -60,7 +61,20 @@ public class TrabajadorImpl extends Conexion implements ICrud<Trabajador>, IRepo
 
     @Override
     public void eliminar(Trabajador modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sql = "UPDATE TRABAJADOR SET ESTTRAB=? "
+                    + "WHERE IDTRAB=?";
+            PreparedStatement ps = this.conectar().prepareStatement(sql);
+            ps.setString(1, "I");
+            ps.setInt(2, modelo.getIDTRAB());
+            ps.executeUpdate();
+            ps.clearParameters();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.desconectar();
+        }
     }
 
     @Override
@@ -77,7 +91,8 @@ public class TrabajadorImpl extends Conexion implements ICrud<Trabajador>, IRepo
                     + "INNER JOIN UBIGEO ubigeo\n"
                     + "ON ubigeo.CODUBI = persona.CODUBI\n"
                     + "INNER JOIN AREA area\n"
-                    + "ON area.IDARE = trabajador.IDARE";
+                    + "ON area.IDARE = trabajador.IDARE "
+                    + "WHERE trabajador.ESTTRAB = 'A'";
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             while (rs.next()) {
                 Trabajador trabajador = new Trabajador();

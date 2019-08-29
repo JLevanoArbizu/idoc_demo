@@ -98,7 +98,9 @@ public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
                     + "acta.IDACTA,\n"
                     + "acta.FECREGACTA,\n"
                     + "acta.FECACT,\n"
-                    + "acta.TIPACTA\n"
+                    + "acta.TIPACTA,"
+                    + "acta.NUMLIBACTA, "
+                    + "acta.NUMFOLACTA\n"
                     + "FROM ACTA acta\n"
                     + "INNER JOIN PERSONA titular\n"
                     + "ON acta.IDPER = titular.IDPER\n"
@@ -118,7 +120,9 @@ public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
                 acta.setIDACTA(rs.getInt(6));
                 acta.setFECREGACTA(rs.getDate(7));
                 acta.setFECACT(rs.getDate(8));
-                acta.setTIPACTA(rs.getString(9));
+                acta.setTIPACTA(rs.getString(9).trim());
+                acta.setNUMLIBACTA(rs.getString(10).trim());
+                acta.setNUMFOLACTA(rs.getString(11).trim());
 
                 acta.setTitular(titular);
                 lista.add(acta);

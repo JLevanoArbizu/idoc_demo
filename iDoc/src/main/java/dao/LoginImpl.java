@@ -14,6 +14,7 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
     @Override
     public void registrar(Login modelo) throws Exception {
         try {
+            System.out.println("Registrar Login:"+modelo.getTrabajador().getPersona().getDNIPER());
             String sql = "INSERT INTO LOGIN (IDTRAB, USRLOG, PSSWLOG, ESTLOG, TIPLOG) VALUES (?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setInt(1, modelo.getTrabajador().getIDTRAB());
@@ -49,6 +50,23 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
             this.desconectar();
         }
     }
+    
+    public void resetearContra(Trabajador modelo) throws Exception{
+        try {
+            String sql = "UPDATE LOGIN SET USRLOG=?, PSSWLOG=? WHERE IDTRAB=?";
+            PreparedStatement ps = this.conectar().prepareStatement(sql);
+            ps.setString(1, modelo.getPersona().getDNIPER());
+            ps.setString(2, EncriptarS.encriptarPssw(modelo.getPersona().getDNIPER()));
+            ps.setInt(3, modelo.getIDTRAB());
+            ps.executeUpdate();
+            ps.clearParameters();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            this.desconectar();
+        }
+    }
 
     public void editarMio(Login modelo) throws Exception {
         try {
@@ -73,6 +91,22 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, "I");
             ps.setString(2, modelo.getTrabajador().getPersona().getDNIPER());
+            ps.executeUpdate();
+            ps.clearParameters();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.desconectar();
+        }
+    }
+    
+    public void eliminar(Trabajador modelo) throws Exception {
+        try {
+            String sql = "UPDATE LOGIN SET ESTLOG=? WHERE IDTRAB=?";
+            PreparedStatement ps = this.conectar().prepareStatement(sql);
+            ps.setString(1, "I");
+            ps.setInt(2, modelo.getIDTRAB());
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
