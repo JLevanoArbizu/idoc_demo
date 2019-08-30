@@ -9,6 +9,7 @@ import modelo.Documento;
 import modelo.Empresa;
 import modelo.Login;
 import modelo.Persona;
+import modelo.Trabajador;
 import modelo.Tupa;
 import org.primefaces.model.StreamedContent;
 import servicios.EncriptarS;
@@ -87,7 +88,30 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
         List<Documento> listaDocumento = new ArrayList<>();
         ResultSet rs;
         try {
-            String sql = "SELECT * FROM DOCUMENTO WHERE  ESTDOC != 'I' ORDER BY IDDOC DESC ";
+            String sql = "select\n"
+                    + "IDDOC,\n"
+                    + "CODDOC,\n"
+                    + "NUMLIBDOC,\n"
+                    + "NUMFOLDOC,\n"
+                    + "TIPDOC,\n"
+                    + "FECDOC,\n"
+                    + "ASUDOC,\n"
+                    + "OBSDOC,\n"
+                    + "ESTDOC,\n"
+                    + "TU.NOMTUP AS IDTUP,\n"
+                    + "PER.NOMPER AS IDLOG,\n"
+                    + "EMP.RAZSOCEMP AS IDEMP,\n"
+                    + "PER2.NOMPER AS IDPER,\n"
+                    + "KEYDOC\n"
+                    + "\n"
+                    + "from DOCUMENTO D\n"
+                    + "INNER JOIN TUPA TU ON D.IDTUP = TU.IDTUP\n"
+                    + "INNER JOIN LOGIN L ON D.IDLOG = L.IDLOG\n"
+                    + "INNER JOIN TRABAJADOR TR ON L.IDTRAB = TR.IDTRAB\n"
+                    + "INNER JOIN PERSONA PER ON TR.IDPER = PER.IDPER\n"
+                    + "INNER JOIN EMPRESA EMP ON D.IDEMP = EMP.IDEMP\n"
+                    + "INNER JOIN PERSONA PER2 ON D.IDPER = PER2.IDPER\n"
+                    + "WHERE  ESTDOC != 'I' ORDER BY IDDOC DESC ";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             Documento documento;
@@ -95,8 +119,10 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
                 documento = new Documento();
                 Tupa tupa = new Tupa();
                 Login login = new Login();
+                Trabajador trabajador = new  Trabajador();
                 Empresa empresa = new Empresa();
                 Persona persona = new Persona();
+                Persona persona2 = new Persona();
                 documento.setIDDOC(rs.getInt("IDDOC"));
                 documento.setCODDOC(rs.getString("CODDOC"));
                 documento.setNUMLIBDOC(rs.getString("NUMLIBDOC"));
@@ -106,16 +132,20 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
                 documento.setASUDOC(rs.getString("ASUDOC"));
                 documento.setOBSDOC(rs.getString("OBSDOC"));
                 documento.setESTDOC(rs.getString("ESTDOC"));
-                tupa.setIDTUP(rs.getInt("IDTUP"));
-                login.setIDLOG(rs.getInt("IDLOG"));
-                empresa.setIDEMP(rs.getInt("IDEMP"));
-                persona.setIDPER(rs.getInt("IDPER"));
+                tupa.setNOMTUP(rs.getString("IDTUP"));
+                persona2.setNOMPER(rs.getString("IDLOG"));
+                empresa.setRAZSOCEMP(rs.getString("IDEMP"));
+                persona.setNOMPER(rs.getString("IDPER"));
                 documento.setKEYDOC(rs.getString("KEYDOC"));
 
                 documento.setEmpresa(empresa);
                 documento.setTupa(tupa);
                 documento.setPersona(persona);
+                trabajador.setPersona(persona2);
+                login.setTrabajador(trabajador);
                 documento.setLogin(login);
+                
+               
                 listaDocumento.add(documento);
             }
         } catch (SQLException e) {
