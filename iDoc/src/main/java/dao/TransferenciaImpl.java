@@ -1,19 +1,31 @@
 package dao;
 
-
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.faces.context.FacesContext;
 import modelo.Area;
 import modelo.Documento;
 import modelo.Transferencia;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>, IReporte<Transferencia> {
-    
+
     @Override
     public void registrar(Transferencia trans) throws Exception {
         try {
@@ -32,10 +44,10 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
             this.desconectar();
         }
     }
-    
+
     @Override
     public void editar(Transferencia trans) throws Exception {
-        
+
         try {
             String sql = "UPDATE TRANSFERENCIA SET  FECSALTRAN=?, FECRECTRAN=?, OBSTRAN=?, IDDOC=?, IDARE_EMI=?, IDARE_REC=? WHERE IDTRAN LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
@@ -53,7 +65,7 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
             this.desconectar();
         }
     }
-    
+
     @Override
     public void eliminar(Transferencia trans) throws Exception {
         try {
@@ -67,13 +79,13 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
             this.desconectar();
         }
     }
-    
+
     @Override
     public List<Transferencia> listar() throws Exception {
         List<Transferencia> listaTransferencia = new ArrayList<>();
         try {
             String sql = "SELECT * FROM TRANSFERENCIA WHERE ESTTRA != 'I' ORDER BY IDTRAN DESC";
-            
+
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             Transferencia trans;
             while (rs.next()) {
@@ -94,16 +106,16 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
                 trans.setDocumento(documento);
                 listaTransferencia.add(trans);
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             this.desconectar();
         }
         return listaTransferencia;
-        
+
     }
-        
+
     @Override
     public void generarReporteIndividual(Transferencia modelo) throws Exception {
 //        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Transferencia/Transferencia.jasper"));
@@ -146,13 +158,46 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
 
     @Override
     public StreamedContent generarReporteIndividualPrev(Transferencia modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        InputStream inputStream = null;
+
+        Map parameters = new HashMap();
+
+        parameters.put("IDTRAN", modelo.getIDTRAN());
+
+        try {
+
+            ByteArrayOutputStream salida = new ByteArrayOutputStream();
+            File jasperReport = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Transferencia/Transferencia".
+                    concat(modelo.getESTTRA().equals("1") ? "A" : "R"
+                    )
+                    + ".jasper"));
+
+            JasperPrint jPrint = JasperFillManager.fillReport(jasperReport.getPath(), parameters, this.conectar());
+
+            JRExporter exporter = new net.sf.jasperreports.engine.export.JRPdfExporter();
+
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, salida);
+
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jPrint);
+
+            exporter.setParameter(JRPdfExporterParameter.PDF_JAVASCRIPT, "this.print();");
+
+            exporter.exportReport();
+
+            inputStream = new ByteArrayInputStream(salida.toByteArray());
+
+        } catch (JRException e) {
+            e.printStackTrace();
+        } finally {
+            this.desconectar();
+        }
+
+        return new DefaultStreamedContent(inputStream, "application/pdf", "Transferencia_" + modelo.getESTTRA());
     }
 
     @Override
     public StreamedContent generarReporteGeneralPrev(Transferencia modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
+
 }

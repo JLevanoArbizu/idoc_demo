@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import modelo.Transferencia;
+import org.primefaces.model.StreamedContent;
 
 @Named(value = "transferenciaC")
 @SessionScoped
@@ -19,6 +20,8 @@ public class TransferenciaC implements Serializable {
     Transferencia selectedTransferencia;
     List<Transferencia> lstTransferencia;
     TransferenciaImpl dao;
+
+    StreamedContent reporte;
 
     public TransferenciaC() {
         transferencia = new Transferencia();
@@ -57,7 +60,7 @@ public class TransferenciaC implements Serializable {
             listarTransferencia();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar"+e, null));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar" + e, null));
         }
     }
 
@@ -67,7 +70,7 @@ public class TransferenciaC implements Serializable {
             listarTransferencia();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado Correctamente", null));
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar"+e, null));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar" + e, null));
         }
     }
 
@@ -78,6 +81,14 @@ public class TransferenciaC implements Serializable {
             e.printStackTrace();
         }
     }
+
+//    public void generarReporte() throws Exception {
+//        try {
+//            reporte = dao.generarReporteIndividualPrev(transferencia);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public Transferencia getTransferencia() {
         return transferencia;
@@ -101,6 +112,30 @@ public class TransferenciaC implements Serializable {
 
     public void setLstPersona(List<Transferencia> lstTransferencia) {
         this.lstTransferencia = lstTransferencia;
+    }
+
+    public Transferencia getSelectedTransferencia() {
+        return selectedTransferencia;
+    }
+
+    public void setSelectedTransferencia(Transferencia selectedTransferencia) {
+        this.selectedTransferencia = selectedTransferencia;
+    }
+
+    public TransferenciaImpl getDao() {
+        return dao;
+    }
+
+    public void setDao(TransferenciaImpl dao) {
+        this.dao = dao;
+    }
+
+    public StreamedContent getReporte() {
+        return reporte;
+    }
+
+    public void setReporte(StreamedContent reporte) {
+        this.reporte = reporte;
     }
 
 }

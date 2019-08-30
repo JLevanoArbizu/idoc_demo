@@ -10,9 +10,9 @@
     <ui:param name="tituloPagina" value="Transferencia"/>
 
     <ui:define name="contenidoPagina">
-        
+
         <center><h5 style="color: #193a59" >REGISTRAR TRANSFERENCIA</h5></center>
-   
+
         <h:form id="FormTransferencia"> 
 
             <p:panelGrid columns="4">
@@ -117,7 +117,7 @@
                     <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.areaReceptora.IDARE}">
                         <f:selectItems value="#{areaC.lista}" var="arear" itemLabel=" #{arear.NOMARE}" itemValue="#{arear.IDARE}"/>
                     </p:selectOneMenu>
-                    
+
                     <p:outputLabel value="Fecha de entrada"/>
                     <p:inputText value="#{transferenciaC.selectedTransferncia.FECRECTRAN}" />
 
