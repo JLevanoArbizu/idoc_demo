@@ -85,7 +85,7 @@ public class TupaImpl extends Conexion implements ICrud<Tupa>, IReporte<Tupa> {
                 tupa.setNOMTUP(rs.getString("NOMTUP"));
                 tupa.setPRETUP(rs.getDouble("PRETUP"));
                 tupa.setPLATUP(rs.getString("PLATUP"));
-                area.setNOMARE(rs.getString("ARETUP"));
+                area.setNOMARE(rs.getString("IDTUP"));
                 tupa.setArea(area);
                 listaTupa.add(tupa);
             }

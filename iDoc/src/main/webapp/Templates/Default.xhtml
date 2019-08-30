@@ -236,7 +236,7 @@
             ===========================================-->
             <div class="layout-main">
                 <h:form>
-                    <p:idleMonitor timeout="60000">
+                    <p:idleMonitor timeout="999999999">
                         <p:ajax event="idle" listener="#{loginC.cerrarSesion()}" />
                     </p:idleMonitor>
                 </h:form>

@@ -125,14 +125,13 @@
 
                 <p:rowExpansion>
                     <p:panelGrid columns="4">
-
-                        <h:outputText value="N° de Libro" style="width: 80px"/>
+                        <h:outputText value="N° de Libro" />
                         <p:outputLabel value="#{documento.NUMLIBDOC}"/>
 
-                        <h:outputText value="N° de Folio" style="width: 80px"/>
+                        <h:outputText value="N° de Folio" />
                         <p:outputLabel value="#{documento.NUMFOLDOC}"/>
 
-                        <h:outputText value="Codigo de documento" style="width: 80px"/>
+                        <h:outputText value="Codigo de documento" />
                         <p:outputLabel value="#{documento.CODDOC}"/>
 
                         <h:outputText value="Observacion de documento"/>
@@ -145,16 +144,14 @@
                         <h:outputText value="#{documento.tupa.NOMTUP}"/>
 
                         <h:outputText value="Trabajador"/>
-                        <h:outputText value="#{documento.login.IDLOG}"/>
+                        <h:outputText value="#{documento.login.trabajador.persona.NOMPER}"/>
 
                         <h:outputText value="Empresa"/>
-                        <h:outputText value="#{documento.empresa.IDEMP}"/>
+                        <h:outputText value="#{documento.empresa.RAZSOCEMP}"/>
 
                         <h:outputText value="Persona"/>
-                        <h:outputText value="#{documento.persona.IDPER}"/>
+                        <h:outputText value="#{documento.persona.NOMPER}"/>
 
-                        <h:outputText value="Key"/>
-                        <h:outputText value="#{documento.KEYDOC}"/>
 
                     </p:panelGrid>
                 </p:rowExpansion>
