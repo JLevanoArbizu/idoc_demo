@@ -12,6 +12,8 @@
     <ui:define name="contenidoPagina">
         <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
         <f:event type="preRenderView" listener="#{actaC.cabecera.login.setIDLOG(loginC.loginSesion.IDLOG)}"/>
+        <h:outputScript library="js" name="websocket.js" />
+        <input id="btnNotificar" type="button" value="Notificar!" onclick="enviar();"/>
 
         <h:form id="frmRegistrarActa">
             <div class="card card-w-title ui-fluid">
