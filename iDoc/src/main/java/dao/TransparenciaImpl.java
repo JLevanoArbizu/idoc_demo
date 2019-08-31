@@ -104,8 +104,10 @@ public class TransparenciaImpl extends Conexion {
             for (Tupa tupa : listaTupa) {
                 if (tupa.getNOMTUP().toUpperCase().contains(campo)
                         || tupa.getArea().getNOMARE().toUpperCase().contains(campo)) {
+                     //MODIFIQUE area DE TUPA POR --IDARE-- (getIDARE)
                     lista.add(tupa);
                 }
+                
             }
         } catch (Exception e) {
             e.printStackTrace();

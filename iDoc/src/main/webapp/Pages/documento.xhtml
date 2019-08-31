@@ -26,20 +26,20 @@
         <h:form id="FormDocumento">
             <p:panelGrid columns="6">
 
-                <p:outputLabel value="Numero de Libro:" />
+                <h:outputText value="Numero de Libro:" />
                 <h:panelGroup styleClass="md-inputfield" style="width: 50px" >
                     <p:spinner value="#{documentoC.documento.NUMLIBDOC}" min="1"/>
 
                 </h:panelGroup>
 
 
-                <p:outputLabel value="Numero de folio:" />
+                <h:outputText value="Numero de folio:" />
                 <h:panelGroup styleClass="md-inputfield" style="width: 50px" >
                     <p:spinner value="#{documentoC.documento.NUMFOLDOC}" min="1"/>
 
                 </h:panelGroup>
 
-                <p:outputLabel value="Codigo del documento" />
+                <h:outputText value="Codigo del documento" />
                 <h:panelGroup styleClass="md-inputfield" style="width: 100px" >
                     <p:spinner value="#{documentoC.documento.CODDOC}" min="1"/>
 
@@ -51,7 +51,7 @@
 
             <p:panelGrid columns="4">
 
-                <p:outputLabel value="Tipo de documento:"/>
+                <h:outputText value="Tipo de documento:"/>
                 <p:selectOneMenu value="#{documentoC.documento.TIPDOC}">
                     <f:selectItem itemLabel="Documento interno" itemValue="I"/>
                     <f:selectItem itemLabel="Documento externo" itemValue="E"/>
@@ -60,31 +60,31 @@
                     <f:selectItem itemLabel="Original " itemValue="O"/>
                 </p:selectOneMenu>
 
-                <p:outputLabel value="Ciudadano"/>
+                <h:outputText value="Ciudadano"/>
                 <p:selectOneMenu value="#{documentoC.documento.persona.IDPER}">
                     <f:selectItems value="#{personaC.lista}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
                 </p:selectOneMenu>
 
 
 
-                <p:outputLabel value="Empresa"/>
+                <h:outputText value="Empresa"/>
                 <p:selectOneMenu value="#{documentoC.documento.empresa.IDEMP}">
                     <f:selectItems value="#{empresaC.lstEmpresa}" var="txt" itemLabel=" #{txt.RAZSOCEMP}" itemValue="#{txt.IDEMP}"/>
                 </p:selectOneMenu>
 
 
-                <p:outputLabel value="Observacion"/>
+                <h:outputText value="Observacion"/>
                 <p:inputText value="#{documentoC.documento.OBSDOC}"/>
 
 
-                <p:outputLabel value="Asunto"/>
+                <h:outputText value="Asunto"/>
                 <p:inputText value="#{documentoC.documento.ASUDOC}"/>
 
 
             </p:panelGrid>
 
             <p:panelGrid columns="2" >
-                <p:outputLabel value="Tupa" style="width: 100px"/>
+                <h:outputText value="Tupa" style="width: 100px"/>
                 <p:selectOneMenu value="#{documentoC.documento.tupa.IDTUP}">
                     <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}" />
                 </p:selectOneMenu>
@@ -123,11 +123,11 @@
 
                 <p:column headerText="Fecha de documento" style="width: 250px" >
                     <h:outputText value="#{documento.FECDOC}">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        <f:convertDateTime pattern="dd/MMM/yyyy HH:mm:ss" />
                     </h:outputText>
                 </p:column>
 
-            
+
 
                 <p:column headerText="Tipo de documento" style="width: 250px" filterBy="#{documento.TIPDOC}"  >
                     <h:outputText value="#{documento.TIPDOC eq 'I' ? 'Documento interno' :  ''}"/>
@@ -220,40 +220,56 @@
 
         <p:dialog header="ACTUALIZAR DATOS" widgetVar="dlgModDocumento" resizable="false" modal="false">
             <h:form id="FormDialogModDocumento">
-                <p:panelGrid columns="4">
-
-                    <p:outputLabel value="Numero de folio:"/>
+                <p:panelGrid columns="6">
+                    <h:outputText value="Numero de folio:"/>
                     <h:inputText value="#{documentoC.selectedDocumento.NUMFOLDOC}" />
 
-                    <p:outputLabel value="Numero de Libro:"/>
+                    <h:outputText value="Numero de Libro:"/>
                     <h:inputText value="#{documentoC.selectedDocumento.NUMLIBDOC}"  />
 
+                    <h:outputText value="Codigo"/>
+                    <h:inputText value="#{documentoC.selectedDocumento.CODDOC}"  />
 
-                    <p:outputLabel value="Fecha DOCUMENTO"/>
-                    <p:inputText value="#{documentoC.selectedDocumento.FECDOC}" />
+                </p:panelGrid>
+                <p:panelGrid columns="4">
 
 
-                    <p:outputLabel value="Observacion del documento"/>
+                    <h:outputText value="Observacion del documento"/>
                     <p:inputText value="#{documentoC.selectedDocumento.OBSDOC}"/>
 
-                    <p:outputLabel value="Tupa"/>
+
+                    <h:outputText value="Fecha de documento" />
+                    <p:outputLabel value="#{documentoC.selectedDocumento.FECDOC}" style="color: firebrick">
+                        <f:convertDateTime pattern="dd/MMM/yyyy HH:mm:ss" />
+                    </p:outputLabel>
+
+
+
+
+
+                    <h:outputText value="Tupa"/>
                     <p:selectOneMenu value="#{documentoC.selectedDocumento.tupa.IDTUP}">
-                        <f:selectItems value="#{tupaC.lstTupa}" var="tup" itemLabel=" #{tup.NOMTUP}" itemValue="#{tup.IDTUP}"/>
+                        <f:selectItems value="#{tupaC.lstTupa}" var="tup" itemLabel=" #{tup.NOMTUP}" itemValue="#{tup.IDTUP}" />
                     </p:selectOneMenu>
 
-                    <p:outputLabel value="Empresa"/>
-                    <p:selectOneMenu value="#{documentoC.selectedDocumento.empresa.IDEMP}">
-                        <f:selectItems value="#{empresaC.lstEmpresa}" var="DEMO" itemLabel=" #{DEMO.RAZSOCEMP}" itemValue="#{DEMO.IDEMP}"/>
-                    </p:selectOneMenu>
 
-                    <p:outputLabel value="cliente"/>
+                    <h:outputText value="KEY" />
+                    <p:outputLabel value="#{documentoC.selectedDocumento.KEYDOC}" style="color: firebrick"/>
+
+
+
+                    <h:outputText value="cliente"/>
                     <p:selectOneMenu value="#{documentoC.selectedDocumento.persona.IDPER}">
                         <f:selectItems value="#{personaC.lista}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
                     </p:selectOneMenu>
 
-                </p:panelGrid>
-                <p:panelGrid columns="1" >
-                    <p:outputLabel value="Asunto" />
+                    <h:outputText value="Empresa"/>
+                    <p:selectOneMenu value="#{documentoC.selectedDocumento.empresa.IDEMP}">
+                        <f:selectItems value="#{empresaC.lstEmpresa}" var="DEMO" itemLabel=" #{DEMO.RAZSOCEMP}" itemValue="#{DEMO.IDEMP}"/>
+                    </p:selectOneMenu>
+
+
+                    <h:outputText value="Asunto" />
                     <p:inputTextarea value="#{documentoC.selectedDocumento.ASUDOC}"
                                      rows="3"
                                      cols="100"
@@ -262,17 +278,23 @@
                                      counterTemplate="{0} characters remaining."
                                      autoResize="false" />
 
+                    <h:outputText value="Tipo de documento:"/>
+                    <p:selectOneMenu value="#{documentoC.selectedDocumento.TIPDOC}">
+                        <f:selectItem itemLabel="Documento interno" itemValue="I"/>
+                        <f:selectItem itemLabel="Documento externo" itemValue="E"/>
+                        <f:selectItem itemLabel="Tupa" itemValue="T"/>
+                        <f:selectItem itemLabel="Copia " itemValue="C"/>
+                        <f:selectItem itemLabel="Original " itemValue="O"/>
+                    </p:selectOneMenu>
 
-                    <p:outputLabel value="KEY" />
-                    <p:inputMask value="#{documentoC.selectedDocumento.KEYDOC}" mask="9999"/>
+                </p:panelGrid>
+                <h:outputText id="display" />
+                <p:panelGrid>
 
-
-                    <h:outputText id="display" />
                     <p:commandButton value="MODIFICAR" actionListener="#{documentoC.modificarDocumento()}" update="FormTblDocumento:tblDocumento"/>
 
                     <p:commandButton value="CANCELAR" oncomplete="PF('dlgModDocumento').hide()"/>
                 </p:panelGrid>
-
 
             </h:form>
         </p:dialog>
