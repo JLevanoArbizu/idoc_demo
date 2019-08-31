@@ -147,11 +147,12 @@
                         <p:column headerText="Tipo">
                             <p:selectOneMenu value="#{actores.TIPACT}">
                                 <f:selectItem itemLabel="Esposa" itemValue="1"/>
-                                <f:selectItem itemLabel="Declarante" itemValue="D"/>
-                                <f:selectItem itemLabel="Celebrante" itemValue="C"/>
-                                <f:selectItem itemLabel="Médico" itemValue="M"/>
-                                <f:selectItem itemLabel="Padre" itemValue="P"/>
-                                <f:selectItem itemLabel="Madre" itemValue="M"/>
+                                <f:selectItem itemLabel="Declarante" itemValue="2"/>
+                                <f:selectItem itemLabel="Padre" itemValue="3"/>
+                                <f:selectItem itemLabel="Madre" itemValue="4"/>
+                                <f:selectItem itemLabel="Celebrante" itemValue="5"/>
+                                <f:selectItem itemLabel="Médico" itemValue="6"/>
+                                
                             </p:selectOneMenu>
                         </p:column>
                     </p:dataTable>
@@ -258,7 +259,15 @@
                         <h:outputText value="#{actaDetalle.actor.DNIPER}"/>
                     </p:column>
                     <p:column headerText="Tipo">
-                        <h:outputText value="#{actaDetalle.TIPACT}"/>
+                      <f:selectItem itemLabel="" itemValue="1"/>
+                        <h:outputText value="#{
+                                             actaDetalle.TIPACT == '1' ? 'Esposa' : 
+                                             actaDetalle.TIPACT == '2' ? 'Declarante':
+                                             actaDetalle.TIPACT == '3' ? 'Padre' :
+                                              actaDetalle.TIPACT == '4' ? 'Madre' :
+                                             actaDetalle.TIPACT == '5' ? 'Celebrante' :
+                                             'Médico'
+                                             }"/>
                     </p:column>
                 </p:dataTable>
             </h:form>
