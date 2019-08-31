@@ -4,7 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import modelo.Documento;
 import modelo.Empresa;
 import modelo.Login;
@@ -19,23 +22,24 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
     @Override
     public void registrar(Documento documento) throws Exception {
         try {
-            String sql = "INSERT INTO DOCUMENTO (CODDOC,NUMLIBDOC,NUMFOLDOC,TIPDOC,FECDOC,ASUDOC,OBSDOC,IDTUP,IDLOG,IDEMP,IDPER,KEYDOC) VALUES(?,?,?,?,CONVERT(DATE,?,103),?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO DOCUMENTO (CODDOC,NUMLIBDOC,NUMFOLDOC,TIPDOC,FECDOC,ASUDOC,OBSDOC,IDTUP,IDLOG,IDEMP,IDPER,KEYDOC) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-            ps.setString(1, EncriptarS.encriptarDocumento(documento.getCODDOC()));
+            ps.setInt(1, documento.getCODDOC());
             ps.setString(2, documento.getNUMLIBDOC());
             ps.setString(3, documento.getNUMFOLDOC());
             ps.setString(4, documento.getTIPDOC());
-            ps.setDate(5, new java.sql.Date(documento.getFECDOC().getTime()));
+            ps.setTimestamp(5, new java.sql.Timestamp(new Date().getTime()));
             ps.setString(6, documento.getASUDOC());
             ps.setString(7, documento.getOBSDOC());
             ps.setInt(8, documento.getTupa().getIDTUP());
             ps.setInt(9, documento.getLogin().getIDLOG());
             ps.setInt(10, documento.getEmpresa().getIDEMP());
             ps.setInt(11, documento.getPersona().getIDPER());
-            ps.setString(12, documento.getKEYDOC());
+            ps.setString(12, EncriptarS.encriptarDocumento(String.valueOf(documento.getCODDOC())));
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            
         } finally {
             this.desconectar();
         }
@@ -46,23 +50,23 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
     public void editar(Documento documento) throws Exception {
 
         try {
-            String sql = "UPDATE DOCUMENTO SET CODDOC=?, NUMLIBDOC = ?, NUMFOLDOC=?, FECDOC=? , ASUDOC = ? , OBSDOC = ? , IDTUP = ? , IDEMP = ? , IDPER = ? , KEYDOC = ? WHERE IDDOC LIKE ?";
+            String sql = "UPDATE DOCUMENTO SET CODDOC=?, NUMLIBDOC = ?, NUMFOLDOC=?, ASUDOC = ? , OBSDOC = ? , IDTUP = ? , IDEMP = ? , IDPER = ? , KEYDOC = ? WHERE IDDOC LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
 
-            ps.setString(1, documento.getCODDOC());
+            ps.setInt(1, documento.getCODDOC());
             ps.setString(2, documento.getNUMLIBDOC());
             ps.setString(3, documento.getNUMFOLDOC());
-            ps.setDate(4, new java.sql.Date(documento.getFECDOC().getTime()));
-            ps.setString(5, documento.getASUDOC());
-            ps.setString(6, documento.getOBSDOC());
-            ps.setInt(7, documento.getTupa().getIDTUP());
-            ps.setInt(8, documento.getEmpresa().getIDEMP());
-            ps.setInt(9, documento.getPersona().getIDPER());
-            ps.setString(10, documento.getKEYDOC());
-            ps.setInt(11, documento.getIDDOC());
+            ps.setString(4, documento.getASUDOC());
+            ps.setString(5, documento.getOBSDOC());
+            ps.setInt(6, documento.getTupa().getIDTUP());
+            ps.setInt(7, documento.getEmpresa().getIDEMP());
+            ps.setInt(8, documento.getPersona().getIDPER());
+            ps.setString(9, documento.getKEYDOC());
+            ps.setInt(10, documento.getIDDOC());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            
         } finally {
             this.desconectar();
         }
@@ -82,6 +86,10 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
             this.desconectar();
         }
     }
+    
+    
+
+    
 
     @Override
     public List<Documento> listar() throws Exception {
@@ -124,11 +132,11 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
                 Persona persona = new Persona();
                 Persona persona2 = new Persona();
                 documento.setIDDOC(rs.getInt("IDDOC"));
-                documento.setCODDOC(rs.getString("CODDOC"));
+                documento.setCODDOC(rs.getInt("CODDOC"));
                 documento.setNUMLIBDOC(rs.getString("NUMLIBDOC"));
                 documento.setNUMFOLDOC(rs.getString("NUMFOLDOC"));
                 documento.setTIPDOC(rs.getString("TIPDOC"));
-                documento.setFECDOC(rs.getDate("FECDOC"));
+                documento.setFECDOC(rs.getTimestamp("FECDOC",Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
                 documento.setASUDOC(rs.getString("ASUDOC"));
                 documento.setOBSDOC(rs.getString("OBSDOC"));
                 documento.setESTDOC(rs.getString("ESTDOC"));

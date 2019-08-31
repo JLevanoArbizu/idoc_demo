@@ -24,12 +24,32 @@
         <center><h5 style="color: #193a59" >REGISTRAR DOCUMENTOS</h5></center>
 
         <h:form id="FormDocumento">
+            <p:panelGrid columns="6">
+
+                <p:outputLabel value="Numero de Libro:" />
+                <h:panelGroup styleClass="md-inputfield" style="width: 50px" >
+                    <p:spinner value="#{documentoC.documento.NUMLIBDOC}" min="1"/>
+
+                </h:panelGroup>
+
+
+                <p:outputLabel value="Numero de folio:" />
+                <h:panelGroup styleClass="md-inputfield" style="width: 50px" >
+                    <p:spinner value="#{documentoC.documento.NUMFOLDOC}" min="1"/>
+
+                </h:panelGroup>
+
+                <p:outputLabel value="Codigo del documento" />
+                <h:panelGroup styleClass="md-inputfield" style="width: 100px" >
+                    <p:spinner value="#{documentoC.documento.CODDOC}" min="1"/>
+
+                </h:panelGroup>
+
+
+            </p:panelGrid>
+
+
             <p:panelGrid columns="4">
-
-
-                <p:outputLabel value="Numero de folio:"/>
-                <h:inputText value="#{documentoC.documento.NUMFOLDOC}"/>
-
 
                 <p:outputLabel value="Tipo de documento:"/>
                 <p:selectOneMenu value="#{documentoC.documento.TIPDOC}">
@@ -40,46 +60,37 @@
                     <f:selectItem itemLabel="Original " itemValue="O"/>
                 </p:selectOneMenu>
 
+                <p:outputLabel value="Ciudadano"/>
+                <p:selectOneMenu value="#{documentoC.documento.persona.IDPER}">
+                    <f:selectItems value="#{personaC.lista}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
+                </p:selectOneMenu>
 
-                <p:outputLabel value="Fecha DOCUMENTO"/>
-                <p:calendar value="#{documentoC.documento.FECDOC}"/>
 
-
-                <p:outputLabel value="Observacion del documento"/>
-                <p:inputText value="#{documentoC.documento.OBSDOC}"/>
 
                 <p:outputLabel value="Empresa"/>
                 <p:selectOneMenu value="#{documentoC.documento.empresa.IDEMP}">
                     <f:selectItems value="#{empresaC.lstEmpresa}" var="txt" itemLabel=" #{txt.RAZSOCEMP}" itemValue="#{txt.IDEMP}"/>
                 </p:selectOneMenu>
 
-                <p:outputLabel value="Ciudadano"/>
-                <p:selectOneMenu value="#{documentoC.documento.persona.IDPER}">
-                    <f:selectItems value="#{personaC.lista}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
-                </p:selectOneMenu>
 
+                <p:outputLabel value="Observacion"/>
+                <p:inputText value="#{documentoC.documento.OBSDOC}"/>
+
+
+                <p:outputLabel value="Asunto"/>
+                <p:inputText value="#{documentoC.documento.ASUDOC}"/>
+
+
+            </p:panelGrid>
+
+            <p:panelGrid columns="2" >
                 <p:outputLabel value="Tupa" style="width: 100px"/>
                 <p:selectOneMenu value="#{documentoC.documento.tupa.IDTUP}">
                     <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}" />
                 </p:selectOneMenu>
-                <h:panelGroup styleClass="md-inputfield">
-                    <p:inputText value="#{documentoC.documento.NUMLIBDOC}" style="text-transform: uppercase"> 
-                    </p:inputText>
-                    <p:outputLabel value="Numero de Libro:" />
-                </h:panelGroup>
-
-
             </p:panelGrid>
-            <p:panelGrid columns="1" >
-                <p:outputLabel value="Asunto" />
-                <p:inputTextarea value="#{documentoC.documento.ASUDOC}"
-                                 rows="3"
-                                 cols="100"
-                                 maxlength="300"
-                                 counterTemplate="{0} characters remaining."
-                                 autoResize="false" />
 
-            </p:panelGrid>
+
 
             <p:commandButton value="REGISTRAR" actionListener="#{documentoC.registrarDocumento()}"  update="FormDocumento FormTblDocumento:tblDocumento" />
         </h:form>
@@ -111,8 +122,12 @@
                 </p:column>
 
                 <p:column headerText="Fecha de documento" style="width: 250px" >
-                    <h:outputText value="#{documento.FECDOC}"/>
+                    <h:outputText value="#{documento.FECDOC}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                    </h:outputText>
                 </p:column>
+
+            
 
                 <p:column headerText="Tipo de documento" style="width: 250px" filterBy="#{documento.TIPDOC}"  >
                     <h:outputText value="#{documento.TIPDOC eq 'I' ? 'Documento interno' :  ''}"/>
@@ -152,6 +167,9 @@
                         <h:outputText value="Persona"/>
                         <h:outputText value="#{documento.persona.NOMPER}"/>
 
+                        <h:outputText value="key"/>
+                        <h:outputText value="#{documento.KEYDOC}"/>
+
 
                     </p:panelGrid>
                 </p:rowExpansion>
@@ -162,8 +180,8 @@
             <p:contextMenu for="tblDocumento">
                 <p:menuitem value="EDITAR" oncomplete="PF('dlgModDocumento').show()" update="FormDialogModDocumento"/>                
                 <p:menuitem value="DERIVAR" oncomplete="PF('dlgTranferencia').show()" update="FormTransferencia"/>
-                <p:menuitem value="ELIMINAR" actionListener="#{documentoC.eliminarDocumento()}" update="tblDocumento">
-                    <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
+                <p:menuitem value="ELIMINAR" actionListener="#{documentoC.eliminarDocumento()}" update="FormDocumento FormTblDocumento:tblDocumento" >
+                    <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?" />
                 </p:menuitem>
             </p:contextMenu>
         </h:form>

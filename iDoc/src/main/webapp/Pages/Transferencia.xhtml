@@ -11,15 +11,15 @@
 
     <ui:define name="contenidoPagina">
 
-        <center><h5 style="color: #193a59" >REGISTRAR TRANSFERENCIA</h5></center>
+        <center><h5 style="color: #193a59" >REGISTRAR TRAZABILIDAD</h5></center>
 
         <h:form id="FormTransferencia"> 
 
             <p:panelGrid columns="4">
                 <p:outputLabel value="Fecha entrada"/>
-                <p:inputMask value="#{transferenciaC.transferencia.FECRECTRAN}" mask="99/99/9999"/>
+                <p:calendar value="#{transferenciaC.transferencia.FECRECTRAN}" mask="99/99/9999"/>
                 <p:outputLabel value="Fecha salida"/>
-                <p:inputMask value="#{transferenciaC.transferencia.FECSALTRAN}" mask="99/99/9999"/>
+                <p:calendar value="#{transferenciaC.transferencia.FECSALTRAN}" mask="99/99/9999"/>
                 <p:outputLabel value="Observación"/>
                 <p:inputText value="#{transferenciaC.transferencia.OBSTRAN}" />
 
@@ -42,7 +42,6 @@
 
 
                 <p:commandButton value="Guardar" 
-                                 oncomplete="PF('wvTblTransferencia').filter();"
                                  actionListener="#{transferenciaC.registrarTransferencia()}" 
                                  update="FormTransferencia FormTblTransferencia:tblTransferencia"/>
             </p:panelGrid>
@@ -54,7 +53,7 @@
         <!--        lista -->
 
         <h:form id="FormTblTransferencia">
-            <p:dataTable id="tblTransferencia" widgetVar="wvTblTransferencia"
+            <p:dataTable id="tblTransferencia"
                          value="#{transferenciaC.lstTransferencia}"
                          var="transferencia"
                          selection="#{transferenciaC.selectedTransferncia}"
@@ -92,9 +91,7 @@
             <p:contextMenu for="tblTransferencia">
                 <p:menuitem value="EDITAR" oncomplete="PF('dlgModTransferencia').show()" update="FormDialogModTemp"/>
                 <p:menuitem value="ELIMINAR" 
-                            oncomplete="PF('wvTblTransferencia').filter();"
-                            actionListener="{transferenciaC.eliminarTransferencia()}" 
-                            update="tblTransferencia">
+                            actionListener="#{transferenciaC.eliminarTransferencia()}"  update="FormTransferencia FormTblTransferencia:tblTransferencia">
                     <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
                 </p:menuitem>
             </p:contextMenu>
@@ -130,7 +127,7 @@
                     </p:selectOneMenu>
 
                     <p:commandButton value="MODIFICAR" actionListener="#{transferenciaC.editarTransferencia()}" 
-                                     oncomplete="PF('dlgModTransferencia').hide();PF('wvTblTransferencia').filter();"
+                                     oncomplete="PF('dlgModTransferencia').hide();"
                                      update="FormTblTransferencia:tblTransferencia" />
                     <p:commandButton value="CANCELAR" oncomplete="PF('dlgModTransferencia').hide()"/>
                 </p:panelGrid>

@@ -5,7 +5,7 @@ import java.util.Date;
 public class Documento {
 
     private int IDDOC;
-    private String CODDOC;
+    private int CODDOC;
     private String NUMLIBDOC;
     private String NUMFOLDOC;
     private String TIPDOC;
@@ -31,13 +31,14 @@ public class Documento {
         this.IDDOC = IDDOC;
     }
 
-    public String getCODDOC() {
+    public int getCODDOC() {
         return CODDOC;
     }
 
-    public void setCODDOC(String CODDOC) {
+    public void setCODDOC(int CODDOC) {
         this.CODDOC = CODDOC;
     }
+
 
     public String getNUMLIBDOC() {
         return NUMLIBDOC;
@@ -70,6 +71,10 @@ public class Documento {
     public void setFECDOC(Date FECDOC) {
         this.FECDOC = FECDOC;
     }
+
+
+
+
 
     public String getASUDOC() {
         return ASUDOC;

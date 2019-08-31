@@ -9,6 +9,7 @@ import org.primefaces.model.chart.BarChartModel;
 
 public class ActaDashboardImpl extends Conexion implements IDashboard<Dashboard> {
 
+
     @Override
     public BarChartModel generarBar(Dashboard modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
