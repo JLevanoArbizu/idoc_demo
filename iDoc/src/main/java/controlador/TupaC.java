@@ -17,16 +17,15 @@ public class TupaC implements Serializable {
 
     Tupa tupa;
     private Tupa selectedTupa;
-    private List<Tupa> lstTupa;
+    private List<Tupa> lstTupa, filtrado;
     TupaImpl dao;
 
     public TupaC() {
         tupa = new Tupa();
         lstTupa = new ArrayList<>();
+        filtrado = new ArrayList<>();
         dao = new TupaImpl();
     }
-
-
 
     @PostConstruct
     public void iniciar() {
@@ -103,6 +102,14 @@ public class TupaC implements Serializable {
 
     public void setLstTupa(List<Tupa> lstTupa) {
         this.lstTupa = lstTupa;
+    }
+
+    public List<Tupa> getFiltrado() {
+        return filtrado;
+    }
+
+    public void setFiltrado(List<Tupa> filtrado) {
+        this.filtrado = filtrado;
     }
 
 }
