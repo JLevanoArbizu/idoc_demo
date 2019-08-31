@@ -84,7 +84,20 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
     public List<Transferencia> listar() throws Exception {
         List<Transferencia> listaTransferencia = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM TRANSFERENCIA WHERE ESTTRA != 'I' ORDER BY IDTRAN DESC";
+            String sql = "SELECT\n"
+                    + "       IDTRAN,\n"
+                    + "       FECRECTRAN,\n"
+                    + "       FECSALTRAN,\n"
+                    + "       OBSTRAN,\n"
+                    + "       ESTTRA,\n"
+                    + "       D.ASUDOC AS IDDOC,\n"
+                    + "       A2.NOMARE AS IDARE_EMI,\n"
+                    + "       A.NOMARE AS IDARE_REC\n"
+                    + "FROM TRANSFERENCIA T\n"
+                    + "INNER JOIN  DOCUMENTO D on T.IDDOC = D.IDDOC\n"
+                    + "INNER JOIN AREA A ON T.IDARE_REC = A.IDARE\n"
+                    + "INNER JOIN AREA A2 on T.IDARE_EMI = A2.IDARE\n"
+                    + "WHERE ESTTRA != 'I' ORDER BY IDTRAN DESC";
 
             ResultSet rs = this.conectar().createStatement().executeQuery(sql);
             Transferencia trans;
@@ -98,12 +111,14 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
                 trans.setFECSALTRAN(rs.getDate("FECSALTRAN"));
                 trans.setOBSTRAN(rs.getString("OBSTRAN"));
                 trans.setESTTRA(rs.getString("ESTTRA"));
-                documento.setIDDOC(rs.getInt("IDDOC"));
-                areaEmisora.setIDARE(rs.getInt("IDARE_EMI"));
-                areaReceptora.setIDARE(rs.getInt("IDARE_REC"));
+                documento.setASUDOC(rs.getString("IDDOC"));
+                areaEmisora.setNOMARE(rs.getString("IDARE_EMI"));
+                areaReceptora.setNOMARE(rs.getString("IDARE_REC"));
+                
                 trans.setAreaEmisora(areaEmisora);
                 trans.setAreaReceptora(areaReceptora);
                 trans.setDocumento(documento);
+                
                 listaTransferencia.add(trans);
             }
 

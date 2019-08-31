@@ -68,13 +68,13 @@
                                     <p:outputLabel value="{transferencia.IDTRAN}"/>
                                 </p:column>-->
                 <p:column headerText="Área Emisora:">
-                    <p:outputLabel value="#{transferencia.areaEmisora.IDARE}" />
+                    <p:outputLabel value="#{transferencia.areaEmisora.NOMARE}" />
                 </p:column>
                 <p:column headerText="Fecha de salida ">
                     <p:outputLabel value="#{transferencia.FECSALTRAN}"/>
                 </p:column>
                 <p:column headerText="Área Receptora">
-                    <p:outputLabel value="#{transferencia.areaReceptora.IDARE}" />
+                    <p:outputLabel value="#{transferencia.areaReceptora.NOMARE}" />
                 </p:column>
                 <p:column headerText="Fecha de entrada"  >
                     <p:outputLabel value="#{transferencia.FECRECTRAN}"/>
@@ -86,7 +86,7 @@
                     <p:outputLabel value="#{transferencia.ESTTRA}"/>
                 </p:column>
                 <p:column headerText="Documento">
-                    <p:outputLabel value="#{transferencia.documento.IDDOC}" />
+                    <p:outputLabel value="#{transferencia.documento.ASUDOC}" />
                 </p:column>
             </p:dataTable>
             <p:contextMenu for="tblTransferencia">
