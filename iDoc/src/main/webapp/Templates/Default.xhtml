@@ -52,6 +52,7 @@
         <h:outputScript library="js" name="touchswipe.js" />   
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
         <h:outputScript library="js" name="plugins.js" />   
+        <h:outputScript library="js" name="websocket.js" />
         <!--***-->        
         <title>#{tituloPagina} - iDoc</title>
         <style type="text/css">
@@ -63,6 +64,7 @@
     <h:body class="main-body">
 
         <p:growl><p:autoUpdate/></p:growl>
+        <p:growl widgetVar="growlWV" />
 
         <div class="layout-wrapper menu-layout-static ">
             <!--==========================================

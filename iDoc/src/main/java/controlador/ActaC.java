@@ -12,6 +12,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import modelo.Acta;
 import modelo.Actor;
+import org.primefaces.PrimeFaces;
 import org.primefaces.model.StreamedContent;
 
 @Named(value = "actaC")
@@ -108,15 +109,17 @@ public class ActaC implements Serializable {
                         actor.setActa(cabecera);
                         daoDetalle.registrar(actor);
                     }
+                    String sms = "Hola";
+                    PrimeFaces.current().executeScript("enviar('" + sms + "');");
                     listar();
                     listaDetalleSeleccionado.clear();
-                    listaDetalleFiltrado.clear();
+//                    listaDetalleFiltrado.clear();
                     cabecera.clear();
-                    FacesContext.getCurrentInstance().addMessage(
-                            null,
-                            new FacesMessage("Registro Exitoso")
-                    );
-                }else{
+//                    FacesContext.getCurrentInstance().addMessage(
+//                            null,
+//                            new FacesMessage("Registro Exitoso")
+//                    );
+                } else {
                     FacesContext.getCurrentInstance().addMessage(
                             null,
                             new FacesMessage("Ya existen registros")

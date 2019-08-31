@@ -1,7 +1,9 @@
 package websockets;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -12,27 +14,42 @@ import javax.websocket.server.ServerEndpoint;
 
 @ApplicationScoped
 @ServerEndpoint("/ws/actas")
-public class ActaW{
-    
-    private Set<Session> sessions = new HashSet<>();
- 
+public class ActaW {
+
+    List<Session> sesiones = Collections.synchronizedList(new ArrayList<Session>());
+
     @OnOpen
     public void open(Session session) {
-        System.out.println("Session opened ==>");
-        sessions.add(session);
+        System.out.println("Sesion abierta");
+        sesiones.add(session);
     }
- 
+
     @OnMessage
     public void handleMessage(String message, Session session) {
-        System.out.println("Mensaje" + message);
+        System.out.println("Mensaje recibido en Java: " + message + " de " + session.getId());
+        try {
+            broadcast(session,message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
- 
+
+    public void broadcast(Session sesion, String mensaje) throws IOException {
+        try {
+            for (Session s : sesion.getOpenSessions()) {
+                s.getAsyncRemote().sendText(mensaje);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @OnClose
     public void close(Session session) {
         System.out.println("Session cerrada");
-        sessions.remove(session);
+        sesiones.remove(session);
     }
- 
+
     @OnError
     public void onError(Throwable e) {
         System.out.println(e.getMessage());

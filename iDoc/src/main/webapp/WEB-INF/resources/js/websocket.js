@@ -1,16 +1,14 @@
-var socket = new WebSocket("ws://localhost:8080/iDoc/ws/actas");
+var socket = new WebSocket("ws://localhost:45194/iDoc/ws/actas");
 
-function onMessage(event){
-    var btnNotificar = document.getElementById("btnNotificar");
-    btnNotificar.disabled = true;
-
-    var datos = JSON.parse(event.data);
-    alert(datos);
-
+function enviar(usuario) {
+    socket.send(usuario + " hizo un nuevo registro!");
 }
 
-socket.onmessage = onMessage;
-
-function enviar(){
-    socket.send("{\"start\":\"true\"}");
-}
+socket.onmessage = function (event) {
+//    let datos = JSON.parse(event.data);
+    PF('growlWV').renderMessage({
+        "summary": "Mensaje",
+        "detail": event.data,
+        "severity": "info"
+    });
+};
