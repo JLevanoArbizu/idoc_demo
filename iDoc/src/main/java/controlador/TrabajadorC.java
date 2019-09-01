@@ -55,7 +55,7 @@ public class TrabajadorC implements Serializable {
                 listar();
                 FacesContext.getCurrentInstance().addMessage(
                         null,
-                        new FacesMessage("Registro exitoso, como tu bb ;) ")
+                        new FacesMessage("Registro exitoso")
                 );
             } else {
                 FacesContext.getCurrentInstance().addMessage(

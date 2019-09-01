@@ -109,8 +109,7 @@ public class ActaC implements Serializable {
                         actor.setActa(cabecera);
                         daoDetalle.registrar(actor);
                     }
-                    String sms = "Hola";
-                    PrimeFaces.current().executeScript("enviar('" + sms + "');");
+                    PrimeFaces.current().executeScript("enviar('" + cabecera.getLogin().getTrabajador().getPersona().getNOMPER() + "');");
                     listar();
                     listaDetalleSeleccionado.clear();
 //                    listaDetalleFiltrado.clear();

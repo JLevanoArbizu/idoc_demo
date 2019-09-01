@@ -11,7 +11,7 @@
 
     <ui:define name="contenidoPagina">
         <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
-        <f:event type="preRenderView" listener="#{actaC.cabecera.login.setIDLOG(loginC.loginSesion.IDLOG)}"/>
+        <f:event type="preRenderView" listener="#{actaC.cabecera.setLogin(loginC.loginSesion)}"/>
 
         <h:form id="frmRegistrarActa">
             <div class="card card-w-title ui-fluid">

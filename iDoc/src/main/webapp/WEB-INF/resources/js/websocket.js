@@ -1,4 +1,4 @@
-var socket = new WebSocket("ws://localhost:45194/iDoc/ws/actas");
+var socket = new WebSocket('ws://'+location.hostname+(location.port ? ':'+location.port: '')+'/iDoc/ws/actas');
 
 function enviar(usuario) {
     socket.send(usuario + " hizo un nuevo registro!");
