@@ -7,11 +7,10 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:param name="tituloPagina" value="DOCUMENTO"/>
+    <ui:param name="tituloPagina" value="TRAMITE"/>
 
     <ui:define name="contenidoPagina">
         <h:head>
-            <title>Registrar Documento</title>
             <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
         </h:head>
         <f:event type="preRenderView" listener="#{documentoC.documento.setLogin(loginC.loginSesion)}"/>

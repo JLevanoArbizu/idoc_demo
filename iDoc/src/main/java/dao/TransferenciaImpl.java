@@ -8,9 +8,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import javax.faces.context.FacesContext;
 import modelo.Area;
 import modelo.Documento;
@@ -29,10 +32,10 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
     @Override
     public void registrar(Transferencia trans) throws Exception {
         try {
-            String sql = "INSERT INTO TRANSFERENCIA (FECSALTRAN,FECRECTRAN,OBSTRAN,IDDOC,IDARE_EMI,IDARE_REC) VALUES(CONVERT(DATE,?,105),CONVERT(DATE,?,105),?,?,?,?)";
+            String sql = "INSERT INTO TRANSFERENCIA (FECSALTRAN,FECRECTRAN,OBSTRAN,IDDOC,IDARE_EMI,IDARE_REC) VALUES(?,?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-            ps.setDate(1, new java.sql.Date(trans.getFECSALTRAN().getTime()));
-            ps.setDate(2, new java.sql.Date(trans.getFECRECTRAN().getTime()));
+            ps.setTimestamp(1, new java.sql.Timestamp(new Date().getTime()));
+            ps.setTimestamp(2, new java.sql.Timestamp(new Date().getTime()));
             ps.setString(3, trans.getOBSTRAN());
             ps.setInt(4, trans.getDocumento().getIDDOC());
             ps.setInt(5, trans.getAreaEmisora().getIDARE());
@@ -107,8 +110,8 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
                 Area areaReceptora = new Area();
                 Documento documento = new Documento();
                 trans.setIDTRAN(rs.getInt("IDTRAN"));
-                trans.setFECRECTRAN(rs.getDate("FECRECTRAN"));
-                trans.setFECSALTRAN(rs.getDate("FECSALTRAN"));
+                trans.setFECRECTRAN(rs.getTimestamp("FECRECTRAN",Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
+                trans.setFECSALTRAN(rs.getTimestamp("FECSALTRAN",Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
                 trans.setOBSTRAN(rs.getString("OBSTRAN"));
                 trans.setESTTRA(rs.getString("ESTTRA"));
                 documento.setASUDOC(rs.getString("IDDOC"));

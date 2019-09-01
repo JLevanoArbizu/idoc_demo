@@ -7,7 +7,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:param name="tituloPagina" value="Transferencia"/>
+    <ui:param name="tituloPagina" value="TRAZABILIDAD"/>
 
     <ui:define name="contenidoPagina">
 
@@ -16,10 +16,7 @@
         <h:form id="FormTransferencia"> 
 
             <p:panelGrid columns="4">
-                <p:outputLabel value="Fecha entrada"/>
-                <p:calendar value="#{transferenciaC.transferencia.FECRECTRAN}"/>
-                <p:outputLabel value="Fecha salida"/>
-                <p:calendar value="#{transferenciaC.transferencia.FECSALTRAN}" />
+
                 <p:outputLabel value="Observación"/>
                 <p:inputText value="#{transferenciaC.transferencia.OBSTRAN}" />
 
@@ -42,9 +39,8 @@
 
 
                 <p:commandButton value="Guardar" 
-                                 actionListener="#{transferenciaC.registrarTransferencia()}" 
-                                 update="FormTransferencia FormTblTransferencia:tblTransferencia"/>
-            </p:panelGrid>
+                                 actionListener="#{transferenciaC.registrarTransferencia()}" update="FormTransferencia  FormTblTransferencia:tblTransferencia"/>
+            </p:panelGrid>                      
         </h:form>
         <h6>
             Para editar y/o eliminar click derecho
@@ -60,24 +56,29 @@
                          selectionMode="single"
                          rowKey="#{transferencia.IDTRAN}"
                          paginator="true"
-                         rows="50"
-                         rowsPerPageTemplate="5,10,15,50"
-                         filteredValue="#{transferenciaC.lstTransferencia}" >
-                <!--                <p:column headerText="IDTRAN"  >
-                                    <p:outputLabel value="{transferencia.IDTRAN}"/>
-                                </p:column>-->
+                         rows="10"
+                         rowsPerPageTemplate="5,10,15,50" >
+
                 <p:column headerText="Área Emisora:">
                     <p:outputLabel value="#{transferencia.areaEmisora.NOMARE}" />
                 </p:column>
-                <p:column headerText="Fecha de salida ">
-                    <p:outputLabel value="#{transferencia.FECSALTRAN}"/>
+                <p:column headerText="Fecha de salida" style="width: 250px" >
+                    <h:outputText value="#{transferencia.FECSALTRAN}">
+                        <f:convertDateTime pattern="dd/MMM/yyyy HH:mm:ss" />
+                    </h:outputText>
                 </p:column>
+
+
                 <p:column headerText="Área Receptora">
                     <p:outputLabel value="#{transferencia.areaReceptora.NOMARE}" />
                 </p:column>
-                <p:column headerText="Fecha de entrada"  >
-                    <p:outputLabel value="#{transferencia.FECRECTRAN}"/>
+
+                <p:column headerText="Fecha de entrada" style="width: 250px" >
+                    <h:outputText value="#{transferencia.FECRECTRAN}">
+                        <f:convertDateTime pattern="dd/MMM/yyyy HH:mm:ss" />
+                    </h:outputText>
                 </p:column>
+
                 <p:column headerText="Observación">
                     <p:outputLabel value="#{transferencia.OBSTRAN}"/>
                 </p:column>
