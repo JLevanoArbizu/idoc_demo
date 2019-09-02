@@ -44,49 +44,56 @@
         </p:fragment>
 
 
+
+      
         <p:fragment rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'T'? true : false}">
             <div class="ui-g dashboard">
-                <div class="ui-g-12 ui-md-6 ui-lg-4">
-                    <div class="ui-g card colorbox colorbox-3">
-                        <div class="ui-g-4">
-                            <i class="material-icons">import_contacts</i>
-                        </div>
-                        <div class="ui-g-8">
-                            <span class="colorbox-name">Procedimientos Tupa</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="ui-g-12 ui-md-6 ui-lg-4">
-                    <div class="ui-g card colorbox colorbox-1">
-                        <div class="ui-g-4">
-                            <i class="material-icons">description</i>
-                        </div>
-                        <div class="ui-g-8">
-                            <span class="colorbox-name">Documentos</span>
-                        </div>
-                    </div>
-                </div>
+                <ui:repeat value="#{dashboardC.listaCantidadesDocumento}" var="cantidadesDocumento">
+                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                        <h:form>
+                            <p:outputPanel class="ui-g card colorbox ">
 
-                <div class="ui-g-12 ui-md-6 ui-lg-4">
-                    <div class="ui-g card colorbox colorbox-2">
-                        <div class="ui-g-4">
-                            <i class="material-icons">compare_arrows</i>
-                        </div>
-                        <div class="ui-g-8">
-                            <span class="colorbox-name">Transferencias</span>
-                        </div>
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                    <div class="ui-g card colorbox colorbox-1">
+                                        <div class="ui-g-5">
+                                            <i class="material-icons">description</i>
+                                        </div>
+
+                                        <div class="ui-g-7">
+                                            
+                                        <span class="colorbox-name">Documentos registrados
+                                        </span>
+                                            <span class="colorbox-name">#{cantidadesDocumento.cantidadD}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                            </p:outputPanel>
+                        </h:form>
                     </div>
-                </div>
+                </ui:repeat>
             </div>
         </p:fragment>
+        
+        
+        
+             
+
+
+
 
 
         <div class="ui-g-12 ui-md-12">
             <div class="card">
-<!--                Aquí los charts xd-->
+                <!--                Aquí los charts xd-->
             </div>
         </div>
     </ui:define>
 </ui:composition>
+
+
+
 
 

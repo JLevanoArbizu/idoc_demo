@@ -62,7 +62,7 @@
                 <p:column headerText="Área Emisora:">
                     <p:outputLabel value="#{transferencia.areaEmisora.NOMARE}" />
                 </p:column>
-                <p:column headerText="Fecha de salida" style="width: 250px" >
+                <p:column headerText="Fecha de salida" style="width: 187px" >
                     <h:outputText value="#{transferencia.FECSALTRAN}">
                         <f:convertDateTime pattern="dd/MMM/yyyy HH:mm:ss" />
                     </h:outputText>
@@ -73,7 +73,7 @@
                     <p:outputLabel value="#{transferencia.areaReceptora.NOMARE}" />
                 </p:column>
 
-                <p:column headerText="Fecha de entrada" style="width: 250px" >
+                <p:column headerText="Fecha de entrada"  style="width: 187px"  >
                     <h:outputText value="#{transferencia.FECRECTRAN}">
                         <f:convertDateTime pattern="dd/MMM/yyyy HH:mm:ss" />
                     </h:outputText>
@@ -82,9 +82,17 @@
                 <p:column headerText="Observación">
                     <p:outputLabel value="#{transferencia.OBSTRAN}"/>
                 </p:column>
-                <p:column headerText="Estado de Trámite:" >
-                    <p:outputLabel value="#{transferencia.ESTTRA}"/>
+
+
+                <p:column headerText="Estado del documento" style="width: 120px" filterBy="#{transferencia.ESTTRA}"  >
+                    <h:outputText value="#{transferencia.ESTTRA eq 'A' ? 'Activo' :  ''}"/>
+                    <h:outputText value="#{transferencia.ESTTRA eq 'P' ? 'Proceso' :  ''}"/>                    
+                    <h:outputText value="#{transferencia.ESTTRA eq 'D' ? 'Derivado' :  ''}"/> 
+                    <h:outputText value="#{transferencia.ESTTRA eq 'c' ? 'Archivado' :  ''}"/>
+                    <h:outputText value="#{transferencia.ESTTRA eq 'R' ? 'Registrado' :  ''}"/>
+                    
                 </p:column>
+
                 <p:column headerText="Documento">
                     <p:outputLabel value="#{transferencia.documento.ASUDOC}" />
                 </p:column>
