@@ -3,7 +3,9 @@ package controlador;
 import dao.DocumentoImpl;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -74,6 +76,19 @@ public class DocumentoC implements Serializable {
             lista = daoDocumento.listar();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    //DESCARGAR REPORTE DE ALUMNOS
+    public void REPORTE(int IDDOC) throws Exception {
+        DocumentoImpl report = new DocumentoImpl();
+        try {
+            Map<String, Object> parameters = new HashMap(); // Libro de parametros
+            parameters.put("IDDOC", IDDOC); //Insertamos un parametro
+            report.generarReporteIndividual(parameters); //Pido exportar Reporte con los parametros
+//            report.exportarPDF2(parameters);
+        } catch (Exception e) {
+            throw e;
         }
     }
 

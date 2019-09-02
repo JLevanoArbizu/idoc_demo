@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,13 +8,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import modelo.Documento;
 import modelo.Empresa;
 import modelo.Login;
 import modelo.Persona;
 import modelo.Trabajador;
 import modelo.Tupa;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import org.primefaces.model.StreamedContent;
 import servicios.EncriptarS;
 
@@ -39,7 +47,7 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            
+
         } finally {
             this.desconectar();
         }
@@ -66,7 +74,7 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            
+
         } finally {
             this.desconectar();
         }
@@ -86,10 +94,6 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
             this.desconectar();
         }
     }
-    
-    
-
-    
 
     @Override
     public List<Documento> listar() throws Exception {
@@ -127,7 +131,7 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
                 documento = new Documento();
                 Tupa tupa = new Tupa();
                 Login login = new Login();
-                Trabajador trabajador = new  Trabajador();
+                Trabajador trabajador = new Trabajador();
                 Empresa empresa = new Empresa();
                 Persona persona = new Persona();
                 Persona persona2 = new Persona();
@@ -136,7 +140,7 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
                 documento.setNUMLIBDOC(rs.getString("NUMLIBDOC"));
                 documento.setNUMFOLDOC(rs.getString("NUMFOLDOC"));
                 documento.setTIPDOC(rs.getString("TIPDOC"));
-                documento.setFECDOC(rs.getTimestamp("FECDOC",Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
+                documento.setFECDOC(rs.getTimestamp("FECDOC", Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
                 documento.setASUDOC(rs.getString("ASUDOC"));
                 documento.setOBSDOC(rs.getString("OBSDOC"));
                 documento.setESTDOC(rs.getString("ESTDOC"));
@@ -152,8 +156,7 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
                 trabajador.setPersona(persona2);
                 login.setTrabajador(trabajador);
                 documento.setLogin(login);
-                
-               
+
                 listaDocumento.add(documento);
             }
         } catch (SQLException e) {
@@ -164,18 +167,17 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
         return listaDocumento;
     }
 
-    @Override
-    public void generarReporteIndividual(Documento modelo) throws Exception {
-//        conectar();
-//        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Documento/Documento.jasper"));
-//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
-//        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-//        response.addHeader("Content-disposition", "attachment; filename=Documento.pdf");
-//        try (ServletOutputStream stream = response.getOutputStream()) {
-//            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
-//            stream.flush();
-//        }
-//        FacesContext.getCurrentInstance().responseComplete();
+    public void generarReporteIndividual(Map parameters) throws Exception {
+        conectar();
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Documento/Documento.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=Documento.pdf");
+        try (ServletOutputStream stream = response.getOutputStream()) {
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            stream.flush();
+        }
+        FacesContext.getCurrentInstance().responseComplete();
     }
 
     @Override
@@ -200,6 +202,11 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
 
     @Override
     public List<Documento> listar(Documento modelo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void generarReporteIndividual(Documento modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
