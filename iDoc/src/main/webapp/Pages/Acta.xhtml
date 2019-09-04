@@ -152,7 +152,7 @@
                                 <f:selectItem itemLabel="Madre" itemValue="4"/>
                                 <f:selectItem itemLabel="Celebrante" itemValue="5"/>
                                 <f:selectItem itemLabel="Médico" itemValue="6"/>
-                                
+
                             </p:selectOneMenu>
                         </p:column>
                     </p:dataTable>
@@ -226,7 +226,10 @@
                             <p:menuitem icon="ui-icon-pencil" update="tblActa"
                                         value="Modificar"/>
                             <p:menuitem icon="ui-icon-trash" update="tblActa"
-                                        value="Eliminar"/>
+                                        value="Eliminar">
+                                <f:setPropertyActionListener value="#{cabecera}" target="#{actaC.cabeceraSeleccionado}"/>
+                                <f:actionListener binding="#{actaC.eliminar()}"/>
+                            </p:menuitem>
                             <p:menuitem icon="ui-icon-print" value="Reporte" update=":frmReporte">
                                 <f:setPropertyActionListener value="#{cabecera}" target="#{actaC.cabeceraSeleccionado}"/>
                                 <f:actionListener binding="#{actaC.generarReporte()}"/>
@@ -260,12 +263,12 @@
                     </p:column>
                     <p:column headerText="Tipo">
                         <h:outputText value="#{
-                                             actaDetalle.TIPACT == '1' ? 'Esposa' : 
-                                             actaDetalle.TIPACT == '2' ? 'Declarante':
-                                             actaDetalle.TIPACT == '3' ? 'Padre' :
-                                              actaDetalle.TIPACT == '4' ? 'Madre' :
-                                             actaDetalle.TIPACT == '5' ? 'Celebrante' :
-                                             'Médico'
+                                      actaDetalle.TIPACT == '1' ? 'Esposa' : 
+                                          actaDetalle.TIPACT == '2' ? 'Declarante':
+                                          actaDetalle.TIPACT == '3' ? 'Padre' :
+                                          actaDetalle.TIPACT == '4' ? 'Madre' :
+                                          actaDetalle.TIPACT == '5' ? 'Celebrante' :
+                                          'Médico'
                                              }"/>
                     </p:column>
                 </p:dataTable>

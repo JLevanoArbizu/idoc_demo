@@ -12,7 +12,7 @@
     <ui:define name="contenidoPagina">
 
         <center>
-            <h5 style="color: #193a59" >REGISTRAR PROCEDIMIENTO T.U.P.A</h5>
+            <h5 style="color: #193a59" >Registrar procedimiento T.U.P.A</h5>
         </center>
         <h:form id="FormTupa"> 
             <p:panelGrid columns="4">
@@ -25,7 +25,7 @@
                 <p:outputLabel value="Plazo del Tupa"/>
                 <p:inputText value="#{tupaC.tupa.PLATUP}" placeholder="Plazo del Tupa" />
                 <p:outputLabel value="Área responsable del Trámite:"/>
-                
+
                 <p:selectOneMenu value="#{tupaC.tupa.area.IDARE}">
                     <f:selectItems value="#{areaC.lista}" var="area" itemLabel="#{area.NOMARE}" itemValue="#{area.IDARE}"/>
                 </p:selectOneMenu>
@@ -53,19 +53,19 @@
 
 
                 <p:column headerText="Número del Tupa" filterBy="#{tupa.NUMTUP}" filterMatchMode="contains"  style="width: 80PX">
-                    <p:outputLabel value="#{'N° '}#{tupa.NUMTUP}"/>
+                    <h:outputText value="#{'N° '}#{tupa.NUMTUP}"/>
                 </p:column>
                 <p:column headerText="Nombre del Tupa" filterBy="#{tupa.NOMTUP}" filterMatchMode="contains" style="width: 300px">
-                    <p:outputLabel value="#{tupa.NOMTUP}"/>
+                    <h:outputText value="#{tupa.NOMTUP}"/>
                 </p:column>
                 <p:column headerText="Área responsable del Trámite" style="width: 300px">
-                    <p:outputLabel value="#{tupa.area.IDARE}"/>
+                    <h:outputText value="#{tupa.area.NOMARE}"/>
                 </p:column>
                 <p:column headerText="Plazo del Tupa" style="width: 100px">
-                    <p:outputLabel value="#{tupa.PLATUP} #{' dias'}"/>
+                    <h:outputText value="#{tupa.PLATUP} #{' dias'}"/>
                 </p:column>
                 <p:column headerText="Precio del Tupa" style="width: 100px">
-                    <p:outputLabel value="#{'S/ '}#{tupa.PRETUP}" />
+                    <h:outputText value="#{'S/ '}#{tupa.PRETUP}" />
                 </p:column>
 
             </p:dataTable>
@@ -97,7 +97,9 @@
                     <p:outputLabel value="plazo tupa:"/>
                     <p:inputText value="#{tupaC.selectedTupa.PLATUP}" placeholder="Plazo tupa"/>
                     <p:outputLabel value="area tupa:"/>
-                    <p:inputText value="#{tupaC.selectedTupa.area.IDARE}" placeholder="area tupa" maxlength="50"/>
+                    <p:selectOneMenu value="#{tupaC.selectedTupa.area.IDARE}">
+                        <f:selectItems value="#{areaC.lista}" var="area" itemLabel="#{area.NOMARE}" itemValue="#{area.IDARE}"/>
+                    </p:selectOneMenu>
 
                     <p:commandButton value="MODIFICAR" 
                                      actionListener="#{tupaC.editarTupa()}" 

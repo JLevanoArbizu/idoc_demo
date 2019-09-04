@@ -93,7 +93,7 @@ public class TransparenciaImpl extends Conexion {
 
     public List<Tupa> listarTupa() throws Exception {
         TupaImpl daoTupa = new TupaImpl();
-        List<Tupa> lista = new ArrayList<>();
+        List<Tupa> lista;
         lista = daoTupa.listar();
         return lista;
     }

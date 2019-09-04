@@ -11,7 +11,11 @@
 
     <ui:define name="contenidoPagina">
         <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
-
+        
+        <center>
+            <h5 style="color: #193a59" >Registrar Tipo de Incidencia</h5>
+        </center>
+        
         <h:form id="frmRegistrarIncidenciaTipo">
             <p:growl life="1000"/>
             <p:panelGrid columns="2" layout="tabular">

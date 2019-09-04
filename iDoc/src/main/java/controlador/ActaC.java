@@ -130,6 +130,19 @@ public class ActaC implements Serializable {
             e.printStackTrace();
         }
     }
+    
+    public void eliminar() throws Exception{
+        try {
+            daoActa.eliminar(cabeceraSeleccionado);
+            listar();
+            FacesContext.getCurrentInstance().addMessage(
+                            null,
+                            new FacesMessage("Eliminado correctamente")
+                    );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void generarReporte() throws Exception {
         try {

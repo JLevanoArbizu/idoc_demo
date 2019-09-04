@@ -7,19 +7,13 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:param name="tituloPagina" value="empresa"/>
+    <ui:param name="tituloPagina" value="Empresa"/>
 
     <ui:define name="contenidoPagina">
-
-
-        <h:head>
-            <title>Empresa</title>
-            <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
-        </h:head>
-
+        <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
 
         <center>
-            <h5 style="color: #193a59" >REGISTRAR EMPRESA</h5>
+            <h5 style="color: #193a59" >Registrar Empresa</h5>
         </center>
         <h:form id="FormEmpresa">
             <p:panelGrid columns="2">
@@ -59,7 +53,7 @@
                 <p:column headerText="Dirección de la empresa">
                     <p:outputLabel value="#{empresa.DIREMP}"/>
                 </p:column>
-        
+
             </p:dataTable>
 
             <p:contextMenu for="tblEmpresa">
@@ -75,7 +69,7 @@
                 <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no"/>
             </p:confirmDialog>
         </h:form>
- <!--editar-->
+        <!--editar-->
         <p:dialog header="ACTUALIZAR DATOS" widgetVar="dlgModEmpresa" resizable="false" modal="false" responsive="true" draggable="false">
             <h:form id="FormDialogModEmp">
                 <p:panelGrid columns="2">
@@ -87,10 +81,10 @@
                     <p:inputText value="#{empresaC.selectedEmpresa.RUCEMP}" placeholder="RUC" maxlength="11">
                         <p:keyFilter regEx="/[0-9]/"/>
                     </p:inputText>
-                                                   
+
                     <p:commandButton value="MODIFICAR" actionListener="#{empresaC.editarEmpresa()}" oncomplete="PF('dlgModEmpresa').hide()" update="FormTblEmpresa:tblEmpresa" />
                     <p:commandButton value="CANCELAR" oncomplete="PF('dlgModEmpresa').hide()"/>
-                    
+
                 </p:panelGrid>
             </h:form>
         </p:dialog>

@@ -32,6 +32,7 @@ public class TupaC implements Serializable {
         try {
             listarTupa();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

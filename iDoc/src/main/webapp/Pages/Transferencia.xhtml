@@ -7,11 +7,11 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:param name="tituloPagina" value="TRAZABILIDAD"/>
+    <ui:param name="tituloPagina" value="Trazabilidad"/>
 
     <ui:define name="contenidoPagina">
 
-        <center><h5 style="color: #193a59" >REGISTRAR TRAZABILIDAD</h5></center>
+        <center><h5 style="color: #193a59" >Registrar Trazabilidad</h5></center>
 
         <h:form id="FormTransferencia"> 
 
@@ -60,7 +60,7 @@
                          rowsPerPageTemplate="5,10,15,50" >
 
                 <p:column headerText="Área Emisora:">
-                    <p:outputLabel value="#{transferencia.areaEmisora.NOMARE}" />
+                    <h:outputText value="#{transferencia.areaEmisora.NOMARE}" />
                 </p:column>
                 <p:column headerText="Fecha de salida" style="width: 187px" >
                     <h:outputText value="#{transferencia.FECSALTRAN}">
@@ -70,7 +70,7 @@
 
 
                 <p:column headerText="Área Receptora">
-                    <p:outputLabel value="#{transferencia.areaReceptora.NOMARE}" />
+                    <h:outputText value="#{transferencia.areaReceptora.NOMARE}" />
                 </p:column>
 
                 <p:column headerText="Fecha de entrada"  style="width: 187px"  >
@@ -80,7 +80,7 @@
                 </p:column>
 
                 <p:column headerText="Observación">
-                    <p:outputLabel value="#{transferencia.OBSTRAN}"/>
+                    <h:outputText value="#{transferencia.OBSTRAN}"/>
                 </p:column>
 
 
@@ -94,7 +94,7 @@
                 </p:column>
 
                 <p:column headerText="Documento">
-                    <p:outputLabel value="#{transferencia.documento.ASUDOC}" />
+                    <h:outputText value="#{transferencia.documento.ASUDOC}" />
                 </p:column>
             </p:dataTable>
             <p:contextMenu for="tblTransferencia">

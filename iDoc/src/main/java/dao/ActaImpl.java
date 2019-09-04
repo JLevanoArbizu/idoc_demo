@@ -73,7 +73,7 @@ public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
                     + "WHERE IDACTA=? ";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, "I");
-            ps.setInt(2, Integer.valueOf(modelo.getIDACTA()));
+            ps.setInt(2, modelo.getIDACTA());
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
