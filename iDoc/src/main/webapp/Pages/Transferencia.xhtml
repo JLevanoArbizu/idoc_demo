@@ -98,8 +98,9 @@
                 </p:column>
             </p:dataTable>
             <p:contextMenu for="tblTransferencia">
-                <p:menuitem value="EDITAR" oncomplete="PF('dlgModTransferencia').show()" update="FormDialogModTemp"/>
-                <p:menuitem value="ELIMINAR" 
+                <p:menuitem value="Editar" icon="ui-icon-pencil"
+                            oncomplete="PF('dlgModTransferencia').show()" update="FormDialogModTemp"/>
+                <p:menuitem value="Eliminar" icon="ui-icon-trash"
                             actionListener="#{transferenciaC.eliminarTransferencia()}"  update="FormTransferencia FormTblTransferencia:tblTransferencia">
                     <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
                 </p:menuitem>

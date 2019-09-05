@@ -70,10 +70,11 @@
 
             </p:dataTable>
             <p:contextMenu for="tblTupa">
-                <p:menuitem value="EDITAR" 
+                <p:menuitem value="Editar" icon="ui-icon-pencil"
                             oncomplete="PF('dlgModTupa').show();PF('wvTblTupa').filter();" 
                             update="FormDialogModTup"/>
-                <p:menuitem value="ELIMINAR" actionListener="#{tupaC.eliminarTupa()}" update="tblTupa">
+                <p:menuitem value="Eliminar" icon="ui-icon-trash"
+                            actionListener="#{tupaC.eliminarTupa()}" update="tblTupa">
                     <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
                 </p:menuitem>
             </p:contextMenu>

@@ -45,20 +45,22 @@
                          rows="15"
                          rowsPerPageTemplate="5,10,15">
                 <p:column headerText="Razón Social">
-                    <p:outputLabel value="#{empresa.RAZSOCEMP}"/>
+                    <h:outputText value="#{empresa.RAZSOCEMP}"/>
                 </p:column>
                 <p:column headerText="RUC">
-                    <p:outputLabel value="#{empresa.RUCEMP}"/>
+                    <h:outputText value="#{empresa.RUCEMP}"/>
                 </p:column>
                 <p:column headerText="Dirección de la empresa">
-                    <p:outputLabel value="#{empresa.DIREMP}"/>
+                    <h:outputText value="#{empresa.DIREMP}"/>
                 </p:column>
 
             </p:dataTable>
 
             <p:contextMenu for="tblEmpresa">
-                <p:menuitem value="EDITAR" oncomplete="PF('dlgModEmpresa').show()" update="FormDialogModEmp"/>
-                <p:menuitem value="ELIMINAR" actionListener="#{empresaC.eliminarEmpresa()}" update="tblEmpresa">
+                <p:menuitem value="Editar" icon="ui-icon-pencil"
+                            oncomplete="PF('dlgModEmpresa').show()" update="FormDialogModEmp"/>
+                <p:menuitem value="Eliminar" icon="ui-icon-trash"
+                            actionListener="#{empresaC.eliminarEmpresa()}" update="tblEmpresa">
                     <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
                 </p:menuitem>
             </p:contextMenu>

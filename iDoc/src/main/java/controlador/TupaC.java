@@ -16,14 +16,15 @@ import modelo.Tupa;
 public class TupaC implements Serializable {
 
     Tupa tupa;
-    private Tupa selectedTupa;
-    private List<Tupa> lstTupa, filtrado;
+    Tupa selectedTupa;
+    List<Tupa> lstTupa, filtrado;
     TupaImpl dao;
 
     public TupaC() {
         tupa = new Tupa();
         lstTupa = new ArrayList<>();
         filtrado = new ArrayList<>();
+        selectedTupa = new Tupa();
         dao = new TupaImpl();
     }
 
