@@ -18,9 +18,9 @@ import modelo.Documento;
 public class DocumentoC implements Serializable {
 
     Documento documento;
-    private Documento selectedDocumento;
-    private List<Documento> lista;
-    private DocumentoImpl daoDocumento;
+    Documento selectedDocumento;
+    List<Documento> lista, listaFiltrado;
+    DocumentoImpl daoDocumento;
 
     public DocumentoC() {
         documento = new Documento();
@@ -56,6 +56,7 @@ public class DocumentoC implements Serializable {
             daoDocumento.editar(selectedDocumento);
             listarDocumento();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
+            documento.clear();
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar" + e, null));
         }
@@ -114,5 +115,21 @@ public class DocumentoC implements Serializable {
 
     public void setLstdocumento(List<Documento> lista) {
         this.lista = lista;
+    }
+
+    public List<Documento> getLista() {
+        return lista;
+    }
+
+    public void setLista(List<Documento> lista) {
+        this.lista = lista;
+    }
+
+    public List<Documento> getListaFiltrado() {
+        return listaFiltrado;
+    }
+
+    public void setListaFiltrado(List<Documento> listaFiltrado) {
+        this.listaFiltrado = listaFiltrado;
     }
 }

@@ -51,7 +51,8 @@
             <p:panelGrid columns="4">
 
                 <h:outputText value="Tipo de documento:"/>
-                <p:selectOneMenu value="#{documentoC.documento.TIPDOC}">
+                <p:selectOneMenu value="#{documentoC.documento.TIPDOC}"
+                                 filter="true" filterMatchMode="contains">
                     <f:selectItem itemLabel="Documento interno" itemValue="I"/>
                     <f:selectItem itemLabel="Documento externo" itemValue="E"/>
                     <f:selectItem itemLabel="Tupa" itemValue="T"/>
@@ -59,15 +60,18 @@
                     <f:selectItem itemLabel="Original " itemValue="O"/>
                 </p:selectOneMenu>
 
+
                 <h:outputText value="Ciudadano"/>
-                <p:selectOneMenu value="#{documentoC.documento.persona.IDPER}">
+                <p:selectOneMenu value="#{documentoC.documento.persona.IDPER}"
+                                 filter="true" filterMatchMode="contains">
                     <f:selectItems value="#{personaC.lista}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
                 </p:selectOneMenu>
 
 
 
                 <h:outputText value="Empresa"/>
-                <p:selectOneMenu value="#{documentoC.documento.empresa.IDEMP}">
+                <p:selectOneMenu value="#{documentoC.documento.empresa.IDEMP}"
+                                 filter="true" filterMatchMode="contains">
                     <f:selectItems value="#{empresaC.lstEmpresa}" var="txt" itemLabel=" #{txt.RAZSOCEMP}" itemValue="#{txt.IDEMP}"/>
                 </p:selectOneMenu>
 
@@ -83,8 +87,9 @@
             </p:panelGrid>
 
             <p:panelGrid columns="2" >
-                <h:outputText value="Tupa" style="width: 100px"/>
-                <p:selectOneMenu value="#{documentoC.documento.tupa.IDTUP}">
+                <h:outputText value="Tupa" style="width: 100px" />
+                <p:selectOneMenu value="#{documentoC.documento.tupa.IDTUP}" 
+                                 >
                     <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}" />
                 </p:selectOneMenu>
             </p:panelGrid>
@@ -104,6 +109,7 @@
                          selectionMode="single"
                          rowKey="#{documento.IDDOC}"
                          paginator="true"
+                         filteredValue="#{documentoC.listaFiltrado}"
                          rows="10"
                          rowsPerPageTemplate="5,10,15">
 
@@ -127,26 +133,32 @@
                 </p:column>
 
 
-
-                <p:column headerText="Tipo de documento" style="width: 250px" filterBy="#{documento.TIPDOC}"  >
-                    <h:outputText value="#{documento.TIPDOC eq 'I' ? 'Documento interno' :  ''}"/>
-                    <h:outputText value="#{documento.TIPDOC eq 'E' ? 'Documento externo' :  ''}"/>
-                    <h:outputText value="#{documento.TIPDOC eq 'T' ? 'Tupa' :  ''}"/>
-                    <h:outputText value="#{documento.TIPDOC eq 'C' ? 'Copia' :  ''}"/>
-                    <h:outputText value="#{documento.TIPDOC eq 'O' ? 'Original' :  ''}"/>
-                    <h:outputText value="#{documento.TIPDOC eq 'D' ? 'Documento' :  ''}"/>
+                <p:column headerText="Codigo de documento" style="width: 250px" filterBy="#{documento.CODDOC}"  
+                          filterMatchMode="exact">
+                    <h:outputText value="#{documento.CODDOC}"/>
                 </p:column>
+
 
                 <p:rowExpansion>
                     <p:panelGrid columns="4">
                         <h:outputText value="N° de Libro" />
-                        <p:outputLabel value="#{documento.NUMLIBDOC}"/>
+                        <h:outputText value="#{documento.NUMLIBDOC}"/>
 
                         <h:outputText value="N° de Folio" />
-                        <p:outputLabel value="#{documento.NUMFOLDOC}"/>
+                        <h:outputText value="#{documento.NUMFOLDOC}"/>
 
                         <h:outputText value="Codigo de documento" />
-                        <p:outputLabel value="#{documento.CODDOC}"/>
+                        <h:outputText value="#{documento.CODDOC}"/>
+
+                        <h:outputText value="Tipo de Documento" />
+                        <p:outputLabel style="color:#000 " >
+                            <h:outputText value="#{documento.TIPDOC eq 'E' ? 'Documento Externo' :  ''}"/>
+                            <h:outputText value="#{documento.TIPDOC eq 'I' ? 'Documento Interno' :  ''}"/>                    
+                            <h:outputText value="#{documento.TIPDOC eq 'D' ? 'Derivado' :  ''}"/> 
+                            <h:outputText value="#{documento.TIPDOC eq 'c' ? 'Archivado' :  ''}"/>
+                            <h:outputText value="#{documento.TIPDOC eq 'R' ? 'Registrado' :  ''}"/>
+
+                        </p:outputLabel>
 
                         <h:outputText value="Observacion de documento"/>
                         <h:outputText value="#{documento.OBSDOC}"/>

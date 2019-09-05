@@ -21,19 +21,25 @@
                 <p:inputText value="#{transferenciaC.transferencia.OBSTRAN}" />
 
                 <p:outputLabel value="Documento"/>
-                <p:selectOneMenu value="#{transferenciaC.transferencia.documento.IDDOC}">
+                <p:selectOneMenu value="#{transferenciaC.transferencia.documento.IDDOC}"
+                                 
+                                filter="true" filterMatchMode="contains">
                     <f:selectItems value="#{documentoC.lstdocumento}" var="txtdocumento" itemLabel=" #{txtdocumento.ASUDOC}" itemValue="#{txtdocumento.IDDOC}"/>
                 </p:selectOneMenu>
 
 
                 <p:outputLabel value="area Emitida"/>
-                <p:selectOneMenu value="#{transferenciaC.transferencia.areaEmisora.IDARE}">
+                <p:selectOneMenu value="#{transferenciaC.transferencia.areaEmisora.IDARE}"
+                                 
+                                filter="true" filterMatchMode="contains">
                     <f:selectItems value="#{areaC.lista}" var="txtarea1" itemLabel=" #{txtarea1.NOMARE}" itemValue="#{txtarea1.IDARE}"/>
                 </p:selectOneMenu>
 
 
                 <p:outputLabel value="area Recibida"/>
-                <p:selectOneMenu value="#{transferenciaC.transferencia.areaReceptora.IDARE}">
+                <p:selectOneMenu value="#{transferenciaC.transferencia.areaReceptora.IDARE}"
+                                 
+                                filter="true" filterMatchMode="contains">
                     <f:selectItems value="#{areaC.lista}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" itemValue="#{txtarea.IDARE}"/>
                 </p:selectOneMenu>
 
@@ -84,7 +90,7 @@
                 </p:column>
 
 
-                <p:column headerText="Estado del documento" style="width: 120px" filterBy="#{transferencia.ESTTRA}"  >
+                <p:column headerText="Estado del documento" style="width: 120px" sortBy="#{transferencia.ESTTRA}" >
                     <h:outputText value="#{transferencia.ESTTRA eq 'A' ? 'Activo' :  ''}"/>
                     <h:outputText value="#{transferencia.ESTTRA eq 'P' ? 'Proceso' :  ''}"/>                    
                     <h:outputText value="#{transferencia.ESTTRA eq 'D' ? 'Derivado' :  ''}"/> 
@@ -113,7 +119,9 @@
 
 
                     <p:outputLabel value="Área Emisora:"/>
-                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.areaEmisora.IDARE}" >
+                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.areaEmisora.IDARE}"
+                                     
+                                filter="true" filterMatchMode="contains">
                         <f:selectItems value="#{areaC.lista}" var="areae" itemLabel=" #{areae.NOMARE}" itemValue="#{areae.IDARE}"/>
                     </p:selectOneMenu>
 
@@ -121,7 +129,9 @@
                     <p:inputText value="#{transferenciaC.selectedTransferncia.FECSALTRAN}" />
 
                     <p:outputLabel value="Área Receptora"/>
-                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.areaReceptora.IDARE}">
+                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.areaReceptora.IDARE}"
+                                     
+                                filter="true" filterMatchMode="contains">
                         <f:selectItems value="#{areaC.lista}" var="arear" itemLabel=" #{arear.NOMARE}" itemValue="#{arear.IDARE}"/>
                     </p:selectOneMenu>
 
@@ -132,7 +142,8 @@
                     <p:inputText value="#{transferenciaC.selectedTransferncia.OBSTRAN}" />
 
                     <p:outputLabel value="Documento"/>
-                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.documento.IDDOC}">
+                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.documento.IDDOC}"
+                                     filter="true" filterMatchMode="contains">
                         <f:selectItems value="#{documentoC.lstdocumento}" var="documen" itemLabel=" #{documen.ASUDOC}"  itemValue="#{documen.IDDOC}" />
                     </p:selectOneMenu>
 

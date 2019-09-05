@@ -23,7 +23,6 @@ public class TupaC implements Serializable {
     public TupaC() {
         tupa = new Tupa();
         lstTupa = new ArrayList<>();
-        filtrado = new ArrayList<>();
         selectedTupa = new Tupa();
         dao = new TupaImpl();
     }
