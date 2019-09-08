@@ -89,7 +89,7 @@
                                         <p:inputText value="#{transparenciaC.transparencia.coddoc}" required="true"
                                                      maxlength="10" 
                                                      onkeypress="if (event.which&lt; 48 || event.which&gt; 57) return false;" requiredMessage="Ingrese el Número del Documento"/>
-                                        <p:outputLabel value="Número del Documento" for="@previous"/>
+                                        <p:outputLabel value="Código del Documento" for="@previous"/>
                                     </h:panelGroup>
                                 </div>
                                 <div class="ui-g-1 ui-m-1">
@@ -99,7 +99,7 @@
                                                      requiredMessage="Ingrese su Código por favor.">
                                             <p:keyFilter regEx='/[\a-z ]/i'/>
                                         </p:inputText>
-                                        <p:outputLabel value="Código" for="@previous"/>
+                                        <p:outputLabel value="Key" for="@previous"/>
                                     </h:panelGroup>
                                 </div>
                             </div>
@@ -115,13 +115,17 @@
                 <h:form id="frmDatosSolicitante">
                     <p:tabView>
                         <p:tab title="Persona">
-                            <h:panelGrid columns="2">
+                            <h:panelGrid columns="4">
                                 <p:outputLabel value="Apellidos y Nombres"/>
                                 <h:outputText value="#{transparenciaC.persona.APEPATPER} 
                                               #{transparenciaC.persona.APEMATPER}, 
                                               #{transparenciaC.persona.NOMPER}"/>
                                 <p:outputLabel value="DNI"/>
                                 <h:outputText value="#{transparenciaC.persona.DNIPER}"/>
+                                <p:outputLabel value="Celular"/>
+                                <h:outputText value="#{transparenciaC.persona.CELPER}"/>
+                                <p:outputLabel value="Correo"/>
+                                <h:outputText value="#{transparenciaC.persona.CORPER}"/>
                             </h:panelGrid>
                         </p:tab>
                         <p:tab title="Empresa" 

@@ -6,7 +6,8 @@ public class Persona {
 
     private int IDPER;
     private String APEPATPER, APEMATPER, NOMPER,
-            DNIPER, DIRPER, NACPER, GENPER, ESTPER;
+            DNIPER, DIRPER, NACPER, GENPER, ESTPER,
+            CORPER, CELPER;
     private Ubigeo ubigeo = new Ubigeo();
 
     public void clear() {
@@ -19,6 +20,8 @@ public class Persona {
         this.NACPER = null;
         this.GENPER = null;
         this.ESTPER = null;
+        this.CORPER = null;
+        this.CELPER = null;
         this.ubigeo.clear();
     }
 
@@ -125,6 +128,22 @@ public class Persona {
 
     public void setESTPER(String ESTPER) {
         this.ESTPER = ESTPER;
+    }
+
+    public String getCORPER() {
+        return CORPER;
+    }
+
+    public void setCORPER(String CORPER) {
+        this.CORPER = CORPER;
+    }
+
+    public String getCELPER() {
+        return CELPER;
+    }
+
+    public void setCELPER(String CELPER) {
+        this.CELPER = CELPER;
     }
 
 }

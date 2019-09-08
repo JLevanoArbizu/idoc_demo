@@ -18,7 +18,7 @@ public class TransparenciaImpl extends Conexion {
                     + "       empresa.RAZSOCEMP, empresa.RUCEMP, "
                     + "     trans.FECRECTRAN as fechaRec, "
                     + "     trans.FECSALTRAN as fechaSal,"
-                    + "trans.ESTTRA, trans.OBSTRAN "
+                    + "trans.ESTTRA, trans.OBSTRAN,persona.CELPER,persona.CORPER "
                     + "       FROM DOCUMENTO doc "
                     + "    INNER JOIN EMPRESA empresa "
                     + "        ON doc.IDEMP = empresa.IDEMP "
@@ -72,6 +72,9 @@ public class TransparenciaImpl extends Conexion {
 
                 transferencia.setOBSTRAN(rs.getString(16));
 
+                persona.setCELPER(rs.getString(17));
+                persona.setCORPER(rs.getString(18));
+
                 transparencia.setDocumento(documento);
                 transparencia.setTransferencia(transferencia);
                 transparencia.setEmpresa(empresa);
@@ -104,10 +107,10 @@ public class TransparenciaImpl extends Conexion {
             for (Tupa tupa : listaTupa) {
                 if (tupa.getNOMTUP().toUpperCase().contains(campo)
                         || tupa.getArea().getNOMARE().toUpperCase().contains(campo)) {
-                     //MODIFIQUE area DE TUPA POR --IDARE-- (getIDARE)
+                    //MODIFIQUE area DE TUPA POR --IDARE-- (getIDARE)
                     lista.add(tupa);
                 }
-                
+
             }
         } catch (Exception e) {
             e.printStackTrace();

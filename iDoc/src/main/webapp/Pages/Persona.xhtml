@@ -79,6 +79,23 @@
                         </h:panelGroup>
                     </div>
                     <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:inputMask value="#{personaC.persona.CELPER}" mask="999999999"
+                                             id="celper" maxlength="9" />
+                                <p:outputLabel value="Celular" for="@previous"/>
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g-6">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:inputText value="#{personaC.persona.CORPER}" requiredMessage="Direccion Requerida."
+                                             id="corper" maxlength="50" />
+                                <p:outputLabel value="Correo" for="@previous"/>
+                            </h:panelGroup>
+                        </div>
+
+                    </div>
+                    <div class="ui-g-12">
                         <h:panelGroup styleClass="mdl-button">
                             <p:outputLabel value="Sexo"/>
                             <p:selectOneRadio value="#{personaC.persona.GENPER}" requiredMessage="Seleccione un Sexo."
@@ -150,9 +167,9 @@
                     <h:outputText value="#{listaPersona.DNIPER eq null ? 'No registrado' : listaPersona.DNIPER}"/>
                 </p:column>
                 <p:column headerText="Ubicación" filterBy="#{listaPersona.ubigeo.DEPUBI}, 
-                                  #{listaPersona.ubigeo.PROVUBI}, 
-                                  #{listaPersona.ubigeo.DISTUBI}"
-                                  filterMatchMode="contains">
+                          #{listaPersona.ubigeo.PROVUBI}, 
+                          #{listaPersona.ubigeo.DISTUBI}"
+                          filterMatchMode="contains">
                     <h:outputText value="#{listaPersona.ubigeo.DEPUBI}, 
                                   #{listaPersona.ubigeo.PROVUBI}, 
                                   #{listaPersona.ubigeo.DISTUBI}"/>
@@ -160,9 +177,13 @@
                 <p:column headerText="Dirección" >
                     <h:outputText value="#{listaPersona.DIRPER}" />
                 </p:column>
-                <p:column headerText="Sexo"  
-                          sortBy="#{listaPersona.GENPER}">
-                    <h:outputText value="#{listaPersona.GENPER eq 'M' ? 'Masculino' : 'Femenino'}"/>
+                <p:column headerText="Celular"  
+                          sortBy="#{listaPersona.CELPER}">
+                    <h:outputText value="#{listaPersona.CELPER}"/>
+                </p:column>
+                <p:column headerText="Correo"  
+                          sortBy="#{listaPersona.CORPER}">
+                    <h:outputText value="#{listaPersona.CORPER}"/>
                 </p:column>
 
                 <p:blockUI block="dtTblPersona" trigger="dtTblPersona">
@@ -243,6 +264,23 @@
                                              required="true"  maxlength="100" style="text-transform: capitalize" />
                                 <p:outputLabel value="Dirección" for="@previous"/>
                             </h:panelGroup>
+                        </div>
+                        <div class="ui-g-12">
+                            <div class="ui-g-6">
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputMask value="#{personaC.personaSeleccionada.CELPER}" mask="999999999"
+                                                 id="celper" maxlength="9" />
+                                    <p:outputLabel value="Celular" for="@previous"/>
+                                </h:panelGroup>
+                            </div>
+                            <div class="ui-g-6">
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputText value="#{personaC.personaSeleccionada.CORPER}" requiredMessage="Direccion Requerida."
+                                                 id="corper" maxlength="50" />
+                                    <p:outputLabel value="Correo" for="@previous"/>
+                                </h:panelGroup>
+                            </div>
+
                         </div>
                         <div class="ui-g-12">
                             <h:panelGroup styleClass="mdl-button">

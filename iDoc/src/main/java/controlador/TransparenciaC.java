@@ -61,7 +61,7 @@ public class TransparenciaC implements Serializable {
     public void listarTupa() throws Exception {
         try {
             listaTupa = daoTransparencia.listarTupa();
-            listaTupa.remove(0);
+//            listaTupa.remove(0);
             listaTupaTemp = listaTupa;
         } catch (Exception e) {
             e.printStackTrace();

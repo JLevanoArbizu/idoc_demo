@@ -340,6 +340,9 @@
                     <p:column headerText="Tipo" style="width:5%;text-align:center">
                         <h:outputText value="#{listaIncidencia.tipoIncidencia.TIPINCTIP eq 'N' ? 'Notarial' : 'Judicial'}"/>
                     </p:column>
+                    <p:column headerText="Ley">
+                        <h:outputText value="#{listaIncidencia.tipoIncidencia.LEYINCTIP}"/>
+                    </p:column>
                     <p:column headerText="Fecha" style="width:10%;text-align:center">
                         <h:outputText value="#{listaIncidencia.FECINC}">
                             <f:convertDateTime pattern="dd/MMM/yyyy"  />

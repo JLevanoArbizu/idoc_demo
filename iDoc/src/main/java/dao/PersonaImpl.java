@@ -16,8 +16,8 @@ public class PersonaImpl extends Conexion implements ICrud<Persona>, IReporte<Pe
     @Override
     public void registrar(Persona modelo) throws Exception {
         try {
-            String sql = "INSERT INTO PERSONA (APEPATPER, APEMATPER, NOMPER, DNIPER, CODUBI, DIRPER, NACPER, GENPER, ESTPER) "
-                    + "VALUES (?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO PERSONA (APEPATPER, APEMATPER, NOMPER, DNIPER, CODUBI, DIRPER, NACPER, GENPER, ESTPER,CELPER,CORPER) "
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, modelo.getAPEPATPER().toUpperCase());
             ps.setString(2, modelo.getAPEMATPER().toUpperCase());
@@ -28,6 +28,8 @@ public class PersonaImpl extends Conexion implements ICrud<Persona>, IReporte<Pe
             ps.setString(7, "P");
             ps.setString(8, String.valueOf(modelo.getGENPER().charAt(0)));
             ps.setString(9, "A");
+            ps.setString(10, modelo.getCELPER());
+            ps.setString(11, modelo.getCORPER());
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
@@ -81,7 +83,9 @@ public class PersonaImpl extends Conexion implements ICrud<Persona>, IReporte<Pe
                     + "       persona.ESTPER,\n"
                     + "	   ubigeo.DEPUBI,\n"
                     + "	   ubigeo.PROVUBI,\n"
-                    + "	   ubigeo.DISTUBI\n"
+                    + "	   ubigeo.DISTUBI,"
+                    + "     persona.CELPER,"
+                    + "     persona.CORPER "
                     + "FROM PERSONA persona\n"
                     + "INNER JOIN UBIGEO ubigeo\n"
                     + "ON persona.CODUBI = ubigeo.CODUBI "
@@ -105,6 +109,9 @@ public class PersonaImpl extends Conexion implements ICrud<Persona>, IReporte<Pe
                 ubigeo.setDEPUBI(rs.getString(11));
                 ubigeo.setPROVUBI(rs.getString(12));
                 ubigeo.setDISTUBI(rs.getString(13));
+                
+                persona.setCELPER(rs.getString(14));
+                persona.setCORPER(rs.getString(15));
 
                 persona.setUbigeo(ubigeo);
                 lista.add(persona);

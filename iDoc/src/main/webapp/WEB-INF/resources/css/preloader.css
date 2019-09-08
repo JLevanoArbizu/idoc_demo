@@ -1,0 +1,110 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  background-color: #222;
+  min-height: 100vh;
+}
+
+.preloader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  height: 30px;
+  overflow: hidden;
+  font-size: 0;
+  text-align: center;
+}
+.preloader__item {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border: 6px solid #333;
+  /* 	margin: 0 -21px; */
+  margin: 0 3px;
+  position: relative;
+}
+.preloader__item--reverse {
+  -webkit-transform: scale(-1, -1);
+          transform: scale(-1, -1);
+}
+.preloader__item:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 3px solid #444;
+  left: 0;
+  top: 0;
+  -webkit-transform: translate(-100%, -100%);
+          transform: translate(-100%, -100%);
+  -webkit-animation: 1s cube_moving linear infinite;
+          animation: 1s cube_moving linear infinite;
+}
+
+@-webkit-keyframes cube_moving {
+  15%,
+	25% {
+    left: 100%;
+    top: 0;
+    -webkit-transform: translate(0%, -100%);
+            transform: translate(0%, -100%);
+  }
+  40%,
+	50% {
+    left: 100%;
+    top: 100%;
+    -webkit-transform: translate(0%, 0%);
+            transform: translate(0%, 0%);
+  }
+  65%,
+	75% {
+    left: 0%;
+    top: 100%;
+    -webkit-transform: translate(-100%, 0%);
+            transform: translate(-100%, 0%);
+  }
+  90%,
+	100% {
+    left: 0;
+    top: 0;
+    -webkit-transform: translate(-100%, -100%);
+            transform: translate(-100%, -100%);
+  }
+}
+
+@keyframes cube_moving {
+  15%,
+	25% {
+    left: 100%;
+    top: 0;
+    -webkit-transform: translate(0%, -100%);
+            transform: translate(0%, -100%);
+  }
+  40%,
+	50% {
+    left: 100%;
+    top: 100%;
+    -webkit-transform: translate(0%, 0%);
+            transform: translate(0%, 0%);
+  }
+  65%,
+	75% {
+    left: 0%;
+    top: 100%;
+    -webkit-transform: translate(-100%, 0%);
+            transform: translate(-100%, 0%);
+  }
+  90%,
+	100% {
+    left: 0;
+    top: 0;
+    -webkit-transform: translate(-100%, -100%);
+            transform: translate(-100%, -100%);
+  }
+}
