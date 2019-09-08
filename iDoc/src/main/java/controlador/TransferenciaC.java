@@ -18,7 +18,7 @@ public class TransferenciaC implements Serializable {
 
     Transferencia transferencia;
     Transferencia selectedTransferencia;
-    List<Transferencia> lstTransferencia;
+    List<Transferencia> lstTransferencia, lstTransferenciaFiltrado;
     TransferenciaImpl dao;
 
     StreamedContent reporte;
@@ -50,6 +50,7 @@ public class TransferenciaC implements Serializable {
             limpiarTransferencia();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado Correctamente", null));
         } catch (Exception e) {
+            e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Registrar" + e, null));
         }
     }
@@ -60,6 +61,7 @@ public class TransferenciaC implements Serializable {
             listarTransferencia();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
         } catch (Exception e) {
+            e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar" + e, null));
         }
     }
@@ -115,6 +117,14 @@ public class TransferenciaC implements Serializable {
         this.lstTransferencia = lstTransferencia;
     }
 
+    public StreamedContent getReporte() {
+        return reporte;
+    }
+
+    public void setReporte(StreamedContent reporte) {
+        this.reporte = reporte;
+    }
+
     public Transferencia getSelectedTransferencia() {
         return selectedTransferencia;
     }
@@ -123,20 +133,12 @@ public class TransferenciaC implements Serializable {
         this.selectedTransferencia = selectedTransferencia;
     }
 
-    public TransferenciaImpl getDao() {
-        return dao;
+    public List<Transferencia> getLstTransferenciaFiltrado() {
+        return lstTransferenciaFiltrado;
     }
 
-    public void setDao(TransferenciaImpl dao) {
-        this.dao = dao;
-    }
-
-    public StreamedContent getReporte() {
-        return reporte;
-    }
-
-    public void setReporte(StreamedContent reporte) {
-        this.reporte = reporte;
+    public void setLstTransferenciaFiltrado(List<Transferencia> lstTransferenciaFiltrado) {
+        this.lstTransferenciaFiltrado = lstTransferenciaFiltrado;
     }
 
 }

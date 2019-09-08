@@ -42,7 +42,7 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
             ps.setInt(6, trans.getAreaReceptora().getIDARE());
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw e;
+            e.printStackTrace();
         } finally {
             this.desconectar();
         }
@@ -63,7 +63,7 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
             ps.setInt(7, trans.getIDTRAN());
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw e;
+            e.printStackTrace();
         } finally {
             this.desconectar();
         }
@@ -77,7 +77,7 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
             ps.setInt(1, trans.getIDTRAN());
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw e;
+            e.printStackTrace();
         } finally {
             this.desconectar();
         }

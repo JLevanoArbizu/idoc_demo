@@ -46,8 +46,8 @@ public class DocumentoC implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado Correctamente", null));
             documento.clear();
         } catch (Exception e) {
+            e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Registrar" + e, null));
-            throw e;
         }
     }
 
@@ -56,8 +56,8 @@ public class DocumentoC implements Serializable {
             daoDocumento.editar(selectedDocumento);
             listarDocumento();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
-            documento.clear();
         } catch (Exception e) {
+            e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar" + e, null));
         }
     }
@@ -68,6 +68,7 @@ public class DocumentoC implements Serializable {
             listarDocumento();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado Correctamente", null));
         } catch (Exception e) {
+            e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar", null));
         }
     }
@@ -89,7 +90,7 @@ public class DocumentoC implements Serializable {
             report.generarReporteIndividual(parameters); //Pido exportar Reporte con los parametros
 //            report.exportarPDF2(parameters);
         } catch (Exception e) {
-            throw e;
+            e.printStackTrace();
         }
     }
 
@@ -107,14 +108,6 @@ public class DocumentoC implements Serializable {
 
     public void setSelectedDocumento(Documento selectedDocumento) {
         this.selectedDocumento = selectedDocumento;
-    }
-
-    public List<Documento> getLstdocumento() {
-        return lista;
-    }
-
-    public void setLstdocumento(List<Documento> lista) {
-        this.lista = lista;
     }
 
     public List<Documento> getLista() {

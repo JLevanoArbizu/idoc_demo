@@ -51,8 +51,7 @@
             <p:panelGrid columns="4">
 
                 <h:outputText value="Tipo de documento:"/>
-                <p:selectOneMenu value="#{documentoC.documento.TIPDOC}"
-                                 filter="true" filterMatchMode="contains">
+                <p:selectOneMenu value="#{documentoC.documento.TIPDOC}" filter="true" filterMatchMode="contains">
                     <f:selectItem itemLabel="Documento interno" itemValue="I"/>
                     <f:selectItem itemLabel="Documento externo" itemValue="E"/>
                     <f:selectItem itemLabel="Tupa" itemValue="T"/>
@@ -60,36 +59,33 @@
                     <f:selectItem itemLabel="Original " itemValue="O"/>
                 </p:selectOneMenu>
 
-
                 <h:outputText value="Ciudadano"/>
-                <p:selectOneMenu value="#{documentoC.documento.persona.IDPER}"
-                                 filter="true" filterMatchMode="contains">
-                    <f:selectItems value="#{personaC.lista}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
+                <p:selectOneMenu value="#{documentoC.documento.persona.IDPER}" filter="true" filterMatchMode="contains">
+                    <f:selectItems value="#{personaC.lista}" var="persona" itemDisabled="#{persona.DNIPER.trim().length() != 8}"
+                                   itemLabel="#{persona.NOMPER} #{persona.APEPATPER} #{persona.APEMATPER}" itemValue="#{persona.IDPER}"/>
                 </p:selectOneMenu>
 
 
 
                 <h:outputText value="Empresa"/>
-                <p:selectOneMenu value="#{documentoC.documento.empresa.IDEMP}"
-                                 filter="true" filterMatchMode="contains">
+                <p:selectOneMenu value="#{documentoC.documento.empresa.IDEMP}" filter="true" filterMatchMode="contains">
                     <f:selectItems value="#{empresaC.lstEmpresa}" var="txt" itemLabel=" #{txt.RAZSOCEMP}" itemValue="#{txt.IDEMP}"/>
                 </p:selectOneMenu>
 
 
                 <h:outputText value="Observacion"/>
-                <p:inputText value="#{documentoC.documento.OBSDOC}"/>
+                <p:inputTextarea value="#{documentoC.documento.OBSDOC}"/>
 
 
                 <h:outputText value="Asunto"/>
-                <p:inputText value="#{documentoC.documento.ASUDOC}"/>
+                <p:inputTextarea value="#{documentoC.documento.ASUDOC}"/>
 
 
             </p:panelGrid>
 
             <p:panelGrid columns="2" >
-                <h:outputText value="Tupa" style="width: 100px" />
-                <p:selectOneMenu value="#{documentoC.documento.tupa.IDTUP}" 
-                                 >
+                <h:outputText value="Tupa" style="width: 100px"/>
+                <p:selectOneMenu value="#{documentoC.documento.tupa.IDTUP}" filter="true" filterMatchMode="contains">
                     <f:selectItems value="#{tupaC.lstTupa}" var="txtTupa" itemLabel=" #{txtTupa.NOMTUP}" itemValue="#{txtTupa.IDTUP}" />
                 </p:selectOneMenu>
             </p:panelGrid>
@@ -103,7 +99,7 @@
 
         <h:form id="FormTblDocumento">
             <p:dataTable id="tblDocumento"
-                         value="#{documentoC.lstdocumento}"
+                         value="#{documentoC.lista}"
                          var="documento"
                          selection="#{documentoC.selectedDocumento}"
                          selectionMode="single"
@@ -122,7 +118,7 @@
                     <p:rowToggler />
                 </p:column>
 
-                <p:column headerText="Asunto de documento">
+                <p:column headerText="Asunto de documento" filterBy="#{documento.ASUDOC}" filterMatchMode="contains">
                     <h:outputText value="#{documento.ASUDOC}"/>
                 </p:column>
 
@@ -133,11 +129,15 @@
                 </p:column>
 
 
-                <p:column headerText="Codigo de documento" style="width: 250px" filterBy="#{documento.CODDOC}"  
-                          filterMatchMode="exact">
-                    <h:outputText value="#{documento.CODDOC}"/>
-                </p:column>
 
+                <p:column headerText="Tipo de documento" style="width: 250px" filterBy="#{documento.TIPDOC}"  
+                          filterMatchMode="exact">
+                    <h:outputText value="#{documento.TIPDOC eq 'E' ? 'Documento Externo' :  ''}"/>
+                    <h:outputText value="#{documento.TIPDOC eq 'I' ? 'Documento Interno' :  ''}"/>                    
+                    <h:outputText value="#{documento.TIPDOC eq 'D' ? 'Derivado' :  ''}"/> 
+                    <h:outputText value="#{documento.TIPDOC eq 'c' ? 'Archivado' :  ''}"/>
+                    <h:outputText value="#{documento.TIPDOC eq 'R' ? 'Registrado' :  ''}"/>
+                </p:column>
 
                 <p:rowExpansion>
                     <p:panelGrid columns="4">
@@ -148,17 +148,7 @@
                         <h:outputText value="#{documento.NUMFOLDOC}"/>
 
                         <h:outputText value="Codigo de documento" />
-                        <h:outputText value="#{documento.CODDOC}"/>
-
-                        <h:outputText value="Tipo de Documento" />
-                        <p:outputLabel style="color:#000 " >
-                            <h:outputText value="#{documento.TIPDOC eq 'E' ? 'Documento Externo' :  ''}"/>
-                            <h:outputText value="#{documento.TIPDOC eq 'I' ? 'Documento Interno' :  ''}"/>                    
-                            <h:outputText value="#{documento.TIPDOC eq 'D' ? 'Derivado' :  ''}"/> 
-                            <h:outputText value="#{documento.TIPDOC eq 'c' ? 'Archivado' :  ''}"/>
-                            <h:outputText value="#{documento.TIPDOC eq 'R' ? 'Registrado' :  ''}"/>
-
-                        </p:outputLabel>
+                        <h:outputText value="#{documento.CODDOC}"/>                        
 
                         <h:outputText value="Observacion de documento"/>
                         <h:outputText value="#{documento.OBSDOC}"/>
@@ -192,7 +182,9 @@
                 <p:menuitem value="Editar" icon="ui-icon-pencil"
                             oncomplete="PF('dlgModDocumento').show()" update="FormDialogModDocumento"/>                
                 <p:menuitem value="Derivar" icon="ui-icon ui-icon-arrow-1-ne"
-                            oncomplete="PF('dlgTranferencia').show()" update="FormTransferencia"/>
+                            oncomplete="PF('dlgTranferencia').show()" update="FormTransferencia">
+                    <f:setPropertyActionListener value="#{documento}" target="#{transferenciaC.transferencia.documento}"/>
+                </p:menuitem>
                 <p:menuitem icon="ui-icon-print" value="Reporte" ajax="false" 
                             actionListener="#{documentoC.REPORTE(IDDOC)}"/>
                 <p:menuitem value="Eliminar" icon="ui-icon-trash"
@@ -206,26 +198,25 @@
             <h:form id="FormTransferencia">
                 <p:panelGrid columns="4">
                     <p:outputLabel value="Fecha entrada"/>
-                    <p:inputMask value="#{transferenciaC.transferencia.FECRECTRAN}" mask="99/99/9999"/>
+                    <p:calendar value="#{transferenciaC.transferencia.FECRECTRAN}" pattern="dd/MMM/yyyy HH:mm:ss"/>
                     <p:outputLabel value="Área Emitida"/>
-                    <p:selectOneMenu value="#{transferenciaC.transferencia.areaEmisora.IDARE}">
-                        <f:selectItems value="#{areaC.lista}" var="txtarea1" itemLabel=" #{txtarea1.NOMARE}" itemValue="#{txtarea1.IDARE}"/>
+                    <p:selectOneMenu value="#{transferenciaC.transferencia.areaEmisora.IDARE}" filter="true" filterMatchMode="contains">
+                        <f:selectItems value="#{areaC.lista}" var="txtarea1"
+                                       itemLabel=" #{txtarea1.NOMARE}" itemValue="#{txtarea1.IDARE}"/>
                     </p:selectOneMenu>
                     <p:outputLabel value="Fecha salida"/>
-                    <p:calendar value="#{transferenciaC.transferencia.FECSALTRAN}"/>
+                    <p:calendar value="#{transferenciaC.transferencia.FECSALTRAN}" pattern="dd/MMM/yyyy HH:mm:ss"/>
                     <p:outputLabel value="Área Recibida"/>
-                    <p:selectOneMenu value="#{transferenciaC.transferencia.areaReceptora.IDARE}">
-                        <f:selectItems value="#{areaC.lista}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" itemValue="#{txtarea.IDARE}"/>
+                    <p:selectOneMenu value="#{transferenciaC.transferencia.areaReceptora.IDARE}" filter="true" filterMatchMode="contains">
+                        <f:selectItems value="#{areaC.lista}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" 
+                                       itemValue="#{txtarea.IDARE}" itemDisabled="#{txtarea.IDARE eq txtarea1.IDARE}"/>
                     </p:selectOneMenu>
                     <p:outputLabel value="Observación"/>
-                    <p:inputText value="#{transferenciaC.transferencia.OBSTRAN}" />
+                    <p:inputTextarea value="#{transferenciaC.transferencia.OBSTRAN}" />
 
-                    <p:outputLabel value="Documento"/>
-                    <p:selectOneMenu value="#{transferenciaC.transferencia.documento.IDDOC}">
-                        <f:selectItems value="#{documentoC.lstdocumento}" var="txtdocu" itemLabel="#{txtdocu.ASUDOC}" itemValue="#{txtdocu.IDDOC}"/>
-                    </p:selectOneMenu>
-
-                    <p:commandButton value="REGISTRAR" actionListener="#{transferenciaC.registrarTransferencia()}" />
+                    <p:commandButton value="REGISTRAR" actionListener="#{transferenciaC.registrarTransferencia()}" 
+                                     oncomplete="PF('dlgTranferencia').hide()"/>
+                    <p:commandButton value="CANCELAR" oncomplete="PF('dlgTranferencia').hide()"/>
                 </p:panelGrid>
             </h:form>
         </p:dialog>
@@ -251,7 +242,7 @@
 
 
                     <h:outputText value="Observacion del documento"/>
-                    <p:inputText value="#{documentoC.selectedDocumento.OBSDOC}"/>
+                    <p:inputTextarea value="#{documentoC.selectedDocumento.OBSDOC}" />
 
 
                     <h:outputText value="Fecha de documento" />
@@ -264,7 +255,7 @@
 
 
                     <h:outputText value="Tupa"/>
-                    <p:selectOneMenu value="#{documentoC.selectedDocumento.tupa.IDTUP}">
+                    <p:selectOneMenu value="#{documentoC.selectedDocumento.tupa.IDTUP}" filter="true" filterMatchMode="contains">
                         <f:selectItems value="#{tupaC.lstTupa}" var="tup" itemLabel=" #{tup.NOMTUP}" itemValue="#{tup.IDTUP}" />
                     </p:selectOneMenu>
 
@@ -274,13 +265,14 @@
 
 
 
-                    <h:outputText value="cliente"/>
-                    <p:selectOneMenu value="#{documentoC.selectedDocumento.persona.IDPER}">
-                        <f:selectItems value="#{personaC.lista}" var="txtPersona" itemLabel="#{txtPersona.NOMPER} #{txtPersona.APEPATPER} #{txtPersona.APEMATPER}" itemValue="#{txtPersona.IDPER}"/>
+                    <h:outputText value="Ciudadano"/>
+                    <p:selectOneMenu value="#{documentoC.selectedDocumento.persona.IDPER}" filter="true" filterMatchMode="contains">
+                        <f:selectItems value="#{personaC.lista}" var="persona" itemDisabled="#{persona.DNIPER.trim().length() != 8}"
+                                       itemLabel="#{persona.NOMPER} #{persona.APEPATPER} #{persona.APEMATPER}" itemValue="#{persona.IDPER}"/>    
                     </p:selectOneMenu>
 
                     <h:outputText value="Empresa"/>
-                    <p:selectOneMenu value="#{documentoC.selectedDocumento.empresa.IDEMP}">
+                    <p:selectOneMenu value="#{documentoC.selectedDocumento.empresa.IDEMP}" filter="true" filterMatchMode="contains">
                         <f:selectItems value="#{empresaC.lstEmpresa}" var="DEMO" itemLabel=" #{DEMO.RAZSOCEMP}" itemValue="#{DEMO.IDEMP}"/>
                     </p:selectOneMenu>
 
@@ -289,25 +281,25 @@
                     <p:inputTextarea value="#{documentoC.selectedDocumento.ASUDOC}"
                                      rows="3"
                                      cols="100"
-                                     counter="display"
                                      maxlength="300"
-                                     counterTemplate="{0} characters remaining."
                                      autoResize="false" />
 
-                    <h:outputText value="Tipo de documento:"/>
-                    <p:selectOneMenu value="#{documentoC.selectedDocumento.TIPDOC}">
-                        <f:selectItem itemLabel="Documento interno" itemValue="I"/>
-                        <f:selectItem itemLabel="Documento externo" itemValue="E"/>
-                        <f:selectItem itemLabel="Tupa" itemValue="T"/>
-                        <f:selectItem itemLabel="Copia " itemValue="C"/>
-                        <f:selectItem itemLabel="Original " itemValue="O"/>
-                    </p:selectOneMenu>
+
+                    <!--                    <h:outputText value="Tipo de documento:"/>
+                                        <p:selectOneMenu value="{documentoC.selectedDocumento.TIPDOC}" filter="true" filterMatchMode="contains">
+                                            <f:selectItem itemLabel="Documento interno" itemValue="I"/>
+                                            <f:selectItem itemLabel="Documento externo" itemValue="E"/>
+                                            <f:selectItem itemLabel="Tupa" itemValue="T"/>
+                                            <f:selectItem itemLabel="Copia " itemValue="C"/>
+                                            <f:selectItem itemLabel="Original " itemValue="O"/>
+                                        </p:selectOneMenu>-->
 
                 </p:panelGrid>
-                <h:outputText id="display" />
+
                 <p:panelGrid>
 
-                    <p:commandButton value="MODIFICAR" actionListener="#{documentoC.modificarDocumento()}" update="FormTblDocumento:tblDocumento"/>
+                    <p:commandButton value="MODIFICAR" actionListener="#{documentoC.modificarDocumento()}" 
+                                     oncomplete="PF('dlgModDocumento').hide()" update="FormTblDocumento:tblDocumento"/>
 
                     <p:commandButton value="CANCELAR" oncomplete="PF('dlgModDocumento').hide()"/>
                 </p:panelGrid>

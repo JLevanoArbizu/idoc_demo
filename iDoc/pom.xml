@@ -32,17 +32,17 @@
             <version>1.1</version>
         </dependency>
         <!--https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
-        <dependency>
+        <!--        <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
             <version>7.2.1.jre8</version>
-        </dependency>
-        
-        <!--        <dependency>
-                <groupId>com.oracle</groupId>
-                <artifactId>ojdbc8</artifactId>
-                <version>19.3</version>
         </dependency>-->
+        
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc8</artifactId>
+            <version>19.3</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
@@ -66,7 +66,7 @@
             <artifactId>jasperreports-fonts</artifactId>
             <version>6.0.0</version>
         </dependency>
-<!--         https://mvnrepository.com/artifact/asm/asm 
+        <!--         https://mvnrepository.com/artifact/asm/asm 
         <dependency>
             <groupId>asm</groupId>
             <artifactId>asm</artifactId>

@@ -18,28 +18,22 @@
             <p:panelGrid columns="4">
 
                 <p:outputLabel value="Observación"/>
-                <p:inputText value="#{transferenciaC.transferencia.OBSTRAN}" />
+                <p:inputTextarea value="#{transferenciaC.transferencia.OBSTRAN}" />
 
                 <p:outputLabel value="Documento"/>
-                <p:selectOneMenu value="#{transferenciaC.transferencia.documento.IDDOC}"
-                                 
-                                filter="true" filterMatchMode="contains">
-                    <f:selectItems value="#{documentoC.lstdocumento}" var="txtdocumento" itemLabel=" #{txtdocumento.ASUDOC}" itemValue="#{txtdocumento.IDDOC}"/>
+                <p:selectOneMenu value="#{transferenciaC.transferencia.documento.IDDOC}" filter="true" filterMatchMode="contains">
+                    <f:selectItems value="#{documentoC.lista}" var="txtdocumento" itemLabel=" #{txtdocumento.ASUDOC}" itemValue="#{txtdocumento.IDDOC}"/>
                 </p:selectOneMenu>
 
 
                 <p:outputLabel value="area Emitida"/>
-                <p:selectOneMenu value="#{transferenciaC.transferencia.areaEmisora.IDARE}"
-                                 
-                                filter="true" filterMatchMode="contains">
+                <p:selectOneMenu value="#{transferenciaC.transferencia.areaEmisora.IDARE}" filter="true" filterMatchMode="contains">
                     <f:selectItems value="#{areaC.lista}" var="txtarea1" itemLabel=" #{txtarea1.NOMARE}" itemValue="#{txtarea1.IDARE}"/>
                 </p:selectOneMenu>
 
 
                 <p:outputLabel value="area Recibida"/>
-                <p:selectOneMenu value="#{transferenciaC.transferencia.areaReceptora.IDARE}"
-                                 
-                                filter="true" filterMatchMode="contains">
+                <p:selectOneMenu value="#{transferenciaC.transferencia.areaReceptora.IDARE}" filter="true" filterMatchMode="contains">
                     <f:selectItems value="#{areaC.lista}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" itemValue="#{txtarea.IDARE}"/>
                 </p:selectOneMenu>
 
@@ -61,11 +55,12 @@
                          selection="#{transferenciaC.selectedTransferncia}"
                          selectionMode="single"
                          rowKey="#{transferencia.IDTRAN}"
+                         filteredValue="#{transferenciaC.lstTransferenciaFiltrado}"
                          paginator="true"
                          rows="10"
                          rowsPerPageTemplate="5,10,15,50" >
 
-                <p:column headerText="Área Emisora:">
+                <p:column headerText="Área Emisora:" filterBy="#{transferencia.areaEmisora.NOMARE}" filterMatchMode="contains">
                     <h:outputText value="#{transferencia.areaEmisora.NOMARE}" />
                 </p:column>
                 <p:column headerText="Fecha de salida" style="width: 187px" >
@@ -75,7 +70,7 @@
                 </p:column>
 
 
-                <p:column headerText="Área Receptora">
+                <p:column headerText="Área Receptora" filterBy="#{transferencia.areaReceptora.NOMARE}" filterMatchMode="contains">
                     <h:outputText value="#{transferencia.areaReceptora.NOMARE}" />
                 </p:column>
 
@@ -90,7 +85,7 @@
                 </p:column>
 
 
-                <p:column headerText="Estado del documento" style="width: 120px" sortBy="#{transferencia.ESTTRA}" >
+                <p:column headerText="Estado del documento" style="width: 120px" filterBy="#{transferencia.ESTTRA}"  >
                     <h:outputText value="#{transferencia.ESTTRA eq 'A' ? 'Activo' :  ''}"/>
                     <h:outputText value="#{transferencia.ESTTRA eq 'P' ? 'Proceso' :  ''}"/>                    
                     <h:outputText value="#{transferencia.ESTTRA eq 'D' ? 'Derivado' :  ''}"/> 
@@ -99,7 +94,7 @@
                     
                 </p:column>
 
-                <p:column headerText="Documento">
+                <p:column headerText="Documento" filterBy="#{transferencia.documento.ASUDOC}" filterMatchMode="contains">
                     <h:outputText value="#{transferencia.documento.ASUDOC}" />
                 </p:column>
             </p:dataTable>
@@ -119,32 +114,27 @@
 
 
                     <p:outputLabel value="Área Emisora:"/>
-                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.areaEmisora.IDARE}"
-                                     
-                                filter="true" filterMatchMode="contains">
+                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.areaEmisora.IDARE}" filter="true" filterMatchMode="contains">
                         <f:selectItems value="#{areaC.lista}" var="areae" itemLabel=" #{areae.NOMARE}" itemValue="#{areae.IDARE}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Fecha de salida "/>
-                    <p:inputText value="#{transferenciaC.selectedTransferncia.FECSALTRAN}" />
+                    <p:calendar value="#{transferenciaC.selectedTransferncia.FECSALTRAN}" pattern="dd/MMM/yyyy HH:mm:ss"/>
 
                     <p:outputLabel value="Área Receptora"/>
-                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.areaReceptora.IDARE}"
-                                     
-                                filter="true" filterMatchMode="contains">
+                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.areaReceptora.IDARE}" filter="true" filterMatchMode="contains">
                         <f:selectItems value="#{areaC.lista}" var="arear" itemLabel=" #{arear.NOMARE}" itemValue="#{arear.IDARE}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Fecha de entrada"/>
-                    <p:inputText value="#{transferenciaC.selectedTransferncia.FECRECTRAN}" />
+                    <p:calendar value="#{transferenciaC.selectedTransferncia.FECRECTRAN}" pattern="dd/MMM/yyyy HH:mm:ss"/>
 
                     <p:outputLabel value="Observación"/>
-                    <p:inputText value="#{transferenciaC.selectedTransferncia.OBSTRAN}" />
+                    <p:inputTextarea value="#{transferenciaC.selectedTransferncia.OBSTRAN}" />
 
                     <p:outputLabel value="Documento"/>
-                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.documento.IDDOC}"
-                                     filter="true" filterMatchMode="contains">
-                        <f:selectItems value="#{documentoC.lstdocumento}" var="documen" itemLabel=" #{documen.ASUDOC}"  itemValue="#{documen.IDDOC}" />
+                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.documento.IDDOC}" filter="true" filterMatchMode="contains">
+                        <f:selectItems value="#{documentoC.lista}" var="documen" itemLabel=" #{documen.ASUDOC}"  itemValue="#{documen.IDDOC}" />
                     </p:selectOneMenu>
 
                     <p:commandButton value="MODIFICAR" actionListener="#{transferenciaC.editarTransferencia()}" 
