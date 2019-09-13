@@ -45,7 +45,7 @@ public class IncidenciaTipoC implements Serializable {
         try {
             if (lista.contains(tipoIncidencia) == false) {
                 daoIncidenciaTipo.registrar(tipoIncidencia);
-                listar();
+//                listar();
                 tipoIncidencia.clear();
             }
         } catch (Exception e) {
@@ -56,7 +56,7 @@ public class IncidenciaTipoC implements Serializable {
     public void editar() throws Exception {
         try {
             daoIncidenciaTipo.editar(tipoIncidenciaSeleccionado);
-            listar();
+//            listar();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -65,7 +65,7 @@ public class IncidenciaTipoC implements Serializable {
     public void eliminar() throws Exception{
         try {
             daoIncidenciaTipo.eliminar(tipoIncidenciaSeleccionado);
-            listar();
+//            listar();
         } catch (Exception e) {
             e.printStackTrace();
         }

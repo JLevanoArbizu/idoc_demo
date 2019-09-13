@@ -52,7 +52,7 @@ public class TrabajadorC implements Serializable {
             if (listaTrabajador.contains(trabajador) == false) {
                 daoTrabajador.registrar(trabajador);
 //                trabajador.clear();
-                listar();
+//                listar();
                 FacesContext.getCurrentInstance().addMessage(
                         null,
                         new FacesMessage("Registro exitoso")
@@ -71,7 +71,7 @@ public class TrabajadorC implements Serializable {
     public void editar() throws Exception {
         try {
             daoTrabajador.editar(trabajadorSeleccionado);
-            listar();
+//            listar();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,7 +80,7 @@ public class TrabajadorC implements Serializable {
     public void eliminar() throws Exception {
         try {
             daoTrabajador.eliminar(trabajadorSeleccionado);
-            listar();
+//            listar();
         } catch (Exception e) {
             e.printStackTrace();
         }

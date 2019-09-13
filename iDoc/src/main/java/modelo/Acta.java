@@ -7,7 +7,7 @@ public class Acta {
 
     private int IDACTA;
     private String NUMLIBACTA, NUMFOLACTA, OBSACTA, DIRACT, TIPACTA, ESTACTA = "A";
-    private Date FECREGACTA = new Date(), FECACT= new Date();
+    private Date FECREGACTA = new Date(), FECACT = new Date();
     private Municipalidad municipalidad = new Municipalidad();
     private Ubigeo ubigeo = new Ubigeo();
     private Login login = new Login();
@@ -52,7 +52,6 @@ public class Acta {
         }
         return Objects.equals(this.titular, other.titular);
     }
-
 
     public int getIDACTA() {
         return IDACTA;
@@ -157,5 +156,5 @@ public class Acta {
     public void setTitular(Persona titular) {
         this.titular = titular;
     }
-    
+
 }

@@ -40,10 +40,7 @@ public class Area {
         if (!Objects.equals(this.NOMARE, other.NOMARE)) {
             return false;
         }
-        if (!Objects.equals(this.areaPadre, other.areaPadre)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.areaPadre, other.areaPadre);
     }
 
     public AreaPadre getAreaPadre() {

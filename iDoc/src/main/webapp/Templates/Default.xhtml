@@ -10,7 +10,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <link rel="icon" href="../../resources/icon/group.png" sizes="32x32"/>
+        <link rel="icon" href="../../resources/icon/iDoc.svg" sizes="32x32"/>
         <!--Other CSS and JS-->
         <h:outputStylesheet library="css"  name="materialize.min.css"/>
         <h:outputStylesheet library="css"  name="IconFontsMaterialize.css"/>
@@ -51,8 +51,7 @@
         <h:outputScript library="js" name="swipe.js" />
         <h:outputScript library="js" name="touchswipe.js" />   
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-        <h:outputScript library="js" name="plugins.js" />   
-        <h:outputScript library="js" name="websocket.js" />
+        <h:outputScript library="js" name="plugins.js" />       
         <!--***-->        
         <title>#{tituloPagina} - iDoc</title>
         <style type="text/css">
@@ -63,8 +62,6 @@
     </h:head>
     <h:body class="main-body">
 
-        <p:growl><p:autoUpdate/></p:growl>
-        <p:growl widgetVar="growlWV" />
 
         <div class="layout-wrapper menu-layout-static ">
             <!--==========================================
@@ -114,11 +111,11 @@
                             </ul>
                         </li>
                         <li>
-<!--                            <a href="#">
-                                <i class="topbar-icon material-icons animated swing">message</i>
-                                <span class="topbar-badge animated rubberBand">5</span>
-                                <span class="topbar-item-name">Bandeja</span>
-                            </a>-->
+                            <!--                            <a href="#">
+                                                            <i class="topbar-icon material-icons animated swing">message</i>
+                                                            <span class="topbar-badge animated rubberBand">5</span>
+                                                            <span class="topbar-item-name">Bandeja</span>
+                                                        </a>-->
                             <ul class="ultima-menu animated">
                                 <li role="menuitem">
                                     <a href="#" class="topbar-message">
@@ -128,11 +125,11 @@
                             </ul>
                         </li>
                         <li>
-<!--                            <a href="#">
-                                <i class="topbar-icon material-icons">timer</i>
-                                <span class="topbar-badge animated rubberBand">4</span>
-                                <span class="topbar-item-name">Notifications</span>
-                            </a>-->
+                            <!--                            <a href="#">
+                                                            <i class="topbar-icon material-icons">timer</i>
+                                                            <span class="topbar-badge animated rubberBand">4</span>
+                                                            <span class="topbar-item-name">Notifications</span>
+                                                        </a>-->
                             <ul class="ultima-menu animated">
                                 <li role="menuitem">
                                     <a href="#">
@@ -163,7 +160,7 @@
                     </ul>
                 </div>
                 <div class="topbar-right">
-                    
+
                     <p:ajaxStatus>
                         <f:facet name="start">
                             <div class="progress">
@@ -311,6 +308,16 @@
                         <p:ajax event="idle" listener="#{loginC.cerrarSesion()}" />
                     </p:idleMonitor>
                 </h:form>
+                <p:growl widgetVar="mensajeSockets" life="1000" showDetail="true"/>
+                <h:form>
+                    <p:commandLink id="btnActualizarPersona"
+                        value="actualizarPersona" immediate="true" async="true"
+                                   update="@all" actionListener="#{personaC.listar()}" />
+                    <p:commandLink id="btnActualizarArea"
+                        value="actualizarArea" immediate="true" async="true"
+                                   update="@all" actionListener="#{areaC.listar()}" />
+                </h:form>
+                <h:outputScript library="js" name="websocket.js" />
                 <ui:insert name="contenidoPagina"/>
                 <div class="footer">
                     <div class="card clearfix">

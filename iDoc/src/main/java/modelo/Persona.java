@@ -44,10 +44,7 @@ public class Persona {
             return false;
         }
         final Persona other = (Persona) obj;
-        if (!Objects.equals(this.DNIPER, other.DNIPER)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.DNIPER, other.DNIPER);
     }
 
     public Ubigeo getUbigeo() {

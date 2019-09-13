@@ -20,7 +20,7 @@ public class Documento {
     private String KEYDOC;
 
     public void clear() {
-       
+
     }
 
     public int getIDDOC() {
@@ -38,7 +38,6 @@ public class Documento {
     public void setCODDOC(int CODDOC) {
         this.CODDOC = CODDOC;
     }
-
 
     public String getNUMLIBDOC() {
         return NUMLIBDOC;
@@ -71,10 +70,6 @@ public class Documento {
     public void setFECDOC(Date FECDOC) {
         this.FECDOC = FECDOC;
     }
-
-
-
-
 
     public String getASUDOC() {
         return ASUDOC;
@@ -139,7 +134,5 @@ public class Documento {
     public void setKEYDOC(String KEYDOC) {
         this.KEYDOC = KEYDOC;
     }
-
-    
 
 }

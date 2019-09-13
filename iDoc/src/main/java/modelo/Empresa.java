@@ -15,9 +15,6 @@ public class Empresa {
        this.DIREMP = null;
        this.ESTEMP = null;
    }
-//   private String CODUBI;
-   
-//   private String UBIGEO;
 
     public int getIDEMP() {
         return IDEMP;
@@ -52,14 +49,6 @@ public class Empresa {
         this.DIREMP = DIREMP;
     }
 
-//    public String getCODUBI() {
-//        return CODUBI;
-//    }
-//
-//    public void setCODUBI(String CODUBI) {
-//        this.CODUBI = CODUBI;
-//    }
-
     public String getESTEMP() {
         return ESTEMP;
     }
@@ -67,12 +56,4 @@ public class Empresa {
     public void setESTEMP(String ESTEMP) {
         this.ESTEMP = ESTEMP;
     }
-
-//    public String getUBIGEO() {
-//        return UBIGEO;
-//    }
-//
-//    public void setUBIGEO(String UBIGEO) {
-//        this.UBIGEO = UBIGEO;
-//    }
 }

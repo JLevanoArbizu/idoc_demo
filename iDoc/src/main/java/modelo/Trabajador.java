@@ -41,10 +41,7 @@ public class Trabajador {
         if (!Objects.equals(this.ESTTRAB, other.ESTTRAB)) {
             return false;
         }
-        if (!Objects.equals(this.persona, other.persona)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.persona, other.persona);
     }
 
     public int getIDTRAB() {

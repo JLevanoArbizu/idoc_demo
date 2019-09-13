@@ -7,9 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import modelo.Persona;
+import org.primefaces.PrimeFaces;
 
 @Named(value = "personaC")
 @SessionScoped
@@ -31,6 +30,7 @@ public class PersonaC implements Serializable {
         try {
             listar();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -46,17 +46,10 @@ public class PersonaC implements Serializable {
         try {
             if (lista.contains(persona) == false) {
                 daoPersona.registrar(persona);
-                listar();
-                FacesContext.getCurrentInstance().addMessage(
-                        null,
-                            new FacesMessage("Registro Exitoso")
-                );
+                PrimeFaces.current().executeScript("enviar('" + "Persona" + "');");
+//                listar();
                 persona.clear();
             } else {
-                FacesContext.getCurrentInstance().addMessage(
-                        null,
-                            new FacesMessage("La persona a la que intentó registrar ya lo está")
-                );
             }
 
         } catch (Exception e) {
@@ -67,11 +60,8 @@ public class PersonaC implements Serializable {
     public void editar() throws Exception {
         try {
             daoPersona.editar(personaSeleccionada);
-            listar();
-            FacesContext.getCurrentInstance().addMessage(
-                        null,
-                            new FacesMessage("Modificacion exitosa")
-                );
+            PrimeFaces.current().executeScript("enviar('" + "Persona" + "');");
+//            listar();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,7 +70,8 @@ public class PersonaC implements Serializable {
     public void eliminar() throws Exception {
         try {
             daoPersona.eliminar(personaSeleccionada);
-            listar();
+            PrimeFaces.current().executeScript("enviar('" + "Persona" + "');");
+//            listar();
         } catch (Exception e) {
             e.printStackTrace();
         }

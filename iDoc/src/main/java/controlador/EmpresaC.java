@@ -42,7 +42,7 @@ public class EmpresaC implements Serializable {
     public void registrarEmpresa() throws Exception {
         try {
             daoempresa.registrar(empresa);
-            listarEmpresa();
+//            listarEmpresa();
             limpiarEmpresa();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado Correctamente", null));
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class EmpresaC implements Serializable {
     public void editarEmpresa() throws Exception {
         try {
             daoempresa.editar(selectedEmpresa);
-            listarEmpresa();
+//            listarEmpresa();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
         } catch (Exception e) {
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar"+e, null));
@@ -64,7 +64,7 @@ public class EmpresaC implements Serializable {
     public void eliminarEmpresa() throws Exception {
         try {
             daoempresa.eliminar(selectedEmpresa);
-            listarEmpresa();
+//            listarEmpresa();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado Correctamente", null));
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar", null));

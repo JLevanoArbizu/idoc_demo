@@ -46,7 +46,7 @@ public class AreaC implements Serializable {
         try {
             if (lista.contains(area) == false) {
                 daoArea.registrar(area);
-                listar();
+//                listar();
                 area.clear();
             }
         } catch (Exception e) {
@@ -57,7 +57,7 @@ public class AreaC implements Serializable {
     public void editar() throws Exception {
         try {
             daoArea.editar(areaSeleccionada);
-            listar();
+//            listar();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,7 +66,7 @@ public class AreaC implements Serializable {
     public void eliminar() throws Exception {
         try {
             daoArea.eliminar(areaSeleccionada);
-            listar();
+//            listar();
         } catch (Exception e) {
             e.printStackTrace();
         }

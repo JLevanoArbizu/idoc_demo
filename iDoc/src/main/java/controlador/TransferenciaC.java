@@ -46,7 +46,7 @@ public class TransferenciaC implements Serializable {
     public void registrarTransferencia() throws Exception {
         try {
             dao.registrar(transferencia);
-            listarTransferencia();
+//            listarTransferencia();
             limpiarTransferencia();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado Correctamente", null));
         } catch (Exception e) {
@@ -58,7 +58,7 @@ public class TransferenciaC implements Serializable {
     public void editarTransferencia() throws Exception {
         try {
             dao.editar(selectedTransferencia);
-            listarTransferencia();
+//            listarTransferencia();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,7 +69,7 @@ public class TransferenciaC implements Serializable {
     public void eliminarTransferencia() throws Exception {
         try {
             dao.eliminar(selectedTransferencia);
-            listarTransferencia();
+//            listarTransferencia();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado Correctamente", null));
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar" + e, null));

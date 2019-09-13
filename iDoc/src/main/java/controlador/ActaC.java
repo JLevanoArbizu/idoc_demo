@@ -110,7 +110,7 @@ public class ActaC implements Serializable {
                         daoDetalle.registrar(actor);
                     }
                     PrimeFaces.current().executeScript("enviar('" + cabecera.getLogin().getTrabajador().getPersona().getNOMPER() + "');");
-                    listar();
+//                    listar();
                     listaDetalleSeleccionado.clear();
 //                    listaDetalleFiltrado.clear();
                     cabecera.clear();
@@ -134,7 +134,7 @@ public class ActaC implements Serializable {
     public void eliminar() throws Exception{
         try {
             daoActa.eliminar(cabeceraSeleccionado);
-            listar();
+//            listar();
             FacesContext.getCurrentInstance().addMessage(
                             null,
                             new FacesMessage("Eliminado correctamente")

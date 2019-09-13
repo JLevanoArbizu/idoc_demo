@@ -44,7 +44,7 @@ public class TupaC implements Serializable {
     public void registrarTupa() throws Exception {
         try {
             dao.registrar(tupa);
-            listarTupa();
+//            listarTupa();
             limpiarTupa();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado Correctamente", null));
             listarTupa();
@@ -56,7 +56,7 @@ public class TupaC implements Serializable {
     public void editarTupa() throws Exception {
         try {
             dao.editar(selectedTupa);
-            listarTupa();
+//            listarTupa();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar" + e, null));
@@ -66,7 +66,7 @@ public class TupaC implements Serializable {
     public void eliminarTupa() throws Exception {
         try {
             dao.eliminar(selectedTupa);
-            listarTupa();
+//            listarTupa();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado Correctamente", null));
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar" + e, null));

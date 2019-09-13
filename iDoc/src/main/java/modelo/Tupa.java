@@ -65,6 +65,5 @@ public class Tupa {
     public void setESTTUP(String ESTTUP) {
         this.ESTTUP = ESTTUP;
     }
-    
-     
+
 }
