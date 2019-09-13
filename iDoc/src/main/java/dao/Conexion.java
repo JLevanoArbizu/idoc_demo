@@ -10,17 +10,17 @@ public class Conexion {
 
     public static Connection conectar() throws Exception {
         try {
-//            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-//            conexion = DriverManager.getConnection(
-//                    "jdbc:sqlserver://34.73.201.76;database=Team04",
-//                    "User04",
-//                    "TramiteDocumentario");
-
-            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conexion = DriverManager.getConnection(
-                    "jdbc:oracle:thin:@40.117.85.170:1521:XE",
-                    "IDOC",
-                    "IDOC");
+                    "jdbc:sqlserver://34.73.201.76;database=Team04",
+                    "User04",
+                    "Demo123456789");
+
+//            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+//            conexion = DriverManager.getConnection(
+//                    "jdbc:oracle:thin:@40.117.85.170:1521:XE",
+//                    "IDOC",
+//                    "IDOC");
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -37,6 +37,7 @@ public class PersonaC implements Serializable {
     public void listar() throws Exception {
         try {
             lista = daoPersona.listar();
+            System.out.println("Listado datos!!!!!!!");
         } catch (Exception e) {
             e.printStackTrace();
         }

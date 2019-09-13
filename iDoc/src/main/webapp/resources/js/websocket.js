@@ -5,8 +5,6 @@ function enviar(mensaje) {
 }
 
 socket.onmessage = function (event) {
-//    let datos = JSON.parse(event.data);
-    console.log(event);
     PF('mensajeSockets').renderMessage({
         "summary": "Hubierón cambios",
         "detail": event.data,
@@ -25,6 +23,6 @@ socket.onmessage = function (event) {
 
 
 function actualizarPersona() {
-    PrimeFaces.ab({s: "j_idt107:btnActualizarPersona", f: "j_idt107", u: "@all", a: true});
+    PrimeFaces.ab({s: "j_idt107:btnActualizarPersona", f: "j_idt107", u: "frmRegistrarPersona frmListarPersona", a: true});
     return false;
 }

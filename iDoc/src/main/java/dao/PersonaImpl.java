@@ -70,6 +70,8 @@ public class PersonaImpl extends Conexion implements ICrud<Persona>, IReporte<Pe
     @Override
     public List<Persona> listar() throws Exception {
         List<Persona> lista = new ArrayList<>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT persona.IDPER,\n"
                     + "       persona.APEPATPER,\n"
@@ -90,7 +92,8 @@ public class PersonaImpl extends Conexion implements ICrud<Persona>, IReporte<Pe
                     + "INNER JOIN UBIGEO ubigeo\n"
                     + "ON persona.CODUBI = ubigeo.CODUBI "
                     + "WHERE persona.ESTPER = 'A'";
-            ResultSet rs = this.conectar().createStatement().executeQuery(sql);
+            ps = this.conectar().prepareStatement(sql);
+            rs = ps.executeQuery();
 
             while (rs.next()) {
                 Persona persona = new Persona();
@@ -109,18 +112,22 @@ public class PersonaImpl extends Conexion implements ICrud<Persona>, IReporte<Pe
                 ubigeo.setDEPUBI(rs.getString(11));
                 ubigeo.setPROVUBI(rs.getString(12));
                 ubigeo.setDISTUBI(rs.getString(13));
-                
+
                 persona.setCELPER(rs.getString(14));
                 persona.setCORPER(rs.getString(15));
 
                 persona.setUbigeo(ubigeo);
                 lista.add(persona);
             }
-            rs.close();
+            ps.closeOnCompletion();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            this.desconectar();
+            if (ps.isClosed()) {
+                ps.clearParameters();
+                rs.close();
+                this.desconectar();
+            }
         }
         return lista;
     }

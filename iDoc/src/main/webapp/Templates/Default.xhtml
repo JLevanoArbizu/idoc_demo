@@ -308,26 +308,29 @@
                         <p:ajax event="idle" listener="#{loginC.cerrarSesion()}" />
                     </p:idleMonitor>
                 </h:form>
-                <p:growl widgetVar="mensajeSockets" life="1000" showDetail="true"/>
+                <p:growl widgetVar="mensajeSockets" life="1000" showDetail="true" globalOnly="true"/>
                 <h:form>
-                    <p:commandLink id="btnActualizarPersona"
-                        value="actualizarPersona" immediate="true" async="true"
-                                   update="@all" actionListener="#{personaC.listar()}" />
-                    <p:commandLink id="btnActualizarArea"
-                        value="actualizarArea" immediate="true" async="true"
-                                   update="@all" actionListener="#{areaC.listar()}" />
+                    <p:commandButton id="btnActualizarPersona"
+                                     value="actualizarPersona" immediate="true" async="true"
+                                     actionListener="#{personaC.listar()}" />
+                    <p:commandButton id="btnActualizarArea"
+                                     value="actualizarArea" immediate="true" async="true"
+                                     actionListener="#{areaC.listar()}" />
                 </h:form>
-                <h:outputScript library="js" name="websocket.js" />
                 <ui:insert name="contenidoPagina"/>
                 <div class="footer">
                     <div class="card clearfix">
                         <span class="footer-text-left">Valle Grande</span>
-                        <span class="footer-text-right"><span class="ui-icon ui-icon-copyright"></span>  <span>Todos los Derechos Reservados.</span></span>
+                        <span class="footer-text-right">
+                            <span class="ui-icon ui-icon-copyright"></span>  
+                            <span>Todos los Derechos Reservados.</span>
+                        </span>
                     </div>
                 </div>
             </div>
 
         </div>
+        <h:outputScript library="js" name="websocket.js" />
     </h:body>
 </html>
 
