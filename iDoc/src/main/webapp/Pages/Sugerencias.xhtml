@@ -7,7 +7,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:param name="tituloPagina" value="Sugerencias"/>
-    <!--<ui:param name="formsActualizar" value=":frmRegistrarPersona :frmListarPersona"/>-->
+    <ui:param name="formsActualizar" value=":frmSugerencia"/>
     <ui:define name="contenidoPagina">
         <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
         <f:event type="preRenderView" listener="#{sugerenciaC.sugerencia.setLogin(loginC.loginSesion)}"/>
@@ -22,22 +22,25 @@
             </h:panelGrid>
 
 
-            <p:dataScroller value="#{sugerenciaC.sugerencias}" var="sugerencia" chunkSize="30">
+            <p:dataScroller value="#{sugerenciaC.sugerencias}" var="sugerencia" chunkSize="10">
                 <f:facet name="header">
 
                 </f:facet>
 
-                <p:panel styleClass="ui-messages-info panel aumentar">
+                <p:panel styleClass="ui-messages-#{sugerencia.ESTSUG eq '0' ? 'warn': 
+                                                   sugerencia.ESTSUG eq '1' ? 'info' : 'fatal'} panel aumentar">
                     <h:panelGrid columns="1">
                         <h:outputText value="#{sugerencia.login.trabajador.persona.APEPATPER} 
                                       #{sugerencia.login.trabajador.persona.APEMATPER}, 
                                       #{sugerencia.login.trabajador.persona.NOMPER}"/>
                         <h:panelGrid columns="2" columnClasses="ui-grid-col-6">
                             <h:outputText value="#{sugerencia.SUG}" style="width: 95%;"/>
-                            <p:triStateCheckbox style="width: 5%;" value="#{sugerencia.ESTSUG}"/>  
+                            <p:triStateCheckbox style="width: 5%;" value="#{sugerencia.ESTSUG}">
+                                <p:ajax event="change" listener="#{sugerenciaC.editar(sugerencia)}"/>
+                            </p:triStateCheckbox>
                         </h:panelGrid>
                     </h:panelGrid>
-                </p:panel>
+                </p:panel>                
                 <br/>
             </p:dataScroller>
         </h:form>

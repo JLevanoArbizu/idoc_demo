@@ -14,13 +14,12 @@ import org.primefaces.PrimeFaces;
 @SessionScoped
 public class SugerenciaC implements Serializable {
 
-    Sugerencia sugerencia, sugerenciaSeleccionado;
+    Sugerencia sugerencia;
     List<Sugerencia> sugerencias;
     SugerenciaImpl dao;
 
     public SugerenciaC() {
         sugerencia = new Sugerencia();
-        sugerenciaSeleccionado = new Sugerencia();
         sugerencias = new ArrayList<>();
         dao = new SugerenciaImpl();
     }
@@ -51,9 +50,9 @@ public class SugerenciaC implements Serializable {
         }
     }
 
-    public void editar() throws Exception {
+    public void editar(Sugerencia s) throws Exception {
         try {
-            dao.editar(sugerenciaSeleccionado);
+            dao.editar(s);
             PrimeFaces.current().executeScript("enviar('" + "Sugerencia" + "');");
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,14 +65,6 @@ public class SugerenciaC implements Serializable {
 
     public void setSugerencia(Sugerencia sugerencia) {
         this.sugerencia = sugerencia;
-    }
-
-    public Sugerencia getSugerenciaSeleccionado() {
-        return sugerenciaSeleccionado;
-    }
-
-    public void setSugerenciaSeleccionado(Sugerencia sugerenciaSeleccionado) {
-        this.sugerenciaSeleccionado = sugerenciaSeleccionado;
     }
 
     public List<Sugerencia> getSugerencias() {

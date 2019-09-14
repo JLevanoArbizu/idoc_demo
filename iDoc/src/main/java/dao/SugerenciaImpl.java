@@ -62,7 +62,8 @@ public class SugerenciaImpl extends Conexion implements ICrud<Sugerencia> {
                     + "FROM SUGERENCIA sug\n"
                     + "INNER JOIN LOGIN L on sug.IDLOG = L.IDLOG\n"
                     + "INNER JOIN TRABAJADOR T on L.IDTRAB = T.IDTRAB\n"
-                    + "INNER JOIN PERSONA P on T.IDPER = P.IDPER";
+                    + "INNER JOIN PERSONA P on T.IDPER = P.IDPER "
+                    + "ORDER BY sug.IDSUG DESC";
             ps = this.conectar().prepareStatement(sql);
             rs = ps.executeQuery();
 

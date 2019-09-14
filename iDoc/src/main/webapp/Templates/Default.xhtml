@@ -346,7 +346,7 @@
                                      value="btnActualizarTupa" immediate="true" async="true" update="#{formsActualizar}" style="display: none;"
                                      actionListener="#{tupaC.listarTupa()}" />
                     <p:commandButton id="btnActualizarSugerencia"
-                                     value="btnActualizarSugerencia" immediate="true" async="true" update="#{formsActualizar}" 
+                                     value="btnActualizarSugerencia" immediate="true" async="true" update="@all" style="display: none;"
                                      actionListener="#{sugerenciaC.listar()}" />
                 </h:form>
                 <ui:insert name="contenidoPagina"/>

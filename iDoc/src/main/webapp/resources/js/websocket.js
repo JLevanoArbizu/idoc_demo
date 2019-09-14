@@ -94,6 +94,6 @@ function actualizarEmpresa() {
 }
 
 function actualizarSugerencia() {
-    PrimeFaces.ab({s: "j_idt110:btnActualizarSugerencia", f: "j_idt110", a: true});
+    PrimeFaces.ab({s: "j_idt113:btnActualizarSugerencia", f: "j_idt113", u: "frmSugerencia", a: true});
     return false;
 }

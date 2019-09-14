@@ -49,6 +49,8 @@ public class IncidenciaTipoC implements Serializable {
 //                listar();
                 tipoIncidencia.clear();
                 PrimeFaces.current().executeScript("enviar('" + "IncidenciaTipo" + "')");
+            }else{
+                System.out.println("Existe");
             }
         } catch (Exception e) {
             e.printStackTrace();

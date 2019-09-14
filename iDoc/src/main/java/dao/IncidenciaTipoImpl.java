@@ -85,11 +85,15 @@ public class IncidenciaTipoImpl extends Conexion implements ICrud<IncidenciaTipo
 
                 lista.add(incidenciatipo);
             }
-            rs.close();
+            ps.closeOnCompletion();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            this.desconectar();
+            if (ps.isClosed()) {
+                ps.clearParameters();
+                rs.close();
+                this.desconectar();
+            }
         }
         return lista;
     }
