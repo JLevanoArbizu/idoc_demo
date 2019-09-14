@@ -56,11 +56,9 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
 
     @Override
     public void editar(Documento documento) throws Exception {
-
         try {
             String sql = "UPDATE DOCUMENTO SET CODDOC=?, NUMLIBDOC = ?, NUMFOLDOC=?, ASUDOC = ? , OBSDOC = ? , IDTUP = ? , IDEMP = ? , IDPER = ? , KEYDOC = ? WHERE IDDOC LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-
             ps.setInt(1, documento.getCODDOC());
             ps.setString(2, documento.getNUMLIBDOC());
             ps.setString(3, documento.getNUMFOLDOC());
