@@ -32,14 +32,14 @@ public class DocumentoTipo {
         this.NOMTIPDOC = NOMTIPDOC;
     }
 
-    public String getESTITPDOC() {
+    public String getESTTIPDOC() {
         return ESTTIPDOC;
     }
 
     public void setESTTIPDOC(String ESTTIPDOC) {
         this.ESTTIPDOC = ESTTIPDOC;
     }
-    
+
     
     
     

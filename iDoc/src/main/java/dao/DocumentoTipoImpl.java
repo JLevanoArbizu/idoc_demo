@@ -13,11 +13,11 @@ public class DocumentoTipoImpl extends Conexion implements ICrud<DocumentoTipo>,
     @Override
     public void registrar(DocumentoTipo documentotipo) throws Exception {
         try {
-            String sql = "INSERT INTO TIPO_DOCUMENTO (IDTIPDOC, TIPDOC, NOMTIPDOC) VALUES(?,?,?)";
+            String sql = "INSERT INTO TIPO_DOCUMENTO (TIPDOC, NOMTIPDOC) VALUES(?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-            ps.setInt(1, documentotipo.getIDTIPDOC());
-            ps.setString(2, documentotipo.getTIPDOC());
-            ps.setString(3, documentotipo.getNOMTIPDOC());
+           
+            ps.setString(1, documentotipo.getTIPDOC());
+            ps.setString(2, documentotipo.getNOMTIPDOC());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,11 +30,12 @@ public class DocumentoTipoImpl extends Conexion implements ICrud<DocumentoTipo>,
     @Override
     public void editar(DocumentoTipo documentotipo) throws Exception {
         try {
-            String sql = "UPDATE DOCUMENTO SET TIPDOC = ? , NOMTIPDOC = ? , ESTTIPDOC = ? WHERE IDTIPDOC LIKE ?";
+            String sql = "UPDATE TIPO_DOCUMENTO SET  TIPDOC=?, NOMTIPDOC=?, ESTTIPDOC=? WHERE IDTIPDOC LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
+
             ps.setString(1, documentotipo.getTIPDOC());
             ps.setString(2, documentotipo.getNOMTIPDOC());
-            ps.setString(3, documentotipo.getESTITPDOC());
+            ps.setString(3, documentotipo.getESTTIPDOC());
             ps.setInt(4, documentotipo.getIDTIPDOC());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -61,11 +62,10 @@ public class DocumentoTipoImpl extends Conexion implements ICrud<DocumentoTipo>,
     @Override
     public List<DocumentoTipo> listar() throws Exception {
         List<DocumentoTipo> listaDocumentotipo = new ArrayList<>();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        ResultSet rs;
         try {
-            String sql = "SELECT * FROM TIPO_DOCUMENTO where IDTUP ESTTIPDOC != 'I' ";
-            ps = this.conectar().prepareStatement(sql);
+            String sql = "SELECT * FROM TIPO_DOCUMENTO where  ESTTIPDOC != 'I' ";
+            PreparedStatement ps = this.conectar().prepareStatement(sql);
             rs = ps.executeQuery();
             DocumentoTipo documento;
             while (rs.next()) {
@@ -76,15 +76,14 @@ public class DocumentoTipoImpl extends Conexion implements ICrud<DocumentoTipo>,
                 documento.setESTTIPDOC(rs.getString(4));
                 listaDocumentotipo.add(documento);
             }
-            ps.closeOnCompletion();
-        } catch (Exception e) {
+            rs.clearWarnings();
+            rs.close();
+            ps.clearParameters();
+            ps.close();
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (ps.isClosed()) {
-                ps.clearParameters();
-                rs.close();
-                this.desconectar();
-            }
+            this.desconectar();
         }
         return listaDocumentotipo;
 

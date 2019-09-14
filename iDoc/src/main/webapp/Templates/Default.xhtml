@@ -222,6 +222,14 @@
                                 </li>
 
                                 <li role="menuitem">
+                                <p:commandLink action="documentoTipo" ajax="true" styleClass="aumentar-sinSombra"
+                                               rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'T'}">
+                                    <i class="material-icons">account_balance</i>
+                                    <span>Tipo doc</span>
+                                </p:commandLink>
+                                </li>
+                                
+                                <li role="menuitem">
                                 <p:commandLink action="Trabajador" styleClass="aumentar-sinSombra" id="trabajador"
                                                rendered="#{loginC.loginSesion.TIPLOG.charAt(0) == 'S' 
                                                            or loginC.loginSesion.TIPLOG.charAt(0) == 'A'}" 
