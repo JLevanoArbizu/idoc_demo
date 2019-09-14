@@ -8,6 +8,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:param name="tituloPagina" value="Trabajador"/>
+    <ui:param name="formsActualizar" value=":frmRegistrarTrabajador :frmListarTrabajador"/>
 
     <ui:define name="contenidoPagina"> 
         <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>

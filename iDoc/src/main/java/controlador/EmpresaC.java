@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import modelo.Empresa;
+import org.primefaces.PrimeFaces;
 
 @Named(value = "empresaC")
 @SessionScoped
@@ -45,6 +46,7 @@ public class EmpresaC implements Serializable {
 //            listarEmpresa();
             limpiarEmpresa();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado Correctamente", null));
+            PrimeFaces.current().executeScript("enviar('" + "Empresa" + "');");
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Registrar"+e, null));
         }
@@ -55,6 +57,7 @@ public class EmpresaC implements Serializable {
             daoempresa.editar(selectedEmpresa);
 //            listarEmpresa();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
+            PrimeFaces.current().executeScript("enviar('" + "Empresa" + "');");
         } catch (Exception e) {
            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar"+e, null));
             throw e;
@@ -66,6 +69,7 @@ public class EmpresaC implements Serializable {
             daoempresa.eliminar(selectedEmpresa);
 //            listarEmpresa();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado Correctamente", null));
+            PrimeFaces.current().executeScript("enviar('" + "Empresa" + "');");
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar", null));
         }

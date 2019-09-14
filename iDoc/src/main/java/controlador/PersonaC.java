@@ -47,9 +47,9 @@ public class PersonaC implements Serializable {
         try {
             if (lista.contains(persona) == false) {
                 daoPersona.registrar(persona);
-                PrimeFaces.current().executeScript("enviar('" + "Persona" + "');");
 //                listar();
                 persona.clear();
+                PrimeFaces.current().executeScript("enviar('" + "Persona" + "');");
             } else {
             }
 

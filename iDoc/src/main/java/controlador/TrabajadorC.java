@@ -11,6 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import modelo.Login;
 import modelo.Trabajador;
+import org.primefaces.PrimeFaces;
 
 @Named(value = "trabajadorC")
 @SessionScoped
@@ -57,6 +58,7 @@ public class TrabajadorC implements Serializable {
                         null,
                         new FacesMessage("Registro exitoso")
                 );
+                PrimeFaces.current().executeScript("enviar('" + "Trabajador" + "');");
             } else {
                 FacesContext.getCurrentInstance().addMessage(
                         null,
@@ -72,6 +74,7 @@ public class TrabajadorC implements Serializable {
         try {
             daoTrabajador.editar(trabajadorSeleccionado);
 //            listar();
+            PrimeFaces.current().executeScript("enviar('" + "Trabajador" + "');");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,6 +84,7 @@ public class TrabajadorC implements Serializable {
         try {
             daoTrabajador.eliminar(trabajadorSeleccionado);
 //            listar();
+            PrimeFaces.current().executeScript("enviar('" + "Trabajador" + "');");
         } catch (Exception e) {
             e.printStackTrace();
         }

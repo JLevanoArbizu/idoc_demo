@@ -61,10 +61,11 @@ public class DocumentoTipoImpl extends Conexion implements ICrud<DocumentoTipo>,
     @Override
     public List<DocumentoTipo> listar() throws Exception {
         List<DocumentoTipo> listaDocumentotipo = new ArrayList<>();
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT * FROM TIPO_DOCUMENTO where IDTUP ESTTIPDOC != 'I' ";
-            PreparedStatement ps = this.conectar().prepareStatement(sql);
+            ps = this.conectar().prepareStatement(sql);
             rs = ps.executeQuery();
             DocumentoTipo documento;
             while (rs.next()) {
@@ -75,14 +76,15 @@ public class DocumentoTipoImpl extends Conexion implements ICrud<DocumentoTipo>,
                 documento.setESTTIPDOC(rs.getString(4));
                 listaDocumentotipo.add(documento);
             }
-            rs.clearWarnings();
-            rs.close();
-            ps.clearParameters();
-            ps.close();
-        } catch (SQLException e) {
+            ps.closeOnCompletion();
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            this.desconectar();
+            if (ps.isClosed()) {
+                ps.clearParameters();
+                rs.close();
+                this.desconectar();
+            }
         }
         return listaDocumentotipo;
 

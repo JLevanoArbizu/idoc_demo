@@ -72,14 +72,15 @@ public class TupaImpl extends Conexion implements ICrud<Tupa>, IReporte<Tupa> {
     @Override
     public List<Tupa> listar() throws Exception {
         List<Tupa> listaTupa = new ArrayList<>();
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT tupa.IDTUP, tupa.NUMTUP, tupa.NOMTUP, tupa.PRETUP, tupa.PLATUP, tupa.IDARE, area.NOMARE\n"
                     + "FROM TUPA tupa\n"
                     + "INNER JOIN AREA\n"
                     + "ON tupa.IDARE = area.IDARE\n"
                     + "where IDTUP != 1 AND ESTTUP != 'I'";
-            PreparedStatement ps = this.conectar().prepareStatement(sql);
+            ps = this.conectar().prepareStatement(sql);
             rs = ps.executeQuery();
             Tupa tupa;
             while (rs.next()) {
@@ -95,14 +96,15 @@ public class TupaImpl extends Conexion implements ICrud<Tupa>, IReporte<Tupa> {
                 tupa.setArea(area);
                 listaTupa.add(tupa);
             }
-            rs.clearWarnings();
-            rs.close();
-            ps.clearParameters();
-            ps.close();
-        } catch (SQLException e) {
+            ps.closeOnCompletion();
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            this.desconectar();
+            if (ps.isClosed()) {
+                ps.clearParameters();
+                rs.close();
+                this.desconectar();
+            }
         }
         return listaTupa;
     }

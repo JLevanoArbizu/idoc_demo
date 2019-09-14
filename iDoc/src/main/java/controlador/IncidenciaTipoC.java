@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import modelo.IncidenciaTipo;
+import org.primefaces.PrimeFaces;
 
 @Named(value = "incidenciatipoC")
 @SessionScoped
@@ -47,6 +48,7 @@ public class IncidenciaTipoC implements Serializable {
                 daoIncidenciaTipo.registrar(tipoIncidencia);
 //                listar();
                 tipoIncidencia.clear();
+                PrimeFaces.current().executeScript("enviar('" + "IncidenciaTipo" + "')");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,15 +59,17 @@ public class IncidenciaTipoC implements Serializable {
         try {
             daoIncidenciaTipo.editar(tipoIncidenciaSeleccionado);
 //            listar();
+            PrimeFaces.current().executeScript("enviar('" + "IncidenciaTipo" + "')");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-    public void eliminar() throws Exception{
+
+    public void eliminar() throws Exception {
         try {
             daoIncidenciaTipo.eliminar(tipoIncidenciaSeleccionado);
 //            listar();
+            PrimeFaces.current().executeScript("enviar('" + "IncidenciaTipo" + "')");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -102,7 +106,5 @@ public class IncidenciaTipoC implements Serializable {
     public void setListaFiltrado(List<IncidenciaTipo> listaFiltrado) {
         this.listaFiltrado = listaFiltrado;
     }
-
-   
 
 }

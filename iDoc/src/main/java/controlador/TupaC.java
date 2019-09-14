@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import modelo.Tupa;
+import org.primefaces.PrimeFaces;
 
 @Named(value = "tupaC")
 @SessionScoped
@@ -47,7 +48,7 @@ public class TupaC implements Serializable {
 //            listarTupa();
             limpiarTupa();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado Correctamente", null));
-            listarTupa();
+            PrimeFaces.current().executeScript("enviar('" + "Tupa" + "')");
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Registrar" + e, null));
         }
@@ -58,6 +59,7 @@ public class TupaC implements Serializable {
             dao.editar(selectedTupa);
 //            listarTupa();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
+            PrimeFaces.current().executeScript("enviar('" + "Tupa" + "')");
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar" + e, null));
         }
@@ -68,6 +70,7 @@ public class TupaC implements Serializable {
             dao.eliminar(selectedTupa);
 //            listarTupa();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado Correctamente", null));
+            PrimeFaces.current().executeScript("enviar('" + "Tupa" + "')");
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar" + e, null));
         }

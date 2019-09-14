@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import modelo.Transferencia;
+import org.primefaces.PrimeFaces;
 import org.primefaces.model.StreamedContent;
 
 @Named(value = "transferenciaC")
@@ -49,6 +50,7 @@ public class TransferenciaC implements Serializable {
 //            listarTransferencia();
             limpiarTransferencia();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado Correctamente", null));
+            PrimeFaces.current().executeScript("enviar('" + "Transferencia" + "');");
         } catch (Exception e) {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Registrar" + e, null));
@@ -60,6 +62,7 @@ public class TransferenciaC implements Serializable {
             dao.editar(selectedTransferencia);
 //            listarTransferencia();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
+            PrimeFaces.current().executeScript("enviar('" + "Transferencia" + "');");
         } catch (Exception e) {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar" + e, null));
@@ -71,9 +74,10 @@ public class TransferenciaC implements Serializable {
             dao.eliminar(selectedTransferencia);
 //            listarTransferencia();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado Correctamente", null));
+            PrimeFaces.current().executeScript("enviar('" + "Transferencia" + "');");
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar" + e, null));
-        
+
         }
     }
 
@@ -92,7 +96,6 @@ public class TransferenciaC implements Serializable {
 //            e.printStackTrace();
 //        }
 //    }
-
     public Transferencia getTransferencia() {
         return transferencia;
     }

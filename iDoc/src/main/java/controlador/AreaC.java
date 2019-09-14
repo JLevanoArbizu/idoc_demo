@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import modelo.Area;
+import org.primefaces.PrimeFaces;
 
 @Named(value = "areaC")
 @SessionScoped
@@ -48,6 +49,7 @@ public class AreaC implements Serializable {
                 daoArea.registrar(area);
 //                listar();
                 area.clear();
+                PrimeFaces.current().executeScript("enviar('" + "Area" + "');");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,6 +59,7 @@ public class AreaC implements Serializable {
     public void editar() throws Exception {
         try {
             daoArea.editar(areaSeleccionada);
+            PrimeFaces.current().executeScript("enviar('" + "Area" + "');");
 //            listar();
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,6 +69,7 @@ public class AreaC implements Serializable {
     public void eliminar() throws Exception {
         try {
             daoArea.eliminar(areaSeleccionada);
+            PrimeFaces.current().executeScript("enviar('" + "Area" + "');");
 //            listar();
         } catch (Exception e) {
             e.printStackTrace();
@@ -103,6 +107,5 @@ public class AreaC implements Serializable {
     public void setListaFiltrado(List<Area> listaFiltrado) {
         this.listaFiltrado = listaFiltrado;
     }
-
 
 }

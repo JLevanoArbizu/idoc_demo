@@ -310,12 +310,33 @@
                 </h:form>
                 <p:growl widgetVar="mensajeSockets" life="1000" showDetail="true" globalOnly="true"/>
                 <h:form>
-                    <p:commandButton id="btnActualizarPersona"
-                                     value="actualizarPersona" immediate="true" async="true"
+                    <p:commandButton id="btnActualizarPersona" update="#{formsActualizar}" style="display: none;"
+                                     value="btnActualizarPersona" immediate="true" async="true"
                                      actionListener="#{personaC.listar()}" />
                     <p:commandButton id="btnActualizarArea"
-                                     value="actualizarArea" immediate="true" async="true"
+                                     value="btnActualizarArea" immediate="true" async="true" update="#{formsActualizar}" style="display: none;"
                                      actionListener="#{areaC.listar()}" />
+                    <p:commandButton id="btnActualizarActa"
+                                     value="btnActualizarActa" immediate="true" async="true" update="#{formsActualizar}" style="display: none;"
+                                     actionListener="#{actaC.listar()}" />
+                    <p:commandButton id="btnActualizarIncidenciaTipo"
+                                     value="btnActualizarIncidenciaTipo" immediate="true" async="true" update="#{formsActualizar}" style="display: none;"
+                                     actionListener="#{incidenciatipoC.listar()}" />
+                    <p:commandButton id="btnActualizarDocumento"
+                                     value="btnActualizarDocumento" immediate="true" async="true" update="#{formsActualizar}" style="display: none;"
+                                     actionListener="#{documentoC.listarDocumento()}" />
+                    <p:commandButton id="btnActualizarTrabajador"
+                                     value="btnActualizarTrabajador" immediate="true" async="true" update="#{formsActualizar}" style="display: none;"
+                                     actionListener="#{trabajadorC.listar()}" />
+                    <p:commandButton id="btnActualizarTransferencia"
+                                     value="btnActualizarTransferencia" immediate="true" async="true" update="#{formsActualizar}" style="display: none;"
+                                     actionListener="#{transferenciaC.listarTransferencia()}" />
+                    <p:commandButton id="btnActualizarEmpresa"
+                                     value="btnActualizarEmpresa" immediate="true" async="true" update="#{formsActualizar}" style="display: none;"
+                                     actionListener="#{empresaC.listarEmpresa()}" />
+                    <p:commandButton id="btnActualizarTupa"
+                                     value="btnActualizarTupa" immediate="true" async="true" update="#{formsActualizar}" style="display: none;"
+                                     actionListener="#{tupaC.listarTupa()}" />
                 </h:form>
                 <ui:insert name="contenidoPagina"/>
                 <div class="footer">

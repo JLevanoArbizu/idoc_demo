@@ -68,9 +68,12 @@ public class IncidenciaTipoImpl extends Conexion implements ICrud<IncidenciaTipo
     @Override
     public List<IncidenciaTipo> listar() throws Exception {
         List<IncidenciaTipo> lista = new ArrayList<>();
+        ResultSet rs = null;
+        PreparedStatement ps = null;
         try {
             String sql = "SELECT IDINCTIP, NOMINCTIP, TIPINCTIP, LEYINCTIP, ESTINCTIP FROM INCIDENCIA_TIPO";
-            ResultSet rs = this.conectar().createStatement().executeQuery(sql);
+            ps = this.conectar().prepareStatement(sql);
+            rs = ps.executeQuery();
             IncidenciaTipo incidenciatipo;
             while (rs.next()) {
                 incidenciatipo = new IncidenciaTipo();

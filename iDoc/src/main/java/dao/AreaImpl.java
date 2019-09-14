@@ -78,6 +78,8 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
     @Override
     public List<Area> listar() throws Exception {
         List<Area> lista = new ArrayList<>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT area.IDARE, area.IDARE_PADR, area.IDMUN, area.NOMARE, area.ESTARE, subarea.NOMARE, muni.NOMMUN "
                     + "FROM AREA area "
@@ -85,7 +87,8 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
                     + "INNER JOIN MUNICIPALIDAD muni ON area.IDMUN = muni.IDMUN "
                     + "WHERE area.IDARE_PADR IS NULL OR subarea.IDARE IS NOT NULL "
                     + "ORDER BY area.IDARE";
-            ResultSet rs = this.conectar().createStatement().executeQuery(sql);
+            ps = this.conectar().prepareStatement(sql);
+            rs = ps.executeQuery();
 
             while (rs.next()) {
                 Area area = new Area();
@@ -102,11 +105,15 @@ public class AreaImpl extends Conexion implements ICrud<Area>, IReporte<Area> {
                 area.setMunicipalidad(municipalidad);
                 lista.add(area);
             }
-            rs.close();
+            ps.closeOnCompletion();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            this.desconectar();
+            if (ps.isClosed()) {
+                ps.clearParameters();
+                rs.close();
+                this.desconectar();
+            }
         }
         return lista;
     }

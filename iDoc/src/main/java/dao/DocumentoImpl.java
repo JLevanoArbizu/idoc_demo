@@ -96,7 +96,8 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
     @Override
     public List<Documento> listar() throws Exception {
         List<Documento> listaDocumento = new ArrayList<>();
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             String sql = "select\n"
                     + "IDDOC,\n"
@@ -122,7 +123,7 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
                     + "INNER JOIN EMPRESA EMP ON D.IDEMP = EMP.IDEMP\n"
                     + "INNER JOIN PERSONA PER2 ON D.IDPER = PER2.IDPER\n"
                     + "WHERE  ESTDOC != 'I' ORDER BY IDDOC DESC ";
-            PreparedStatement ps = this.conectar().prepareCall(sql);
+            ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             Documento documento;
             while (rs.next()) {
@@ -157,10 +158,15 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
 
                 listaDocumento.add(documento);
             }
-        } catch (SQLException e) {
+            ps.closeOnCompletion();
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            this.desconectar();
+            if (ps.isClosed()) {
+                ps.clearParameters();
+                rs.close();
+                this.desconectar();
+            }
         }
         return listaDocumento;
     }

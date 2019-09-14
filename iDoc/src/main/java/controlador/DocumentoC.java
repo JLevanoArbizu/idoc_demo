@@ -12,6 +12,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import modelo.Documento;
+import org.primefaces.PrimeFaces;
 
 @Named(value = "documentoC")
 @SessionScoped
@@ -45,6 +46,7 @@ public class DocumentoC implements Serializable {
 //            listarDocumento();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado Correctamente", null));
             documento.clear();
+            PrimeFaces.current().executeScript("enviar('" + "Documento" + "');");
         } catch (Exception e) {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Registrar" + e, null));
@@ -56,6 +58,7 @@ public class DocumentoC implements Serializable {
             daoDocumento.editar(selectedDocumento);
 //            listarDocumento();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
+            PrimeFaces.current().executeScript("enviar('" + "Documento" + "');");
         } catch (Exception e) {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar" + e, null));
@@ -67,6 +70,7 @@ public class DocumentoC implements Serializable {
             daoDocumento.eliminar(selectedDocumento);
 //            listarDocumento();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado Correctamente", null));
+            PrimeFaces.current().executeScript("enviar('" + "Documento" + "');");
         } catch (Exception e) {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar", null));

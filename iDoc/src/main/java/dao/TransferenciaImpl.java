@@ -86,6 +86,8 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
     @Override
     public List<Transferencia> listar() throws Exception {
         List<Transferencia> listaTransferencia = new ArrayList<>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT\n"
                     + "       IDTRAN,\n"
@@ -101,8 +103,8 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
                     + "INNER JOIN AREA A ON T.IDARE_REC = A.IDARE\n"
                     + "INNER JOIN AREA A2 on T.IDARE_EMI = A2.IDARE\n"
                     + "WHERE ESTTRA != 'I' ORDER BY IDTRAN DESC";
-
-            ResultSet rs = this.conectar().createStatement().executeQuery(sql);
+            ps = this.conectar().prepareStatement(sql);
+            rs = ps.executeQuery();
             Transferencia trans;
             while (rs.next()) {
                 trans = new Transferencia();
@@ -110,25 +112,29 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
                 Area areaReceptora = new Area();
                 Documento documento = new Documento();
                 trans.setIDTRAN(rs.getInt("IDTRAN"));
-                trans.setFECRECTRAN(rs.getTimestamp("FECRECTRAN",Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
-                trans.setFECSALTRAN(rs.getTimestamp("FECSALTRAN",Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
+                trans.setFECRECTRAN(rs.getTimestamp("FECRECTRAN", Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
+                trans.setFECSALTRAN(rs.getTimestamp("FECSALTRAN", Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
                 trans.setOBSTRAN(rs.getString("OBSTRAN"));
                 trans.setESTTRA(rs.getString("ESTTRA"));
                 documento.setASUDOC(rs.getString("IDDOC"));
                 areaEmisora.setNOMARE(rs.getString("IDARE_EMI"));
                 areaReceptora.setNOMARE(rs.getString("IDARE_REC"));
-                
+
                 trans.setAreaEmisora(areaEmisora);
                 trans.setAreaReceptora(areaReceptora);
                 trans.setDocumento(documento);
-                
+
                 listaTransferencia.add(trans);
             }
-
-        } catch (SQLException e) {
+            ps.closeOnCompletion();
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            this.desconectar();
+            if (ps.isClosed()) {
+                ps.clearParameters();
+                rs.close();
+                this.desconectar();
+            }
         }
         return listaTransferencia;
 

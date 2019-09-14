@@ -80,6 +80,8 @@ public class TrabajadorImpl extends Conexion implements ICrud<Trabajador>, IRepo
     @Override
     public List<Trabajador> listar() throws Exception {
         List<Trabajador> listaTrabajador = new ArrayList<>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT trabajador.IDTRAB, trabajador.IDPER, trabajador.IDARE, trabajador.FECINITRAB, \n"
                     + "trabajador.FECFINTRAB, trabajador.ESTTRAB,\n"
@@ -93,7 +95,8 @@ public class TrabajadorImpl extends Conexion implements ICrud<Trabajador>, IRepo
                     + "INNER JOIN AREA area\n"
                     + "ON area.IDARE = trabajador.IDARE "
                     + "WHERE trabajador.ESTTRAB = 'A'";
-            ResultSet rs = this.conectar().createStatement().executeQuery(sql);
+            ps = this.conectar().prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Trabajador trabajador = new Trabajador();
                 Ubigeo ubigeo = new Ubigeo();
@@ -121,11 +124,15 @@ public class TrabajadorImpl extends Conexion implements ICrud<Trabajador>, IRepo
                 listaTrabajador.add(trabajador);
 
             }
-            rs.close();
+            ps.closeOnCompletion();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            this.desconectar();
+            if (ps.isClosed()) {
+                ps.clearParameters();
+                rs.close();
+                this.desconectar();
+            }
         }
         return listaTrabajador;
     }

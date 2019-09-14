@@ -87,6 +87,8 @@ public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
     @Override
     public List<Acta> listar() throws Exception {
         List<Acta> lista = new ArrayList<>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT\n"
                     + "titular.IDPER,\n"
@@ -106,7 +108,8 @@ public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
                     + "ON acta.IDPER = titular.IDPER\n"
                     + "WHERE acta.ESTACTA = 'A' "
                     + "ORDER BY acta.IDACTA";
-            ResultSet rs = this.conectar().createStatement().executeQuery(sql);
+            ps = this.conectar().prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Acta acta = new Acta();
                 Persona titular = new Persona();
@@ -127,12 +130,15 @@ public class ActaImpl extends Conexion implements ICrud<Acta>, IReporte<Acta> {
                 acta.setTitular(titular);
                 lista.add(acta);
             }
-            rs.clearWarnings();
-            rs.close();
+            ps.closeOnCompletion();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            this.desconectar();
+            if (ps.isClosed()) {
+                ps.clearParameters();
+                rs.close();
+                this.desconectar();
+            }
         }
         return lista;
     }

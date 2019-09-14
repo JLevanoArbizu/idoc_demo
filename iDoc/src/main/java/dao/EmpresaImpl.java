@@ -62,10 +62,11 @@ public class EmpresaImpl extends Conexion implements ICrud<Empresa>, IReporte<Em
     @Override
     public List<Empresa> listar() throws Exception {
         List<Empresa> listadoEmpresa = new ArrayList<>();
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT * FROM EMPRESA WHERE ESTEMP LIKE 'A' and IDEMP != '1' ORDER BY IDEMP DESC";
-            PreparedStatement ps = this.conectar().prepareCall(sql);
+            ps = this.conectar().prepareStatement(sql);
             rs = ps.executeQuery();
             Empresa empresa;
             while (rs.next()) {
@@ -77,12 +78,15 @@ public class EmpresaImpl extends Conexion implements ICrud<Empresa>, IReporte<Em
                 empresa.setESTEMP(rs.getString("ESTEMP"));
                 listadoEmpresa.add(empresa);
             }
-
-        } catch (SQLException e) {
+            ps.closeOnCompletion();
+        } catch (Exception e) {
             e.printStackTrace();
-            throw e;
         } finally {
-            this.desconectar();
+            if (ps.isClosed()) {
+                ps.clearParameters();
+                rs.close();
+                this.desconectar();
+            }
         }
         return listadoEmpresa;
     }

@@ -91,7 +91,8 @@ public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IRepo
     @Override
     public List<Incidencia> listar(Incidencia modelo) throws Exception {
         List<Incidencia> lista = new ArrayList<>();
-        System.out.println(modelo.getActa().getIDACTA());
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT incidencia.IDINC, "
                     + "incidencia.IDACTA, "
@@ -106,9 +107,9 @@ public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IRepo
                     + "INNER JOIN INCIDENCIA_TIPO tipo "
                     + "ON incidencia.IDINCTIP = tipo.IDINCTIP "
                     + "WHERE incidencia.IDACTA=?";
-            PreparedStatement ps = this.conectar().prepareStatement(sql);
+            ps = this.conectar().prepareStatement(sql);
             ps.setInt(1, modelo.getActa().getIDACTA());
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Incidencia incidencia = new Incidencia();
                 Acta acta = new Acta();
@@ -128,14 +129,15 @@ public class IncidenciaImpl extends Conexion implements ICrud<Incidencia>, IRepo
                 incidencia.setTipoIncidencia(tipoIncidencia);
                 lista.add(incidencia);
             }
-            rs.clearWarnings();
-            rs.close();
-            ps.clearParameters();
-            ps.close();
+            ps.closeOnCompletion();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            this.desconectar();
+            if (ps.isClosed()) {
+                ps.clearParameters();
+                rs.close();
+                this.desconectar();
+            }
         }
         return lista;
     }
