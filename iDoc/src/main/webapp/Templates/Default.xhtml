@@ -284,12 +284,12 @@
                                 </p:commandLink>
                                 </li>
 
-                                <!--                                <li role="menuitem">
-                                                                <p:commandLink ajax="true" styleClass="aumentar-sinSombra">
-                                                                    <i class="material-icons">comment</i>
-                                                                    <span>Sugerencias</span>
-                                                                </p:commandLink>
-                                                                </li>-->
+                                <li role="menuitem">
+                                <p:commandLink action="Sugerencias" ajax="true" styleClass="aumentar-sinSombra">
+                                    <i class="material-icons">comment</i>
+                                    <span>Sugerencias</span>
+                                </p:commandLink>
+                                </li>
                             </ul>
                             <script>
                                 PrimeFaces.cw("Ultima", "me", {id: "menuform"});
@@ -337,6 +337,9 @@
                     <p:commandButton id="btnActualizarTupa"
                                      value="btnActualizarTupa" immediate="true" async="true" update="#{formsActualizar}" style="display: none;"
                                      actionListener="#{tupaC.listarTupa()}" />
+                    <p:commandButton id="btnActualizarSugerencia"
+                                     value="btnActualizarSugerencia" immediate="true" async="true" update="#{formsActualizar}" 
+                                     actionListener="#{sugerenciaC.listar()}" />
                 </h:form>
                 <ui:insert name="contenidoPagina"/>
                 <div class="footer">

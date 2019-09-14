@@ -35,6 +35,9 @@ socket.onmessage = function (event) {
         case "Tupa":
             actualizarTupa();
             break;
+        case "Sugerencia":
+            actualizarSugerencia();
+            break;
         default:
             break;
     }
@@ -87,5 +90,10 @@ function actualizarTupa() {
 
 function actualizarEmpresa() {
     PrimeFaces.ab({s: "j_idt107:btnActualizarEmpresa", f: "j_idt107", u: "FormEmpresa FormTblEmpresa", a: true});
+    return false;
+}
+
+function actualizarSugerencia() {
+    PrimeFaces.ab({s: "j_idt110:btnActualizarSugerencia", f: "j_idt110", a: true});
     return false;
 }
