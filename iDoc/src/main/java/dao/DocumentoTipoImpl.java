@@ -39,8 +39,7 @@ public class DocumentoTipoImpl extends Conexion implements ICrud<DocumentoTipo>,
             ps.setString(1, documentotipo.getTIPDOC());
             ps.setString(2, documentotipo.getNOMTIPDOC());
             ps.setString(3, documentotipo.getESTTIPDOC());
-            ps.setInt(4, documentotipo.getIDTIPDOC());
-            
+            ps.setInt(4, documentotipo.getIDTIPDOC());            
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
@@ -55,7 +54,7 @@ public class DocumentoTipoImpl extends Conexion implements ICrud<DocumentoTipo>,
     @Override
     public void eliminar(DocumentoTipo documentotipo) throws Exception {
         try {
-            String sql = "UPDATE TIPO_DOCUMENTO SET ESTDOC='I' WHERE IDTIPDOC LIKE ?";
+            String sql = "UPDATE TIPO_DOCUMENTO SET ESTTIPDOC='I' WHERE IDTIPDOC LIKE ?";
             PreparedStatement ps = this.conectar().prepareCall(sql);
             ps.setInt(1, documentotipo.getIDTIPDOC());
             ps.executeUpdate();

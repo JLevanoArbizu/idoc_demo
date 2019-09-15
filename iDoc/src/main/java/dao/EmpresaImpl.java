@@ -65,7 +65,7 @@ public class EmpresaImpl extends Conexion implements ICrud<Empresa>, IReporte<Em
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            String sql = "SELECT * FROM EMPRESA WHERE ESTEMP LIKE 'A' and IDEMP != '1' ORDER BY IDEMP DESC";
+            String sql = "SELECT * FROM EMPRESA WHERE ESTEMP != 'I' and IDEMP != '1' ORDER BY IDEMP DESC";
             ps = this.conectar().prepareStatement(sql);
             rs = ps.executeQuery();
             Empresa empresa;

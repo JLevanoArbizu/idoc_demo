@@ -61,6 +61,7 @@ public class DocumentoTipoC implements Serializable {
         try {
             dao.editar(selecteddocumentoTipo);
 //            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
+            
             PrimeFaces.current().executeScript("enviar('" + "DocumentoTipo" + "');");
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar" + e, null));

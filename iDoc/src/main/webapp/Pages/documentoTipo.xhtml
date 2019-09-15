@@ -11,17 +11,15 @@
 
     <ui:define name="contenidoPagina">
         <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
-        <ui:param name="formsActualizar" value=":FormDtipo FormTblDtipo:tblDtipo"/>
 
         <center>
             <h5 style="color: #193a59" >Registrar Documento Tipo</h5>
         </center>
         <h:form id="FormDtipo">
             <p:panelGrid columns="2">
-
-
                 <p:outputLabel  value="Tipo de documento: " />
                 <p:selectOneMenu  value="#{documentoTipoC.documentoTipo.TIPDOC}" style="width:125px">
+                    <f:selectItem itemLabel="Seleccionar" itemValue="" />
                     <f:selectItem itemLabel="Documento interno" itemValue="I" />
                     <f:selectItem itemLabel="Documento extreno" itemValue="E" />
                     <f:selectItem itemLabel="Tupa" itemValue="T" />
@@ -33,9 +31,6 @@
 
                 <p:commandButton value="REGISTRAR" actionListener="#{documentoTipoC.registrarDocTipo()}" 
                                  update="FormDtipo FormTblDtipo:tblDtipo"/>
-
-
-
             </p:panelGrid>
         </h:form>
 
@@ -75,7 +70,7 @@
                 <p:menuitem value="Editar" icon="ui-icon-pencil"
                             oncomplete="PF('dlgModDtipo').show()" update="FormDialogModDtip"/>
                 <p:menuitem value="Eliminar" icon="ui-icon-trash"
-                            actionListener="#{documentoTipoC.eliminarDocTipo()}" update="tblDtipo">
+                            actionListener="#{documentoTipoC.eliminarDocTipo()}" update="FormTblDtipo:tblDtipo">
                     <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
                 </p:menuitem>
             </p:contextMenu>
@@ -91,16 +86,17 @@
             <h:form id="FormDialogModDtip">
                 <p:panelGrid columns="2">
 
-                    <p:outputLabel  value="Tipo de documento: " />
-                    <p:selectOneMenu  value="#{documentoTipoC.selecteddocumentoTipo.TIPDOC}" style="width:125px">
-                        <f:selectItem itemLabel="Documento interno" itemValue="I" />
-                        <f:selectItem itemLabel="Documento extreno" itemValue="E" />
-                        <f:selectItem itemLabel="Tupa" itemValue="T" />
-                        <f:selectItem itemLabel="no me acuerdo" itemValue="A" />
-                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Tipo de documento "/>
+                    <p:inputText value="#{documentoTipoC.selecteddocumentoTipo.TIPDOC}" placeholder="Razón Social" maxlength="300"/>
 
                     <p:outputLabel value="Nombre"/>
-                    <p:inputText value="#{documentoTipoC.selecteddocumentoTipo.NOMTIPDOC}" placeholder="Nombre" maxlength="300"/>
+                    <p:inputText value="#{documentoTipoC.selecteddocumentoTipo.NOMTIPDOC}" placeholder="Razón Social" maxlength="300"/>
+
+                    <p:outputLabel value="Estado"/>
+                    <p:inputText value="#{documentoTipoC.selecteddocumentoTipo.ESTTIPDOC}" placeholder="Razón Social" maxlength="300"/>
+
+
 
 
                     <p:commandButton value="MODIFICAR" actionListener="#{documentoTipoC.editarDocTipo()}" oncomplete="PF('dlgModDtipo').hide()" update="FormTblDtipo:tblDtipo" />
