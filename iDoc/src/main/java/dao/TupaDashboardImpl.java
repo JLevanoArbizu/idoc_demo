@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import java.sql.ResultSet;
@@ -12,10 +7,6 @@ import modelo.Dashboard;
 import modelo.Tupa;
 import org.primefaces.model.chart.BarChartModel;
 
-/**
- *
- * @author josefernandolevanoarbizu
- */
 public class TupaDashboardImpl extends Conexion implements IDashboard<Dashboard>{
 
     @Override
@@ -45,7 +36,6 @@ public class TupaDashboardImpl extends Conexion implements IDashboard<Dashboard>
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            System.out.println("CAMTIDADDDD"+1);
             this.desconectar();
         }
         return lista;

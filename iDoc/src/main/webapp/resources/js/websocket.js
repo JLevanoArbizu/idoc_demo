@@ -6,7 +6,7 @@ function enviar(mensaje) {
 
 socket.onmessage = function (event) {
     PF('mensajeSockets').renderMessage({
-        "summary": "Hubierón cambios",
+        "summary": "Hubierón cambios recientes",
         "detail": event.data,
         "severity": "info"
     });
@@ -38,6 +38,9 @@ socket.onmessage = function (event) {
         case "Sugerencia":
             actualizarSugerencia();
             break;
+        case "DocumentoTipo":
+            actualizarDocumentoTipo();
+            break;
         default:
             break;
     }
@@ -65,7 +68,8 @@ function actualizarDocumento() {
 }
 
 function actualizarDocumentoTipo() {
-
+    PrimeFaces.ab({s: "j_idt113:btnActualizarDocumentoTipo", f: "j_idt113", a: true});
+    return false;
 }
 
 function actualizarIncidenciaTipo() {

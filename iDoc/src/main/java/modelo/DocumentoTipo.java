@@ -1,8 +1,7 @@
 package modelo;
 
-
 public class DocumentoTipo {
-                                                                                                                                                                                            
+
     private int IDTIPDOC;
     private String TIPDOC;
     private String NOMTIPDOC;
@@ -39,10 +38,4 @@ public class DocumentoTipo {
     public void setESTTIPDOC(String ESTTIPDOC) {
         this.ESTTIPDOC = ESTTIPDOC;
     }
-
-    
-    
-    
-    
-    
 }

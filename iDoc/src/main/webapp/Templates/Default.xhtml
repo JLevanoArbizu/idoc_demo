@@ -316,7 +316,7 @@
                         <p:ajax event="idle" listener="#{loginC.cerrarSesion()}" />
                     </p:idleMonitor>
                 </h:form>
-                <p:growl widgetVar="mensajeSockets" life="1000" showDetail="true" globalOnly="true"/>
+                <p:growl widgetVar="mensajeSockets" life="1000" showDetail="true"/>
                 <h:form>
                     <p:commandButton id="btnActualizarPersona" update="#{formsActualizar}" style="display: none;"
                                      value="btnActualizarPersona" immediate="true" async="true"
@@ -348,6 +348,9 @@
                     <p:commandButton id="btnActualizarSugerencia"
                                      value="btnActualizarSugerencia" immediate="true" async="true" update="@all" style="display: none;"
                                      actionListener="#{sugerenciaC.listar()}" />
+                    <p:commandButton id="btnActualizarDocumentoTipo"
+                                     value="btnActualizarDocumentoTipo" immediate="true" async="true" update="#{formsActualizar}" style="display: none;"
+                                     actionListener="#{documentoTipoC.listarDocTipo()}" />
                 </h:form>
                 <ui:insert name="contenidoPagina"/>
                 <div class="footer">

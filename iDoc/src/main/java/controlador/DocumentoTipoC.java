@@ -1,6 +1,5 @@
 package controlador;
 
-
 import dao.DocumentoTipoImpl;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -12,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import modelo.DocumentoTipo;
+import org.primefaces.PrimeFaces;
 
 @Named(value = "documentoTipoC")
 @SessionScoped
@@ -36,7 +36,6 @@ public class DocumentoTipoC implements Serializable {
         try {
             listarDocTipo();
         } catch (Exception e) {
-            System.out.println("errrrorrr iniciar"+e);
             e.printStackTrace();
         }
 
@@ -50,12 +49,10 @@ public class DocumentoTipoC implements Serializable {
         try {
             dao.registrar(documentoTipo);
             limpiarDocumentotipo();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado Correctamente", null));
-            listarDocTipo();
-
+            PrimeFaces.current().executeScript("enviar('" + "DocumentoTipo" + "');");
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado Correctamente", null));
         } catch (SQLException e) {
-            System.out.println("errrrorrr registra"+e);
-            throw e;
+            e.printStackTrace();
         }
 
     }
@@ -63,11 +60,11 @@ public class DocumentoTipoC implements Serializable {
     public void editarDocTipo() {
         try {
             dao.editar(selecteddocumentoTipo);
-            listarDocTipo();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
+            PrimeFaces.current().executeScript("enviar('" + "DocumentoTipo" + "');");
         } catch (Exception e) {
-            System.out.println("errrrorrr edita"+e);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar" + e, null));
+            e.printStackTrace();
         }
 
     }
@@ -76,18 +73,18 @@ public class DocumentoTipoC implements Serializable {
         try {
             dao.eliminar(selecteddocumentoTipo);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado Correctamente", null));
+            PrimeFaces.current().executeScript("enviar('" + "DocumentoTipo" + "');");
         } catch (Exception e) {
-            System.out.println("errrrorrr elimin"+e);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar" + e, null));
+            e.printStackTrace();
         }
     }
-    
-    public void listarDocTipo() throws Exception{
+
+    public void listarDocTipo() throws Exception {
         try {
             lstdocumentoTipo = dao.listar();
         } catch (Exception e) {
-            System.out.println("errrrorrr list"+e);
-            throw e;
+            e.printStackTrace();
         }
     }
 
@@ -122,9 +119,5 @@ public class DocumentoTipoC implements Serializable {
     public void setFiltrado(List<DocumentoTipo> filtrado) {
         this.filtrado = filtrado;
     }
-
-    
-    
-    
 
 }

@@ -15,10 +15,13 @@ public class DocumentoTipoImpl extends Conexion implements ICrud<DocumentoTipo>,
         try {
             String sql = "INSERT INTO TIPO_DOCUMENTO (TIPDOC, NOMTIPDOC) VALUES(?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
-           
+
             ps.setString(1, documentotipo.getTIPDOC());
             ps.setString(2, documentotipo.getNOMTIPDOC());
+            
             ps.executeUpdate();
+            ps.clearParameters();
+            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -37,6 +40,10 @@ public class DocumentoTipoImpl extends Conexion implements ICrud<DocumentoTipo>,
             ps.setString(2, documentotipo.getNOMTIPDOC());
             ps.setString(3, documentotipo.getESTTIPDOC());
             ps.setInt(4, documentotipo.getIDTIPDOC());
+            
+            ps.executeUpdate();
+            ps.clearParameters();
+            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -62,10 +69,11 @@ public class DocumentoTipoImpl extends Conexion implements ICrud<DocumentoTipo>,
     @Override
     public List<DocumentoTipo> listar() throws Exception {
         List<DocumentoTipo> listaDocumentotipo = new ArrayList<>();
-        ResultSet rs;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT * FROM TIPO_DOCUMENTO where  ESTTIPDOC != 'I' ";
-            PreparedStatement ps = this.conectar().prepareStatement(sql);
+            ps = this.conectar().prepareStatement(sql);
             rs = ps.executeQuery();
             DocumentoTipo documento;
             while (rs.next()) {
@@ -76,14 +84,15 @@ public class DocumentoTipoImpl extends Conexion implements ICrud<DocumentoTipo>,
                 documento.setESTTIPDOC(rs.getString(4));
                 listaDocumentotipo.add(documento);
             }
-            rs.clearWarnings();
-            rs.close();
-            ps.clearParameters();
-            ps.close();
-        } catch (SQLException e) {
+            ps.closeOnCompletion();
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            this.desconectar();
+            if (ps.isClosed()) {
+                ps.clearParameters();
+                rs.close();
+                this.desconectar();
+            }
         }
         return listaDocumentotipo;
 
