@@ -71,7 +71,10 @@ function notificarActualizar(event) {
 
 
 function actualizarPersona() {
-    PrimeFaces.ab({s: "j_idt107:btnActualizarPersona", f: "j_idt107", u: "frmRegistrarPersona frmListarPersona", a: true});
+    PrimeFaces.ab({s: "j_idt110:btnActualizarPersona", f: "j_idt110", u: "frmRegistrarPersona frmListarPersona", a: true, onco: function (xhr, status, args) {
+            PF('wvDtTblPersona').filter();
+            ;
+        }});
     return false;
 }
 
@@ -81,7 +84,10 @@ function actualizarArea() {
 }
 
 function actualizarActa() {
-    PrimeFaces.ab({s: "j_idt107:btnActualizarActa", f: "j_idt107", u: "frmRegistrarActa frmActa", a: true});
+    PrimeFaces.ab({s: "j_idt110:btnActualizarActa", f: "j_idt110", u: "frmRegistrarActa frmActa", a: true, onco: function (xhr, status, args) {
+            PF('wvTblActa').filter();
+            ;
+        }});
     return false;
 }
 
@@ -96,27 +102,36 @@ function actualizarDocumentoTipo() {
 }
 
 function actualizarIncidenciaTipo() {
-    PrimeFaces.ab({s: "j_idt107:btnActualizarIncidenciaTipo", f: "j_idt107", u: "frmRegistrarIncidenciaTipo frmListarIncidenciaTipo", a: true});
+    PrimeFaces.ab({s: "j_idt110:btnActualizarIncidenciaTipo", f: "j_idt110", u: "frmRegistrarIncidenciaTipo frmListarIncidenciaTipo", a: true, onco: function (xhr, status, args) {
+            PF('wvDtTblIncidenciaTipo').filter();
+            ;
+        }});
     return false;
 }
 
 function actualizarTrabajador() {
-    PrimeFaces.ab({s: "j_idt107:btnActualizarTrabajador", f: "j_idt107", u: "frmRegistrarTrabajador frmListarTrabajador", a: true});
+    PrimeFaces.ab({s: "j_idt110:btnActualizarTrabajador", f: "j_idt110", u: "frmRegistrarTrabajador frmListarTrabajador", a: true, onco: function (xhr, status, args) {
+            PF('wdtTblTrabajador').filter();
+            ;
+        }});
     return false;
 }
 
 function actualizarTransferencia() {
-    PrimeFaces.ab({s: "j_idt107:btnActualizarTransferencia", f: "j_idt107", u: "FormTblTransferencia FormTransferencia", a: true});
+    PrimeFaces.ab({s: "j_idt110:btnActualizarTransferencia", f: "j_idt110", u: "FormTblTransferencia FormTransferencia", a: true});
     return false;
 }
 
 function actualizarTupa() {
-    PrimeFaces.ab({s: "j_idt107:btnActualizarTupa", f: "j_idt107", u: "FormTupa FormTblTupa", a: true});
+    PrimeFaces.ab({s: "j_idt110:btnActualizarTupa", f: "j_idt110", u: "FormTupa FormTblTupa", a: true, onco: function (xhr, status, args) {
+            PF('wvTblTupa').filter();
+            ;
+        }});
     return false;
 }
 
 function actualizarEmpresa() {
-    PrimeFaces.ab({s: "j_idt107:btnActualizarEmpresa", f: "j_idt107", u: "FormEmpresa FormTblEmpresa", a: true});
+    PrimeFaces.ab({s: "j_idt110:btnActualizarEmpresa", f: "j_idt110", u: "FormEmpresa FormTblEmpresa", a: true});
     return false;
 }
 
