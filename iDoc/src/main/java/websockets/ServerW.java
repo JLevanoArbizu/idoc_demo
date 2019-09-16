@@ -19,14 +19,20 @@ public class ServerW {
 
     @OnOpen
     public void open(Session session) {
-        System.out.println("Sesion abierta");
-        sesiones.add(session);
+        try {
+            if (sesiones.contains(session) == false) {
+                System.out.println("Sesion abierta");
+                sesiones.add(session);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @OnMessage
     public void handleMessage(Session session, String tipo) {
         try {
-            broadcast(session,tipo);
+            broadcast(session, tipo);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,13 +51,16 @@ public class ServerW {
 
     @OnClose
     public void close(Session session) {
-        System.out.println("Session cerrada");
-        sesiones.remove(session);
+        try {
+            sesiones.remove(session);
+            System.out.println("Session cerrada");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @OnError
     public void onError(Throwable e) {
-        System.out.println(e.getMessage());
         e.printStackTrace();
     }
 }

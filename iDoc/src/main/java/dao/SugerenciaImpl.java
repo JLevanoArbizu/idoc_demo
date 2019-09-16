@@ -47,7 +47,18 @@ public class SugerenciaImpl extends Conexion implements ICrud<Sugerencia> {
 
     @Override
     public void eliminar(Sugerencia modelo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sql = "DELETE FROM SUGERENCIA WHERE IDSUG=?";
+            PreparedStatement ps = this.conectar().prepareStatement(sql);
+            ps.setInt(1, modelo.getIDSUG());
+            ps.executeUpdate();
+            ps.clearParameters();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.desconectar();
+        }
     }
 
     @Override
@@ -72,13 +83,13 @@ public class SugerenciaImpl extends Conexion implements ICrud<Sugerencia> {
                 Login login = new Login();
                 Trabajador trabajador = new Trabajador();
                 Persona persona = new Persona();
-                
+
                 sugerencia.setIDSUG(rs.getInt(1));
                 sugerencia.setSUG(rs.getString(2));
                 sugerencia.setESTSUG(rs.getString(3));
-                
+
                 login.setIDLOG(rs.getInt(4));
-                
+
                 persona.setAPEPATPER(rs.getString(5));
                 persona.setAPEMATPER(rs.getString(6));
                 persona.setNOMPER(rs.getString(7));

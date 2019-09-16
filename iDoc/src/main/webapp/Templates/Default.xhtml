@@ -34,11 +34,8 @@
         <h:outputStylesheet library="css"  name="layout-dark-green.css"/>
         <h:outputStylesheet library="css"  name="theme-dark-green.css"/>
         <h:outputScript library="js" name="charts.js" />
-        <h:outputScript library="js" name="clock.js" />
         <h:outputScript library="js" name="components.js" />
         <h:outputScript library="js" name="core.js" />
-        <h:outputScript library="js" name="fileupload.js" />
-        <h:outputScript library="js" name="galleria.js" />
         <h:outputScript library="js" name="inputswitch.js" />
         <h:outputScript library="js" name="keyboard.js" />
         <h:outputScript library="js" name="layout.js" />
@@ -101,7 +98,7 @@
                                     </p:commandLink>
                                     </li>
                                     <li role="menuitem">
-                                    <p:commandLink action="Login" styleClass="ripplelink" ajax="true"
+                                    <p:commandLink action="Login" styleClass="ripplelink" ajax="true" onclick="cerrarSesion();"
                                                    actionListener="#{loginC.cerrarSesion()}">
                                         <i class="material-icons">lock</i>
                                         <span>Salir</span>
@@ -111,18 +108,18 @@
                             </ul>
                         </li>
                         <li>
-                            <!--                            <a href="#">
-                                                            <i class="topbar-icon material-icons animated swing">message</i>
-                                                            <span class="topbar-badge animated rubberBand">5</span>
-                                                            <span class="topbar-item-name">Bandeja</span>
-                                                        </a>-->
-                            <ul class="ultima-menu animated">
+<!--                            <a href="#">
+                                <i class="topbar-icon material-icons animated swing">message</i>
+                                <span class="topbar-badge animated rubberBand">5</span>
+                                <span class="topbar-item-name">Bandeja</span>
+                            </a>-->
+<!--                            <ul class="ultima-menu animated">
                                 <li role="menuitem">
                                     <a href="#" class="topbar-message">
                                         <span>Acta o Trámite</span>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul>-->
                         </li>
                         <li>
                             <!--                            <a href="#">
@@ -228,7 +225,7 @@
                                     <span>Tipo doc</span>
                                 </p:commandLink>
                                 </li>
-                                
+
                                 <li role="menuitem">
                                 <p:commandLink action="Trabajador" styleClass="aumentar-sinSombra" id="trabajador"
                                                rendered="#{loginC.loginSesion.TIPLOG.charAt(0) == 'S' 
@@ -316,7 +313,7 @@
                         <p:ajax event="idle" listener="#{loginC.cerrarSesion()}" />
                     </p:idleMonitor>
                 </h:form>
-                <p:growl widgetVar="mensajeSockets" life="1000" showDetail="true"/>
+                <p:growl widgetVar="mensajeSockets" life="1000" showDetail="true" globalOnly="true"/>
                 <h:form>
                     <p:commandButton id="btnActualizarPersona" update="#{formsActualizar}" style="display: none;"
                                      value="btnActualizarPersona" immediate="true" async="true"
@@ -346,7 +343,7 @@
                                      value="btnActualizarTupa" immediate="true" async="true" update="#{formsActualizar}" style="display: none;"
                                      actionListener="#{tupaC.listarTupa()}" />
                     <p:commandButton id="btnActualizarSugerencia"
-                                     value="btnActualizarSugerencia" immediate="true" async="true" update="@all" style="display: none;"
+                                     value="btnActualizarSugerencia" immediate="true" async="true" update="#{formsActualizar}" style="display: none;"
                                      actionListener="#{sugerenciaC.listar()}" />
                     <p:commandButton id="btnActualizarDocumentoTipo"
                                      value="btnActualizarDocumentoTipo" immediate="true" async="true" update="#{formsActualizar}" style="display: none;"

@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import modelo.Login;
 import modelo.Trabajador;
+import org.primefaces.PrimeFaces;
 
 @Named(value = "loginC")
 @SessionScoped
@@ -34,8 +35,8 @@ public class LoginC implements Serializable {
             e.printStackTrace();
         }
     }
-    
-    public void eliminar(Trabajador trabajador) throws Exception{
+
+    public void eliminar(Trabajador trabajador) throws Exception {
         try {
             daoLogin.eliminar(trabajador);
         } catch (Exception e) {
@@ -97,6 +98,7 @@ public class LoginC implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc");
             loginSesion.clear();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

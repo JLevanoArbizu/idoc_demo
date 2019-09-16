@@ -58,6 +58,14 @@ public class SugerenciaC implements Serializable {
             e.printStackTrace();
         }
     }
+    public void eliminar(Sugerencia s) throws Exception {
+        try {
+            dao.eliminar(s);
+            PrimeFaces.current().executeScript("enviar('" + "Sugerencia" + "');");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public Sugerencia getSugerencia() {
         return sugerencia;

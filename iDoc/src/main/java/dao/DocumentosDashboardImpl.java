@@ -36,7 +36,6 @@ public class DocumentosDashboardImpl extends Conexion implements IDashboard<Dash
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            System.out.println("CAMTIDADDDD"+1);
             this.desconectar();
         }
         return lista;

@@ -1,10 +1,33 @@
-var socket = new WebSocket('ws://' + location.hostname + (location.port ? ':' + location.port : '') + '/iDoc/ws/server');
+let socket = new WebSocket('ws://' + location.hostname + (location.port ? ':' + location.port : '') + '/iDoc/ws/server');
 
 function enviar(mensaje) {
     socket.send(mensaje);
 }
 
+socket.onopen = function (event) {
+    console.log('Conexión abierta ' + event);
+};
+
 socket.onmessage = function (event) {
+    notificarActualizar(event);
+};
+
+socket.onclose = function (event) {
+    console.log('Conexión socket cerrada ' + event);
+};
+
+socket.onerror = function (event) {
+    console.log('Error! ' + event);
+};
+
+function cerrarSesion() {
+    socket.onclose = function () {};
+    socket.close();
+    console.log('Conexión socket cerrada!!');
+}
+
+
+function notificarActualizar(event) {
     PF('mensajeSockets').renderMessage({
         "summary": "Hubierón cambios recientes",
         "detail": event.data,
@@ -44,7 +67,7 @@ socket.onmessage = function (event) {
         default:
             break;
     }
-};
+}
 
 
 function actualizarPersona() {
@@ -98,6 +121,6 @@ function actualizarEmpresa() {
 }
 
 function actualizarSugerencia() {
-    PrimeFaces.ab({s: "j_idt113:btnActualizarSugerencia", f: "j_idt113", u: "frmSugerencia", a: true});
+    PrimeFaces.ab({s: "j_idt110:btnActualizarSugerencia", f: "j_idt110", u: "frmSugerencia", a: true});
     return false;
 }

@@ -11,7 +11,7 @@
     <ui:define name="contenidoPagina">
         <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
         <f:event type="preRenderView" listener="#{sugerenciaC.sugerencia.setLogin(loginC.loginSesion)}"/>
-        <ui:param name="formsActualizar" value="frmSugerencia"/>
+        <ui:param name="formsActualizar" value=":frmSugerencia"/>
 
         <h:form id="frmSugerencia">
             <h:panelGrid columns="2">
@@ -29,16 +29,15 @@
 
                 <p:panel styleClass="ui-messages-#{sugerencia.ESTSUG eq '0' ? 'warn': 
                                                    sugerencia.ESTSUG eq '1' ? 'info' : 'fatal'} panel aumentar">
-                    <h:panelGrid columns="1">
+                    <h:panelGrid columns="4">
                         <h:outputText value="#{sugerencia.login.trabajador.persona.APEPATPER} 
                                       #{sugerencia.login.trabajador.persona.APEMATPER}, 
                                       #{sugerencia.login.trabajador.persona.NOMPER}"/>
-                        <h:panelGrid columns="2" columnClasses="ui-grid-col-6">
-                            <h:outputText value="#{sugerencia.SUG}" style="width: 95%;"/>
-                            <p:triStateCheckbox style="width: 5%;" value="#{sugerencia.ESTSUG}">
-                                <p:ajax event="change" listener="#{sugerenciaC.editar(sugerencia)}"/>
-                            </p:triStateCheckbox>
-                        </h:panelGrid>
+                        <h:outputText value="#{sugerencia.SUG}" style="width: 95%;"/>
+                        <p:triStateCheckbox style="width: 5%;" value="#{sugerencia.ESTSUG}">
+                            <p:ajax event="change" listener="#{sugerenciaC.editar(sugerencia)}"/>
+                        </p:triStateCheckbox>
+                        <p:commandButton icon="ui-icon-trash" actionListener="#{sugerenciaC.eliminar(sugerencia)}"/>
                     </h:panelGrid>
                 </p:panel>                
                 <br/>

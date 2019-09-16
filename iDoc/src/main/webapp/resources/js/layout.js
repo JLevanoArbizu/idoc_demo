@@ -118,9 +118,9 @@ PrimeFaces.widget.Ultima = PrimeFaces.widget.BaseWidget.extend({
             $this.rightPanel.toggleClass('layout-rightpanel-active');
             $this.closeOverlayMenu();
             
-            if($this.rightPanel.hasClass('layout-rightpanel-active')) {
-                $this.rightPanel.find('.nano').nanoScroller({flash:true});
-            }
+//            if($this.rightPanel.hasClass('layout-rightpanel-active')) {
+//                $this.rightPanel.find('.nano').nanoScroller({flash:true});
+//            }
             
             e.preventDefault();
         });
