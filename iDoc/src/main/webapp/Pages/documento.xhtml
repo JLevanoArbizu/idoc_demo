@@ -51,14 +51,14 @@
 
             <p:panelGrid columns="4">
 
+
+
                 <h:outputText value="Tipo de documento:"/>
-                <p:selectOneMenu value="#{documentoC.documento.TIPDOC}" filter="true" filterMatchMode="contains">
-                    <f:selectItem itemLabel="Documento interno" itemValue="I"/>
-                    <f:selectItem itemLabel="Documento externo" itemValue="E"/>
-                    <f:selectItem itemLabel="Tupa" itemValue="T"/>
-                    <f:selectItem itemLabel="Copia " itemValue="C"/>
-                    <f:selectItem itemLabel="Original " itemValue="O"/>                    
+                <p:selectOneMenu value="#{documentoC.documento.documentotipo.IDTIPDOC}" filter="true" filterMatchMode="contains">
+                    <f:selectItems value="#{documentoTipoC.lstdocumentoTipo}" var="txt" itemLabel=" #{txt.NOMTIPDOC}" itemValue="#{txt.IDTIPDOC}"/>
                 </p:selectOneMenu>
+
+
 
                 <h:outputText value="Ciudadano"/>
                 <p:selectOneMenu value="#{documentoC.documento.persona.IDPER}" filter="true" filterMatchMode="contains">
@@ -111,7 +111,7 @@
                          rowsPerPageTemplate="5,10,15">
 
 
-                <p:column headerText="Código" style="width: 70px" >
+                <p:column headerText="Código" style="width: 90px" >
                     <h:outputText value="#{documento.CODDOC}"/>
                 </p:column>
 
@@ -129,16 +129,9 @@
                     </h:outputText>
                 </p:column>
 
+                <h:outputText value="Tipo de documento"/>
+                <h:outputText value="#{documento.documentotipo.NOMTIPDOC}}"/>
 
-
-                <p:column headerText="Tipo de documento" style="width: 250px" filterBy="#{documento.TIPDOC}"  
-                          filterMatchMode="exact">
-                    <h:outputText value="#{documento.TIPDOC eq 'E' ? 'Documento Externo' :  ''}"/>
-                    <h:outputText value="#{documento.TIPDOC eq 'I' ? 'Documento Interno' :  ''}"/>                    
-                    <h:outputText value="#{documento.TIPDOC eq 'D' ? 'Derivado' :  ''}"/> 
-                    <h:outputText value="#{documento.TIPDOC eq 'c' ? 'Archivado' :  ''}"/>
-                    <h:outputText value="#{documento.TIPDOC eq 'R' ? 'Registrado' :  ''}"/>
-                </p:column>
 
                 <p:rowExpansion>
                     <p:panelGrid columns="4">
@@ -171,6 +164,9 @@
 
                         <h:outputText value="key"/>
                         <h:outputText value="#{documento.KEYDOC}"/>
+                        
+                        <h:outputText value="Tipo de documento"/>
+                        <h:outputText value="#{documento.documentotipo.NOMTIPDOC}"/>
 
 
                     </p:panelGrid>
@@ -250,9 +246,11 @@
                     <p:outputLabel value="#{documentoC.selectedDocumento.FECDOC}" style="color: firebrick">
                         <f:convertDateTime pattern="dd/MMM/yyyy HH:mm:ss" />
                     </p:outputLabel>
-
-
-
+                    
+                      <h:outputText value="Empresa"/>
+                    <p:selectOneMenu value="#{documentoC.selectedDocumento.empresa.IDEMP}" filter="true" filterMatchMode="contains">
+                        <f:selectItems value="#{empresaC.lstEmpresa}" var="DEMO" itemLabel=" #{DEMO.RAZSOCEMP}" itemValue="#{DEMO.IDEMP}"/>
+                    </p:selectOneMenu>
 
 
                     <h:outputText value="Tupa"/>
@@ -286,14 +284,14 @@
                                      autoResize="false" />
 
 
-                    <!--                    <h:outputText value="Tipo de documento:"/>
-                                        <p:selectOneMenu value="{documentoC.selectedDocumento.TIPDOC}" filter="true" filterMatchMode="contains">
-                                            <f:selectItem itemLabel="Documento interno" itemValue="I"/>
-                                            <f:selectItem itemLabel="Documento externo" itemValue="E"/>
-                                            <f:selectItem itemLabel="Tupa" itemValue="T"/>
-                                            <f:selectItem itemLabel="Copia " itemValue="C"/>
-                                            <f:selectItem itemLabel="Original " itemValue="O"/>
-                                        </p:selectOneMenu>-->
+                    <h:outputText value="Tipo de documento:"/>
+                    <p:selectOneMenu value="#{documentoC.selectedDocumento.documentotipo}" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="Documento interno" itemValue="I"/>
+                        <f:selectItem itemLabel="Documento externo" itemValue="E"/>
+                        <f:selectItem itemLabel="Tupa" itemValue="T"/>
+                        <f:selectItem itemLabel="Copia " itemValue="C"/>
+                        <f:selectItem itemLabel="Original " itemValue="O"/>
+                    </p:selectOneMenu>
 
                 </p:panelGrid>
 

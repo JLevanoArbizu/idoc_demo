@@ -19,6 +19,7 @@ import modelo.Login;
 import modelo.Persona;
 import modelo.Trabajador;
 import modelo.Tupa;
+import modelo.DocumentoTipo;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -35,7 +36,7 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
             ps.setInt(1, documento.getCODDOC());
             ps.setString(2, documento.getNUMLIBDOC());
             ps.setString(3, documento.getNUMFOLDOC());
-            ps.setString(4, documento.getTIPDOC());
+            ps.setInt(4, documento.getDocumentotipo().getIDTIPDOC());
             ps.setTimestamp(5, new java.sql.Timestamp(new Date().getTime()));
             ps.setString(6, documento.getASUDOC());
             ps.setString(7, documento.getOBSDOC());
@@ -99,30 +100,30 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            String sql = "select\n"
-                    + "IDDOC,\n"
-                    + "CODDOC,\n"
-                    + "NUMLIBDOC,\n"
-                    + "NUMFOLDOC,\n"
-                    + "TIPDOC,\n"
-                    + "FECDOC,\n"
-                    + "ASUDOC,\n"
-                    + "OBSDOC,\n"
-                    + "ESTDOC,\n"
-                    + "TU.NOMTUP AS IDTUP,\n"
-                    + "PER.NOMPER AS IDLOG,\n"
-                    + "EMP.RAZSOCEMP AS IDEMP,\n"
-                    + "PER2.NOMPER AS IDPER,\n"
-                    + "KEYDOC\n"
-                    + "\n"
-                    + "from DOCUMENTO D\n"
-                    + "INNER JOIN TUPA TU ON D.IDTUP = TU.IDTUP\n"
-                    + "INNER JOIN LOGIN L ON D.IDLOG = L.IDLOG\n"
-                    + "INNER JOIN TRABAJADOR TR ON L.IDTRAB = TR.IDTRAB\n"
-                    + "INNER JOIN PERSONA PER ON TR.IDPER = PER.IDPER\n"
-                    + "INNER JOIN EMPRESA EMP ON D.IDEMP = EMP.IDEMP\n"
-                    + "INNER JOIN PERSONA PER2 ON D.IDPER = PER2.IDPER\n"
-                    + "WHERE  ESTDOC != 'I' ORDER BY IDDOC DESC ";
+            String sql = " select\n" +
+"                   IDDOC,\n" +
+"                   CODDOC,\n" +
+"                   NUMLIBDOC,\n" +
+"                   NUMFOLDOC,\n" +
+"                   TD.NOMTIPDOC AS TIPDOC,\n" +
+"                   FECDOC,\n" +
+"                   ASUDOC,\n" +
+"                   OBSDOC,\n" +
+"                   ESTDOC,\n" +
+"                   TU.NOMTUP AS IDTUP,\n" +
+"                   PER.NOMPER AS IDLOG,\n" +
+"                   EMP.RAZSOCEMP AS IDEMP,\n" +
+"                   PER2.NOMPER AS IDPER,\n" +
+"                   KEYDOC\n" +
+"                   from DOCUMENTO D\n" +
+"                   INNER JOIN TUPA TU ON D.IDTUP = TU.IDTUP\n" +
+"                   INNER JOIN LOGIN L ON D.IDLOG = L.IDLOG\n" +
+"                   INNER JOIN TRABAJADOR TR ON L.IDTRAB = TR.IDTRAB\n" +
+"                   INNER JOIN PERSONA PER ON TR.IDPER = PER.IDPER\n" +
+"                   INNER JOIN EMPRESA EMP ON D.IDEMP = EMP.IDEMP\n" +
+"                   INNER JOIN PERSONA PER2 ON D.IDPER = PER2.IDPER\n" +
+"                   LEFT JOIN TIPO_DOCUMENTO TD on D.TIPDOC = TD.IDTIPDOC\n" +
+"                   WHERE  ESTDOC != 'I' ORDER BY IDDOC DESC";
             ps = this.conectar().prepareCall(sql);
             rs = ps.executeQuery();
             Documento documento;
@@ -134,11 +135,12 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
                 Empresa empresa = new Empresa();
                 Persona persona = new Persona();
                 Persona persona2 = new Persona();
+                DocumentoTipo documentotipo = new DocumentoTipo();
                 documento.setIDDOC(rs.getInt("IDDOC"));
                 documento.setCODDOC(rs.getInt("CODDOC"));
                 documento.setNUMLIBDOC(rs.getString("NUMLIBDOC"));
                 documento.setNUMFOLDOC(rs.getString("NUMFOLDOC"));
-                documento.setTIPDOC(rs.getString("TIPDOC"));
+                documentotipo.setNOMTIPDOC(rs.getString("TIPDOC")); //DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
                 documento.setFECDOC(rs.getTimestamp("FECDOC", Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
                 documento.setASUDOC(rs.getString("ASUDOC"));
                 documento.setOBSDOC(rs.getString("OBSDOC"));
@@ -155,6 +157,7 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
                 trabajador.setPersona(persona2);
                 login.setTrabajador(trabajador);
                 documento.setLogin(login);
+                documento.setDocumentotipo(documentotipo);
 
                 listaDocumento.add(documento);
             }

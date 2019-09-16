@@ -8,7 +8,7 @@ public class Documento {
     private int CODDOC;
     private String NUMLIBDOC;
     private String NUMFOLDOC;
-    private String TIPDOC;
+    private DocumentoTipo documentotipo = new DocumentoTipo();
     private Date FECDOC = new Date();
     private String ASUDOC;
     private String OBSDOC;
@@ -55,14 +55,15 @@ public class Documento {
         this.NUMFOLDOC = NUMFOLDOC;
     }
 
-    public String getTIPDOC() {
-        return TIPDOC;
+    public DocumentoTipo getDocumentotipo() {
+        return documentotipo;
     }
 
-    public void setTIPDOC(String TIPDOC) {
-        this.TIPDOC = TIPDOC;
+    public void setDocumentotipo(DocumentoTipo documentotipo) {
+        this.documentotipo = documentotipo;
     }
 
+    
     public Date getFECDOC() {
         return FECDOC;
     }

@@ -87,15 +87,24 @@
                 <p:panelGrid columns="2">
 
 
-                    <p:outputLabel value="Tipo de documento "/>
-                    <p:inputText value="#{documentoTipoC.selecteddocumentoTipo.TIPDOC}" placeholder="Razón Social" maxlength="300"/>
+                    <h:outputText value="Tipo de documento:"/>
+                    <p:selectOneMenu value="#{documentoTipoC.selecteddocumentoTipo.TIPDOC}" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="Documento interno" itemValue="I"/>
+                        <f:selectItem itemLabel="Documento externo" itemValue="E"/>
+                        <f:selectItem itemLabel="Tupa" itemValue="T"/>
+                    </p:selectOneMenu>
+
 
                     <p:outputLabel value="Nombre"/>
                     <p:inputText value="#{documentoTipoC.selecteddocumentoTipo.NOMTIPDOC}" placeholder="Razón Social" maxlength="300"/>
 
-                    <p:outputLabel value="Estado"/>
-                    <p:inputText value="#{documentoTipoC.selecteddocumentoTipo.ESTTIPDOC}" placeholder="Razón Social" maxlength="300"/>
-
+                    <p:outputLabel value="Estado:"/>
+                    <p:selectOneRadio value="#{documentoTipoC.selecteddocumentoTipo.ESTTIPDOC}" 
+                                      requiredMessage="Serequiere Estado"
+                                      unselectable="false" required="true">
+                        <f:selectItem itemLabel="Activo" itemValue="A" />
+                        <f:selectItem itemLabel="Inactivo" itemValue="I" />
+                    </p:selectOneRadio>
 
 
 
