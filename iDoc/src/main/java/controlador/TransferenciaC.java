@@ -19,7 +19,7 @@ public class TransferenciaC implements Serializable {
 
     Transferencia transferencia;
     Transferencia selectedTransferencia;
-    List<Transferencia> lstTransferencia, lstTransferenciaFiltrado;
+    List<Transferencia> lstTransferencia, lstTransferenciaFiltrado, listaBandeja, listaBandejaFiltrada;
     TransferenciaImpl dao;
 
     StreamedContent reporte;
@@ -27,6 +27,7 @@ public class TransferenciaC implements Serializable {
     public TransferenciaC() {
         transferencia = new Transferencia();
         lstTransferencia = new ArrayList<>();
+        listaBandeja = new ArrayList<>();
         dao = new TransferenciaImpl();
         selectedTransferencia = new Transferencia();
     }
@@ -78,6 +79,14 @@ public class TransferenciaC implements Serializable {
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar" + e, null));
 
+        }
+    }
+
+    public void listarBandeja() throws Exception {
+        try {
+            listaBandeja = dao.listar(transferencia);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -142,6 +151,22 @@ public class TransferenciaC implements Serializable {
 
     public void setLstTransferenciaFiltrado(List<Transferencia> lstTransferenciaFiltrado) {
         this.lstTransferenciaFiltrado = lstTransferenciaFiltrado;
+    }
+
+    public List<Transferencia> getListaBandeja() {
+        return listaBandeja;
+    }
+
+    public void setListaBandeja(List<Transferencia> listaBandeja) {
+        this.listaBandeja = listaBandeja;
+    }
+
+    public List<Transferencia> getListaBandejaFiltrada() {
+        return listaBandejaFiltrada;
+    }
+
+    public void setListaBandejaFiltrada(List<Transferencia> listaBandejaFiltrada) {
+        this.listaBandejaFiltrada = listaBandejaFiltrada;
     }
 
 }

@@ -54,8 +54,16 @@
 
 
                 <h:outputText value="Tipo de documento:"/>
+                <p:selectOneMenu value="#{documentoC.documento.documentotipo.TIPDOC}" filter="true" filterMatchMode="contains" id="xd">
+                    <f:selectItem itemLabel="Externo"    itemValue="E"/>
+                    <f:selectItem itemLabel="Interno"    itemValue="I"/>
+                    <f:selectItem itemLabel="Tupa"    itemValue="T"/>
+                    <p:ajax event="change" update="FormDocumento"/>
+                </p:selectOneMenu>
+                <h:outputText value="Tipo de documento:"/>
                 <p:selectOneMenu value="#{documentoC.documento.documentotipo.IDTIPDOC}" filter="true" filterMatchMode="contains">
-                    <f:selectItems value="#{documentoTipoC.lstdocumentoTipo}" var="txt" itemLabel=" #{txt.NOMTIPDOC}" itemValue="#{txt.IDTIPDOC}"/>
+                    <f:selectItems value="#{documentoTipoC.lstdocumentoTipo}" var="txt" itemLabel=" #{txt.NOMTIPDOC}" itemValue="#{txt.IDTIPDOC}"
+                                   itemDisabled="#{documentoC.documento.documentotipo.TIPDOC.trim() != txt.TIPDOC.trim()}"/>
                 </p:selectOneMenu>
 
 
@@ -164,7 +172,7 @@
 
                         <h:outputText value="key"/>
                         <h:outputText value="#{documento.KEYDOC}"/>
-                        
+
                         <h:outputText value="Tipo de documento"/>
                         <h:outputText value="#{documento.documentotipo.NOMTIPDOC}"/>
 
@@ -246,8 +254,8 @@
                     <p:outputLabel value="#{documentoC.selectedDocumento.FECDOC}" style="color: firebrick">
                         <f:convertDateTime pattern="dd/MMM/yyyy HH:mm:ss" />
                     </p:outputLabel>
-                    
-                      <h:outputText value="Empresa"/>
+
+                    <h:outputText value="Empresa"/>
                     <p:selectOneMenu value="#{documentoC.selectedDocumento.empresa.IDEMP}" filter="true" filterMatchMode="contains">
                         <f:selectItems value="#{empresaC.lstEmpresa}" var="DEMO" itemLabel=" #{DEMO.RAZSOCEMP}" itemValue="#{DEMO.IDEMP}"/>
                     </p:selectOneMenu>

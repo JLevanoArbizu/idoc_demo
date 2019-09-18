@@ -255,6 +255,13 @@
                                     <span>Trazabilidad</span>
                                 </p:commandLink>
                                 </li>
+                                <li role="menuitem">
+                                <p:commandLink action="Bandeja" ajax="true" styleClass="aumentar-sinSombra"
+                                               rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'R'}">
+                                    <i class="material-icons">compare_arrows</i>
+                                    <span>Bandeja</span>
+                                </p:commandLink>
+                                </li>
 
                                 <li role="menuitem">
                                 <p:commandLink action="Area" styleClass="aumentar-sinSombra"
@@ -348,6 +355,9 @@
                     <p:commandButton id="btnActualizarDocumentoTipo"
                                      value="btnActualizarDocumentoTipo" immediate="true" async="true" update="#{formsActualizar}" style="display: none;"
                                      actionListener="#{documentoTipoC.listarDocTipo()}" />
+                    <p:commandButton id="btnActualizarBandeja"
+                                     value="btnActualizarBandeja" immediate="true" async="true" update="#{formsActualizar}"
+                                     actionListener="#{transferenciaC.listarBandeja()}" />
                 </h:form>
                 <ui:insert name="contenidoPagina"/>
                 <div class="footer">
