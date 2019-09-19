@@ -1,0 +1,314 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../Templates/Default.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:param name="tituloPagina" value="Trabajador"/>
+    <ui:param name="formsActualizar" value=":frmRegistrarTrabajador :frmListarTrabajador"/>
+
+    <ui:define name="contenidoPagina"> 
+        <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
+        <center>
+            <h5 style="color: #193a59" >Registrar Trabajador</h5>
+        </center>
+        <div class="card card-w-title ui-fluid">
+
+            <h:form id="frmRegistrarTrabajador">
+                <p:growl life="1000"/>
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:selectOneMenu value="#{trabajadorC.trabajador.persona.IDPER}" 
+                                                 filter="true" filterMatchMode="contains">
+                                    <f:selectItems value="#{personaC.lista}" var="persona"
+                                                   itemValue="#{persona.IDPER}" itemDisabled="#{persona.DNIPER.trim().length() != 8}"
+                                                   itemLabel="#{persona.APEPATPER} #{persona.APEMATPER}, #{persona.NOMPER}"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Trabajador"/>
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g-6">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:calendar value="#{trabajadorC.trabajador.FECINITRAB}" 
+                                            readonlyInput="true" required="true" pattern="dd/MMM/yyyy"
+                                            requiredMessage="Ingrese la fecha de inicio laboral."/>
+                                <p:outputLabel value="Fecha Inicio"/>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="mdl-button">
+                            <p:outputLabel value="Tipo de Acceso"/>
+                            <p:selectOneRadio value="#{loginC.login.TIPLOG}" id="inptTipLog"
+                                              requiredMessage="Seleccione el tipo de Acceso."
+                                              unselectable="false" required="true">
+                                <f:selectItem itemLabel="Superadministrador" itemValue="S"/>
+                                <f:selectItem itemLabel="Administrador" itemValue="A" />
+                                <f:selectItem itemLabel="Usuario" itemValue="U" />
+                            </p:selectOneRadio>
+                        </h:panelGroup>
+                    </div>
+                    <ui:fragment rendered="#{loginSesion.getTIPLOG().charAt(0) == 'S'}">
+                        <div class="ui-g-12">
+                            <h:panelGroup styleClass="mdl-button">
+                                <p:outputLabel value="Área"/>
+                                <p:selectOneMenu value="#{trabajadorC.trabajador.area.IDARE}"
+                                                 filter="true" filterMatchMode="contains">
+                                    <f:selectItems value="#{areaC.lista}" var="area"
+                                                   itemLabel="#{area.NOMARE}" 
+                                                   itemValue="#{area.IDARE}"/>
+                                </p:selectOneMenu>
+                            </h:panelGroup>
+                        </div>
+                    </ui:fragment>
+                </div>
+                <p:commandButton id="btnRegistrarTrabajador"
+                                 value="Guardar"
+                                 oncomplete="PF('wdtTblTrabajador').filter();"
+                                 class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
+                                 update="frmRegistrarTrabajador :frmListarTrabajador">
+                    <f:actionListener binding="#{trabajadorC.registrar(loginC.loginSesion)}"/>
+                    <f:actionListener binding="#{loginC.registrar(trabajadorC.listaTrabajador.get(trabajadorC.listaTrabajador.size()-1))}"/>
+                </p:commandButton>
+                <p:commandButton class="mdl-button mdl-js-button  mdl-js-ripple-effect
+                                 mdl-button--colored"
+                                 value="Agregar Ciudadano" immediate="true"
+                                 oncomplete="PF('dlgRegistrarPersona').show();"/>
+                <p:blockUI block="frmRegistrarTrabajador" trigger="btnRegistrarTrabajador">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </p:blockUI>
+            </h:form>
+        </div>
+        <p:dialog widgetVar="dlgRegistrarPersona">
+            <h:form id="frmRegistrarPersona">
+                <p:growl life="1000"/>
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:inputText value="#{personaC.persona.APEPATPER}"
+                                             requiredMessage="Apellido Paterno Requerido."
+                                             required="true" maxlength="50" id="apePatPer"
+                                             style="text-transform: uppercase">
+                                    <p:keyFilter regEx='/[\a-z ]/i'/>
+                                </p:inputText>
+                                <p:outputLabel value="Apellido Paterno" for="@previous"/>
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g-6">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:inputText value="#{personaC.persona.APEMATPER}"  requiredMessage="Apellido Materno Requerido."
+                                             id="apeMatPer"
+                                             required="true"  maxlength="50" style="text-transform: uppercase" >
+                                    <p:keyFilter regEx='/[\a-z ]/i'/>
+                                </p:inputText>
+                                <p:outputLabel value="Apellido Materno" for="@previous"/>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputText value="#{personaC.persona.NOMPER}" requiredMessage="Nombres Requeridos."
+                                         id="nomPer"
+                                         required="true" maxlength="50" style="text-transform: capitalize">
+                                <p:keyFilter regEx='/[\a-z ]/i'/>
+                            </p:inputText>
+                            <p:outputLabel value="Nombres" for="@previous"/>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-4">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:inputMask value="#{personaC.persona.DNIPER}" maxlength="8" mask="99999999" requiredMessage="DNI Requerido."
+                                             id="dniPer"
+                                             required="false"/>
+                                <p:outputLabel value="DNI" for="@previous"/>
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g-8">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:selectOneMenu value="#{personaC.persona.ubigeo.CODUBI}" 
+                                                 filter="true" filterMatchMode="contains">
+                                    <f:selectItems value="#{ubigeoC.listaUbigeo}" var="ubigeo"
+                                                   itemValue="#{ubigeo.CODUBI}" 
+                                                   itemLabel="#{ubigeo.DEPUBI}, #{ubigeo.PROVUBI} ,#{ubigeo.DISTUBI}"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Distrito" for="@previous"/>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="md-inputfield">
+                            <p:inputText value="#{personaC.persona.DIRPER}" requiredMessage="Direccion Requerida."
+                                         id="dirPer"
+                                         required="true"  maxlength="100" style="text-transform: capitalize" />
+                            <p:outputLabel value="Dirección" for="@previous"/>
+                        </h:panelGroup>
+                    </div>
+                    <div class="ui-g-12">
+                        <h:panelGroup styleClass="mdl-button">
+                            <p:outputLabel value="Sexo"/>
+                            <p:selectOneRadio value="#{personaC.persona.GENPER}" requiredMessage="Seleccione un Sexo."
+                                              unselectable="false" required="true">
+                                <f:selectItem itemLabel="Masculino" itemValue="M" />
+                                <f:selectItem itemLabel="Femenino" itemValue="F" />
+                            </p:selectOneRadio>
+                        </h:panelGroup>
+                    </div>
+                </div>
+                <h:panelGroup styleClass="mdl-button">
+                    <p:commandButton 
+                        id="btnRegistrarPersona"
+                        value="GUARDAR" oncomplete="PF('wdtTblTrabajador').filter()"
+                        actionListener="#{personaC.registrar()}" update=":frmRegistrarTrabajador"/>
+                </h:panelGroup>
+                <p:blockUI block="frmRegistrarPersona" trigger="btnRegistrarPersona">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </p:blockUI>
+            </h:form>
+        </p:dialog>
+        <h:form id="frmListarTrabajador">
+            <p:growl life="1000"/>
+            <p:dataTable id="dtTblTrabajador" widgetVar="wdtTblTrabajador" 
+                         value="#{trabajadorC.listaTrabajador}" var="listaTrabajador"
+                         rows="10" emptyMessage="No se encontrarón datos."
+                         filteredValue="#{trabajadorC.listaTrabajadorFiltrado}"
+                         rowKey="#{listaTrabajador.IDTRAB}"
+                         selectionMode="single" selection="#{trabajadorC.trabajadorSeleccionado}"
+                         paginator="true" scrollable="false" scrollHeight="500" reflow="true"
+                         rowsPerPageTemplate="5,10,15,20">
+
+                <f:facet name="header">
+                    Trabajadores
+                    <p:commandButton immediate="true" value="Actualizar" 
+                                     oncomplete="PF('wdtTblTrabajador').filter();"
+                                     class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white"
+                                     update="frmRegistrarTrabajador :frmListarTrabajador"/>
+                </f:facet>
+                <p:column headerText="Apellidos y Nombres" filterBy="#{listaTrabajador.persona.APEPATPER} #{listaTrabajador.persona.APEMATPER}, #{listaTrabajador.persona.NOMPER}" 
+                          filterMatchMode="contains">
+                    <h:outputText value="#{listaTrabajador.persona.APEPATPER} #{listaTrabajador.persona.APEMATPER}, #{listaTrabajador.persona.NOMPER}"/>
+                </p:column>
+                <p:column headerText="DNI" filterBy="#{listaTrabajador.persona.DNIPER}" filterMatchMode="contains">
+                    <h:outputText value="#{listaTrabajador.persona.DNIPER}"/>
+                </p:column>
+                <p:column headerText="Ubicación">
+                    <h:outputText value="#{listaTrabajador.persona.ubigeo.DEPUBI}, 
+                                  #{listaTrabajador.persona.ubigeo.PROVUBI}, 
+                                  #{listaTrabajador.persona.ubigeo.DISTUBI}"/>
+                </p:column>
+                <p:column headerText="Dirección">
+                    <h:outputText value="#{listaTrabajador.persona.DIRPER}"/>
+                </p:column>
+                <p:column headerText="Sexo">
+                    <h:outputText value="#{listaTrabajador.persona.GENPER eq 'M' ? 'Masculino' : 'Femenino'}"/>
+                </p:column>
+                <p:column headerText="Fecha Inicio">
+                    <h:outputText value="#{listaTrabajador.FECINITRAB}">
+                        <f:convertDateTime pattern="dd/MMM/yyyy"  />
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Fecha Fin">
+                    <h:outputText value="#{listaTrabajador.FECFINTRAB}">
+                        <f:convertDateTime pattern="dd/MMM/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+                <p:blockUI block="dtTblTrabajador" trigger="dtTblTrabajador">
+                    Actualizando
+                </p:blockUI>
+            </p:dataTable>
+
+            <p:contextMenu for="dtTblTrabajador">
+                <p:menuitem update=":dlgDatosTrabajador" icon="ui-icon-pencil"
+                            value="Modificar"
+                            oncomplete="PF('wdlgDatosTrabajador').show();"/>
+                <p:menuitem value="Eliminar" update="frmListarTrabajador" oncomplete="PF('wdtTblTrabajador').filter()"
+                    icon="ui-icon-circle-close">
+                    <f:actionListener binding="#{trabajadorC.eliminar()}"/>
+                    <f:actionListener binding="#{loginC.eliminar(trabajadorC.trabajadorSeleccionado)}"/>
+                </p:menuitem>
+                <p:menuitem value="Contraseña" update="frmListarTrabajador"
+                            icon="ui-icon-refresh"/>
+            </p:contextMenu>
+
+        </h:form>
+        <p:dialog id="dlgDatosTrabajador" widgetVar="wdlgDatosTrabajador" blockScroll="true" modal="true"
+                  header="Datos del Trabajador" closeOnEscape="true">
+            <div class="ui-fluid">
+                <h:form id="frmEditarTrabajador">
+                    <div class="ui-g">
+                        <div class="ui-g-12">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:calendar value="#{trabajadorC.trabajadorSeleccionado.FECINITRAB}" 
+                                            readonlyInput="true" required="true" disabled="true"
+                                            widgetVar="calFecIni"
+                                            navigator="false" pattern="dd/MMM/yyyy"/>
+                                <p:outputLabel value="Fecha Inicio" for="@previous"/>
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g-12">
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:calendar value="#{trabajadorC.trabajadorSeleccionado.FECFINTRAB}" 
+                                            mindate="calFecIni.today()"
+                                            readonlyInput="true" required="true"
+                                            navigator="false" pattern="dd/MMM/yyyy" >
+                                </p:calendar>
+                                <p:outputLabel value="Fecha Fin" for="@previous"/>
+                            </h:panelGroup>
+                        </div>
+                        <div class="ui-g-12">
+                            <div class="ui-g-6">
+                                <p:commandButton value="Modificar" actionListener="#{trabajadorC.editar()}"
+                                                 oncomplete="if(!args.validationFailed)PF('wdlgDatosTrabajador').hide();PF('wdtTblTrabajador').filter();"
+                                                 update=":frmListarTrabajador :frmRegistrarTrabajador">
+                                    <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
+                                    <p:tooltip trackMouse="true"/>
+                                </p:commandButton>
+                                <p:confirmDialog global="true" closeOnEscape="true">
+                                    <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
+                            </div>
+                            <div class="ui-g-6">
+                                <h:panelGroup styleClass="mdl-button">
+                                    <p:commandButton value="Cancelar" immediate="true"
+                                                     oncomplete="PF('wdlgDatosTrabajador').hide();"/>
+                                </h:panelGroup>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </h:form>
+            </div>
+        </p:dialog>
+
+    </ui:define>
+</ui:composition>
+

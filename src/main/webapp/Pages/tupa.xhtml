@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../Templates/Default.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:param name="tituloPagina" value="TUPA"/>
+    <ui:param name="formsActualizar" value=":FormTupa :FormTblTupa"/>
+
+    <ui:define name="contenidoPagina">
+
+        <center>
+            <h5 style="color: #193a59" >Registrar procedimiento T.U.P.A</h5>
+        </center>
+        <h:form id="FormTupa"> 
+            <p:panelGrid columns="4">
+                <p:outputLabel value="Número del Tupa:"/>
+                <p:inputText value="#{tupaC.tupa.NUMTUP}" placeholder="Número del Tupa" maxlength="50"/>
+                <p:outputLabel value="Nombre del Tupa:"/>
+                <p:inputText value="#{tupaC.tupa.NOMTUP}" placeholder="Nombre del Tupa" maxlength="50"/>
+                <p:outputLabel value="Precio del Tupa:"/>
+                <p:inputText value="#{tupaC.tupa.PRETUP}" placeholder="Precio del Tupa" maxlength="50"/>
+                <p:outputLabel value="Plazo del Tupa"/>
+                <p:inputText value="#{tupaC.tupa.PLATUP}" placeholder="Plazo del Tupa" />
+                <p:outputLabel value="Área responsable del Trámite:"/>
+
+                <p:selectOneMenu value="#{tupaC.tupa.area.IDARE}">
+                    <f:selectItems value="#{areaC.lista}" var="area" itemLabel="#{area.NOMARE}" itemValue="#{area.IDARE}"/>
+                </p:selectOneMenu>
+                <p:commandButton value="Registrar"
+                                 oncomplete="PF('wvTblTupa').filter();"
+                                 actionListener="#{tupaC.registrarTupa()}" 
+                                 update="FormTupa FormTblTupa:tblTupa"/>
+
+
+            </p:panelGrid>
+        </h:form>
+        <!--lista-->
+
+        <h:form id="FormTblTupa">
+            <p:dataTable id="tblTupa" widgetVar="wvTblTupa"
+                         value="#{tupaC.lstTupa}"
+                         var="tupa"
+                         selection="#{tupaC.selectedTupa}"
+                         selectionMode="single"
+                         rowKey="#{tupa.IDTUP}"
+                         paginator="true"
+                         rows="50"
+                         rowsPerPageTemplate="5,10,15,50"
+                         filteredValue="#{tupaC.filtrado}" >
+
+
+                <p:column headerText="Número del Tupa" filterBy="#{tupa.NUMTUP}" filterMatchMode="contains"  style="width: 80PX">
+                    <h:outputText value="#{'N° '}#{tupa.NUMTUP}"/>
+                </p:column>
+                <p:column headerText="Nombre del Tupa" filterBy="#{tupa.NOMTUP}" filterMatchMode="contains" style="width: 300px">
+                    <h:outputText value="#{tupa.NOMTUP}"/>
+                </p:column>
+                <p:column headerText="Área responsable del Trámite" style="width: 300px">
+                    <h:outputText value="#{tupa.area.NOMARE}"/>
+                </p:column>
+                <p:column headerText="Plazo del Tupa" style="width: 100px">
+                    <h:outputText value="#{tupa.PLATUP} #{' dias'}"/>
+                </p:column>
+                <p:column headerText="Precio del Tupa" style="width: 100px">
+                    <h:outputText value="#{'S/ '}#{tupa.PRETUP}" />
+                </p:column>
+
+            </p:dataTable>
+            <p:contextMenu for="tblTupa">
+                <p:menuitem value="Editar" icon="ui-icon-pencil"
+                            oncomplete="PF('dlgModTupa').show();PF('wvTblTupa').filter();" 
+                            update="FormDialogModTup"/>
+                <p:menuitem value="Eliminar" icon="ui-icon-trash"
+                            actionListener="#{tupaC.eliminarTupa()}" update="tblTupa">
+                    <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>
+                </p:menuitem>
+            </p:contextMenu>
+        </h:form>
+        <h:form>
+            <p:confirmDialog global="true">
+                <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes"/>
+                <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no"/>
+            </p:confirmDialog>
+        </h:form>
+        <!--editar-->
+        <p:dialog header="ACTUALIZAR DATOS" widgetVar="dlgModTupa" resizable="false" > 
+            <h:form id="FormDialogModTup">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Nombre Tupa:"/>
+                    <p:inputText value="#{tupaC.selectedTupa.NOMTUP}" placeholder="Nombre tupa" maxlength="500" required="false"/>
+                    <p:outputLabel value="Numero Tupa:"/>
+                    <p:inputText value="#{tupaC.selectedTupa.NUMTUP}" placeholder="Nombre tupa" maxlength="50" required="false"/>
+                    <p:outputLabel value="Precio tupa:"/>
+                    <p:inputText value="#{tupaC.selectedTupa.PRETUP}" placeholder="Precio tupa" maxlength="50"/>
+                    <p:outputLabel value="plazo tupa:"/>
+                    <p:inputText value="#{tupaC.selectedTupa.PLATUP}" placeholder="Plazo tupa"/>
+                    <p:outputLabel value="area tupa:"/>
+                    <p:selectOneMenu value="#{tupaC.selectedTupa.area.IDARE}">
+                        <f:selectItems value="#{areaC.lista}" var="area" itemLabel="#{area.NOMARE}" itemValue="#{area.IDARE}"/>
+                    </p:selectOneMenu>
+
+                    <p:commandButton value="MODIFICAR" 
+                                     actionListener="#{tupaC.editarTupa()}" 
+                                     oncomplete="PF('dlgModTupa').hide();PF('wvTblTupa').filter();"
+                                     update="FormTblTupa:tblTupa" />
+                    <p:commandButton value="CANCELAR" oncomplete="PF('dlgModTupa').hide()"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+</ui:composition>
