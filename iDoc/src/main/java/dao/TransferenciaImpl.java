@@ -28,10 +28,13 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>, IReporte<Transferencia> {
-    
+
     @Override
     public void registrar(Transferencia trans) throws Exception {
         try {
+            System.out.println("Registrar");
+            System.out.println("Area emisora " + trans.getAreaEmisora().getIDARE());
+            System.out.println("Area receptora " + trans.getAreaReceptora().getIDARE());
             String sql = "INSERT INTO TRANSFERENCIA (FECSALTRAN,OBSTRAN,IDDOC,IDARE_EMI,IDARE_REC,ESTTRA) VALUES(?,?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setTimestamp(1, new java.sql.Timestamp(new Date().getTime()));
@@ -39,7 +42,7 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
             ps.setInt(3, trans.getDocumento().getIDDOC());
             ps.setInt(4, trans.getAreaEmisora().getIDARE());
             ps.setInt(5, trans.getAreaReceptora().getIDARE());
-            ps.setString(6, "P");
+            ps.setString(6, "0"); // 1	Pendiente
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,25 +50,52 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
             this.desconectar();
         }
     }
-    
+
+    public void recibir(Transferencia modelo) throws Exception {
+        try {
+//            2	Recepcionado
+            String sql = "UPDATE TRANSFERENCIA SET FECRECTRAN=?, ESTTRA=? WHERE IDTRAN LIKE ?";
+            PreparedStatement ps = this.conectar().prepareStatement(sql);
+            ps.setTimestamp(1, new java.sql.Timestamp(new Date().getTime()));
+            ps.setString(2, "2");
+            ps.setInt(3, modelo.getIDTRAN());
+            ps.executeUpdate();
+            ps.clearParameters();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.desconectar();
+        }
+    }
+
     @Override
     public void editar(Transferencia trans) throws Exception {
-        
+
         try {
-            String sql = "UPDATE TRANSFERENCIA SET  OBSDER=?, IDARE_EMI=?, IDARE_REC=? WHERE IDTRAN LIKE ?";
+            String sql = "UPDATE TRANSFERENCIA SET  OBSDER=?, ESTTRA=? WHERE IDTRAN LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setString(1, trans.getOBSDER());
-            ps.setInt(5, trans.getAreaEmisora().getIDARE());
-            ps.setInt(6, trans.getAreaReceptora().getIDARE());
-            ps.setInt(7, trans.getIDTRAN());
+            ps.setString(2, trans.getESTTRA());
+            ps.setInt(3, trans.getIDTRAN());
             ps.executeUpdate();
+            ps.clearParameters();
+            ps.close();
+            /*            
+            3	Atendido
+            4	Rechazado
+            5	Cancelado
+            6	Derivado
+            7	Devuelto
+            8	finanizar
+             */
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             this.desconectar();
         }
     }
-    
+
     @Override
     public void eliminar(Transferencia trans) throws Exception {
         try {
@@ -79,7 +109,7 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
             this.desconectar();
         }
     }
-    
+
     @Override
     public List<Transferencia> listar() throws Exception {
         List<Transferencia> listaTransferencia = new ArrayList<>();
@@ -116,11 +146,11 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
                 documento.setASUDOC(rs.getString("IDDOC"));
                 areaEmisora.setNOMARE(rs.getString("IDARE_EMI"));
                 areaReceptora.setNOMARE(rs.getString("IDARE_REC"));
-                
+
                 trans.setAreaEmisora(areaEmisora);
                 trans.setAreaReceptora(areaReceptora);
                 trans.setDocumento(documento);
-                
+
                 listaTransferencia.add(trans);
             }
             ps.closeOnCompletion();
@@ -134,14 +164,17 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
             }
         }
         return listaTransferencia;
-        
+
     }
-    
+
     @Override
     public List<Transferencia> listar(Transferencia modelo) throws Exception {
         List<Transferencia> listaBandeja = new ArrayList<>();
         PreparedStatement ps = null;
         ResultSet rs = null;
+        System.out.println("Lisrae");
+        System.out.println("Area emisora " + modelo.getAreaEmisora().getIDARE());
+        System.out.println("Area receptora " + modelo.getAreaReceptora().getIDARE());
         try {
             String sql = "SELECT\n"
                     + "       IDTRAN,\n"
@@ -157,9 +190,9 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
                     + "INNER JOIN  DOCUMENTO D on T.IDDOC = D.IDDOC\n"
                     + "INNER JOIN AREA A ON T.IDARE_REC = A.IDARE\n"
                     + "INNER JOIN AREA A2 on T.IDARE_EMI = A2.IDARE\n"
-                    + "WHERE ESTTRA != 'I' AND ESTTRA = 'P' AND A.IDARE = ? ORDER BY IDTRAN DESC";
+                    + "WHERE A.IDARE = ? ORDER BY IDTRAN DESC";
             ps = this.conectar().prepareStatement(sql);
-            ps.setInt(1, modelo.getAreaReceptora().getIDARE());
+            ps.setInt(1, modelo.getAreaEmisora().getIDARE());
             rs = ps.executeQuery();
             Transferencia trans;
             while (rs.next()) {
@@ -176,11 +209,11 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
                 documento.setIDDOC(rs.getInt("IDDOC"));
                 areaEmisora.setNOMARE(rs.getString("IDARE_EMI"));
                 areaReceptora.setNOMARE(rs.getString("IDARE_REC"));
-                
+
                 trans.setAreaEmisora(areaEmisora);
                 trans.setAreaReceptora(areaReceptora);
                 trans.setDocumento(documento);
-                
+
                 listaBandeja.add(trans);
             }
             ps.closeOnCompletion();
@@ -195,7 +228,7 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
         }
         return listaBandeja;
     }
-    
+
     @Override
     public void generarReporteIndividual(Transferencia modelo) throws Exception {
 //        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Transferencia/Transferencia.jasper"));
@@ -208,7 +241,7 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
 //        }
 //        FacesContext.getCurrentInstance().responseComplete();
     }
-    
+
     public void generarReporteTRANS(Map parameters) throws Exception {
 //        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Transferencia/Transferencia.jasper"));
 //        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parameters, this.conectar());
@@ -220,59 +253,59 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
 //        }
 //        FacesContext.getCurrentInstance().responseComplete();
     }
-    
+
     @Override
     public Transferencia obtenerModelo(Transferencia modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public void generarReporteGeneral(Transferencia modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public StreamedContent generarReporteIndividualPrev(Transferencia modelo) throws Exception {
         InputStream inputStream = null;
-        
+
         Map parameters = new HashMap();
-        
+
         parameters.put("IDTRAN", modelo.getIDTRAN());
-        
+
         try {
-            
+
             ByteArrayOutputStream salida = new ByteArrayOutputStream();
             File jasperReport = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("Reportes/Transferencia/Transferencia".
                     concat(modelo.getESTTRA().equals("1") ? "A" : "R"
                     )
                     + ".jasper"));
-            
+
             JasperPrint jPrint = JasperFillManager.fillReport(jasperReport.getPath(), parameters, this.conectar());
-            
+
             JRExporter exporter = new net.sf.jasperreports.engine.export.JRPdfExporter();
-            
+
             exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, salida);
-            
+
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jPrint);
-            
+
             exporter.setParameter(JRPdfExporterParameter.PDF_JAVASCRIPT, "this.print();");
-            
+
             exporter.exportReport();
-            
+
             inputStream = new ByteArrayInputStream(salida.toByteArray());
-            
+
         } catch (JRException e) {
             e.printStackTrace();
         } finally {
             this.desconectar();
         }
-        
+
         return new DefaultStreamedContent(inputStream, "application/pdf", "Transferencia_" + modelo.getESTTRA());
     }
-    
+
     @Override
     public StreamedContent generarReporteGeneralPrev(Transferencia modelo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

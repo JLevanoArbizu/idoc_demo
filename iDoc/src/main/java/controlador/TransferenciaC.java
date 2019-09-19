@@ -16,14 +16,14 @@ import org.primefaces.model.StreamedContent;
 @Named(value = "transferenciaC")
 @SessionScoped
 public class TransferenciaC implements Serializable {
-
+    
     Transferencia transferencia;
     Transferencia selectedTransferencia;
     List<Transferencia> lstTransferencia, lstTransferenciaFiltrado, listaBandeja, listaBandejaFiltrada;
     TransferenciaImpl dao;
-
+    
     StreamedContent reporte;
-
+    
     public TransferenciaC() {
         transferencia = new Transferencia();
         lstTransferencia = new ArrayList<>();
@@ -31,7 +31,7 @@ public class TransferenciaC implements Serializable {
         dao = new TransferenciaImpl();
         selectedTransferencia = new Transferencia();
     }
-
+    
     @PostConstruct
     public void iniciar() {
         try {
@@ -40,11 +40,11 @@ public class TransferenciaC implements Serializable {
             e.printStackTrace();
         }
     }
-
+    
     public void limpiarTransferencia() throws Exception {
         transferencia = new Transferencia();
     }
-
+    
     public void registrarTransferencia() throws Exception {
         try {
             dao.registrar(transferencia);
@@ -57,7 +57,7 @@ public class TransferenciaC implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Registrar" + e, null));
         }
     }
-
+    
     public void editarTransferencia() throws Exception {
         try {
             dao.editar(selectedTransferencia);
@@ -69,7 +69,7 @@ public class TransferenciaC implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Modificar" + e, null));
         }
     }
-
+    
     public void eliminarTransferencia() throws Exception {
         try {
             dao.eliminar(selectedTransferencia);
@@ -78,10 +78,10 @@ public class TransferenciaC implements Serializable {
             PrimeFaces.current().executeScript("enviar('" + "Transferencia" + "');");
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al Eliminar" + e, null));
-
+            
         }
     }
-
+    
     public void listarBandeja() throws Exception {
         try {
             listaBandeja = dao.listar(transferencia);
@@ -89,7 +89,15 @@ public class TransferenciaC implements Serializable {
             e.printStackTrace();
         }
     }
-
+    
+    public void recepcionarTransferencia() throws Exception {
+        try {
+            dao.recibir(transferencia);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void listarTransferencia() throws Exception {
         try {
             lstTransferencia = dao.listar();
@@ -108,65 +116,65 @@ public class TransferenciaC implements Serializable {
     public Transferencia getTransferencia() {
         return transferencia;
     }
-
+    
     public void setTransferencia(Transferencia transferencia) {
         this.transferencia = transferencia;
     }
-
+    
     public Transferencia getSelectedTransferncia() {
         return selectedTransferencia;
     }
-
+    
     public void setSelectedTransferncia(Transferencia selectedTransferncia) {
         this.selectedTransferencia = selectedTransferncia;
     }
-
+    
     public List<Transferencia> getLstTransferencia() {
         return lstTransferencia;
     }
-
+    
     public void setLstPersona(List<Transferencia> lstTransferencia) {
         this.lstTransferencia = lstTransferencia;
     }
-
+    
     public StreamedContent getReporte() {
         return reporte;
     }
-
+    
     public void setReporte(StreamedContent reporte) {
         this.reporte = reporte;
     }
-
+    
     public Transferencia getSelectedTransferencia() {
         return selectedTransferencia;
     }
-
+    
     public void setSelectedTransferencia(Transferencia selectedTransferencia) {
         this.selectedTransferencia = selectedTransferencia;
     }
-
+    
     public List<Transferencia> getLstTransferenciaFiltrado() {
         return lstTransferenciaFiltrado;
     }
-
+    
     public void setLstTransferenciaFiltrado(List<Transferencia> lstTransferenciaFiltrado) {
         this.lstTransferenciaFiltrado = lstTransferenciaFiltrado;
     }
-
+    
     public List<Transferencia> getListaBandeja() {
         return listaBandeja;
     }
-
+    
     public void setListaBandeja(List<Transferencia> listaBandeja) {
         this.listaBandeja = listaBandeja;
     }
-
+    
     public List<Transferencia> getListaBandejaFiltrada() {
         return listaBandejaFiltrada;
     }
-
+    
     public void setListaBandejaFiltrada(List<Transferencia> listaBandejaFiltrada) {
         this.listaBandejaFiltrada = listaBandejaFiltrada;
     }
-
+    
 }
