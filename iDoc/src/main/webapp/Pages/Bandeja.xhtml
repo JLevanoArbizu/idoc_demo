@@ -10,6 +10,7 @@
     <ui:param name="formsActualizar" value=":frmBandeja"/>
     <ui:define name="contenidoPagina">
         <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
+        <f:event type="preRenderView" listener="#{documentoC.documento.setLogin(loginC.loginSesion)}"/>
         <f:event type="preRenderView" listener="#{transferenciaC.transferencia.areaReceptora.setIDARE(loginC.loginSesion.trabajador.area.IDARE)}"/>
 
 
@@ -60,6 +61,31 @@
             <p:contextMenu for="tblBandeja">
             </p:contextMenu>
         </h:form>
+        <p:dialog header="Transferir Documentos" widgetVar="dlgTranferencia" resizable="false" modal="false">
+            <h:form id="frmTransferir">
+                <p:panelGrid columns="4">
+                    <p:outputLabel value="Fecha entrada"/>
+                    <p:calendar value="#{transferenciaC.transferencia.FECRECTRAN}" pattern="dd/MMM/yyyy HH:mm:ss"/>
+                    <p:outputLabel value="Área Emitida"/>
+                    <p:selectOneMenu value="#{transferenciaC.transferencia.areaEmisora.IDARE}" filter="true" filterMatchMode="contains">
+                        <f:selectItems value="#{areaC.lista}" var="txtarea1"
+                                       itemLabel=" #{txtarea1.NOMARE}" itemValue="#{txtarea1.IDARE}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Fecha salida"/>
+                    <p:calendar value="#{transferenciaC.transferencia.FECSALTRAN}" pattern="dd/MMM/yyyy HH:mm:ss"/>
+                    <p:outputLabel value="Área Recibida"/>
+                    <p:selectOneMenu value="#{transferenciaC.transferencia.areaReceptora.IDARE}" filter="true" filterMatchMode="contains">
+                        <f:selectItems value="#{areaC.lista}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" 
+                                       itemValue="#{txtarea.IDARE}" itemDisabled="#{txtarea.IDARE eq txtarea1.IDARE}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Observación"/>
+                    <p:inputTextarea value="#{transferenciaC.transferencia.OBSTRAN}" />
 
+                    <p:commandButton value="REGISTRAR" actionListener="#{transferenciaC.registrarTransferencia()}" 
+                                     oncomplete="PF('dlgTranferencia').hide()"/>
+                    <p:commandButton value="CANCELAR" oncomplete="PF('dlgTranferencia').hide()"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
     </ui:define>
 </ui:composition>

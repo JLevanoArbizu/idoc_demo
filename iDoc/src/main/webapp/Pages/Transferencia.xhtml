@@ -11,6 +11,7 @@
     <ui:param name="formsActualizar" value=":FormTblTransferencia :FormTransferencia"/>
 
     <ui:define name="contenidoPagina">
+        <f:event type="preRenderView" listener="#{transferenciaC.transferencia.setAreaEmisora(loginC.loginSesion.trabajador.area)}"/>
 
         <center><h5 style="color: #193a59" >Registrar Trazabilidad</h5></center>
 
@@ -26,14 +27,7 @@
                     <f:selectItems value="#{documentoC.lista}" var="txtdocumento" itemLabel=" #{txtdocumento.ASUDOC}" itemValue="#{txtdocumento.IDDOC}"/>
                 </p:selectOneMenu>
 
-
-                <p:outputLabel value="area Emitida"/>
-                <p:selectOneMenu value="#{transferenciaC.transferencia.areaEmisora.IDARE}" filter="true" filterMatchMode="contains">
-                    <f:selectItems value="#{areaC.lista}" var="txtarea1" itemLabel=" #{txtarea1.NOMARE}" itemValue="#{txtarea1.IDARE}"/>
-                </p:selectOneMenu>
-
-
-                <p:outputLabel value="area Recibida"/>
+                <p:outputLabel value="Área Receptora"/>
                 <p:selectOneMenu value="#{transferenciaC.transferencia.areaReceptora.IDARE}" filter="true" filterMatchMode="contains">
                     <f:selectItems value="#{areaC.lista}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" itemValue="#{txtarea.IDARE}"/>
                 </p:selectOneMenu>
@@ -92,7 +86,7 @@
                     <h:outputText value="#{transferencia.ESTTRA eq 'D' ? 'Derivado' :  ''}"/> 
                     <h:outputText value="#{transferencia.ESTTRA eq 'c' ? 'Archivado' :  ''}"/>
                     <h:outputText value="#{transferencia.ESTTRA eq 'R' ? 'Registrado' :  ''}"/>
-                    
+
                 </p:column>
 
                 <p:column headerText="Documento" filterBy="#{transferencia.documento.ASUDOC}" filterMatchMode="contains">
@@ -102,6 +96,10 @@
             <p:contextMenu for="tblTransferencia">
                 <p:menuitem value="Editar" icon="ui-icon-pencil"
                             oncomplete="PF('dlgModTransferencia').show()" update="FormDialogModTemp"/>
+                <p:menuitem value="Derivar" icon="ui-icon ui-icon-arrow-1-ne"
+                            oncomplete="PF('dlgTranferencia').show()" update="FormTransferencia">
+                    <f:setPropertyActionListener value="#{transferencia}" target="#{transferenciaC.transferencia}"/>
+                </p:menuitem>
                 <p:menuitem value="Eliminar" icon="ui-icon-trash"
                             actionListener="#{transferenciaC.eliminarTransferencia()}"  update="FormTransferencia FormTblTransferencia:tblTransferencia">
                     <p:confirm header="CONFIRMACIÓN" message="¿Está seguro de eliminar este registro?"/>

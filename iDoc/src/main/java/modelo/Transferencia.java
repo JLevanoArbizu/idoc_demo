@@ -7,7 +7,7 @@ public class Transferencia {
     private int IDTRAN;
     private Date FECRECTRAN = new Date();
     private Date FECSALTRAN = new Date();
-    private String OBSTRAN;
+    private String OBSTRAN, OBSDER;
     private String ESTTRA;
     private Documento documento = new Documento();
     private Area areaEmisora = new Area();
@@ -77,6 +77,11 @@ public class Transferencia {
         this.areaReceptora = areaReceptora;
     }
 
-    
-    
+    public String getOBSDER() {
+        return OBSDER;
+    }
+
+    public void setOBSDER(String OBSDER) {
+        this.OBSDER = OBSDER;
+    }
 }
