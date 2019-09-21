@@ -14,7 +14,7 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
     @Override
     public void registrar(Login modelo) throws Exception {
         try {
-            System.out.println("Registrar Login:"+modelo.getTrabajador().getPersona().getDNIPER());
+            System.out.println("Registrar Login:" + modelo.getTrabajador().getPersona().getDNIPER());
             String sql = "INSERT INTO LOGIN (IDTRAB, USRLOG, PSSWLOG, ESTLOG, TIPLOG) VALUES (?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setInt(1, modelo.getTrabajador().getIDTRAB());
@@ -50,8 +50,8 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
             this.desconectar();
         }
     }
-    
-    public void resetearContra(Trabajador modelo) throws Exception{
+
+    public void resetearContra(Trabajador modelo) throws Exception {
         try {
             String sql = "UPDATE LOGIN SET USRLOG=?, PSSWLOG=? WHERE IDTRAB=?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
@@ -63,7 +63,7 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
             ps.close();
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             this.desconectar();
         }
     }
@@ -100,7 +100,7 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
             this.desconectar();
         }
     }
-    
+
     public void eliminar(Trabajador modelo) throws Exception {
         try {
             String sql = "UPDATE LOGIN SET ESTLOG=? WHERE IDTRAB=?";
@@ -177,6 +177,7 @@ public class LoginImpl extends Conexion implements ICrud<Login> {
         } finally {
             this.desconectar();
         }
+
         return modelo;
     }
 

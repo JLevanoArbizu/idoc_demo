@@ -9,7 +9,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import modelo.Login;
 import modelo.Trabajador;
-import org.primefaces.PrimeFaces;
 
 @Named(value = "loginC")
 @SessionScoped
@@ -67,7 +66,8 @@ public class LoginC implements Serializable {
         try {
             loginSesion = daoLogin.obtenerModelo(loginSesion);
             if (loginSesion.getIDLOG() != 0 && "A".equals(loginSesion.getESTLOG())) {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc/faces/Pages/Home.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("login", loginSesion);
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/AS2018S3_iDoc/faces/Pages/Home.xhtml");
             } else {
                 FacesContext.getCurrentInstance().addMessage(
                         null,
@@ -82,20 +82,20 @@ public class LoginC implements Serializable {
 
     public void seguridadSesion() throws IOException {
         if (loginSesion.getIDLOG() == 0) {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc/faces/Pages/Login.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/AS2018S3_iDoc/faces/Pages/Login.xhtml");
         }
     }
 
     public void volverHome() throws IOException {
         if (loginSesion.getIDLOG() != 0) {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc/faces/Pages/Home.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/AS2018S3_iDoc/faces/Pages/Home.xhtml");
         }
     }
 
     public void cerrarSesion() throws IOException {
         try {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/iDoc");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/AS2018S3_iDoc");
             loginSesion.clear();
         } catch (Exception e) {
             e.printStackTrace();

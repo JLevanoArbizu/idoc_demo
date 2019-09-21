@@ -1,4 +1,4 @@
-let socket = new WebSocket('ws://' + location.hostname + (location.port ? ':' + location.port : '') + '/iDoc/ws/server');
+let socket = new WebSocket('ws://' + location.hostname + (location.port ? ':' + location.port : '') + '/AS2018S3_iDoc/ws/server');
 
 function enviar(mensaje) {
     socket.send(mensaje);
@@ -63,6 +63,9 @@ function notificarActualizar(event) {
             break;
         case "DocumentoTipo":
             actualizarDocumentoTipo();
+            break;
+        case "Bandeja":
+            actualizarBandeja();
             break;
         default:
             break;
@@ -137,5 +140,9 @@ function actualizarEmpresa() {
 
 function actualizarSugerencia() {
     PrimeFaces.ab({s: "j_idt110:btnActualizarSugerencia", f: "j_idt110", u: "frmSugerencia", a: true});
+    return false;
+}
+function actualizarBandeja() {
+    PrimeFaces.ab({s: "j_idt113:btnActualizarBandeja", f: "j_idt113", u: "frmBandeja", a: true});
     return false;
 }

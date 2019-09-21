@@ -32,9 +32,6 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
     @Override
     public void registrar(Transferencia trans) throws Exception {
         try {
-            System.out.println("Registrar");
-            System.out.println("Area emisora " + trans.getAreaEmisora().getIDARE());
-            System.out.println("Area receptora " + trans.getAreaReceptora().getIDARE());
             String sql = "INSERT INTO TRANSFERENCIA (FECSALTRAN,OBSTRAN,IDDOC,IDARE_EMI,IDARE_REC,ESTTRA) VALUES(?,?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setTimestamp(1, new java.sql.Timestamp(new Date().getTime()));
@@ -172,9 +169,6 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
         List<Transferencia> listaBandeja = new ArrayList<>();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        System.out.println("Lisrae");
-        System.out.println("Area emisora " + modelo.getAreaEmisora().getIDARE());
-        System.out.println("Area receptora " + modelo.getAreaReceptora().getIDARE());
         try {
             String sql = "SELECT\n"
                     + "       IDTRAN,\n"
@@ -192,7 +186,7 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
                     + "INNER JOIN AREA A2 on T.IDARE_EMI = A2.IDARE\n"
                     + "WHERE A.IDARE = ? ORDER BY IDTRAN DESC";
             ps = this.conectar().prepareStatement(sql);
-            ps.setInt(1, modelo.getAreaEmisora().getIDARE());
+            ps.setInt(1, servicios.SesionS.getSesion().getTrabajador().getArea().getIDARE());
             rs = ps.executeQuery();
             Transferencia trans;
             while (rs.next()) {

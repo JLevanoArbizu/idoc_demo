@@ -42,6 +42,7 @@ public class DocumentoC implements Serializable {
 
     public void registrarDocumento() throws Exception {
         try {
+            documento.setLogin(servicios.SesionS.getSesion());
             daoDocumento.registrar(documento);
 //            listarDocumento();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado Correctamente", null));
@@ -55,6 +56,7 @@ public class DocumentoC implements Serializable {
 
     public void modificarDocumento() throws Exception {
         try {
+            selectedDocumento.setLogin(servicios.SesionS.getSesion());
             daoDocumento.editar(selectedDocumento);
 //            listarDocumento();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modificado Correctamente", null));
@@ -67,6 +69,7 @@ public class DocumentoC implements Serializable {
 
     public void eliminarDocumento() throws Exception {
         try {
+            selectedDocumento.setLogin(servicios.SesionS.getSesion());
             daoDocumento.eliminar(selectedDocumento);
 //            listarDocumento();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado Correctamente", null));

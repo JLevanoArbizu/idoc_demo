@@ -6,19 +6,17 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
     <ui:param name="tituloPagina" value="Sugerencias"/>
     <ui:param name="formsActualizar" value="frmBandeja"/>
     <ui:define name="contenidoPagina">
-        <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
-        <f:event type="preRenderView" listener="#{documentoC.documento.setLogin(loginC.loginSesion)}"/>
-        <f:event type="preRenderView" listener="#{transferenciaC.transferencia.areaEmisora.setIDARE(loginC.loginSesion.trabajador.area.IDARE)}"/>
 
 
         <h:form id="frmBandeja">
             <p:dataTable id="tblBandeja"
                          value="#{transferenciaC.listaBandeja}"
                          var="transferencia"
-                         selection="#{transferenciaC.transferencia}"
+                         selection="#{transferenciaC.selectedTransferencia}"
                          selectionMode="single"
                          rowKey="#{transferencia.IDTRAN}"
                          filteredValue="#{transferenciaC.listaBandejaFiltrada}"
@@ -56,7 +54,9 @@
             </p:dataTable>
             <p:contextMenu for="tblBandeja">
                 <p:menuitem value="Recepcionar" actionListener="#{transferenciaC.recepcionarTransferencia()}" update="tblBandeja"/>
-                <p:menuitem value="Derivar" oncomplete="PF('dlgTranferir').show();" update=":frmTransferir"/>
+                <p:menuitem value="Derivar" oncomplete="PF('dlgTranferir').show();" update=":frmTransferir">
+                    <f:setPropertyActionListener value="#{null}" target="#{transferenciaC.selectedTransferencia.OBSTRAN}"/>
+                </p:menuitem>
                 <p:menuitem value="Rechazar" update=":frmTransferir"/>
             </p:contextMenu>
         </h:form>
@@ -69,9 +69,9 @@
                                        itemValue="#{txtarea.IDARE}"/>
                     </p:selectOneMenu>
                     <p:outputLabel value="Observación"/>
-                    <p:inputTextarea value="#{transferenciaC.transferencia.OBSTRAN}" />
+                    <p:inputTextarea value="#{transferenciaC.selectedTransferencia.OBSTRAN}"/>
 
-                    <p:commandButton value="Derivar" actionListener="#{transferenciaC.registrarTransferencia()}" update=":frmBandeja"
+                    <p:commandButton value="Derivar" actionListener="#{transferenciaC.derivar()}" update=":frmBandeja"
                                      oncomplete="PF('dlgTranferir').hide()"/>
                     <p:commandButton value="Cancelar" oncomplete="PF('dlgTranferir').hide()"/>
                 </p:panelGrid>

@@ -11,7 +11,6 @@
     <ui:param name="formsActualizar" value=":FormTblTransferencia :FormTransferencia"/>
 
     <ui:define name="contenidoPagina">
-        <f:event type="preRenderView" listener="#{transferenciaC.transferencia.setAreaEmisora(loginC.loginSesion.trabajador.area)}"/>
 
         <center><h5 style="color: #193a59" >Registrar Trazabilidad</h5></center>
 
@@ -47,7 +46,7 @@
             <p:dataTable id="tblTransferencia"
                          value="#{transferenciaC.lstTransferencia}"
                          var="transferencia"
-                         selection="#{transferenciaC.selectedTransferncia}"
+                         selection="#{transferenciaC.selectedTransferencia}"
                          selectionMode="single"
                          rowKey="#{transferencia.IDTRAN}"
                          filteredValue="#{transferenciaC.lstTransferenciaFiltrado}"
@@ -113,26 +112,26 @@
 
 
                     <p:outputLabel value="Área Emisora:"/>
-                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.areaEmisora.IDARE}" filter="true" filterMatchMode="contains">
+                    <p:selectOneMenu value="#{transferenciaC.selectedTransferencia.areaEmisora.IDARE}" filter="true" filterMatchMode="contains">
                         <f:selectItems value="#{areaC.lista}" var="areae" itemLabel=" #{areae.NOMARE}" itemValue="#{areae.IDARE}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Fecha de salida "/>
-                    <p:calendar value="#{transferenciaC.selectedTransferncia.FECSALTRAN}" pattern="dd/MMM/yyyy HH:mm:ss"/>
+                    <p:calendar value="#{transferenciaC.selectedTransferencia.FECSALTRAN}" pattern="dd/MMM/yyyy HH:mm:ss"/>
 
                     <p:outputLabel value="Área Receptora"/>
-                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.areaReceptora.IDARE}" filter="true" filterMatchMode="contains">
+                    <p:selectOneMenu value="#{transferenciaC.selectedTransferencia.areaReceptora.IDARE}" filter="true" filterMatchMode="contains">
                         <f:selectItems value="#{areaC.lista}" var="arear" itemLabel=" #{arear.NOMARE}" itemValue="#{arear.IDARE}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Fecha de entrada"/>
-                    <p:calendar value="#{transferenciaC.selectedTransferncia.FECRECTRAN}" pattern="dd/MMM/yyyy HH:mm:ss"/>
+                    <p:calendar value="#{transferenciaC.selectedTransferencia.FECRECTRAN}" pattern="dd/MMM/yyyy HH:mm:ss"/>
 
                     <p:outputLabel value="Observación"/>
-                    <p:inputTextarea value="#{transferenciaC.selectedTransferncia.OBSTRAN}" />
+                    <p:inputTextarea value="#{transferenciaC.selectedTransferencia.OBSTRAN}" />
 
                     <p:outputLabel value="Documento"/>
-                    <p:selectOneMenu value="#{transferenciaC.selectedTransferncia.documento.IDDOC}" filter="true" filterMatchMode="contains">
+                    <p:selectOneMenu value="#{transferenciaC.selectedTransferencia.documento.IDDOC}" filter="true" filterMatchMode="contains">
                         <f:selectItems value="#{documentoC.lista}" var="documen" itemLabel=" #{documen.ASUDOC}"  itemValue="#{documen.IDDOC}" />
                     </p:selectOneMenu>
 
