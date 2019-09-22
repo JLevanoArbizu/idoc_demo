@@ -20,7 +20,7 @@ public class TupaImpl extends Conexion implements ICrud<Tupa>, IReporte<Tupa> {
             ps.setString(1, tupa.getNUMTUP());
             ps.setString(2, tupa.getNOMTUP());
             ps.setDouble(3, tupa.getPRETUP());
-            ps.setString(4, tupa.getPLATUP());
+            ps.setInt(4, tupa.getPLATUP());
             ps.setInt(5, tupa.getArea().getIDARE());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -38,7 +38,7 @@ public class TupaImpl extends Conexion implements ICrud<Tupa>, IReporte<Tupa> {
             ps.setString(1, tupa.getNUMTUP());
             ps.setString(2, tupa.getNOMTUP());
             ps.setDouble(3, tupa.getPRETUP());
-            ps.setString(4, tupa.getPLATUP());
+            ps.setInt(4, tupa.getPLATUP());
             ps.setInt(5, tupa.getArea().getIDARE());
             ps.setInt(6, tupa.getIDTUP());
 
@@ -90,7 +90,7 @@ public class TupaImpl extends Conexion implements ICrud<Tupa>, IReporte<Tupa> {
                 tupa.setNUMTUP(rs.getString(2));
                 tupa.setNOMTUP(rs.getString(3));
                 tupa.setPRETUP(rs.getDouble(4));
-                tupa.setPLATUP(rs.getString(5));
+                tupa.setPLATUP(rs.getInt(5));
                 area.setIDARE(rs.getInt(6));
                 area.setNOMARE(rs.getString(7));
                 tupa.setArea(area);

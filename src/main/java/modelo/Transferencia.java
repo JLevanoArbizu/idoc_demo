@@ -12,6 +12,8 @@ public class Transferencia {
     private Documento documento = new Documento();
     private Area areaEmisora = new Area();
     private Area areaReceptora = new Area();
+    private int diasHabiles;
+    private boolean fueraDePlazo;
 
     public int getIDTRAN() {
         return IDTRAN;
@@ -84,4 +86,21 @@ public class Transferencia {
     public void setOBSDER(String OBSDER) {
         this.OBSDER = OBSDER;
     }
+
+    public int getDiasHabiles() {
+        return diasHabiles;
+    }
+
+    public void setDiasHabiles(int diasHabiles) {
+        this.diasHabiles = diasHabiles;
+    }
+
+    public boolean isFueraDePlazo() {
+        return fueraDePlazo;
+    }
+
+    public void setFueraDePlazo(boolean fueraDePlazo) {
+        this.fueraDePlazo = fueraDePlazo;
+    }
+    
 }

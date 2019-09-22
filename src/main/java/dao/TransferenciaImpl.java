@@ -18,6 +18,7 @@ import javax.faces.context.FacesContext;
 import modelo.Area;
 import modelo.Documento;
 import modelo.Transferencia;
+import modelo.Tupa;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
@@ -51,11 +52,12 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
     public void recibir(Transferencia modelo) throws Exception {
         try {
 //            2	Recepcionado
-            String sql = "UPDATE TRANSFERENCIA SET FECRECTRAN=?, ESTTRA=? WHERE IDTRAN LIKE ?";
+            String sql = "UPDATE TRANSFERENCIA SET FECRECTRAN=?, ESTTRA=?, OBSDER=? WHERE IDTRAN LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setTimestamp(1, new java.sql.Timestamp(new Date().getTime()));
             ps.setString(2, "2");
-            ps.setInt(3, modelo.getIDTRAN());
+            ps.setString(3, modelo.getOBSDER());
+            ps.setInt(4, modelo.getIDTRAN());
             ps.executeUpdate();
             ps.clearParameters();
             ps.close();
@@ -68,7 +70,6 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
 
     @Override
     public void editar(Transferencia trans) throws Exception {
-
         try {
             String sql = "UPDATE TRANSFERENCIA SET  OBSDER=?, ESTTRA=? WHERE IDTRAN LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
@@ -114,16 +115,19 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
         ResultSet rs = null;
         try {
             String sql = "SELECT\n"
-                    + "       IDTRAN,\n"
-                    + "       FECRECTRAN,\n"
-                    + "       FECSALTRAN,\n"
-                    + "       OBSTRAN,\n"
-                    + "       ESTTRA,\n"
+                    + "       T.IDTRAN,\n"
+                    + "       T.FECRECTRAN,\n"
+                    + "       T.FECSALTRAN,\n"
+                    + "       T.OBSTRAN,\n"
+                    + "       T.ESTTRA,\n"
                     + "       D.ASUDOC AS IDDOC,\n"
                     + "       A2.NOMARE AS IDARE_EMI,\n"
-                    + "       A.NOMARE AS IDARE_REC\n"
+                    + "       A.NOMARE AS IDARE_REC,\n"
+                    + "       T2.PLATUP as plazo,"
+                    + "diasLaborables(T.FECSALTRAN, T.FECRECTRAN) as habiles "
                     + "FROM TRANSFERENCIA T\n"
                     + "INNER JOIN  DOCUMENTO D on T.IDDOC = D.IDDOC\n"
+                    + "INNER JOIN TUPA T2 on D.IDTUP = T2.IDTUP\n"
                     + "INNER JOIN AREA A ON T.IDARE_REC = A.IDARE\n"
                     + "INNER JOIN AREA A2 on T.IDARE_EMI = A2.IDARE\n"
                     + "WHERE ESTTRA != 'I' ORDER BY IDTRAN DESC";
@@ -135,6 +139,7 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
                 Area areaEmisora = new Area();
                 Area areaReceptora = new Area();
                 Documento documento = new Documento();
+                Tupa tupa = new Tupa();
                 trans.setIDTRAN(rs.getInt("IDTRAN"));
                 trans.setFECRECTRAN(rs.getTimestamp("FECRECTRAN", Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
                 trans.setFECSALTRAN(rs.getTimestamp("FECSALTRAN", Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
@@ -143,9 +148,13 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
                 documento.setASUDOC(rs.getString("IDDOC"));
                 areaEmisora.setNOMARE(rs.getString("IDARE_EMI"));
                 areaReceptora.setNOMARE(rs.getString("IDARE_REC"));
+                tupa.setPLATUP(rs.getInt("plazo"));
+                trans.setDiasHabiles(rs.getInt("habiles"));
+                trans.setFueraDePlazo(trans.getDiasHabiles() > tupa.getPLATUP());
 
                 trans.setAreaEmisora(areaEmisora);
                 trans.setAreaReceptora(areaReceptora);
+                documento.setTupa(tupa);
                 trans.setDocumento(documento);
 
                 listaTransferencia.add(trans);
@@ -179,9 +188,13 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
                     + "       D.ASUDOC AS ASUNTO,\n"
                     + "       D.IDDOC AS IDDOC  ,"
                     + "       A2.NOMARE AS IDARE_EMI,\n"
-                    + "       A.NOMARE AS IDARE_REC\n"
+                    + "       A.NOMARE AS IDARE_REC,"
+                    + "       T2.PLATUP as plazo,"
+                    + "       diasLaborables(FECSALTRAN, FECRECTRAN) as habiles,"
+                    + "       OBSDER "
                     + "FROM TRANSFERENCIA T\n"
                     + "INNER JOIN  DOCUMENTO D on T.IDDOC = D.IDDOC\n"
+                    + "INNER JOIN TUPA T2 on D.IDTUP = T2.IDTUP\n"
                     + "INNER JOIN AREA A ON T.IDARE_REC = A.IDARE\n"
                     + "INNER JOIN AREA A2 on T.IDARE_EMI = A2.IDARE\n"
                     + "WHERE A.IDARE = ? ORDER BY IDTRAN DESC";
@@ -194,18 +207,24 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
                 Area areaEmisora = new Area();
                 Area areaReceptora = new Area();
                 Documento documento = new Documento();
-                trans.setIDTRAN(rs.getInt("IDTRAN"));
-                trans.setFECRECTRAN(rs.getTimestamp("FECRECTRAN", Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
-                trans.setFECSALTRAN(rs.getTimestamp("FECSALTRAN", Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
-                trans.setOBSTRAN(rs.getString("OBSTRAN"));
-                trans.setESTTRA(rs.getString("ESTTRA"));
-                documento.setASUDOC(rs.getString("ASUNTO"));
-                documento.setIDDOC(rs.getInt("IDDOC"));
-                areaEmisora.setNOMARE(rs.getString("IDARE_EMI"));
-                areaReceptora.setNOMARE(rs.getString("IDARE_REC"));
+                Tupa tupa = new Tupa();
+                trans.setIDTRAN(rs.getInt(1));
+                trans.setFECRECTRAN(rs.getTimestamp(2, Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
+                trans.setFECSALTRAN(rs.getTimestamp(3, Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
+                trans.setOBSTRAN(rs.getString(4));
+                trans.setESTTRA(rs.getString(5));
+                documento.setASUDOC(rs.getString(6));
+                documento.setIDDOC(rs.getInt(7));
+                areaEmisora.setNOMARE(rs.getString(8));
+                areaReceptora.setNOMARE(rs.getString(9));
+                tupa.setPLATUP(rs.getInt(10));
+                trans.setDiasHabiles(rs.getInt(11));
+                trans.setFueraDePlazo(trans.getDiasHabiles() > tupa.getPLATUP());
+                trans.setOBSDER(rs.getString(12));
 
                 trans.setAreaEmisora(areaEmisora);
                 trans.setAreaReceptora(areaReceptora);
+                documento.setTupa(tupa);
                 trans.setDocumento(documento);
 
                 listaBandeja.add(trans);

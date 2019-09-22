@@ -95,6 +95,7 @@ public class TransferenciaC implements Serializable {
         try {
             dao.recibir(selectedTransferencia);
             PrimeFaces.current().executeScript("enviar('" + "Bandeja" + "');");
+            PrimeFaces.current().executeScript("enviar('" + "Transferencia" + "');");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,6 +106,7 @@ public class TransferenciaC implements Serializable {
             selectedTransferencia.setAreaEmisora(servicios.SesionS.getSesion().getTrabajador().getArea());
             dao.registrar(selectedTransferencia);
             PrimeFaces.current().executeScript("enviar('" + "Bandeja" + "');");
+            PrimeFaces.current().executeScript("enviar('" + "Transferencia" + "');");
         } catch (Exception e) {
             e.printStackTrace();
         }

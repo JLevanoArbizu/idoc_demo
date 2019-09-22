@@ -6,7 +6,7 @@ public class Tupa {
     private String NUMTUP;
     private String NOMTUP;
     private double PRETUP;
-    private String PLATUP;
+    private int PLATUP;
     private Area area = new Area();
     private String ESTTUP;
 
@@ -42,11 +42,11 @@ public class Tupa {
         this.PRETUP = PRETUP;
     }
 
-    public String getPLATUP() {
+    public int getPLATUP() {
         return PLATUP;
     }
 
-    public void setPLATUP(String PLATUP) {
+    public void setPLATUP(int PLATUP) {
         this.PLATUP = PLATUP;
     }
 

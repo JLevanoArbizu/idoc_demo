@@ -362,3 +362,12 @@ div.row.formulario > div.col.selectmenu {
     -ms-transform: scale(1);
     transform: scale(1.02);
 }
+
+/*----------------------------------------
+    Para las tablas
+------------------------------------------*/
+.fueraDePlazo {
+    /*background-color: #fca752 !important;*/
+    background-image: none !important;
+    color: #e62a10 !important;
+}

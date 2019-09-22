@@ -52,6 +52,7 @@
                          filteredValue="#{transferenciaC.lstTransferenciaFiltrado}"
                          paginator="true"
                          rows="10"
+                         rowStyleClass="#{transferencia.fueraDePlazo ? 'fueraDePlazo' : null}"
                          rowsPerPageTemplate="5,10,15,50" >
 
                 <p:column headerText="Área Emisora:" filterBy="#{transferencia.areaEmisora.NOMARE}" filterMatchMode="contains">

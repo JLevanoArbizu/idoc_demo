@@ -124,7 +124,7 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
 "                   INNER JOIN PERSONA PER2 ON D.IDPER = PER2.IDPER\n" +
 "                   LEFT JOIN TIPO_DOCUMENTO TD on D.TIPDOC = TD.IDTIPDOC\n" +
 "                   WHERE  ESTDOC != 'I' ORDER BY IDDOC DESC";
-            ps = this.conectar().prepareCall(sql);
+            ps = this.conectar().prepareStatement(sql);
             rs = ps.executeQuery();
             Documento documento;
             while (rs.next()) {
@@ -140,7 +140,7 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
                 documento.setCODDOC(rs.getInt("CODDOC"));
                 documento.setNUMLIBDOC(rs.getString("NUMLIBDOC"));
                 documento.setNUMFOLDOC(rs.getString("NUMFOLDOC"));
-                documentotipo.setNOMTIPDOC(rs.getString("TIPDOC")); //DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+                documentotipo.setNOMTIPDOC(rs.getString("TIPDOC"));
                 documento.setFECDOC(rs.getTimestamp("FECDOC", Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
                 documento.setASUDOC(rs.getString("ASUDOC"));
                 documento.setOBSDOC(rs.getString("OBSDOC"));

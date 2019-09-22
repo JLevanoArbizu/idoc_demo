@@ -1,4 +1,4 @@
-let socket = new WebSocket('ws://' + location.hostname + (location.port ? ':' + location.port : '') + '/AS2018S3_iDoc/ws/server');
+let socket = new WebSocket('ws://' + location.hostname + (location.port ? ':' + location.port : '') + '/iDoc/ws/server');
 
 function enviar(mensaje) {
     socket.send(mensaje);

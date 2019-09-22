@@ -7,7 +7,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
     <f:event type="preRenderView" listener="#{loginC.seguridadSesion()}"/>
-    <ui:param name="tituloPagina" value="Sugerencias"/>
+    <ui:param name="tituloPagina" value="Bandeja"/>
     <ui:param name="formsActualizar" value="frmBandeja"/>
     <ui:define name="contenidoPagina">
 
@@ -21,7 +21,8 @@
                          rowKey="#{transferencia.IDTRAN}"
                          filteredValue="#{transferenciaC.listaBandejaFiltrada}"
                          paginator="true"
-                         rows="10"
+                         rows="10" reflow="true"  
+                         rowStyleClass="#{transferencia.fueraDePlazo ? 'fueraDePlazo' : null}"
                          rowsPerPageTemplate="5,10,15,50" >
 
                 <p:column headerText="Área Emisora:" filterBy="#{transferencia.areaEmisora.NOMARE}" filterMatchMode="contains">
@@ -42,27 +43,43 @@
                 <p:column headerText="Observación">
                     <h:outputText value="#{transferencia.OBSTRAN}"/>
                 </p:column>
-
-
-                <p:column headerText="Estado del documento" style="width: 120px" filterBy="#{transferencia.ESTTRA}"  >
-                    <h:outputText value="#{transferencia.ESTTRA}"/>
+                <p:column headerText="Observación">
+                    <h:outputText value="#{transferencia.OBSDER}"/>
                 </p:column>
 
                 <p:column headerText="Documento" filterBy="#{transferencia.documento.ASUDOC}" filterMatchMode="contains">
                     <h:outputText value="#{transferencia.documento.ASUDOC}" />
                 </p:column>
+                <p:column headerText="Dias transcurridos">
+                    <h:outputText value="#{transferencia.diasHabiles}"/>
+                </p:column>
+                <p:column headerText="Plazo">
+                    <h:outputText value="#{transferencia.documento.tupa.PLATUP}" />
+                </p:column>
             </p:dataTable>
             <p:contextMenu for="tblBandeja">
-                <p:menuitem value="Recepcionar" actionListener="#{transferenciaC.recepcionarTransferencia()}" update="tblBandeja"/>
+                <p:menuitem value="Recepcionar" oncomplete="PF('dlgRecepcionar').show();" update=":frmRecepcionar"/>
                 <p:menuitem value="Derivar" oncomplete="PF('dlgTranferir').show();" update=":frmTransferir">
                     <f:setPropertyActionListener value="#{null}" target="#{transferenciaC.selectedTransferencia.OBSTRAN}"/>
                 </p:menuitem>
                 <p:menuitem value="Rechazar" update=":frmTransferir"/>
             </p:contextMenu>
         </h:form>
+        <p:dialog header="Recepcionar Documento" widgetVar="dlgRecepcionar" resizable="false" modal="false">
+            <h:form id="frmRecepcionar">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Observación de Recepción"/>
+                    <p:inputTextarea value="#{transferenciaC.selectedTransferencia.OBSDER}"/>
+                    <p:commandButton value="Recepcionar" actionListener="#{transferenciaC.recepcionarTransferencia()}" 
+                                     update=":frmBandeja"
+                                     oncomplete="PF('dlgRecepcionar').hide()"/>
+                    <p:commandButton value="Cancelar" oncomplete="PF('dlgRecepcionar').hide()"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
         <p:dialog header="Transferir Documento" widgetVar="dlgTranferir" resizable="false" modal="false">
             <h:form id="frmTransferir">
-                <p:panelGrid columns="4">
+                <p:panelGrid columns="2">
                     <p:outputLabel value="Área a enviar"/>
                     <p:selectOneMenu value="#{transferenciaC.selectedTransferencia.areaReceptora.IDARE}" filter="true" filterMatchMode="contains">
                         <f:selectItems value="#{areaC.lista}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" 
