@@ -31,7 +31,7 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
     @Override
     public void registrar(Documento documento) throws Exception {
         try {
-            String sql = "INSERT INTO DOCUMENTO (CODDOC,NUMLIBDOC,NUMFOLDOC,TIPDOC,FECDOC,ASUDOC,OBSDOC,IDTUP,IDLOG,IDEMP,IDPER,KEYDOC) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO DOCUMENTO (CODDOC,NUMLIBDOC,NUMFOLDOC,TIPDOC,FECDOC,ASUDOC,OBSDOC,IDTUP,IDLOG,IDEMP,IDPER,KEYDOC,DENDOC) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setInt(1, documento.getCODDOC());
             ps.setString(2, documento.getNUMLIBDOC());
@@ -45,7 +45,10 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
             ps.setInt(10, documento.getEmpresa().getIDEMP());
             ps.setInt(11, documento.getPersona().getIDPER());
             ps.setString(12, EncriptarS.encriptarDocumento(String.valueOf(documento.getCODDOC())));
+            ps.setString(13, documento.getDENDOC());
             ps.executeUpdate();
+            ps.clearParameters();
+            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -58,7 +61,7 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
     @Override
     public void editar(Documento documento) throws Exception {
         try {
-            String sql = "UPDATE DOCUMENTO SET CODDOC=?, NUMLIBDOC = ?, NUMFOLDOC=?, ASUDOC = ? , OBSDOC = ? , IDTUP = ? , IDEMP = ? , IDPER = ? , KEYDOC = ? WHERE IDDOC LIKE ?";
+            String sql = "UPDATE DOCUMENTO SET CODDOC=?, NUMLIBDOC = ?, NUMFOLDOC=?, ASUDOC = ? , OBSDOC = ? , IDTUP = ? , IDEMP = ? , IDPER = ? , KEYDOC = ?, DENDOC = ? WHERE IDDOC LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setInt(1, documento.getCODDOC());
             ps.setString(2, documento.getNUMLIBDOC());
@@ -69,8 +72,11 @@ public class DocumentoImpl extends Conexion implements ICrud<Documento>, IReport
             ps.setInt(7, documento.getEmpresa().getIDEMP());
             ps.setInt(8, documento.getPersona().getIDPER());
             ps.setString(9, documento.getKEYDOC());
-            ps.setInt(10, documento.getIDDOC());
+            ps.setString(10, documento.getDENDOC());
+            ps.setInt(11, documento.getIDDOC());
             ps.executeUpdate();
+            ps.clearParameters();
+            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
 

@@ -18,6 +18,7 @@ public class Documento {
     private Empresa empresa = new Empresa();
     private Persona persona = new Persona();
     private String KEYDOC;
+    private String DENDOC;
 
     public void clear() {
 
@@ -134,6 +135,14 @@ public class Documento {
 
     public void setKEYDOC(String KEYDOC) {
         this.KEYDOC = KEYDOC;
+    }
+
+    public String getDENDOC() {
+        return DENDOC;
+    }
+
+    public void setDENDOC(String DENDOC) {
+        this.DENDOC = DENDOC;
     }
 
 }

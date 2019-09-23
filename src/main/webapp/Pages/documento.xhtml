@@ -88,6 +88,9 @@
                 <h:outputText value="Asunto"/>
                 <p:inputTextarea value="#{documentoC.documento.ASUDOC}"/>
 
+                <h:outputText value="Denominación"/>
+                <p:inputTextarea value="#{documentoC.documento.DENDOC}"/>
+
 
             </p:panelGrid>
 
@@ -149,7 +152,10 @@
                         <h:outputText value="#{documento.NUMFOLDOC}"/>
 
                         <h:outputText value="Codigo de documento" />
-                        <h:outputText value="#{documento.CODDOC}"/>                        
+                        <h:outputText value="#{documento.CODDOC}"/>  
+
+                        <h:outputText value="Denominación" />
+                        <h:outputText value="#{documento.DENDOC}"/>                        
 
                         <h:outputText value="Observacion de documento"/>
                         <h:outputText value="#{documento.OBSDOC}"/>
@@ -240,6 +246,9 @@
 
                     <h:outputText value="Codigo"/>
                     <h:inputText value="#{documentoC.selectedDocumento.CODDOC}"  />
+
+                    <h:outputText value="Codigo"/>
+                    <h:inputText value="#{documentoC.selectedDocumento.DENDOC}"  />
 
                 </p:panelGrid>
                 <p:panelGrid columns="4">

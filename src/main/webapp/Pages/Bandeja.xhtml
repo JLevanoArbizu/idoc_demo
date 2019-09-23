@@ -94,8 +94,8 @@
                 <p:panelGrid columns="2">
                     <p:outputLabel value="Área a enviar"/>
                     <p:selectOneMenu value="#{transferenciaC.selectedTransferencia.areaReceptora.IDARE}" filter="true" filterMatchMode="contains">
-                        <f:selectItems value="#{areaC.lista}" var="txtarea" itemLabel=" #{txtarea.NOMARE}" 
-                                       itemValue="#{txtarea.IDARE}"/>
+                        <f:selectItems value="#{areaC.lista}" var="areas" itemLabel=" #{areas.NOMARE}" 
+                                       itemValue="#{areas.IDARE}"/>
                     </p:selectOneMenu>
                     <p:outputLabel value="Observación"/>
                     <p:inputTextarea value="#{transferenciaC.selectedTransferencia.OBSTRAN}"/>

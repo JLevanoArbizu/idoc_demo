@@ -38,10 +38,7 @@ public class AreaPadre {
         if (!Objects.equals(this.NOMARE, other.NOMARE)) {
             return false;
         }
-        if (!Objects.equals(this.municipalidad, other.municipalidad)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.municipalidad, other.municipalidad);
     }
 
     public int getIDARE() {
