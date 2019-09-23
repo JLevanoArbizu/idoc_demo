@@ -52,10 +52,12 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
     public void recibir(Transferencia modelo) throws Exception {
         try {
 //            2	Recepcionado
+//            4	Rechazado
+
             String sql = "UPDATE TRANSFERENCIA SET FECRECTRAN=?, ESTTRA=?, OBSDER=? WHERE IDTRAN LIKE ?";
             PreparedStatement ps = this.conectar().prepareStatement(sql);
             ps.setTimestamp(1, new java.sql.Timestamp(new Date().getTime()));
-            ps.setString(2, "2");
+            ps.setString(2, modelo.getESTTRA());
             ps.setString(3, modelo.getOBSDER());
             ps.setInt(4, modelo.getIDTRAN());
             ps.executeUpdate();
@@ -81,7 +83,6 @@ public class TransferenciaImpl extends Conexion implements ICrud<Transferencia>,
             ps.close();
             /*            
             3	Atendido
-            4	Rechazado
             5	Cancelado
             6	Derivado
             7	Devuelto

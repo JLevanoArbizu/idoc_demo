@@ -93,9 +93,22 @@ public class TransferenciaC implements Serializable {
 
     public void recepcionarTransferencia() throws Exception {
         try {
+            selectedTransferencia.setESTTRA("2");
             dao.recibir(selectedTransferencia);
             PrimeFaces.current().executeScript("enviar('" + "Bandeja" + "');");
             PrimeFaces.current().executeScript("enviar('" + "Transferencia" + "');");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void rechazarTransferencia() throws Exception {
+        try {
+            selectedTransferencia.setESTTRA("4");
+            dao.recibir(selectedTransferencia);
+            selectedTransferencia.setAreaReceptora(selectedTransferencia.getAreaEmisora());
+            selectedTransferencia.setAreaEmisora(servicios.SesionS.getSesion().getTrabajador().getArea());
+            selectedTransferencia.setOBSTRAN(selectedTransferencia.getOBSDER());
+            derivar();
         } catch (Exception e) {
             e.printStackTrace();
         }

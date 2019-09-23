@@ -62,7 +62,7 @@
                 <p:menuitem value="Derivar" oncomplete="PF('dlgTranferir').show();" update=":frmTransferir">
                     <f:setPropertyActionListener value="#{null}" target="#{transferenciaC.selectedTransferencia.OBSTRAN}"/>
                 </p:menuitem>
-                <p:menuitem value="Rechazar" update=":frmTransferir"/>
+                <p:menuitem value="Rechazar" oncomplete="PF('dlgRechazar').show();" update=":frmRechazar"/>
             </p:contextMenu>
         </h:form>
         <p:dialog header="Recepcionar Documento" widgetVar="dlgRecepcionar" resizable="false" modal="false">
@@ -74,6 +74,18 @@
                                      update=":frmBandeja"
                                      oncomplete="PF('dlgRecepcionar').hide()"/>
                     <p:commandButton value="Cancelar" oncomplete="PF('dlgRecepcionar').hide()"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+        <p:dialog header="Rechazar Documento" widgetVar="dlgRechazar" resizable="false" modal="false">
+            <h:form id="frmRechazar">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Razón de Rechazo"/>
+                    <p:inputTextarea value="#{transferenciaC.selectedTransferencia.OBSDER}"/>
+                    <p:commandButton value="Rechazar" actionListener="#{transferenciaC.rechazarTransferencia()}" 
+                                     update=":frmBandeja"
+                                     oncomplete="PF('dlgRechazar').hide()"/>
+                    <p:commandButton value="Cancelar" oncomplete="PF('dlgRechazar').hide()"/>
                 </p:panelGrid>
             </h:form>
         </p:dialog>
