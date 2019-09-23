@@ -45,13 +45,13 @@
 
 
 
-      
+
         <p:fragment rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'T'? true : false}">
             <div class="ui-g dashboard">
-                <ui:repeat value="#{dashboardC.listaCantidadesDocumento}" var="cantidadesDocumento">
+                <ui:repeat value="#{dashboardC.listaCantidadesDocumento}" var="cantidadesDocumento" >
                     <div class="ui-g-12 ui-md-6 ui-lg-3">
                         <h:form>
-                            <p:outputPanel class="ui-g card colorbox ">
+                            <p:outputPanel class="ui-g card colorbox colorbox-#{cantidadesDocumento.cantidadD} panel aumentar">
 
 
                                 <div class="ui-g-12 ui-md-12 ui-lg-12">
@@ -61,25 +61,88 @@
                                         </div>
 
                                         <div class="ui-g-7">
-                                            
-                                        <span class="colorbox-name">Documentos registrados
-                                        </span>
+
+                                            <span class="colorbox-name">Documentos Registrados
+                                            </span>
                                             <span class="colorbox-name">#{cantidadesDocumento.cantidadD}</span>
                                         </div>
                                     </div>
                                 </div>
 
-                                
+
                             </p:outputPanel>
                         </h:form>
                     </div>
                 </ui:repeat>
             </div>
         </p:fragment>
-        
-        
-        
-             
+
+
+        <p:fragment rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'T'? true : false}">
+            <div class="ui-g dashboard">
+                <ui:repeat value="#{dashboardC.listaCantidadesTupa}" var="cantidadesDocumento" >
+                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                        <h:form>
+                            <p:outputPanel class="ui-g card colorbox colorbox-#{cantidadesDocumento.cantidadTU} panel aumentar">
+
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                    <div class="ui-g card colorbox colorbox-1">
+                                        <div class="ui-g-5">
+                                            <i class="material-icons">description</i>
+                                        </div>
+
+                                        <div class="ui-g-7">
+
+                                            <span class="colorbox-name">Procedimiento T.U.P.A
+                                            </span>
+                                            <span class="colorbox-name">#{cantidadesDocumento.cantidadTU}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </p:outputPanel>
+                        </h:form>
+                    </div>
+                </ui:repeat>
+            </div>
+        </p:fragment>
+
+
+
+
+
+        <p:fragment rendered="#{loginC.loginSesion.TIPLOG.charAt(1) == 'T'? true : false}">
+            <div class="ui-g dashboard">
+                <ui:repeat value="#{dashboardC.listaCantidadesTupa}" var="cantidadesDocumento" >
+                    <div class="ui-g-12 ui-md-6 ui-lg-3">
+                        <h:form>
+                            <p:outputPanel class="ui-g card colorbox colorbox-#{cantidadesDocumento.cantidadT} panel aumentar">
+
+
+                                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                                    <div class="ui-g card colorbox colorbox-1">
+                                        <div class="ui-g-5">
+                                            <i class="material-icons">description</i>
+                                        </div>
+
+                                        <div class="ui-g-7">
+
+                                            <span class="colorbox-name">Documentos Tramitados
+                                            </span>
+                                            <span class="colorbox-name">#{cantidadesDocumento.cantidadT}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </p:outputPanel>
+                        </h:form>
+                    </div>
+                </ui:repeat>
+            </div>
+        </p:fragment>
 
 
 
