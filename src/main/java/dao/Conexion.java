@@ -16,7 +16,15 @@ public class Conexion {
 //                    "User04",
 //                    "Demo123456789");
 
-            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+//            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+//            conexion = DriverManager.getConnection(
+//                    "jdbc:oracle:thin:@40.117.85.170:1521:XE",
+//                    "IDOC",
+//                    "IDOC");
+
+
+
+            Class.forName("oracle.jdbc.driver.OracleDriver");
             conexion = DriverManager.getConnection(
                     "jdbc:oracle:thin:@40.117.85.170:1521:XE",
                     "IDOC",

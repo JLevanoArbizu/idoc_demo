@@ -13,7 +13,7 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
+ 
     <dependencies>
         <dependency>
             <groupId>org.primefaces</groupId>
@@ -44,11 +44,6 @@
             <version>7.2.1.jre8</version>
         </dependency>-->
         
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc8</artifactId>
-            <version>19.3</version>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
@@ -122,7 +117,6 @@
             <version>1.2.1</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -178,6 +172,12 @@
             <id>PrimeFaces-maven-lib</id>
             <layout>default</layout>
             <name>Repository for library PrimeFaces-maven-lib</name>
+        </repository>
+        <repository>
+            <url>http://nexus.saas.hand-china.com/content/repository/rdc/</url>
+            <id>oracle</id>
+            <layout>default</layout>
+            <name>Oracle Driver JDBC</name>
         </repository>
     </repositories>
 </project>
